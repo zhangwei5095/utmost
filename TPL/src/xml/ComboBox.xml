@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xml>
+	<OUMoudle>
+		<node label="全部" code="all" ></node>
+		<node label="已授权" code="assign" ></node>
+		<node label="未授权" code="noassign" ></node>
+	</OUMoudle>
+	<RSelect>
+		<node label="全部"></node>
+		<node label="自定义"></node>
+		<node label="不可用"></node>
+	</RSelect>
+	<UserStatus>
+		<node label="正常" value="03"></node>
+		<node label="禁用" value="30"></node>
+	</UserStatus>
+	<UserSex>
+		<node label="男" value="00"></node>
+		<node label="女" value="01"></node>
+	</UserSex>
+	<FieldSelect>
+		<node label="流水号" data="serseqno"></node>
+		<node label="交易日期" data="trandate"></node>
+		<node label="交易机构" data="brc"></node>
+		<node label="交易代码" data="trancode"></node>
+		<node label="交易类型" data="trantype"></node>
+		<node label="起始凭证号" data="beginvouno"></node>
+		<node label="终止凭证号" data="endvouno"></node>
+		<node label="柜员" data="tlrno"></node>
+		<node label="借贷标志" data="cdflag"></node>
+		<node label="金额" data="tranamt"></node>
+		<node label="币种" data="ccy"></node>
+		<node label="余额" data="bal"></node>
+		<node label="余额2" data="bal2"></node>
+		<node label="帐号" data="acctno"></node>
+		<node label="帐号类型" data="accttype"></node>
+		<node label="流水号2" data="serseqno2"></node>
+		<node label="帐号2" data="acctno2"></node>
+		<node label="帐号类型2" data="accttype2"></node>
+		<node label="卡号" data="cardno"></node>
+		<node label="卡号2" data="cardno2"></node>
+		<node label="客户号" data="customid"></node>
+		<node label="客户号2" data="customid2"></node>
+		<node label="日期1" data="date1"></node>
+		<node label="日期2" data="date2"></node>
+		<node label="凭证种类" data="voukind"></node>
+		<node label="户名/单位名称" data="custname"></node>
+		<node label="证件类型" data="idtype"></node>
+		<node label="证件号码" data="idcode"></node>
+		<node label="标志" data="flag"></node>
+		<node label="种类" data="class"></node>
+		<node label="状态" data="state"></node>
+		<node label="编号" data="serNum"></node>
+		<node label="其它" data="other"></node>
+	</FieldSelect>
+</xml>
