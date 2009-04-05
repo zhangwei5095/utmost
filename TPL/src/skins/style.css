@@ -1,0 +1,38 @@
+
+Application
+{
+	paddingBottom: 20;
+	paddingLeft: 20;
+	paddingRight: 20;
+	paddingTop: 20;
+	/*verticalGap: 0;*/
+	font-size:12;
+	horizontalScrollPolicy: "off";
+	verticalScrollPolicy:"off";
+	fontFamily:"Arial";
+	/*background-image:			Embed("undefined/assets/general/fondo3.jpg");*/
+}
+Alert {
+    backgroundAlpha: 0.8;
+    /*backgroundColor: red;*/
+    borderAlpha: 0.8;
+    /*borderColor: red;*/
+    dropShadowEnabled: false;
+}
+.AccordionHeader {
+	fillAlphas: 1.0, 0.5;
+	font-size:13;
+}
+
+ToolTip{
+	font-size:12;
+}
+
+.errorTip{
+	font-size:12;
+}
+/*
+ErrorTip {
+	font-size:12;
+}
+*/
