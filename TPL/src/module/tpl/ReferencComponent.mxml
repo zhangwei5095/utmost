@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="400" height="300"
+	 showCloseButton="true" close="PopUpManager.removePopUp(this)" creationComplete="init();" horizontalAlign="center" verticalAlign="middle">
+	<mx:Script>
+		<![CDATA[
+			import org.utmost.util.ComponentUtil;
+			import mx.collections.ArrayCollection;
+			import org.utmost.util.AutoUtil;
+			import mx.rpc.events.ResultEvent;
+			import org.utmost.service.AutoService;
+			import org.utmost.tpl.PopType;
+			import mx.controls.AdvancedDataGrid;
+			import mx.managers.PopUpManager;
+			
+			public var $adg:AdvancedDataGrid;
+			public var $tablename:String;
+			public var $dataInit:Function;
+			public var $handle:String;
+			[Bindable]
+			public var $listdp:ArrayCollection;
+			
+			private function init():void {
+				AutoUtil.clearValue(form);
+				if($handle==PopType.EDIT) {
+					cb_refname.enabled=false;
+					refname.enabled=false;
+					AutoUtil.fillValue(form,$adg.selectedItem as Object);
+					ComponentUtil.setVisible(_cb_refname,false);
+				}else if($handle==PopType.ADD) {
+					
+				}else {
+					trace("由于参数异常 操作无效 $handle:"+$handle);
+				}
+				ComponentUtil.selectValue(cb_refname,refname.text);
+				//设置回车提交
+				this.setFocus();
+				this.addEventListener(KeyboardEvent.KEY_DOWN,function(e:KeyboardEvent):void {
+					if(e.charCode==13) {
+						submit();
+					}
+				});
+			}
+			
+			private function submit():void {
+				var service:AutoService=new AutoService();
+				if($handle==PopType.ADD) {
+					service.autoSave($tablename,form,function(e:ResultEvent):void {
+						$dataInit.call();
+						close();
+					});
+				}else if($handle==PopType.EDIT) {
+					service.autoUpdate($tablename,form,function(e:ResultEvent):void {
+						$dataInit.call();
+						close();
+					});
+				} else {
+					trace("由于参数异常 操作无效 $handle:"+$handle);
+				}
+			}
+			
+			private function close():void {
+				PopUpManager.removePopUp(this);
+			}
+		]]>
+	</mx:Script>
+	<mx:Form id="form" width="60%" height="80%">
+		<mx:FormItem label="UUID" visible="false" includeInLayout="false">
+			<mx:TextInput id="uuid"/>
+		</mx:FormItem>
+		<mx:FormItem id="_cb_refname" label="选择">
+			<mx:ComboBox id="cb_refname" dataProvider="{$listdp}" labelField="refname" change="refname.text=cb_refname.selectedItem.refname"></mx:ComboBox>
+		</mx:FormItem>
+		<mx:FormItem label="引用名">
+			<mx:TextInput id="refname"/>
+		</mx:FormItem>
+		<mx:FormItem label="标签">
+			<mx:TextInput id="datalabel"/>
+		</mx:FormItem>
+		<mx:FormItem label="值">
+			<mx:TextInput id="datavalue"/>
+		</mx:FormItem>
+		<mx:FormItem label="次序">
+			<mx:NumericStepper id="dataorder" maximum="1000"/>
+		</mx:FormItem>
+		<mx:FormItem label="描述">
+			<mx:TextArea id="datadesc" maxChars="256"/>
+		</mx:FormItem>
+	</mx:Form>
+	<mx:ControlBar horizontalAlign="center" verticalAlign="middle">
+		<mx:Button label="确定" click="submit()"/>
+		<mx:Button label="取消" click="PopUpManager.removePopUp(this)"/>
+	</mx:ControlBar>
+</mx:TitleWindow>

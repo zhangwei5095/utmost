@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" showCloseButton="true" close="close()"
+	xmlns:fc="http://www.adobe.com/2006/fc" title="添加用户" layout="vertical" width="100%" height="100%">
+	<mx:XML xmlns="" id="ComboBoxXML" source="xml/ComboBox.xml"/>
+	<mx:Script>
+		<![CDATA[
+			import mx.rpc.events.ResultEvent;
+			import mx.controls.Alert;
+			import mx.collections.ArrayCollection;
+			import mx.collections.XMLListCollection;
+			import mx.events.CloseEvent;
+			import mx.events.ValidationResultEvent;
+		    import mx.core.Application;
+		    import mx.rpc.events.FaultEvent;
+		    import org.utmost.service.AutoService;
+		    import mx.core.IFlexDisplayObject;
+		    import mx.managers.PopUpManager;
+		    
+		    public var $dataInit:Function;
+
+   		    	
+			public function set expenseReport( ac:ArrayCollection ) : void {
+        		//
+        	}
+	        public function set expenseReportXMLList( xmllist:XMLListCollection ) : void {
+	        	//
+	        }
+	        
+	        //数据验证
+	        public function validateForAdd():void{
+	            if(addcode.validate().type==ValidationResultEvent.VALID &&
+	               addloginname.validate().type==ValidationResultEvent.VALID &&
+//	               addphone.validate().type==ValidationResultEvent.VALID &&
+	               addemail.validate().type==ValidationResultEvent.VALID &&
+	               addinitpwd.validate().type==ValidationResultEvent.VALID &&
+	               addpassword.validate().type==ValidationResultEvent.VALID){
+                   findbyUserCode();
+	            }else{
+	            	Alert.show("请输入正确的数据！");
+	            	return;
+	            }
+	        }
+	        
+	        //编码验证
+            public function findbyUserCode():void{
+             	var codeStr:String=usercode.text;
+//     	    	UserService.findbyUserCode(codeStr);
+     	    	var service:AutoService=new AutoService();
+    	    	service.findByHql("from U_USER WHERE USERCODE = '" + codeStr + "'",function(e:ResultEvent):void {
+    	    	    trace("e.result=="+e.result);
+	        	    if((e.result==null)||(e.result=="")){
+	        	    	findbyUserLoginname();
+	       		    }else{
+	       		    	Alert.show("用户编码已存在,请重新输入!");
+	       		    	return;
+	       		    }
+				});
+     	    }
+	        
+	        //登录名称验证
+            public function findbyUserLoginname():void{
+             	var loginnameStr:String=loginname.text;
+//     	    	UserService.findbyUserLoginname(loginnameStr);
+     	    	var service:AutoService=new AutoService();
+    	    	service.findByHql("from U_USER WHERE LOGINNAME = '" + loginnameStr + "'",function(e:ResultEvent):void {
+    	    		if((e.result==null)||(e.result=="")){
+	        		    addUser();
+	       		    }else{
+	       			    Alert.show("登录名称已存在,请重新输入!");
+	       			    return;
+	       		    }
+    	    	});
+     	    }
+	        
+	        //添加用户	        
+	        public function addUser():void {
+//	        	var id:String;
+	        	var code:String=usercode.text;
+	        	var userName:String=username.text;
+	        	var loginName:String=loginname.text;
+	        	var phone:String=phone.text;
+	        	var email:String=email.text;
+	        	var initpwd:String=initpwd.text;
+	        	var password:String=password.text;
+	        	var status:String="03";
+	        	//var sex:String=sex.selectedItem.@value;
+//	        	userCode=StringUtil.trim(userCode);
+
+	   			if(loginName.length==0) {
+	   				Alert.show("登录名称不能为空");
+	        		return;
+	   			}
+	        	if(code.length==0) {
+	        		Alert.show("用户编码不能为空");
+	        		return;
+	        	}
+	        	trace("phone.length=="+phone.length);
+	        	if(phone.length!=11&&phone.length!=0) {
+	   				Alert.show("请输入正确的11位手机号码！");
+	        		return;
+	   			}
+//	   			for(var i:int=0;i<email.length;i++){
+//	   			    trace(email.charAt(i));
+//	   			    if(email.charAt(i)!="@"){
+//	   			        Alert.show("请输入正确的邮箱地址！");
+//	        		    return;
+//	   			    }	   			
+//	   			}
+	        	if(initpwd.length==0 || password.length==0) {
+	        		Alert.show("密码不能为空！");
+	        		return;
+	        	}
+	        	trace("initpwd=="+initpwd);
+	        	trace("password=="+password);
+	        	if(initpwd!=password) {
+	        	    Alert.show("两次输入的密码不一致！请重新输入");
+	        	    return;
+	        	}
+//                UserService.saveUser(service,status,sex,password,usercode,code);
+                var service:AutoService=new AutoService();
+				service.autoSave("U_USER",addform,function(e:ResultEvent):void {
+					Alert.okLabel="完成";
+	        	    Alert.show("添加成功!");
+	        	    $dataInit.call();
+                    close();
+				});
+	        }
+	        
+	        public function removeAddParam():void {
+	        	usercode.text="";
+	        	username.text="";
+	        	loginname.text="";
+	        	phone.text="";
+	        	email.text="";
+	        }
+	        
+	        public function close():void {				
+				this.removePopUp(this);
+			}
+			
+			//移除弹出窗口  需要传递弹出窗口本身
+            public function removePopUp(obj:IFlexDisplayObject):void {
+                PopUpManager.removePopUp(obj);
+            }
+	        
+	        private function handleResult(eventObj:ValidationResultEvent):void {
+                if (eventObj.type == ValidationResultEvent.VALID){	
+                }
+            }
+            
+            private function faultHandler(event:FaultEvent):void {
+				trace(event.fault);
+     	    }
+
+	                 
+		]]>
+	</mx:Script>	
+		            	<mx:Array id="UserStatus">
+		                    <mx:Object label="正常" value="03" />
+		                    <mx:Object label="禁用" value="30" />
+	                    </mx:Array>
+	                    <mx:Array id="UserSex">
+		                    <mx:Object label="男" value="00" />
+		                    <mx:Object label="女" value="01" />
+	                    </mx:Array>
+		            
+	<!-- 远程对象连接配置 -->
+	        
+	<!-- 添加  用户编码验证 -->
+	<mx:NumberValidator id="addcode" source="{usercode}" property="text"
+		required="true"
+	    requiredFieldError="不允许为空"
+	    allowNegative="false"
+	    integerError="必须为整数"
+	    invalidCharError="包含无效字符"
+	    invalidFormatCharsError="包含无效格式字符"
+	    negativeError="不能为负数" />
+	    
+	<!-- 添加  登录名称验证 -->
+	<mx:RegExpValidator id="addloginname" source="{loginname}" property="text"
+		requiredFieldError="不允许为空"
+		flags="g"
+		expression="([a-zA-Z0-9]+)" 
+        valid="handleResult(event)"
+        invalid="handleResult(event)"
+        required="true"
+        noMatchError="非法字符！请输入数字或英文字母" /> 
+	    
+	<!-- 添加  手机号码验证 -->
+      <!-- <component:UPhoneNumberValidator id="addphone" source="{A_phone}" property="text"
+	    required="false"
+	    requiredFieldError="不允许为空"
+	    invalidCharError="包含无效字符"
+	    wrongLengthError="手机号码应为11位" /> -->
+	    
+	<!-- 添加  电子邮件验证 -->
+	<mx:EmailValidator id="addemail" source="{email}" property="text" 
+		required="false"
+		invalidCharError="非法字符" 
+		invalidDomainError="非法域" 
+		invalidIPDomainError="非法IP域" 
+		missingAtSignError="缺少@符号" 
+		missingPeriodInDomainError="缺少域后缀" 
+		missingUsernameError="缺少用户名"  />
+		<!-- requiredFieldError="不能为空" -->
+		
+	<!-- 添加  初始密码验证 -->
+	<mx:RegExpValidator id="addinitpwd" source="{initpwd}" property="text"
+		requiredFieldError="不允许为空"
+		flags="g"
+		expression="([a-zA-Z0-9]+)" 
+        valid="handleResult(event)"
+        invalid="handleResult(event)"
+        required="true"
+        noMatchError="非法字符！请输入数字或英文字母"/> 
+        
+    <!-- 添加  确认密码验证 -->
+	<mx:RegExpValidator id="addpassword" source="{password}" property="text"
+		requiredFieldError="不允许为空"
+		flags="g"
+		expression="([a-zA-Z0-9]+)" 
+        valid="handleResult(event)"
+        invalid="handleResult(event)"
+        required="true"
+        noMatchError="非法字符！请输入数字或英文字母"/>
+
+
+				<mx:VBox x="0" y="0" width="100%" height="100%" horizontalAlign="center" verticalAlign="top">
+					<mx:Form id="addform" paddingTop="60">
+					        <mx:FormItem label="用户状态" includeInLayout="false" visible="false" >
+									<mx:ComboBox id="state" width="100%" dataProvider="{UserStatus}"
+										 textAlign="center" fontFamily="Arial" >
+									</mx:ComboBox>
+							</mx:FormItem>
+							<mx:FormItem label="用户编码">
+									<mx:TextInput id="usercode"/>
+							</mx:FormItem>
+							<mx:FormItem label="用户名称">
+									<mx:TextInput id="username" />
+							</mx:FormItem>
+							<mx:FormItem label="用户性别">
+									<mx:ComboBox id="sex" width="100%" dataProvider="{UserSex}"
+											 textAlign="center" fontFamily="Arial" />
+							</mx:FormItem>
+							<mx:FormItem label="登录名称">
+									<mx:TextInput id="loginname"/>
+							</mx:FormItem>
+							<mx:FormItem label="手机号码">
+									<mx:TextInput id="phone"/>
+							</mx:FormItem>
+							<mx:FormItem label="电子邮箱">
+									<mx:TextInput id="email"/>
+							</mx:FormItem>
+							<mx:FormItem label="初始密码">
+									<mx:HBox>
+										<mx:TextInput id="initpwd" text="123456" displayAsPassword="true"/>
+										<mx:Label text="密码默认为123456" />	
+									</mx:HBox>
+							</mx:FormItem>
+							<mx:FormItem label="密码确认">
+									<mx:TextInput id="password" text="123456" displayAsPassword="true"/>
+							</mx:FormItem>
+					</mx:Form>
+					<mx:Grid paddingTop="20" width="300" textAlign="center">
+							<mx:GridRow width="100%" height="100%">
+									<mx:GridItem width="100%" height="100%" textAlign="center" verticalAlign="middle" horizontalAlign="center" autoLayout="true">
+											<mx:Button label="添加" click="validateForAdd();" id="add"/>
+											<mx:Button label="清空" click="removeAddParam();"/>
+											<mx:Button label="返回" click="close();"/>
+									</mx:GridItem>
+							</mx:GridRow>
+					</mx:Grid>
+				</mx:VBox>
+				<mx:ControlBar>
+				</mx:ControlBar>
+				
+			
+</mx:TitleWindow>

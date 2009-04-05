@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="{Application.application.width}" height="{Application.application.height}" 
+	horizontalAlign="center" verticalAlign="middle" creationComplete="init()" showCloseButton="true"  close="PopUpManager.removePopUp(this)" title="Jython脚本编辑器({$codename})_Bate1">
+	<mx:Script>
+		<![CDATA[
+			import mx.managers.SystemManager;
+			import mx.managers.IFocusManager;
+			import mx.events.FlexEvent;
+			import mx.controls.Alert;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			import org.utmost.service.UtmostService;
+			import mx.core.Application;
+			import mx.managers.PopUpManager;
+			[Bindable]
+			public var $expression:String;
+			[Bindable]
+			public var $codename:String;
+			private function init():void {
+				trace("$expression:"+$expression);
+				//expression.text=$expression;
+				setRownum();
+				console.addEventListener(FlexEvent.VALUE_COMMIT,onValueCommit);
+			}
+			/**
+			 * 下一个焦点
+			 * */
+			private function nextFocus(event:Event):void  {
+                   var fm:IFocusManager = event.target.focusManager;            
+                   fm.setFocus(fm.getNextFocusManagerComponent());
+            }
+			private function runResultHandler(e:ResultEvent):void {
+				trace(e.result);
+				if(e.result!=null)
+					console.text=e.result+"\n";
+				//Alert.show(e.result.toString());
+			}
+			private function runFaultHandler(e:FaultEvent):void {
+				if(e.fault!=null) {
+					trace(e.fault);
+					//console.text+=e.fault+"\n";
+				}
+				//Alert.show("测试失败!");
+			}
+			private function saveToParent():void {
+				this.dispatchEvent(new Event("RuleEditComponent_Save"));
+			}
+			
+        	private function onValueCommit(event:FlexEvent):void{
+            	this.console.verticalScrollPosition=this.console.maxVerticalScrollPosition;
+        	}
+        	private function runPython():void {
+        		var regexp:RegExp=new RegExp("\r");
+        		trace("expression.text:"+expression.text);
+//        		var expContext:String=expression.text.replace(regexp,";");
+        		while(regexp.test(expression.text)) {
+        			expression.text=expression.text.replace(regexp,"\n");
+        		}
+//        		trace("expContext:"+expContext);
+        		var service:UtmostService=new UtmostService("ConsoleSimulator");
+        		service.ro.runPython.addEventListener(ResultEvent.RESULT,runResultHandler);
+				service.ro.runPython.addEventListener(FaultEvent.FAULT,runFaultHandler);
+				service.ro.runPython($codename,expression.text);
+        	}
+        	private function clearContext():void {
+        		var service:UtmostService=new UtmostService("ConsoleSimulator");
+        		service.ro.clearContext();
+        		console.text='';
+        	}
+        	private function codeKey(e:KeyboardEvent):void {
+        		trace(e.keyCode+"--"+e.bubbles+"--"+e.keyLocation+"--"+e.charCode);
+				if(e.keyCode==Keyboard.TAB) {
+					//e.keyCode=0;
+				}
+        	}
+        	private function textArea_change(evt:Event):void {
+//                callLater(updateStats, [evt]); 
+                setRownum();
+            }
+        	private function setRownum():void {
+        		var nLines:uint = expression..mx_internal::getTextField().numLines;
+        		var nChars:uint = expression.length; 
+        		rownum.text="";
+        		trace("nLines:"+nLines);
+        		for(var i:int=1;i<=nLines;i++) {
+        			rownum.text+=i.toString()+"\n";
+        		}
+        	}
+		]]>
+	</mx:Script>
+	<mx:HDividedBox width="100%" height="100%">
+		<mx:VBox width="60%" height="100%" verticalAlign="bottom">
+			<mx:Label text="代码" paddingTop="2" fontWeight="bold" fontStyle="normal" fontFamily="Arial" fontSize="12"/>
+			<mx:HBox width="100%" height="100%" horizontalGap="0">
+				<mx:TextArea id="rownum" width="20" height="100%" editable="false" enabled="false" fontFamily="Arial" fontWeight="bold" color="#13205A" textAlign="center"/>
+				<mx:TextArea id="expression" text="{$expression}" width="100%" height="100%" change="textArea_change(event);" keyDown="codeKey(event)" keyUp="codeKey(event)"/>
+			</mx:HBox>
+		</mx:VBox>
+		<mx:VBox width="40%" height="100%" verticalAlign="bottom">
+			<mx:Label text="控制台" paddingTop="2" fontWeight="bold" fontStyle="normal" fontFamily="Arial" fontSize="12"/>
+			<mx:TextArea id="console" width="100%" height="100%"  editable="false" wordWrap="true"/>	
+		</mx:VBox>
+	</mx:HDividedBox>
+	<mx:ControlBar horizontalAlign="center" verticalAlign="middle">
+		<mx:Button label="保存" click="saveToParent()"/>
+		<mx:Button label="运行" click="runPython()"/>
+		<mx:Button label="清除" click="clearContext()"/>
+	</mx:ControlBar>
+</mx:TitleWindow>

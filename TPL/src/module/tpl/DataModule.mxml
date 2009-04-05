@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%"
+	implements="module.ModuleInterface" creationComplete="init()">
+	<mx:Script>
+		<![CDATA[
+			import mx.events.CloseEvent;
+			import mx.controls.Alert;
+			import org.utmost.tpl.PopType;
+			import mx.core.IFlexDisplayObject;
+			import mx.managers.PopUpManager;
+			import mx.collections.ArrayCollection;
+			import mx.controls.Tree;
+			import org.utmost.service.AutoService;
+			import mx.rpc.events.ResultEvent;
+			import org.utmost.img.BindImg;
+			public function set $modulecode(_code:String):void {
+				trace("$modulecodecode:"+_code);
+			}
+			public function set $modulename(_name:String):void {
+				trace("$modulename:"+_name);
+			}
+			public function set $moduletree(_tree:XML):void {
+				trace("$moduletree:"+_tree);
+			}
+			private function init():void {
+				var tree:Tree=this.parentDocument.datatree;
+				tree.addEventListener(MouseEvent.CLICK,findData)
+			}
+			
+			private function findData(e:MouseEvent):void {
+				flushData();
+			}
+			private function flushData():void {
+				var autoservice:AutoService=new AutoService();
+				if(this.parentDocument!=null&&this.parentDocument.datatree!=null) {
+					var tree:Tree=this.parentDocument.datatree as Tree;
+					if(tree!=null&&tree.selectedItem!=null) {
+						var uuid:String=(String)(tree.selectedItem.@uuid);
+						var nodetype:String=(String)(tree.selectedItem.@nodetype);
+						if(uuid!="null"&&nodetype=="Collection") {
+							var hql:String="from U_TPL_TEMPLATEDATA v where v.cid='"+uuid+"'";
+							autoservice.findByHql(hql,function(e:ResultEvent):void {
+								dataADG.dataProvider=e.result as ArrayCollection;
+							});
+						}
+					}
+				}
+			}
+		
+		
+		   public function openWindow(win:String,_opertype:String):void {
+		   		var tree:Tree=this.parentDocument.datatree as Tree;
+		   		if(tree==null||tree.selectedItem==null) {
+		   			return;
+		   		}
+		   		if(tree.selectedItem.@nodetype.toString()!="Collection") {
+		   			Alert.show("请选择数据集!","提示");
+		   			return;
+		   		}
+		   		if(_opertype==PopType.EDIT) {
+		   			if(dataADG.selectedItem==null) {
+		   				Alert.show("请选择要修改的数据!","提示");
+		   				return;
+		   			}
+		   		}
+				var obj:Object;
+				switch(win) {
+					case "DataComponent":
+						obj=PopUpManager.createPopUp(this.parentApplication as DisplayObject, DataComponent, true);
+						break;
+					default:
+						trace("参数错误!");
+				}
+				obj.$flashData=flushData;//传递刷新数据方法to弹出窗口
+				if(_opertype==PopType.EDIT)
+					obj.$adgData=dataADG.selectedItem;
+				var pi:PopInterface=obj as PopInterface;
+				pi.opertype=_opertype;
+				pi.treeitem=tree.selectedItem;
+				PopUpManager.centerPopUp(pi as IFlexDisplayObject);
+			}
+			
+			private function deleteByUUID():void {
+				var autoservice:AutoService=new AutoService();
+				if(dataADG.selectedItem==null) {
+					Alert.show("请选择数据!","提示");
+					return;
+				}
+				var alert:Alert = Alert.show('确认删除此信息？', '信息提示', Alert.YES | Alert.NO); 
+				alert.addEventListener(CloseEvent.CLOSE,function (e:CloseEvent):void {
+					switch(e.detail) {
+						case Alert.YES:
+						autoservice.deleteByUUID("U_TPL_TEMPLATEDATA",dataADG.selectedItem.uuid,function(e:ResultEvent):void {
+							//删除关联表
+							var hql:String="from U_TPL_TEMPLATEVIEW v where v.cpid='"+dataADG.selectedItem.uuid+"'";
+							autoservice.deleteByHql(hql,function(e:ResultEvent):void {
+								flushData();
+							});
+						});
+						break;
+						case Alert.NO:
+						break;	
+					}
+				}); 
+			}
+			
+			private function refreshXML():void {
+				var ac:ArrayCollection=dataADG.dataProvider as ArrayCollection;
+				if(ac==null||ac.length<1) {
+					Alert.show("字段为空 不能生成","提示");
+					return;
+				}
+				
+				var tree:Tree=this.parentDocument.datatree as Tree;
+				if(tree!=null&&tree.selectedItem!=null) {
+			   		if(tree.selectedItem.@nodetype.toString()!="Collection") {
+			   			Alert.show("请选择数据集!","提示");
+			   			return;
+			   		}
+					var uuid:String=tree.selectedItem.@uuid;
+					TemplateService.processHbm(uuid);
+				}
+			}
+			private function resultProcessHbm(e:ResultEvent):void {
+				try {
+					Alert.show(new XML(e.result).toXMLString(),"预览");
+				}catch(e:Error) {
+					Alert.show(e.message);
+				}
+			}
+		]]>
+	</mx:Script>
+	<mx:RemoteObject id="TemplateService" showBusyCursor="true" destination="TemplateService" fault="Alert.show('TemplateService  processHbm 异常')">
+	 	<mx:method name="processHbm" result="resultProcessHbm(event)" />
+    </mx:RemoteObject>
+    <mx:RemoteObject id="SpringContext" showBusyCursor="true" destination="SpringContext" fault="Alert.show('TemplateService  processHbm 异常')">
+	 	<mx:method name="reloadSpring" result="Alert.show('重新加载完毕!','提示')" />
+    </mx:RemoteObject>
+	<mx:VBox width="100%" height="100%" horizontalGap="0" verticalGap="0">
+		 <mx:HBox width="100%" height="16" verticalAlign="middle" horizontalAlign="right" >
+		 				<mx:Image width="16" height="16" source="{BindImg.action_refresh}" toolTip="生成HBM映射文件" click="refreshXML()" />
+		 				<!--
+		 				<mx:Image width="16" height="16" source="{BindImg.action_refresh_blue}" toolTip="更新缓存" click="SpringContext.reloadSpring()" />
+		 				-->
+	                    <mx:Image width="16" height="16" source="{BindImg.page_new}" toolTip="添加" click="openWindow('DataComponent',PopType.ADD)" />
+	                    <mx:Image width="16" height="16" source="{BindImg.page_edit}" toolTip="修改" click="openWindow('DataComponent',PopType.EDIT)"/>
+	                    <mx:Image width="16" height="16" source="{BindImg.page_delete}" toolTip="删除" click="deleteByUUID()"/>
+         </mx:HBox>
+		<mx:AdvancedDataGrid id="dataADG" doubleClickEnabled="true" itemDoubleClick="openWindow('DataComponent',PopType.EDIT)" designViewDataType="flat" width="100%" height="100%">
+			<mx:columns>
+				<mx:AdvancedDataGridColumn headerText="名称" dataField="dataname"/>
+				<mx:AdvancedDataGridColumn headerText="编码" dataField="datacode"/>
+				<mx:AdvancedDataGridColumn headerText="长度" dataField="datalength"/>
+				<mx:AdvancedDataGridColumn headerText="类型" dataField="datatype"/>
+				<mx:AdvancedDataGridColumn headerText="非空" dataField="isnotnull"/>
+				<mx:AdvancedDataGridColumn headerText="索引" dataField="isindex"/>
+				<mx:AdvancedDataGridColumn headerText="唯一" dataField="isunique"/>
+				<mx:AdvancedDataGridColumn headerText="主键" dataField="ispk"/>
+				<mx:AdvancedDataGridColumn headerText="策略" dataField="generator"/>
+				<mx:AdvancedDataGridColumn headerText="状态" dataField="state"/>
+			</mx:columns>
+		</mx:AdvancedDataGrid>
+	</mx:VBox>
+</mx:Module>

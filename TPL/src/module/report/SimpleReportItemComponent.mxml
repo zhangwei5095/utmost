@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="400" height="300" showCloseButton="true" close="PopUpManager.removePopUp(this)" horizontalAlign="center" creationComplete="init()">
+	<mx:Script>
+		<![CDATA[
+			import org.utmost.util.AutoUtil;
+			import org.utmost.service.AutoService;
+			import org.utmost.tpl.PopType;
+			import mx.rpc.events.ResultEvent;
+			import mx.managers.PopUpManager;
+			public var $opertype:String;
+			public var $flashAdg:Function;
+			public var $data:Object;
+			public var $flashAdgItem:Function;
+			public var $uuid:String
+			private var subtablename:String="U_TPL_REPORT_ITEM";
+			private function init():void {
+				if($opertype==PopType.EDIT) {
+					AutoUtil.fillValue(form,$data);
+				}else if($opertype==PopType.ADD) {
+					cid.text=$uuid;
+				}
+			}
+			
+			private function submit():void {
+				if($opertype==PopType.ADD) {
+					AutoService.getInstance().autoSave(subtablename,form,function(e:ResultEvent):void {
+						$flashAdgItem.call();
+						close();
+					});
+				}else if($opertype==PopType.EDIT) {
+					AutoService.getInstance().autoUpdate(subtablename,form,function(e:ResultEvent):void {
+						$flashAdgItem.call();
+						close();
+					});
+				}
+			}
+			private function close():void {
+				PopUpManager.removePopUp(this);
+			}
+		]]>
+	</mx:Script>
+	<mx:Array id="ds_columntype">
+		<mx:Object label="string" value="java.lang.String" />
+		<mx:Object label="long" value="java.lang.Long" />
+		<mx:Object label="double" value="java.lang.Double" />
+	</mx:Array>
+	<mx:Array id="ds_isgroup">
+		<mx:Object label="否" value="false" />
+		<mx:Object label="是" value="true" />
+	</mx:Array>
+	
+	<mx:Form id="form" height="100%">
+		<mx:FormItem label="隐藏域" includeInLayout="false" visible="false">
+			<mx:TextInput id="uuid"/>
+			<mx:TextInput id="cid"/>
+		</mx:FormItem>
+		<mx:FormItem label="列标题">
+			<mx:TextInput id="columntitle"/>
+		</mx:FormItem>
+		<mx:FormItem label="列属性">
+			<mx:TextInput id="columnproperty"/>
+		</mx:FormItem>
+		<mx:FormItem label="数据类型">
+			<mx:ComboBox id="columntype" dataProvider="{ds_columntype}"></mx:ComboBox>
+		</mx:FormItem>
+		<mx:FormItem label="次序">
+			<mx:NumericStepper id="fieldorder" value="0" stepSize="1"/>
+		</mx:FormItem>
+		<mx:FormItem label="是否分组">
+			<mx:ComboBox id="isgroup" dataProvider="{ds_isgroup}"></mx:ComboBox>
+		</mx:FormItem>
+		<mx:FormItem label="列描述">
+			<mx:TextArea id="columndesc"/>
+		</mx:FormItem>
+	</mx:Form>
+	<mx:ControlBar>
+		<mx:HBox width="100%" horizontalGap="30" verticalAlign="middle" horizontalAlign="center">
+			<mx:Button label="确定" click="submit()"/>
+			<mx:Button label="取消" click="PopUpManager.removePopUp(this)"/>
+		</mx:HBox>
+	</mx:ControlBar>
+</mx:TitleWindow>

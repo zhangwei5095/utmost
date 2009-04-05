@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="876" height="650" showCloseButton="true" close="PopUpManager.removePopUp(this)" creationComplete="viewInit1(cid1);">
+	<mx:XML id="ComboBoxXML" source="xml/ComboBox.xml"/>
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.rpc.events.ResultEvent;
+			import mx.controls.Alert;
+			import mx.events.CloseEvent;
+			import mx.events.ValidationResultEvent;
+			import mx.containers.Form;
+			import org.utmost.service.AutoService;
+			import org.utmost.tpl.ViewUtil;
+			import mx.events.ChildExistenceChangedEvent;
+			import org.utmost.util.AutoUtil;
+			import mx.controls.AdvancedDataGrid;
+			import mx.managers.PopUpManager;
+			import mx.controls.TextInput;
+
+			public var $adg:AdvancedDataGrid;
+			public var $form:Form;
+			public var $tablename:String;
+			public var adg1:AdvancedDataGrid;
+			public var adg2:AdvancedDataGrid;
+			public var tablename1:String="BNAMEMODULEMAIN";
+			public var tablename2:String="BNAMEMODULEITEM";
+			public var cid1:String="402881011f699b2b011f6d606dfd0074";
+			public var cid2:String="402881011f699b2b011f6d60153e0073";
+			public var form1:Form;
+			public var form2:Form;
+			public var object:Object;
+
+			//主页数据初始化
+			public var $dataInit:Function;
+
+
+			private function viewInit1(cid1:String):void
+			{
+				vbox1.removeAllChildren();
+				var service:AutoService=new AutoService();
+				service.findByHql("from U_TPL_TEMPLATEVIEWBYADV v where v.cid='" + cid1 + "' and v.view='M_ADD'", function(e:ResultEvent):void
+					{
+						var ac:ArrayCollection=e.result as ArrayCollection;
+						trace(ac.length);
+						adg1=ViewUtil.buildAdvancedDataGrid(ac);
+						adg1.width=vbox1.width;
+						adg1.height=vbox1.height;
+						adg1.doubleClickEnabled=true;
+						adg1.addEventListener(MouseEvent.CLICK, function(e:MouseEvent):void
+							{
+								if (adg1.selectedItem != null)
+								{
+								    object=adg1.selectedItem;
+								    buttonChange1();
+								    dataInit2();
+								    buttonInit2();
+								}
+						});
+						vbox1.addChild(adg1);
+						//设置Form
+						form1=ViewUtil.buildForm(ac);
+						//设置TableName
+						//tablename=_tablename.selectedLabel;
+						//赋值到表格
+						vbox1.addEventListener(ChildExistenceChangedEvent.CHILD_ADD, function(e:ChildExistenceChangedEvent):void
+							{
+								AutoUtil.fillValue(form1, $adg.selectedItem);
+						});
+						vbox2.addChild(form1);
+						dataInit1();
+						buttonInit1();
+						viewInit2(cid2);
+				});
+
+			}
+
+			public function dataInit1():void
+			{
+				var service:AutoService=new AutoService();
+				var bname:String=$adg.selectedItem.typecode;
+				service.findByHql("from " + tablename1 + " v where v.bname = '" + bname + "'", function(e:ResultEvent):void
+					{
+						//service.findByHql("from "+tablename1+" WHERE BNAME = "+bname,function(e:ResultEvent):void {
+						trace("e==" + e.result);
+						adg1.dataProvider=e.result as ArrayCollection;
+						
+				});
+			}
+
+			public function buttonInit1():void
+			{
+				updateModule.enabled=false;
+				addModule.label="新增确认";
+				deleteModule.enabled=false;
+			}
+
+			public function buttonChange1():void
+			{
+				if (adg1.selectedItem != null)
+				{
+					updateModule.enabled=true;
+					addModule.label="新增";
+					deleteModule.enabled=true;
+
+					vbox2.removeAllChildren();
+					vbox2.addEventListener(ChildExistenceChangedEvent.CHILD_ADD, function(e:ChildExistenceChangedEvent):void
+						{
+							AutoUtil.fillValue(form1, adg1.selectedItem);
+
+					});
+					vbox2.addChild(form1);
+				}
+			}
+			
+			public function buttonChange2():void
+			{
+			    updateModule.enabled=false;
+			    addModule.enabled=true;
+				addModule.label="新增";
+				deleteModule.enabled=false;
+			}
+			
+			public function formClean1():void
+			{
+			    var obj1:Object=AutoUtil.getObjById("vouchercode", vbox2);
+				var obj2:Object=AutoUtil.getObjById("vouchertype", vbox2);
+				var obj3:Object=AutoUtil.getObjById("vouchernum", vbox2);
+				(obj1 as TextInput).text="";
+				(obj2 as TextInput).text="";
+				(obj3 as TextInput).text="";
+			}
+
+			//凭证类型验证
+			public function findbyVoucherType1():void
+			{
+				trace("label==" + addModule.label);
+				if (addModule.label == "新增")
+				{
+					buttonInit1();
+					formClean1();
+					return ;
+				}
+				var obj:Object=AutoUtil.findValue(form1);
+				var vouchertype:String=obj.vouchertype;
+				if (vouchertype==null||vouchertype=="")
+				{
+				    Alert.show("请输入凭证类型!");
+					return ;
+				}
+				var service:AutoService=new AutoService();
+				service.findByHql("from " + tablename1 + " WHERE VOUCHERTYPE = '" + vouchertype + "'", function(e:ResultEvent):void
+					{
+						trace("e.result==" + e.result);
+						if ((e.result == null) || (e.result == ""))
+						{
+							findbyVoucherCode1();
+						}
+						else
+						{
+							Alert.show("凭证类型已存在,请重新输入!");
+							return ;
+						}
+				});
+			}
+
+			//凭证编码验证
+			public function findbyVoucherCode1():void
+			{
+				var obj:Object=AutoUtil.findValue(form1);
+				var vouchercode:String=obj.vouchercode;
+				if (vouchercode==null||vouchercode=="")
+				{
+				    Alert.show("请输入凭证编码!");
+					return ;
+				}
+				var service:AutoService=new AutoService();
+				service.findByHql("from " + tablename1 + " WHERE VOUCHERCODE = '" + vouchercode + "'", function(e:ResultEvent):void
+					{
+						trace("e.result==" + e.result);
+						if ((e.result == null) || (e.result == ""))
+						{
+							addSubmit1();
+						}
+						else
+						{
+							Alert.show("凭证编码已存在,请重新输入!");
+							return ;
+						}
+				});
+			}
+
+			public function addSubmit1():void
+			{
+				var bname:String=$adg.selectedItem.typecode;
+				trace("bname==" + bname);
+				var obj:Object=AutoUtil.findValue(form1);
+				obj.bname=bname;
+				var service:AutoService=new AutoService();
+				service.save(tablename1, obj, function(e:ResultEvent):void
+					{
+						Alert.okLabel="完成";
+						Alert.show("添加成功!");
+						formClean1();
+						dataInit1();
+						buttonChange2();
+				});
+			}
+
+			public function editSubmit1():void
+			{
+				var service:AutoService=new AutoService();
+				service.autoUpdate(tablename1, form1, function(e:ResultEvent):void
+					{
+						Alert.okLabel="完成";
+						Alert.show("修改成功!");
+						formClean1();
+						dataInit1();
+						buttonChange2();
+				});
+			}
+
+			private function deleteByUUID1():void
+			{
+				if (adg1.selectedItem == null)
+				{
+					Alert.show("请选择数据集!", "提示");
+				}
+				var service:AutoService=new AutoService();
+				var alert:Alert=Alert.show('确认删除此信息？', '信息提示', Alert.YES | Alert.NO);
+				alert.addEventListener(CloseEvent.CLOSE, function(e:CloseEvent):void
+					{
+						switch(e.detail)
+						{
+							case Alert.YES:
+							    var obj:Object=AutoUtil.findValue(form1);
+				                var moduledefid:String=obj.vouchercode;
+				                service.findByHql("from " + tablename2 + " WHERE MODULEDEFID = '" + moduledefid + "'", function(e:ResultEvent):void
+					            {
+						            trace("e.result==" + e.result);
+						            if ((e.result != null) && (e.result != ""))
+						            {
+							            Alert.show("此模板下有字段信息，请清除字段信息后再删除!");
+							            return ;
+						            }
+						            else
+						            {
+						                service.deleteByUUID(tablename1, adg1.selectedItem.uuid, function(e:ResultEvent):void
+									    {
+										    Alert.okLabel="完成";
+						                    Alert.show("删除成功!");
+										    formClean1();
+										    dataInit1();
+										    buttonChange2();
+								        });
+						            }
+				                });
+				                break;
+							case Alert.NO:
+								break;
+						}
+				});
+			}
+
+
+
+			private function viewInit2(cid2:String):void
+			{
+				vbox3.removeAllChildren();
+				var service:AutoService=new AutoService();
+				service.findByHql("from U_TPL_TEMPLATEVIEWBYADV v where v.cid='" + cid2 + "' and v.view='M_ADD'", function(e:ResultEvent):void
+					{
+						var ac:ArrayCollection=e.result as ArrayCollection;
+						trace(ac.length);
+						adg2=ViewUtil.buildAdvancedDataGrid(ac);
+						adg2.width=vbox3.width;
+						adg2.height=vbox3.height;
+						adg2.doubleClickEnabled=true;
+						adg2.addEventListener(MouseEvent.CLICK, function(e:MouseEvent):void
+							{
+								buttonChange3();
+						});
+						vbox3.addChild(adg2);
+						//设置Form
+						form2=ViewUtil.buildForm(ac);
+						//设置TableName
+						//tablename=_tablename.selectedLabel;
+						//赋值到表格
+						vbox3.addEventListener(ChildExistenceChangedEvent.CHILD_ADD, function(e:ChildExistenceChangedEvent):void
+							{
+							//AutoUtil.fillValue(form2,adg1.selectedItem);
+						});
+						vbox4.addChild(form2);
+					//dataInit2();
+				});
+			}
+
+			public function dataInit2():void
+			{
+				var service:AutoService=new AutoService();
+				var moduledefid:String=object.vouchercode;
+				service.findByHql("from " + tablename2 + " v where v.moduledefid = '" + moduledefid + "'", function(e:ResultEvent):void
+					{
+						adg2.dataProvider=e.result as ArrayCollection;
+						
+				});
+			}
+
+			public function buttonInit2():void
+			{
+				updateField.enabled=false;
+				addField.enabled=true;
+				addField.label="新增确认";
+				deleteField.enabled=false;
+			}
+
+			public function buttonChange3():void
+			{
+				if (adg2.selectedItem != null)
+				{
+					updateField.enabled=true;
+					addField.label="新增";
+					deleteField.enabled=true;
+
+					vbox4.removeAllChildren();
+					vbox4.addEventListener(ChildExistenceChangedEvent.CHILD_ADD, function(e:ChildExistenceChangedEvent):void
+						{
+							AutoUtil.fillValue(form2, adg2.selectedItem);
+
+					});
+					vbox4.addChild(form2);
+				}
+			}
+			
+			public function buttonChange4():void
+			{
+			    updateField.enabled=false;
+			    addField.enabled=true;
+				addField.label="新增";
+				deleteField.enabled=false;
+			}
+			
+			public function formClean2():void
+			{
+			    var obj1:Object=AutoUtil.getObjById("fieldcode", vbox4);
+				var obj2:Object=AutoUtil.getObjById("fieldname", vbox4);
+				var obj3:Object=AutoUtil.getObjById("serialnumber", vbox4);
+				(obj1 as TextInput).text="";
+				(obj2 as TextInput).text="";
+				(obj3 as TextInput).text="";
+			}
+
+			public function radioButton_change(evt:Event):void
+			{
+				var rb:RadioButton=evt.currentTarget as RadioButton;
+				var obj1:Object=AutoUtil.getObjById("fieldcode", vbox4);
+				var obj2:Object=AutoUtil.getObjById("fieldname", vbox4);
+				(obj1 as TextInput).text=ComboBoxXML.FieldSelect.node[rb.data].@data;
+				(obj2 as TextInput).text=rb.label;
+//                if(rb.label=="其它"){		 	 	     	  
+//		 	 	    (obj1 as TextInput).editable=true;
+//		 	 	}else{
+//		 	 	    (obj1 as TextInput).editable=false;
+//		 	 	}
+				popUpButton.close();
+			}
+
+
+			//字段编码验证
+			public function findbyVoucherCode2():void
+			{
+				trace("label==" + addField.label);
+				if (addField.label == "新增")
+				{
+					buttonInit2();
+					formClean2();
+					return ;
+				}
+				var obj:Object=AutoUtil.findValue(form2);
+				var fieldcode:String=obj.fieldcode;
+				var moduledefid:String=adg1.selectedItem.vouchercode;
+				if (fieldcode==null||fieldcode=="")
+				{
+				    Alert.show("请输入字段编码!");
+					return ;
+				}
+				var service:AutoService=new AutoService();
+				service.findByHql("from " + tablename2 + " WHERE FIELDCODE = '" + fieldcode + "' AND MODULEDEFID ='" + moduledefid + "'", function(e:ResultEvent):void
+					{
+						trace("e.result==" + e.result);
+						if ((e.result == null) || (e.result == ""))
+						{
+							findbyVoucherType2()
+						}
+						else
+						{
+							Alert.show("字段编码已存在,请重新输入!");
+							return ;
+						}
+				});
+			}
+
+			//字段名称验证
+			public function findbyVoucherType2():void
+			{
+				var obj:Object=AutoUtil.findValue(form2);
+				var fieldname:String=obj.fieldname;
+				var moduledefid:String=adg1.selectedItem.vouchercode;
+				if (fieldname==null||fieldname=="")
+				{
+				    Alert.show("请输入字段名称!");
+					return ;
+				}
+				var service:AutoService=new AutoService();
+				service.findByHql("from " + tablename2 + " WHERE FIELDNAME = '" + fieldname + "' AND MODULEDEFID ='" + moduledefid + "'", function(e:ResultEvent):void
+					{
+						trace("e.result==" + e.result);
+						if ((e.result == null) || (e.result == ""))
+						{
+							findbySerialNumber();
+						}
+						else
+						{
+							Alert.show("字段名称已存在,请重新输入!");
+							return ;
+						}
+				});
+			}
+
+			//字段序号验证
+			public function findbySerialNumber():void
+			{
+				var obj:Object=AutoUtil.findValue(form2);
+				var serialnumber:String=obj.serialnumber;
+				var moduledefid:String=adg1.selectedItem.vouchercode;
+				var service:AutoService=new AutoService();
+				service.findByHql("from " + tablename2 + " WHERE SERIALNUMBER = '" + serialnumber + "' AND MODULEDEFID ='" + moduledefid + "'", function(e:ResultEvent):void
+					{
+						trace("e.result==" + e.result);
+						if ((e.result == null) || (e.result == ""))
+						{
+							addSubmit2();
+						}
+						else
+						{
+							Alert.show("字段序号已存在,请重新输入!");
+							return ;
+						}
+				});
+			}
+
+			public function addSubmit2():void
+			{
+				var moduledefid:String=adg1.selectedItem.vouchercode;
+				var busicode:String=adg1.selectedItem.bname;
+				var businame:String=adg1.selectedItem.vouchertype;
+				var obj:Object=AutoUtil.findValue(form2);
+				obj.moduledefid=moduledefid;
+				obj.busicode=busicode;
+				obj.businame=businame;
+				var service:AutoService=new AutoService();
+				service.save(tablename2, obj, function(e:ResultEvent):void
+					{
+						Alert.okLabel="完成";
+						Alert.show("添加成功!");
+						formClean2();
+						dataInit2();
+						buttonChange4();
+				});
+			}
+
+			public function editSubmit2():void
+			{
+				var service:AutoService=new AutoService();
+				service.autoUpdate(tablename2, form2, function(e:ResultEvent):void
+					{
+						Alert.okLabel="完成";
+						Alert.show("修改成功!");
+						formClean2();
+						dataInit2();
+						buttonChange4();
+				});
+			}
+
+			private function deleteByUUID2():void
+			{
+				if (adg1.selectedItem == null)
+				{
+					Alert.show("请选择数据集!", "提示");
+				}
+				var service:AutoService=new AutoService();
+				var alert:Alert=Alert.show('确认删除此信息？', '信息提示', Alert.YES | Alert.NO);
+				alert.addEventListener(CloseEvent.CLOSE, function(e:CloseEvent):void
+					{
+						switch(e.detail)
+						{
+							case Alert.YES:
+								service.deleteByUUID(tablename2, adg2.selectedItem.uuid, function(e:ResultEvent):void
+									{
+										Alert.okLabel="完成";
+						                Alert.show("删除成功!");
+						                formClean2();
+										dataInit2();
+										buttonChange4();
+								});
+								break;
+							case Alert.NO:
+								break;
+						}
+				});
+			}
+		]]>
+	</mx:Script>
+	<!--输入信息校验-->
+	<!--新增模板字段校验-->
+	<!--修改模板字段校验-->
+	<mx:VDividedBox width="100%" height="100%" verticalAlign="middle" horizontalAlign="center">
+		<mx:TabNavigator id="tabN" width="100%" height="100%">
+			<mx:Canvas label="业务模板">
+				<mx:VBox width="100%" height="100%" verticalAlign="middle" horizontalAlign="center">
+					<mx:Canvas width="100%" height="100%" label="业务模板">
+						<mx:HBox width="100%" height="100%">
+							<mx:VBox id="vbox1" width="65%" height="100%" horizontalAlign="center" verticalAlign="middle">
+							</mx:VBox>
+							<mx:VBox horizontalAlign="center" verticalAlign="middle" verticalGap="2">
+								<mx:VBox id="vbox2" height="100%" horizontalAlign="center" verticalAlign="middle">
+								</mx:VBox>
+								<mx:ControlBar horizontalAlign="center" verticalAlign="middle">
+									<mx:Button label="修改" click="editSubmit1()" id="updateModule" name="0"/>
+									<mx:Button label="新增确认" click="findbyVoucherType1()" id="addModule" name="1"/>
+									<mx:Button label="删除" click="deleteByUUID1()" id="deleteModule" name="0"/>
+								</mx:ControlBar>
+							</mx:VBox>
+						</mx:HBox>
+					</mx:Canvas>
+					<mx:Canvas width="100%" height="100%" label="业务模板">
+						<mx:HBox width="100%" height="100%">
+							<mx:VBox id="vbox3" width="65%" height="100%" horizontalAlign="center" verticalAlign="middle">
+							</mx:VBox>
+							<mx:VBox>
+								<mx:PopUpButton id="popUpButton" label="请选择一个字段信息" openAlways="true">
+									<mx:popUp>
+										<mx:TitleWindow id="titleWin" height="200" showCloseButton="true" verticalScrollPolicy="on" horizontalScrollPolicy="off" close="popUpButton.close();">
+											<mx:ToolBar width="320">
+												<mx:Repeater id="myRep" dataProvider="{ComboBoxXML.FieldSelect.node}">
+													<mx:RadioButton groupName="fieldInfoN" data="{myRep.currentIndex}" value="{myRep.currentItem.@data}" label="{myRep.currentItem.@label}" change="radioButton_change(event)" width="100"/>
+												</mx:Repeater>
+											</mx:ToolBar>
+										</mx:TitleWindow>
+									</mx:popUp>
+								</mx:PopUpButton>
+								<mx:VBox id="vbox4" height="100%" horizontalAlign="center" verticalAlign="middle">
+								</mx:VBox>
+								<mx:ControlBar horizontalAlign="center" verticalAlign="middle">
+									<mx:Button label="修改" enabled="false" click="editSubmit2()" id="updateField" name="0"/>
+									<mx:Button label="新增确认" enabled="false" click="findbyVoucherCode2()" id="addField" name="1"/>
+									<mx:Button label="删除" enabled="false" click="deleteByUUID2()" id="deleteField" name="0"/>
+								</mx:ControlBar>
+							</mx:VBox>
+						</mx:HBox>
+					</mx:Canvas>
+				</mx:VBox>
+			</mx:Canvas>
+		</mx:TabNavigator>
+	</mx:VDividedBox>
+	<mx:ControlBar>
+	</mx:ControlBar>
+</mx:TitleWindow>

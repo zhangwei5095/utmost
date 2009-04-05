@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="horizontal"
+	 width="100%" height="100%" creationComplete="init()">
+	<mx:Script>
+		<![CDATA[
+			import mx.events.CloseEvent;
+			import mx.controls.Alert;
+			import mx.events.ListEvent;
+			import mx.collections.ArrayCollection;
+			import mx.rpc.events.ResultEvent;
+			import org.utmost.service.AutoService;
+			import mx.core.IFlexDisplayObject;
+			import org.utmost.tpl.PopType;
+			import mx.managers.PopUpManager;
+			import org.utmost.img.BindImg;
+			
+			private var tablename:String="U_TPL_REPORT";
+			private var subtablename:String="U_TPL_REPORT_ITEM";
+			
+			private function init():void {
+				flashAdg();
+			}
+			public function flashAdg():void {
+				AutoService.getInstance().findByHql("from "+tablename,function(e:ResultEvent):void {
+					if(e.result!=null) {
+						var ac:ArrayCollection=e.result as ArrayCollection;
+						adg.dataProvider=ac;
+						callLater(function():void {
+							adg.selectedIndex=0;
+							callLater(function():void {
+								flashAdgItem();
+							});
+						});
+					}
+				});
+			}
+			public function flashAdgItem():void {
+				if(adg.selectedIndex<0||adg.selectedItem==null) {
+					trace("flashAdgItem() 意外:adg.selectedIndex-"+adg.selectedIndex);
+					return;
+				}
+				
+				var uuid:String=adg.selectedItem.uuid;
+				trace("uuid:"+uuid);
+				var hql:String="from "+subtablename+" v where v.cid='"+uuid+"' order by v.fieldorder asc";
+				AutoService.getInstance().findByHql(hql,function(e:ResultEvent):void {
+					//trace("e.result:"+e.result);
+					if(e.result!=null) {
+						var ac:ArrayCollection=e.result as ArrayCollection;
+						adgItem.dataProvider=ac;
+						callLater(function():void {
+							adgItem.selectedIndex=0;
+						});
+					}
+				});
+			}
+			
+			private function itemClickByAdg(e:ListEvent):void {
+				flashAdgItem();
+			}
+			private function itemDoubleClickByAdg(e:ListEvent):void {
+				openWindow('SimpleReportComponent',PopType.EDIT);
+			}
+			private function itemDoubleClickByAdgItem(e:ListEvent):void {
+				openWindow('SimpleReportItemComponent',PopType.EDIT);
+			}
+			
+			public function openWindow(win:String, _opertype:String):void
+			{
+				var obj:Object;
+				switch(win)
+				{
+					case "SimpleReportComponent":
+						obj=PopUpManager.createPopUp(this.parentApplication as DisplayObject, SimpleReportComponent, true);
+						if(_opertype==PopType.EDIT) {
+							obj.$data=adg.selectedItem;
+						}
+						break;
+					case "SimpleReportItemComponent":
+						if(adg.selectedIndex<0) {
+							Alert.show("请先选择报表名称!","提示");
+							return;
+						}
+						obj=PopUpManager.createPopUp(this.parentApplication as DisplayObject, SimpleReportItemComponent, true);
+						if(_opertype==PopType.EDIT) {
+							obj.$data=adgItem.selectedItem;
+						}
+						obj.$flashAdgItem=flashAdgItem;
+						obj.$uuid=adg.selectedItem.uuid.toString();
+						break;
+					default:
+						trace("参数错误!");
+				}
+				obj.$opertype=_opertype;
+				obj.$flashAdg=flashAdg;
+				PopUpManager.centerPopUp(obj as IFlexDisplayObject);
+			}
+			
+			private function delAdgItem():void {
+				if(adgItem.selectedIndex<0) {
+					Alert.show("请先选择删除项!","提示");
+					return;
+				}
+				var alert:Alert = Alert.show('确认删除此信息？', '信息提示', Alert.YES | Alert.NO); 
+				alert.addEventListener(CloseEvent.CLOSE,function (e:CloseEvent):void {
+					switch(e.detail) {
+						case Alert.YES:
+							var uuid:String=adgItem.selectedItem.uuid;
+							var hql:String="from "+subtablename +" v where v.uuid='"+uuid+"'";
+							AutoService.getInstance().deleteByHql(hql,function(e:ResultEvent):void {
+								flashAdgItem();
+							});
+						break;
+						case Alert.NO:
+						break;	
+					}
+				}); 
+			}
+			private function delAdg():void {
+				if(adg.selectedIndex<0) {
+					Alert.show("请先选择删除项!","提示");
+					return;
+				}
+				var alert:Alert = Alert.show('确认删除此信息？', '信息提示', Alert.YES | Alert.NO); 
+				alert.addEventListener(CloseEvent.CLOSE,function (e:CloseEvent):void {
+					switch(e.detail) {
+						case Alert.YES:
+							var uuid:String=adg.selectedItem.uuid;
+							var hql:String="from "+tablename +" v where v.uuid='"+uuid+"'";
+							var hqlitem:String="from "+subtablename +" v where v.cid='"+uuid+"'";
+							AutoService.getInstance().deleteByHql(hql,function(e:ResultEvent):void {
+								AutoService.getInstance().deleteByHql(hqlitem,function(e:ResultEvent):void {
+									flashAdg();
+									flashAdgItem();
+								});
+							});
+						break;
+						case Alert.NO:
+						break;	
+					}
+				}); 
+			}
+		]]>
+	</mx:Script>
+	<mx:VBox width="40%" height="100%" horizontalAlign="center" verticalAlign="top" verticalGap="0">
+		<mx:HBox width="100%" height="16" verticalAlign="bottom" horizontalAlign="right">
+			<mx:Image width="16" height="16" source="{BindImg.page_new}" toolTip="添加" 
+				click="openWindow('SimpleReportComponent',PopType.ADD)"/>
+			 <mx:Image width="16" height="16" source="{BindImg.page_delete}" toolTip="删除" click="delAdg()"/>
+		</mx:HBox>
+		<mx:AdvancedDataGrid id="adg" designViewDataType="flat" width="100%" height="100%" doubleClickEnabled="true" itemDoubleClick="itemDoubleClickByAdg(event)" itemClick="itemClickByAdg(event)">
+			<mx:columns>
+				<mx:AdvancedDataGridColumn headerText="报表编码" dataField="reportcode"/>
+				<mx:AdvancedDataGridColumn headerText="报表名称" dataField="reportname"/>
+				<mx:AdvancedDataGridColumn headerText="报表标题" dataField="reporttitle"/>
+			</mx:columns>
+		</mx:AdvancedDataGrid>
+	</mx:VBox>
+	<mx:VBox width="60%" height="100%" horizontalAlign="center" verticalAlign="top" verticalGap="0">
+		<mx:HBox width="100%" height="16" verticalAlign="bottom" horizontalAlign="right">
+			<mx:Image width="16" height="16" source="{BindImg.page_new}" toolTip="添加" 
+				click="openWindow('SimpleReportItemComponent',PopType.ADD)"/>
+			<mx:Image width="16" height="16" source="{BindImg.page_delete}" toolTip="删除" click="delAdgItem()"/>
+		</mx:HBox>
+		<mx:AdvancedDataGrid id="adgItem" designViewDataType="flat" width="100%" height="100%" doubleClickEnabled="true" itemDoubleClick="itemDoubleClickByAdgItem(event)">
+			<mx:columns>
+				<mx:AdvancedDataGridColumn headerText="列标题" dataField="columntitle"/>
+				<mx:AdvancedDataGridColumn headerText="列属性" dataField="columnproperty"/>
+				<mx:AdvancedDataGridColumn headerText="次序" dataField="fieldorder"/>
+				<mx:AdvancedDataGridColumn headerText="数据类型" dataField="columntype"/>
+				<mx:AdvancedDataGridColumn headerText="是否分组" dataField="isgroup"/>
+			</mx:columns>
+		</mx:AdvancedDataGrid>
+	</mx:VBox>
+</mx:Module>

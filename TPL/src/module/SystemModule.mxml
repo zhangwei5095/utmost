@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%" implements="module.ModuleInterface" creationComplete="init()">
+	<mx:Script>
+		<![CDATA[
+			import org.utmost.component.DividerBox;
+			import org.utmost.util.ComponentUtil;
+			import mx.core.Application;
+
+
+			//模块编码
+			//public var $modulecode:String;
+			public function set $modulecode(_code:String):void {
+				trace("$modulecode:"+_code);
+			}
+			public function set $modulename(_name:String):void {
+				trace("$modulename:"+_name);
+			}
+			[Bindable]
+			private var $treeXML:XML;
+			public function set $moduletree(_tree:XML):void {
+				trace("$moduletree:"+_tree);
+				$treeXML=_tree;
+				//systree.dataProvider=_tree;
+			}
+			
+			private function init():void
+			{
+				hdbox.setStyle("dividerSkin", DividerBox);
+				//隐藏主窗口
+				ComponentUtil.setVisible(Application.application.MACB, false);
+				ComponentUtil.ocAllTree(systree);
+				//根据$modulecode组装树systree
+			}
+
+			//produce programme 
+			private function programme():void
+			{
+				ComponentUtil.setVisible(Application.application.MACB, true);
+				Application.application.loadModule("module/TPLModule.swf");
+			}
+			private function portal():void {
+				ComponentUtil.setVisible(Application.application.MACB, false);
+				Application.application.loadModule("module/PortalModule.swf");
+			}
+
+			//树单击事件
+			private function treeItemClick(tree:Tree):void
+			{
+				var o:Object=tree.selectedItem;
+				if (o != null && o.hasOwnProperty("@module"))
+				{
+					this.loadModule(o.@module);
+				}
+			}
+
+			//装载模板
+			public function loadModule(name:String):void
+			{
+				currentModule.url=name;
+			}
+		]]>
+	</mx:Script>
+	<!--mx:XML id="SystemTree" source="xml/portal/SystemTree.xml"/-->
+	<mx:VBox width="100%" height="100%" horizontalAlign="center" verticalAlign="middle">
+		<mx:ApplicationControlBar width="100%" height="40">
+			<mx:HBox width="100%" height="100%" horizontalAlign="right" verticalAlign="middle">
+				<mx:Button label="Portal" click="portal()"/>
+				<mx:Button label="编辑" click="programme()"/>
+			</mx:HBox>
+		</mx:ApplicationControlBar>
+		<mx:HDividedBox id="hdbox" width="100%" height="100%">
+			<mx:Panel width="220" height="100%" layout="horizontal">
+				<mx:Tree id="systree" width="100%" height="100%" dataProvider="{$treeXML}" showRoot="true" labelField="@nodename" borderStyle="none" click="treeItemClick(systree)" doubleClickEnabled="true" doubleClick="ComponentUtil.ocSelectTree(event)">
+				</mx:Tree>
+				<mx:ControlBar>
+				</mx:ControlBar>
+			</mx:Panel>
+			<mx:Panel width="100%" height="100%" layout="vertical">
+				<!--mx:ProgressBar source="currentModule" visible="true" includeInLayout="false"/-->
+				<mx:ModuleLoader id="currentModule" width="100%" height="100%" paddingBottom="3" paddingLeft="3" paddingRight="3" paddingTop="3">
+				</mx:ModuleLoader>
+				<mx:ControlBar>
+				</mx:ControlBar>
+			</mx:Panel>
+		</mx:HDividedBox>
+	</mx:VBox>
+</mx:Module>

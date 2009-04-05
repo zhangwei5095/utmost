@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="500" height="500" 
+	horizontalAlign="center" verticalAlign="middle" showCloseButton="true" creationComplete="init();" close="PopUpManager.removePopUp(this)">
+	<mx:Script>
+		<![CDATA[
+			import mx.core.Application;
+			import mx.core.IFlexDisplayObject;
+			import org.utmost.img.BindImg;
+			import mx.rpc.events.FaultEvent;
+			import mx.controls.Alert;
+			import org.utmost.service.UtmostService;
+			import org.utmost.util.AutoUtil;
+			import mx.rpc.events.ResultEvent;
+			import org.utmost.tpl.PopType;
+			import org.utmost.service.AutoService;
+			import mx.controls.AdvancedDataGrid;
+			import mx.managers.PopUpManager;
+				
+			public var $adg:AdvancedDataGrid;
+			public var $tablename:String;
+			public var $dataInit:Function;
+			public var $handle:String;
+			
+			private function init():void {
+				AutoUtil.clearValue(form);
+				if($handle==PopType.EDIT) {
+					AutoUtil.fillValue(form,$adg.selectedItem as Object);
+				}else if($handle==PopType.ADD) {
+					
+				}else {
+					trace("由于参数异常 操作无效 $handle:"+$handle);
+				}
+				
+				//设置回车提交
+//				this.setFocus();
+//				this.addEventListener(KeyboardEvent.KEY_DOWN,function(e:KeyboardEvent):void {
+//					if(e.charCode==13) {
+//						submit();
+//					}
+//				});
+//				expression.addEventListener(KeyboardEvent.KEY_DOWN,function(e:KeyboardEvent):void{});
+			}
+			
+			private function submit():void {
+				var service:AutoService=new AutoService();
+				if($handle==PopType.ADD) {
+					service.autoSave($tablename,form,function(e:ResultEvent):void {
+						$dataInit.call();
+						close();
+					});
+				}else if($handle==PopType.EDIT) {
+					service.autoUpdate($tablename,form,function(e:ResultEvent):void {
+						$dataInit.call();
+						close();
+					});
+				} else {
+					trace("由于参数异常 操作无效 $handle:"+$handle);
+				}
+			}
+			private function close():void {
+				PopUpManager.removePopUp(this);
+			}
+			private function run():void {
+				var service:UtmostService=new UtmostService("RuleService");
+				service.ro.exec.addEventListener(ResultEvent.RESULT,runResultHandler);
+				service.ro.exec.addEventListener(FaultEvent.FAULT,runFaultHandler);
+				service.ro.exec(expression.text);
+			}
+			private function runResultHandler(e:ResultEvent):void {
+				trace(e.result);
+				if(e.result!=null)
+				Alert.show(e.result.toString());
+			}
+			private function runFaultHandler(e:FaultEvent):void {
+				if(e.fault!=null) {
+					trace(e.fault);
+				}
+				Alert.show("测试失败!");
+			}
+			private function openWindow():void {
+				var obj:Object=PopUpManager.createPopUp(this.parentApplication as DisplayObject,RuleEditComponent,true);
+				obj.$expression=expression.text;
+				obj.$codename=rulecode.text+".py";
+				var tmpObj:IFlexDisplayObject=obj as IFlexDisplayObject;
+				tmpObj.addEventListener("RuleEditComponent_Save",function(e:Event):void{
+					//trace("test:"+e.currentTarget);
+					var rec:RuleEditComponent=e.currentTarget as RuleEditComponent;
+					expression.text=rec.expression.text;
+					PopUpManager.removePopUp(rec);
+				});
+				PopUpManager.centerPopUp(obj as IFlexDisplayObject);
+			}
+		]]>
+	</mx:Script>
+	<mx:Array id="ds_state">
+		<mx:Object label="正常" value="1" />
+		<mx:Object label="禁用" value="0" />
+	</mx:Array>
+	<mx:Form id="form" width="60%" height="90%">
+		<mx:FormItem label="UUID" visible="false" includeInLayout="false">
+			<mx:TextInput id="uuid"/>
+		</mx:FormItem>
+		<mx:FormItem label="规则名称">
+			<mx:TextInput id="rulename"/>
+		</mx:FormItem>
+		<mx:FormItem label="规则编码">
+			<mx:TextInput id="rulecode"/>
+		</mx:FormItem>
+		<mx:FormItem label="表达式">
+			<mx:HBox horizontalAlign="right" verticalAlign="top" horizontalGap="1">
+				<mx:TextArea id="expression" width="350" height="200"/>
+				<mx:Image width="16" height="16" source="{BindImg.page_edit}" toolTip="编辑" click="openWindow()" />	
+			</mx:HBox>
+		</mx:FormItem>
+		<mx:FormItem label="规则描述">
+			<mx:TextArea id="ruledesc"/>
+		</mx:FormItem>
+		<mx:FormItem label="规则状态">
+			<mx:ComboBox id="state"  dataProvider="{ds_state}" selectedIndex="0" width="80" ></mx:ComboBox>
+		</mx:FormItem>
+	</mx:Form>
+	<mx:ControlBar horizontalAlign="center" verticalAlign="middle">
+		<mx:Button label="确定" click="submit()"/>
+		<mx:Button label="运行" click="run()"/>
+		<mx:Button label="取消" click="PopUpManager.removePopUp(this)"/>
+	</mx:ControlBar>
+</mx:TitleWindow>

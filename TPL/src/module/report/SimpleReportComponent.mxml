@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical"
+	 width="460" height="400" horizontalAlign="center" verticalAlign="top" 
+	 showCloseButton="true" close="PopUpManager.removePopUp(this)" creationComplete="init()">
+	<mx:Script>
+		<![CDATA[
+			import org.utmost.util.AutoUtil;
+			import org.utmost.tpl.PopType;
+			import mx.rpc.events.ResultEvent;
+			import org.utmost.service.AutoService;
+			import mx.managers.PopUpManager;
+			private var tablename:String="U_TPL_REPORT";
+			//private var subtablename:String="U_TPL_REPORT_ITEM";
+			
+			public var $opertype:String;
+			public var $flashAdg:Function;
+			public var $data:Object;
+			private function init():void {
+				if($opertype==PopType.EDIT) {
+					AutoUtil.fillValue(form,$data);
+					reportcode.enabled=false;
+				}
+			}
+			private function submit():void {
+				if($opertype==PopType.ADD) {
+					AutoService.unique(tablename,"reportcode",reportcode.text,function():void{
+						AutoService.getInstance().autoSave(tablename,form,function(e:ResultEvent):void {
+							$flashAdg.call();
+							close();
+						});
+					});
+				}else if($opertype==PopType.EDIT) {
+					AutoService.getInstance().autoUpdate(tablename,form,function(e:ResultEvent):void {
+						$flashAdg.call();
+						close();
+					});
+				}
+			}
+			private function close():void {
+				PopUpManager.removePopUp(this);
+			}
+		]]>
+	</mx:Script>
+	<mx:Form id="form" width="380" height="100%">
+		<mx:FormItem label="隐藏域" horizontalAlign="center" required="true" visible="false" includeInLayout="false">
+			<mx:TextInput id="uuid"/>
+			<mx:TextInput id="pid"/>
+		</mx:FormItem>
+		<mx:FormItem label="报表编码" horizontalAlign="center" required="true">
+			<mx:TextInput id="reportcode"/>
+		</mx:FormItem>
+		<mx:FormItem label="报表名称" horizontalAlign="center" required="true">
+			<mx:TextInput id="reportname"/>
+		</mx:FormItem>
+		<mx:FormItem label="报表标题" horizontalAlign="center" required="true">
+			<mx:TextInput id="reporttitle"/>
+		</mx:FormItem>
+		<mx:FormItem label="报表子标题" horizontalAlign="center" required="true">
+			<mx:TextInput id="reportsubtitle"/>
+		</mx:FormItem>
+		<mx:FormItem label="HQL" horizontalAlign="center" required="true">
+			<mx:TextArea id="sourcehql" width="250" height="100"/>
+		</mx:FormItem>
+		<mx:FormItem label="报表描述" horizontalAlign="center" required="false">
+			<mx:TextArea id="reportdesc"/>
+		</mx:FormItem>
+	</mx:Form>
+	<mx:ControlBar>
+	<mx:HBox width="100%" horizontalGap="30" verticalAlign="middle" horizontalAlign="center">
+				<mx:Button label="确定" click="submit()"/>
+				<mx:Button label="取消" click="PopUpManager.removePopUp(this)"/>
+			</mx:HBox>
+	</mx:ControlBar>
+</mx:TitleWindow>

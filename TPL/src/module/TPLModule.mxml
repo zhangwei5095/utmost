@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%"
+	implements="module.ModuleInterface" creationComplete="init()">
+	<mx:XML id="DebugTree" source="xml/tpl/DebugTree.xml"/>
+	<mx:XML id="ConfigTree" source="xml/tpl/ConfigTree.xml"/>
+	<mx:XML id="ReportTree" source="xml/tpl/ReportTree.xml"/>
+	<mx:XML id="RuleTree" source="xml/tpl/RuleTree.xml"/>
+	<mx:Script>
+		<![CDATA[
+			import module.tpl.MainAdvViewComponent;
+			import org.utmost.service.UtmostService;
+			import org.utmost.component.DividerBox;
+			import org.utmost.util.ComponentUtil;
+			import mx.core.Application;
+			import mx.controls.Image;
+			import org.utmost.tpl.PopType;
+			import mx.events.CloseEvent;
+			import mx.controls.Alert;
+			import module.tpl.PopInterface;
+			import module.tpl.ViewComponent;
+			import module.tpl.DataComponent;
+			import module.tpl.MainComponent;
+			import mx.managers.PopUpManager;
+			import mx.core.IFlexDisplayObject;
+			import org.utmost.img.BindImg;
+			public function set $modulecode(_code:String):void {
+				trace("$modulecodecode:"+_code);
+			}
+			public function set $modulename(_name:String):void {
+				trace("$modulename:"+_name);
+			}
+			public function set $moduletree(_tree:XML):void {
+				trace("$moduletree:"+_tree);
+			}
+			private function init():void {
+				hdbox.setStyle("dividerSkin",DividerBox);
+			}
+			//装载模板
+	        public function loadModule(name:String):void {
+	            currentModule.url = name;
+	        }
+	        //取消模板
+	        public function removeModule():void {
+	            currentModule.url = null;
+	        }
+	        [Bindable]
+	        private var paneltitle:String;
+	        
+	        //添加 删除 修改 高级视图
+	        private function openMianAdvView(_opertype:String):void {
+	        	if(advviewtree.selectedItem.@nodetype!="Collection") {
+	        		Alert.show("请选择数据集合!","提示");
+	        		return;
+	        	}
+	        	var o:IFlexDisplayObject=PopUpManager.createPopUp(this, MainAdvViewComponent, true);
+	        	(o as Object).$opertype=_opertype;
+	        	(o as Object).$tree=advviewtree;
+	        	PopUpManager.centerPopUp(o);
+	        }
+	        public function openWindow(win:String,_opertype:String):void {
+	        	if(_opertype==PopType.EDIT) {
+	        		if(datatree==null||datatree.selectedItem==null) {
+	        			Alert.show("请选择要修改的数据!");
+	        			return;
+	        		}
+	        		if((String)(datatree.selectedItem.@nodename)=="none") {
+	        			Alert.show("此节点不能修改","提示");
+	        			return;
+        			}
+	        	}
+	        	
+	        	if(_opertype==PopType.ADD) {
+	        		if(datatree==null||datatree.selectedItem==null) {
+	        			Alert.show("请选择父节点!");
+	        			return;
+	        		}
+	        	}
+				var obj:Object;
+				switch(win) {
+					case "MainComponent":
+						obj=PopUpManager.createPopUp(this, MainComponent, true);
+						break;
+					case "DataComponent":
+						obj=PopUpManager.createPopUp(this, DataComponent, true);
+						break;
+					case "ViewComponent":
+						obj=PopUpManager.createPopUp(this, ViewComponent, true);
+						break;
+					default:
+						trace("参数错误!");
+				}
+				var pi:PopInterface=obj as PopInterface;
+				pi.opertype=_opertype;
+				pi.treeitem=datatree.selectedItem;
+				obj.addEventListener("flushDataTree",function():void {
+					initDataTree();
+				});
+				PopUpManager.centerPopUp(pi as IFlexDisplayObject);
+			}
+			import mx.rpc.events.ResultEvent;
+			import mx.rpc.events.FaultEvent;
+			
+			private function faultHandler(event:FaultEvent):void {Alert.show(event.fault.toString())}
+			
+        	private function resultDataTreeHandler(event:ResultEvent):void {
+        		trace("resultDataTreeHandler:"+event.result);
+        		var xml:XML=new XML(event.result);
+        		if(event.result!=null)
+        		datatree.dataProvider=xml;
+        		//处理方法延迟问题
+     			var timer:Timer=new Timer(30,1);
+				timer.addEventListener(TimerEvent.TIMER,function():void {
+						datatree.selectedIndex=0;
+						if(datatree.dataProvider.getItemAt(0)!=null) {
+							datatree.expandItem(datatree.dataProvider.getItemAt(0) ,true);
+							datatree.expandChildrenOf(datatree.dataProvider.getItemAt(0) ,true);
+						}
+						//datatree.dispatchEvent(new Event("dataTreeFlush"));//刷新模块数据
+				});
+				timer.start();
+				
+				if(viewtree!=null&&viewtree.initialized)
+					initViewTree();
+        	}
+        	private function resultViewTreeHandler(event:ResultEvent):void {
+        		trace("-->"+event.result);
+        		if(event.result!=null) {
+	        		var xml:XML=new XML(event.result);
+	        		dataToTree(xml,viewtree);
+        		}else {
+        			trace("not find tree values!");
+        		}
+        	}
+        	private function dataToTree(xml:XML,tree:Tree):void {
+        		tree.dataProvider=xml;
+        		//处理方法延迟问题
+     			var timer:Timer=new Timer(30,1);
+				timer.addEventListener(TimerEvent.TIMER,function():void {
+						tree.selectedIndex=0;
+						if(tree.dataProvider.getItemAt(0)!=null) {
+							tree.expandItem(tree.dataProvider.getItemAt(0) ,true);
+							tree.expandChildrenOf(tree.dataProvider.getItemAt(0) ,true);
+						}
+						//tree.dispatchEvent(new Event("viewTreeFlush"));//刷新模块数据
+				});
+				timer.start();
+        	}
+        	
+        	private function initDataTree():void {
+        		TemplateService.processTreeForData();
+        	}
+        	private function initViewTree():void {
+        		TemplateService.processTreeForView();
+        	}
+        	private function initAdvViewTree():void {
+        		//trace("start");
+        		var us:UtmostService=new UtmostService("TemplateService",function(e:ResultEvent):void {
+        			trace("e.result:"+e.result);
+        			var xml:XML=new XML(e.result);
+        			dataToTree(xml,advviewtree);
+        		});
+        		us.ro.processTreeForView();
+        		//trace("end");
+        	}
+        	private function deleteDataTree():void {
+        		if(datatree.selectedItem==null) {
+        			Alert.show("请选择要删除的数据","提示");
+        			return;
+        		}
+        		if((String)(datatree.selectedItem.@nodename)=="none") {
+        			Alert.show("此节点不能删除","提示");
+        			return;
+        		}
+        		var alert:Alert = Alert.show('确认删除此信息？', '信息提示', Alert.YES | Alert.NO); 
+				alert.addEventListener(CloseEvent.CLOSE,function (e:CloseEvent):void {
+					switch(e.detail) {
+						case Alert.YES:
+						TemplateService.deleteByUUID(datatree.selectedItem.@uuid.toString());
+						break;
+						case Alert.NO:
+						break;	
+					}
+					
+				}); 
+        	}
+        	
+        	//树单击事件
+        	private function treeItemClick(tree:Tree):void {
+        		var o:Object=tree.selectedItem;
+        		if(o!=null&&o.hasOwnProperty("@module")) {
+        			this.loadModule(o.@module);
+        		}
+        	}
+        	[Bindable]
+        	private var pbarLabel:String;
+        	//模块加载
+        	private function progressEventHandler(e:ProgressEvent):void {
+        		ComponentUtil.setVisible(pbar,true);
+				pbarLabel="加载进度 "+Math.round((e.bytesLoaded/e.bytesTotal) * 100) +"%";
+				//trace(pbarLabel);
+			}
+			private function currentModuleReady():void {
+				ComponentUtil.setVisible(pbar,false);
+			}
+		]]>
+	</mx:Script>
+    <mx:RemoteObject id="TemplateService" destination="TemplateService" fault="faultHandler(event)">
+	 	<mx:method name="processTreeForData" result="resultDataTreeHandler(event)" />
+	 	<mx:method name="processTreeForView" result="resultViewTreeHandler(event)" />
+	 	<mx:method name="deleteByUUID" result="initDataTree()" />
+    </mx:RemoteObject>
+	<mx:HDividedBox id="hdbox" width="100%" height="100%">
+		<mx:Panel width="220" height="100%" layout="horizontal" id="leftPanel">
+			<mx:Accordion width="100%" height="100%" headerStyleName="AccordionHeader">
+			
+				<mx:HBox id="dataBox" label="应用集合配置" width="100%" height="100%" horizontalGap="0" 
+					creationComplete="this.loadModule('module/tpl/DataModule.swf');paneltitle=dataBox.label;" 
+					show="this.loadModule('module/tpl/DataModule.swf');paneltitle=dataBox.label;">
+                   <mx:Tree id="datatree" width="100%" height="100%" showRoot="true"
+                   		labelField="@nodename" borderStyle="none" 
+                   		creationComplete="initDataTree();" itemDoubleClick="openWindow('MainComponent',PopType.EDIT);" doubleClickEnabled="true"></mx:Tree>
+                    <mx:VBox width="16" height="100%" horizontalAlign="center"
+                             verticalAlign="top" paddingTop="6">
+	                    <mx:Image width="16" height="16" source="{BindImg.page_new}" toolTip="添加" 
+	                    	click="openWindow('MainComponent',PopType.ADD);" />
+	                    <mx:Image width="16" height="16" source="{BindImg.page_edit}" toolTip="修改"
+	                    	click="openWindow('MainComponent',PopType.EDIT);"/>
+	                    <mx:Image width="16" height="16" source="{BindImg.page_delete}" toolTip="删除" 
+	                    	click="deleteDataTree()"/>
+                    </mx:VBox>
+                  </mx:HBox>
+                  
+                  <mx:HBox id="viewBox" label="默认视图配置" width="100%" height="100%" horizontalGap="0" 
+					creationComplete="this.loadModule('module/tpl/ViewModule.swf');paneltitle=viewBox.label;" 
+					show="this.loadModule('module/tpl/ViewModule.swf');paneltitle=viewBox.label;">
+                   <mx:Tree id="viewtree" width="100%" height="100%" showRoot="true"
+                   	 labelField="@nodename" borderStyle="none"
+                   	 creationComplete="initViewTree()"	></mx:Tree>
+                    <!--mx:VBox width="16" height="100%" horizontalAlign="center"
+                             verticalAlign="top" paddingTop="6" visible="false">
+	                    <mx:Image width="16" height="16" source="{BindImg.page_new}" toolTip="添加" />
+	                    <mx:Image width="16" height="16" source="{BindImg.page_edit}" toolTip="修改"/>
+	                    <mx:Image width="16" height="16" source="{BindImg.page_delete}" toolTip="删除"/>
+                    </mx:VBox-->
+                  </mx:HBox>
+                  
+                  <mx:HBox id="advViewBox" label="高级视图配置" width="100%" height="100%" horizontalGap="0" 
+					creationComplete="this.loadModule('module/tpl/AdvViewModule.swf');paneltitle=advViewBox.label;" 
+					show="this.loadModule('module/tpl/AdvViewModule.swf');paneltitle=advViewBox.label;">
+                   <mx:Tree id="advviewtree" width="100%" height="100%" 
+                   	 showRoot="true" labelField="@nodename" borderStyle="none"
+                   	 creationComplete="initAdvViewTree()"	></mx:Tree>
+                    <mx:VBox width="16" height="100%" horizontalAlign="center"
+                             verticalAlign="top" paddingTop="6">
+	                    <mx:Image width="16" height="16" source="{BindImg.page_new}" toolTip="添加模式" click="openMianAdvView(PopType.ADD)" />
+	                    <!--mx:Image width="16" height="16" source="{BindImg.page_edit}" toolTip="修改模式" click="openMianAdvView(PopType.EDIT)"/-->
+                    </mx:VBox>
+                  </mx:HBox>
+                  
+                  <mx:HBox id="reportBox" label="报表视图配置" width="100%" height="100%" horizontalGap="0" 
+					creationComplete="this.loadModule('module/tpl/DefaultModule.swf');paneltitle=reportBox.label;" 
+					show="this.loadModule('module/tpl/DefaultModule.swf');paneltitle=reportBox.label;">
+                   <mx:Tree id="reporttree" dataProvider="{ReportTree}" width="100%" height="100%" showRoot="true"  
+                   		creationComplete="ComponentUtil.ocAllTree(reporttree)" itemClick="treeItemClick(reporttree)"
+                   		doubleClickEnabled="true" doubleClick="ComponentUtil.ocSelectTree(event)" labelField="@nodename" borderStyle="none"></mx:Tree>
+                    <mx:VBox width="16" height="100%" horizontalAlign="center"
+                             verticalAlign="top" paddingTop="6" visible="false">
+	                    <mx:Image width="16" height="16" source="{BindImg.page_new}" toolTip="添加" />
+	                    <mx:Image width="16" height="16" source="{BindImg.page_edit}" toolTip="修改"/>
+	                    <mx:Image width="16" height="16" source="{BindImg.page_delete}" toolTip="删除"/>
+                    </mx:VBox>
+                  </mx:HBox>
+                  
+                  <mx:HBox id="configBox" label="综合参数配置" width="100%" height="100%" horizontalGap="0" 
+					creationComplete="this.loadModule('module/tpl/DefaultModule.swf');paneltitle=configBox.label;" 
+					show="this.loadModule('module/tpl/DefaultModule.swf');paneltitle=configBox.label;">
+                   <mx:Tree id="configtree" dataProvider="{ConfigTree}" itemClick="treeItemClick(configtree)" creationComplete="ComponentUtil.ocAllTree(configtree)"
+                   	doubleClickEnabled="true" doubleClick="ComponentUtil.ocSelectTree(event)" 
+                   	width="100%" height="100%" showRoot="true" labelField="@nodename" borderStyle="none"></mx:Tree>
+                    <!--mx:VBox width="16" height="100%" horizontalAlign="center" includeInLayout="false"
+                             verticalAlign="top" paddingTop="6" visible="false">
+	                    <mx:Image width="16" height="16" source="{BindImg.page_new}" toolTip="添加" />
+	                    <mx:Image width="16" height="16" source="{BindImg.page_edit}" toolTip="修改"/>
+	                    <mx:Image width="16" height="16" source="{BindImg.page_delete}" toolTip="删除"/>
+                    </mx:VBox-->
+                  </mx:HBox>
+                  
+                  <mx:HBox id="ruleBox" label="业务规则配置" width="100%" height="100%" horizontalGap="0" 
+					creationComplete="this.loadModule('module/tpl/DefaultModule.swf');paneltitle=ruleBox.label;" 
+					show="this.loadModule('module/tpl/DefaultModule.swf');paneltitle=ruleBox.label;">
+                   <mx:Tree id="ruletree" dataProvider="{RuleTree}" doubleClickEnabled="true" creationComplete="ComponentUtil.ocAllTree(ruletree)"
+                   		 doubleClick="ComponentUtil.ocSelectTree(event)"  itemClick="treeItemClick(ruletree)" 
+                   		 width="100%" height="100%" showRoot="true" labelField="@nodename" borderStyle="none"></mx:Tree>
+                    <!--mx:VBox width="16" height="100%" horizontalAlign="center"
+                             verticalAlign="top" paddingTop="6" visible="false">
+	                    <mx:Image width="16" height="16" source="{BindImg.page_new}" toolTip="添加" />
+	                    <mx:Image width="16" height="16" source="{BindImg.page_edit}" toolTip="修改"/>
+	                    <mx:Image width="16" height="16" source="{BindImg.page_delete}" toolTip="删除"/>
+                    </mx:VBox-->
+                  </mx:HBox>
+                  
+                  <mx:HBox id="debugBox" label="系统综合调试" width="100%" height="100%" horizontalGap="0" 
+					creationComplete="this.loadModule('module/tpl/DefaultModule.swf');paneltitle=debugBox.label;" 
+					show="this.loadModule('module/tpl/DefaultModule.swf');paneltitle=debugBox.label;">
+                   <mx:Tree id="debugtree" dataProvider="{DebugTree}" itemClick="treeItemClick(debugtree)" creationComplete="ComponentUtil.ocAllTree(debugtree)"
+                   	 doubleClickEnabled="true" doubleClick="ComponentUtil.ocSelectTree(event)" width="100%"
+                   	  height="100%" showRoot="true" labelField="@nodename" borderStyle="none"></mx:Tree>
+                    <!--mx:VBox width="16" height="100%" horizontalAlign="center"
+                             verticalAlign="top" paddingTop="6" visible="false">
+	                    <mx:Image width="16" height="16" source="{BindImg.page_new}" toolTip="添加" />
+	                    <mx:Image width="16" height="16" source="{BindImg.page_edit}" toolTip="修改"/>
+	                    <mx:Image width="16" height="16" source="{BindImg.page_delete}" toolTip="删除"/>
+                    </mx:VBox-->
+                  </mx:HBox>
+              </mx:Accordion> 
+			<mx:ControlBar>
+			</mx:ControlBar>
+		</mx:Panel>
+		<!--mx:VBox id="mBox" borderStyle="none" backgroundAlpha="0.5">
+			<mx:Spacer height="10"/>
+			<mx:Image id="SH" source="{BindImg.page_prev}" width="16" height="16" click="showOrHide()" />	
+		</mx:VBox-->
+		<mx:VBox width="80%" height="100%" id="rightVbox">
+			<mx:Panel title="{paneltitle}" width="100%" height="100%" layout="vertical">
+					<mx:ModuleLoader id="currentModule" width="100%" height="100%" ready="currentModuleReady()" progress="progressEventHandler(event)">
+					</mx:ModuleLoader>
+					<mx:ControlBar>
+							<mx:HBox width="100%" horizontalAlign="right" verticalAlign="middle">
+									<mx:ProgressBar id="pbar" label="{pbarLabel}" minimum="0" maximum="100"
+										 source="currentModule" fontSize="10" indeterminate="true" enabled="true"/>
+							</mx:HBox>
+					</mx:ControlBar>
+			</mx:Panel>
+		</mx:VBox>
+	</mx:HDividedBox>
+</mx:Module>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="horizontal" width="100%" height="100%"
+	 creationComplete="init();">
+	<mx:Script>
+		<![CDATA[
+			import mx.events.ListEvent;
+			import mx.controls.Alert;
+			import mx.collections.ArrayCollection;
+			import mx.rpc.events.ResultEvent;
+			import org.utmost.service.AutoService;
+			import org.utmost.tpl.PopType;
+			import mx.core.IFlexDisplayObject;
+			import mx.managers.PopUpManager;
+			import org.utmost.img.BindImg;
+			
+			private var tablename:String="U_TPL_REFERENCE";
+			
+			private function init():void {
+				dataInit();
+			}
+			[Bindable]
+			public var listdp:ArrayCollection=new ArrayCollection();
+			
+			public var ac:ArrayCollection=new ArrayCollection();
+			public function dataInit():void {
+				listdp=new ArrayCollection();
+				var dic:Dictionary=new Dictionary();
+				var service:AutoService=new AutoService();
+				service.findByHql("from "+tablename,function(e:ResultEvent):void{
+					ac=e.result as ArrayCollection;
+					adg.dataProvider=ac;
+					
+					for(var i:int=0;i<ac.length;i++) {
+						var obj:Object=ac.getItemAt(i) as Object;
+						dic[obj.refname]=obj;
+					}
+					for(var o:Object in dic) {
+						var _o:Object=new Object();
+						_o.refname=dic[o.toString()].refname;
+						_o.value=dic[o.toString()].datavalue;
+						listdp.addItem(_o);
+					}
+					list.dataProvider=listdp;
+				});
+			}
+			public function deleteData():void {
+				var service:AutoService=new AutoService();
+				var tmparr:Array=adg.selectedItems as Array;
+				var ac:ArrayCollection=new ArrayCollection();
+				for(var i:int=0;i<tmparr.length;i++) {
+					ac.addItem(tmparr[i].uuid);
+				}
+				if(ac.length==0) {
+					Alert.show("请选择你要删除的数据","提示");
+					return;
+				}
+				service.deleteByAllUUID(tablename,ac,function(e:ResultEvent):void{
+					trace("删除成功!");
+					dataInit();
+				});
+			}
+			private function openWindow(win:String,handle:String):void {
+				if(handle==PopType.EDIT) {
+					if(adg.selectedItem==null) {
+						Alert.show("请选择要修改的数据!","提示");
+						return;
+					}
+				}
+				var obj:Object;
+				switch(win) {
+					case "ReferencComponent":
+						obj=PopUpManager.createPopUp(this, ReferencComponent, true);
+					break;
+					default:
+						trace("参数错误!");
+				}
+				obj.$adg=adg;
+				obj.$tablename=tablename;
+				obj.$dataInit=dataInit;
+				obj.$handle=handle;//操作类型
+				obj.$listdp=listdp;
+				PopUpManager.centerPopUp(obj as IFlexDisplayObject);
+			}
+			
+			private function listItemClick(e:ListEvent):void {
+				adg.dataProvider=ac;
+				
+				var _ac:ArrayCollection=list.dataProvider as ArrayCollection;
+				var o:Object=_ac.getItemAt(e.rowIndex);
+				
+				var tmp:ArrayCollection=adg.dataProvider as ArrayCollection;
+				var newac:ArrayCollection=new ArrayCollection();
+				for(var i:int=0;i<tmp.length;i++) {
+					var _o:Object=tmp.getItemAt(i);
+					if(o.refname==_o.refname) {
+						newac.addItem(tmp.getItemAt(i));
+					}
+				}
+				adg.dataProvider=newac;
+			}
+		]]>
+	</mx:Script>
+	<mx:HBox width="100%" height="100%">	
+		<mx:VBox width="30%" height="100%" verticalAlign="middle" horizontalAlign="center">
+			<mx:List id="list" labelField="refname" itemClick="listItemClick(event)"  width="98%" height="98%"></mx:List>
+		</mx:VBox>
+		<mx:VBox width="70%" height="100%" verticalGap="0">
+			<mx:HBox width="100%" height="16" verticalAlign="middle" horizontalAlign="right" >
+				<mx:Image width="16" height="16" source="{BindImg.action_refresh_blue}" toolTip="显示全部" click="adg.dataProvider=ac;list.selectedIndex=-1" />
+	           <mx:Image width="16" height="16" source="{BindImg.page_new}" toolTip="添加" click="openWindow('ReferencComponent',PopType.ADD);" />
+	           <mx:Image width="16" height="16" source="{BindImg.page_edit}" toolTip="修改" click="openWindow('ReferencComponent',PopType.EDIT);" />
+	           <mx:Image width="16" height="16" source="{BindImg.page_delete}" toolTip="删除" click="deleteData();" />
+     		</mx:HBox>
+			<mx:AdvancedDataGrid id="adg" doubleClickEnabled="true" 
+				itemDoubleClick="openWindow('ReferencComponent',PopType.EDIT);" designViewDataType="flat" width="100%" height="100%" selectionMode="multipleRows">
+				<mx:columns>
+					<mx:AdvancedDataGridColumn headerText="引用名" dataField="refname"/>
+					<mx:AdvancedDataGridColumn headerText="标签" dataField="datalabel"/>
+					<mx:AdvancedDataGridColumn headerText="值" dataField="datavalue"/>
+					<mx:AdvancedDataGridColumn headerText="次序" dataField="dataorder"/>
+				</mx:columns>
+			</mx:AdvancedDataGrid>
+		</mx:VBox>
+	</mx:HBox>
+</mx:Module>

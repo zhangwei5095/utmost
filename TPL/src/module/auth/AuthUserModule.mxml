@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns:fc="http://www.adobe.com/2006/fc" layout="vertical" width="100%" height="100%" creationComplete="moduleInit()" xmlns:component="component.*">
+	<mx:XML xmlns="" id="ComboBoxXML" source="xml/ComboBox.xml"/>
+	<mx:Script>
+		<![CDATA[
+//		    import uas.PortalUtil;
+			import mx.utils.StringUtil;
+			import mx.rpc.events.ResultEvent;
+			import mx.controls.Alert;
+			import mx.collections.ArrayCollection;
+			import mx.collections.XMLListCollection;
+			import mx.events.ValidationResultEvent;
+			import mx.events.MenuEvent;
+			import mx.events.CloseEvent;
+			import component.DGbox;
+			import module.auth.AuthUserBean;
+		    import mx.core.Application;
+		    import mx.rpc.events.FaultEvent;
+		    import org.utmost.service.AutoService;
+		    import org.utmost.tpl.PopType;
+		    import org.utmost.img.BindImg;
+		    import mx.managers.PopUpManager;
+		    import mx.core.IFlexDisplayObject;
+			
+			//登陆用户信息
+//	        [Bindable]
+//	        public var usb:module.auth.AuthUserBean=Application.application.userbean;
+			[Bindable]
+   		    public var OUAC:ArrayCollection = new ArrayCollection();
+   		    [Bindable]
+   		    public var FOUAC:ArrayCollection = new ArrayCollection();
+   		    [Bindable]
+   		    public var RUAC:ArrayCollection = new ArrayCollection();
+   		    [Bindable]
+   		    public var FRUAC:ArrayCollection = new ArrayCollection();
+   		    
+   		    public var tablename:String = "U_USER";
+   		    
+   		    //ID
+   		    [Bindable]
+		    public var uuid:String;
+		    //用户名称
+		    [Bindable]
+		    public var userName:String;
+		    //用户性别
+		    [Bindable]
+		    public var userSex:String;
+		    //登录名称
+		    [Bindable]
+		    public var loginName:String;
+		    //用户编码
+		    [Bindable]
+		    public var userCode:String;
+		    //用户密码
+		    [Bindable]
+		    public var password:String;
+		    //用户状态
+		    [Bindable]
+		    public var status:String;
+		    //用户电话
+		    [Bindable]
+		    public var phone:String;
+		    //电子邮箱
+		    [Bindable]
+		    public var email:String;
+		    
+		    [Bindable]
+		    public var object1:Object;
+		    [Bindable]
+		    public var object2:Object;
+			
+			public function set expenseReport( ac:ArrayCollection ) : void {
+        	}
+	        public function set expenseReportXMLList( xmllist:XMLListCollection ) : void {
+	        }
+	        
+	        private function save():void {
+	        	returnMain();
+	        }
+	        private function clear():void {
+	        	/*var obj:Array=tabN.getTabAt(tabN.selectedIndex);
+	        	for(var i:int=0;i<obj.length;i++) {
+	        		Alert.show(obj[i]);
+	        	}*/
+	        	//Alert.show(obj.toString());
+	        }
+	        private function returnMain():void {
+	        	tabN.selectedIndex=0;
+	        }
+	        
+	        //用户数据列表
+	        [Bindable]
+	        public var arrc:ArrayCollection=new ArrayCollection();
+	        
+	        [Bindable]
+			public var DGboxXMLList:XMLList; //内联菜单数据集合
+			
+			public function moduleInit():void{
+				DGboxXMLList=XmlMenu;
+				findAll(); //查找所有用户
+			}
+			
+			//表格中单击弹出菜单事件方法
+	        public function popMen(event:MenuEvent):void {
+	        	var data:Object = userdg.selectedItem;
+				var labelCode:String=event.item.@labelCode;
+				if(labelCode=="details") {
+					initAmendParam(data);
+					findAllByOU(data);
+					findAllByRU(data);
+					tabN.selectedIndex=1;
+				}
+			}
+			
+			public function deleteData():void {
+				var tmparr:Array=userdg.selectedItems as Array;
+				var ac:ArrayCollection=new ArrayCollection();
+				for(var i:int=0;i<tmparr.length;i++) {
+					ac.addItem(tmparr[i].uuid);
+				}
+				if(ac.length==0) {
+					Alert.show("请选择你要删除的数据","提示");
+					return;
+				}
+				Alert.yesLabel="确定";
+				Alert.noLabel="取消";
+				Alert.okLabel="完成";
+				var alert:Alert = Alert.show('确认删除此条信息？', '信息提示', Alert.YES | Alert.NO); 
+					alert.addEventListener(CloseEvent.CLOSE, delAlert); 
+			}	
+			
+			public function removeData():void {
+				var service:AutoService=new AutoService();
+				var tmparr:Array=userdg.selectedItems as Array;
+				var ac:ArrayCollection=new ArrayCollection();
+				for(var i:int=0;i<tmparr.length;i++) {
+					ac.addItem(tmparr[i].uuid);
+				}
+				service.deleteByAllUUID(tablename,ac,function(e:ResultEvent):void{
+					trace("删除成功!");
+					moduleInit();
+				});
+			}
+			
+			public function delAlert(event:CloseEvent):void {
+				var data:Object = userdg.selectedItem;
+				switch (event.detail) { 
+					case Alert.CANCEL: 
+						break; 
+					case Alert.NO: 
+						break; 
+					case Alert.OK: 
+						break; 
+					case Alert.YES:
+						removeData();
+					break; 
+				} 
+			}
+
+	       //查找所有用户
+	       
+	       public function findAll():void{
+//     	    	UserService.findAll();
+     	    	var service:AutoService=new AutoService();
+    	    	service.findByHql("from "+tablename,function(e:ResultEvent):void {
+    	    	userdg.dataProvider=e.result as ArrayCollection;
+				});
+     	   }
+	       
+	       //查询用户所属机构
+		  public function findAllByOU(data:Object):void {
+//		         UserService.findAllByOU(data.code);
+                 var service:AutoService=new AutoService();
+		         service.findByHql("from U_ORGUSERPURVIEW where usercode ="+"'"+data.usercode+"'",function(e:ResultEvent):void {
+		         FOUAC=e.result as ArrayCollection;
+		         });
+		         initDataByOU();
+		  }
+
+	       //查询用户所属角色
+		  public function findAllByRU(data:Object):void {
+//		         UserService.findAllByRU(data.code);
+                 var service:AutoService=new AutoService();
+		         service.findByHql("from U_USERROLEPURVIEW where usercode ="+"'"+data.usercode+"'",function(e:ResultEvent):void {
+                 FRUAC=e.result as ArrayCollection;
+		         });
+		         initDataByRU();
+		  }
+		  
+	       //显示用户所属机构
+	       private function initDataByOU():void {
+               trace("FOUAC.length="+FOUAC.length);
+               OUAC = new ArrayCollection();
+               for(var i:int=0;i<FOUAC.length;i++) {
+         	       //var OCRB:OCRBean = new OCRBean();
+         	       var obj1:Object = new Object();
+		           obj1=FOUAC.getItemAt(i);   
+                   trace("obj1.orgname="+obj1.orgname+"  "+"FOUAC.length="+FOUAC.length);
+                   object1 = obj1.orgname;
+                   trace("FOUAC.length="+FOUAC.length);
+                   trace("FOUAC=="+FOUAC);
+                   OUAC.addItem(object1); 
+               }  
+           }
+           //显示用户所属角色
+           private function initDataByRU():void {
+               trace("FRUAC.length="+FRUAC.length);
+               RUAC = new ArrayCollection();
+               for(var i:int=0;i<FRUAC.length;i++) {
+         	       //var OCRB:OCRBean = new OCRBean();
+         	       var obj1:Object = new Object();
+		           obj1=FRUAC.getItemAt(i);   
+                   trace("obj1.rolename="+obj1.rolename+"  "+"FRUAC.length="+FRUAC.length);
+                   object2 = obj1.rolename;
+                   trace("FRUAC.length="+FRUAC.length);
+                   trace("FRUAC=="+FRUAC);
+                   RUAC.addItem(object2); 
+               }  
+           }
+	       
+	       //根据条件查询用户
+	       public function findByParam():void {
+	       		var userName:String=qUserName.text;
+	       		var loginName:String=qLoginName.text;
+//	       		UserService.findByParam(userName,loginName);
+	       		var service:AutoService=new AutoService();
+    	    	service.findByHql("from "+tablename+" where username like '%" + userName + "%' and loginname like '%" + loginName + "%'",function(e:ResultEvent):void {
+    	    	userdg.dataProvider=e.result as ArrayCollection;
+				});
+	       }
+	       public function resultReturnFindByParam(e:ResultEvent):void {
+	       		arrc=e.result as ArrayCollection;
+	       		if(arrc==null) {
+	       			arrc=new ArrayCollection();
+	       			if(e.result!=null){
+	       			arrc.addItem(e.result);
+	       			}
+	       		}
+	       }
+	       
+	       //修改参数初始化
+	       public function initAmendParam(data:Object):void {
+	       		uuid=data.id;
+	       		userCode=data.usercode;
+	       		userName=data.username;
+	       		userSex=data.sex;
+	       		loginName=data.loginname;
+	       		phone=data.phone;
+	       		email=data.email;
+	       		//ub.password=data.password;
+	       		password="";
+	       		status=data.state;
+	       }
+		   public function getStatus(s:String):String {
+				if(s=="03") 
+						return "正常";
+				if(s=="30") 
+					return "禁用";
+				return "";
+			}
+			public function getSex(s:String):String {
+				if(s=="00") 
+						return "男";
+				if(s=="01") 
+					return "女";
+				return "";
+			}
+			public function clearQuery():void {
+				qUserName.text="";
+				qLoginName.text="";
+			}
+			private function handleResult(eventObj:ValidationResultEvent):void {
+                if (eventObj.type == ValidationResultEvent.VALID){	
+                }
+            }
+            
+            private function faultHandler(event:FaultEvent):void {
+				trace(event.fault);
+     	    }
+     	    
+     	    public function AuthUserAdd(win:String,_opertype:String):void {
+     	        var obj:Object;
+				switch(win) {
+					case "AuthUserAddComponent":
+						obj=PopUpManager.createPopUp(this.parentApplication as DisplayObject, AuthUserAddComponent, true);
+						//TitleWindow窗口的居中定位
+						obj.x=stage.stageWidth/2-obj.width/2; 
+                        obj.y=stage.stageHeight/2-obj.height/2;
+					break;
+					default:
+				}
+				obj.$dataInit=moduleInit;
+				PopUpManager.centerPopUp(obj as IFlexDisplayObject);
+
+     	    }
+     	    
+     	    public function AuthUserEdit(win:String,_opertype:String):void {
+     	    	if(_opertype==PopType.EDIT) {
+					if(userdg.selectedItem==null) {
+						Alert.show("请选择要修改的数据!","提示");
+						return;
+					}
+				}
+     	        var obj:Object;
+				switch(win) {
+					case "AuthUserEditComponent":
+						obj=PopUpManager.createPopUp(this.parentApplication as DisplayObject, AuthUserEditComponent, true);
+					break;
+					default:
+				}
+				obj.$dg=userdg;
+				obj.$tablename=tablename;
+				obj.$dataInit=moduleInit;
+				obj.$handle=_opertype;
+				PopUpManager.centerPopUp(obj as IFlexDisplayObject);
+     	    }
+     	    
+     	    public function openAddWindow():void {
+     	        var iv:AuthUserAddComponent = AuthUserAddComponent(PopUpManager.createPopUp(this, AuthUserAddComponent, true));
+                this.centerPopUp(iv);
+     	    }
+     	    
+     	    public function centerPopUp(obj:IFlexDisplayObject):void {
+                PopUpManager.centerPopUp(obj);
+            }
+
+						
+		]]>
+	</mx:Script>
+	
+	<!-- 远程对象连接配置 -->
+	<mx:RemoteObject id="UserService" destination="UserService" fault="faultHandler(event)">       
+        <mx:method name="findAll" fault="faultHandler(event)"/>
+        <mx:method name="findByParam" result="resultReturnFindByParam(event)" fault="faultHandler(event)"/>
+        <mx:method name="findAllByOU" fault="faultHandler(event)"/>
+        <mx:method name="findAllByRU" fault="faultHandler(event)"/>
+        <mx:method name="findbyUserCode" fault="faultHandler(event)"/>
+        <mx:method name="findbyUserLoginname" fault="faultHandler(event)"/>
+        <mx:method name="saveUser" fault="faultHandler(event)"/>
+        <!-- <mx:method name="saveUser" result="resultReturnUpdateUser(event)" fault="faultHandler(event)"/> -->
+    </mx:RemoteObject>
+	
+	
+		
+	<mx:TabNavigator id="tabN" width="100%" height="100%" >
+		<mx:Canvas label="查询" width="100%" height="100%" show="findAll()">
+			<mx:VBox x="0" y="0" width="100%" height="100%" horizontalAlign="center">
+				<mx:Spacer height="2"/>
+				<mx:HBox width="100%">
+				  <mx:HBox>
+					<mx:Label text="用户名"/>
+					<mx:TextInput id="qUserName"/>
+					<mx:Label text="登录名"/>
+					<mx:TextInput id="qLoginName"/>
+					<mx:Button label="查询" click="findByParam();"/>
+					<mx:Button label="清空" click="clearQuery();"/>
+				  </mx:HBox>
+				  <mx:HBox width="100%" horizontalAlign="right">
+					<!-- <mx:Button id="button" label="播放" click="button_click(event);" /> -->
+					<mx:Image width="16" height="16" source="{BindImg.page_new}" toolTip="添加" click="AuthUserAdd('AuthUserAddComponent',PopType.ADD);" />
+	                <mx:Image width="16" height="16" source="{BindImg.page_edit}" toolTip="修改" click="AuthUserEdit('AuthUserEditComponent',PopType.EDIT);" />
+	                <mx:Image width="16" height="16" source="{BindImg.page_delete}" toolTip="删除" click="deleteData();" />
+	              </mx:HBox>
+				</mx:HBox>
+				<mx:AdvancedDataGrid id="userdg" width="100%" height="100%" dataProvider="{arrc}" doubleClickEnabled="true" doubleClick="AuthUserEdit('AuthUserEditComponent',PopType.EDIT);">
+					<mx:columns>
+						<mx:AdvancedDataGridColumn headerText="用户编码" dataField="usercode" />
+						<mx:AdvancedDataGridColumn headerText="用户名称" dataField="username" />
+						<mx:AdvancedDataGridColumn headerText="登陆名称" dataField="loginname" />
+						<mx:AdvancedDataGridColumn headerText="用户状态">
+							<mx:itemRenderer>
+								<mx:Component>
+									<mx:HBox>
+										<mx:Text text="{parentDocument.getStatus(data.state)}" />
+									</mx:HBox>
+								</mx:Component>
+							</mx:itemRenderer>
+						</mx:AdvancedDataGridColumn>
+						<mx:AdvancedDataGridColumn sortable="false" width="48"
+							itemRenderer="component.DGbox">
+						</mx:AdvancedDataGridColumn>
+					</mx:columns>
+				</mx:AdvancedDataGrid>
+			</mx:VBox>
+		</mx:Canvas>
+		<mx:Canvas label="详细" width="100%" height="100%" >
+			<mx:VBox x="0" y="0" width="100%" height="100%" verticalAlign="top" horizontalAlign="center" >
+				<mx:Panel height="100%" title="详细信息" width="100%" >
+				    <mx:HBox x="0" y="0" width="100%" height="100%" verticalAlign="top" horizontalAlign="center">
+				        <mx:Form id="detailsliftfrom" paddingTop="10" >
+						    <mx:FormItem label="用户状态:">
+							        <mx:TextInput id="df_status" text="{getStatus(status)}" enabled="false"/>
+						    </mx:FormItem>
+						    <mx:FormItem label="用户名称:">
+						    		<mx:TextInput id="df_userName" text="{userName}" enabled="false"/>
+						    </mx:FormItem>
+						    <mx:FormItem label="登录名称:">
+						    		<mx:TextInput id="df_loginName" text="{loginName}" enabled="false"/>
+						    </mx:FormItem>
+						    <mx:FormItem label="电子邮箱:">
+						    		<mx:TextInput id="df_email" text="{email}" enabled="false"/>
+						    </mx:FormItem>
+				        </mx:Form>
+				        <mx:Form id="detailsrightfrom" paddingTop="10" >
+						    <mx:FormItem label="用户编码:">
+						    		<mx:TextInput id="df_userCode" text="{userCode}" enabled="false"/>
+						    </mx:FormItem>
+						    <mx:FormItem label="用户性别:">
+							        <mx:TextInput id="df_sex" text="{getSex(userSex)}" enabled="false"/>
+						    </mx:FormItem>
+						    <mx:FormItem label="手机号码:">
+						    		<mx:TextInput id="df_phone" text="{phone}" enabled="false"/>
+						    </mx:FormItem>
+				        </mx:Form>
+				    </mx:HBox>
+				</mx:Panel>
+				<!-- <mx:Form id="orguserfrom" paddingTop="60" >
+				    <mx:FormItem label="所属机构:">
+				    </mx:FormItem>
+				</mx:Form>
+				<mx:Form id="roleuserfrom" paddingTop="60" >
+				    <mx:FormItem label="所属角色:">
+				    </mx:FormItem>
+				</mx:Form> -->
+				<mx:Panel height="100%" title="所属机构" width="100%" >
+			        <mx:TileList dataProvider="{OUAC}"  width="100%" height="100%" columnCount="2">
+      			        <mx:itemRenderer>
+      			        	<mx:Component>
+      			    	    	<mx:VBox horizontalScrollPolicy="off" verticalScrollPolicy="off">
+      			    			    <mx:Label text="{parentDocument.object1}" width="100%" textAlign="left"/>
+      				    		    <!-- <mx:Script>
+						    	    	<![CDATA[
+						    		    	import module.auth.OCRBean;
+						    	        ]]>
+						    	    </mx:Script> -->
+      					        </mx:VBox>
+      				        </mx:Component>
+      			        </mx:itemRenderer>
+      		        </mx:TileList>
+		        </mx:Panel>
+		        <mx:Panel height="100%" title="所属角色" width="100%">
+		            <mx:TileList dataProvider="{RUAC}" width="100%" height="100%" columnCount="2">
+      			        <mx:itemRenderer>
+	      			        <mx:Component>
+	      				        <mx:HBox width="50%" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+	      				        	<mx:Label text="{parentDocument.object2}" width="100%" textAlign="left"/>
+	      				        	<!-- <mx:Script>
+							        	<![CDATA[
+							        		import module.auth.OCRBean;
+							        	]]>
+							        </mx:Script> -->	 
+	      				        </mx:HBox>
+	      			        </mx:Component>
+      			        </mx:itemRenderer>
+      		        </mx:TileList>
+		        </mx:Panel>
+			</mx:VBox>
+		</mx:Canvas>
+	</mx:TabNavigator>
+	<mx:XMLList id="XmlMenu">
+		<menuitem label="操作">
+			<menuitem label="详细" labelCode="details" icon="icon_details"  click="popMen"/>								             
+		</menuitem>
+	</mx:XMLList>
+</mx:Module>

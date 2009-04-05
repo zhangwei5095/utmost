@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="500" height="500" 
+	horizontalAlign="center" verticalAlign="middle" showCloseButton="true" creationComplete="init();" close="PopUpManager.removePopUp(this)">
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.core.Application;
+			import mx.core.IFlexDisplayObject;
+			import org.utmost.img.BindImg;
+			import mx.rpc.events.FaultEvent;
+			import mx.controls.Alert;
+			import org.utmost.service.UtmostService;
+			import org.utmost.util.AutoUtil;
+			import mx.rpc.events.ResultEvent;
+			import org.utmost.tpl.PopType;
+			import org.utmost.service.AutoService;
+			import mx.controls.AdvancedDataGrid;
+			import mx.managers.PopUpManager;
+				
+			public var $adg:AdvancedDataGrid;
+			public var $tablename:String;
+			public var $dataInit:Function;
+			public var $handle:String;
+			
+			private function init():void {
+				AutoUtil.clearValue(form);
+				if($handle==PopType.EDIT) {
+					AutoUtil.fillValue(form,$adg.selectedItem as Object);
+				}else if($handle==PopType.ADD) {
+					taskpri.value=5;
+				}else {
+					trace("由于参数异常 操作无效 $handle:"+$handle);
+				}
+				
+				//设置回车提交
+				this.setFocus();
+				this.addEventListener(KeyboardEvent.KEY_DOWN,function(e:KeyboardEvent):void {
+					if(e.charCode==13) {
+						submit();
+					}
+				});
+				//查询规则
+				//ruleData();
+				ruleData(ruletable.selectedItem.value);
+			}
+			
+			private function submit():void {
+				var service:AutoService=new AutoService();
+				if($handle==PopType.ADD) {
+					service.autoSave($tablename,form,function(e:ResultEvent):void {
+						$dataInit.call();
+						close();
+					});
+				}else if($handle==PopType.EDIT) {
+					service.autoUpdate($tablename,form,function(e:ResultEvent):void {
+						$dataInit.call();
+						close();
+					});
+				} else {
+					trace("由于参数异常 操作无效 $handle:"+$handle);
+				}
+			}
+			private function close():void {
+				PopUpManager.removePopUp(this);
+			}
+			
+			public function validSelect(o:Object):Boolean {
+				var arr:Array=taskuuid.text.split(",");
+				for(var i:int=0;i<arr.length;i++) {
+					if(arr[i]==(o.uuid+"="+o.rulename)) {
+						return true;
+					}
+				}
+				return false;
+			}
+			import mx.controls.CheckBox;
+			public function incbChange(e:Event):void {
+				var incb:CheckBox=e.target as CheckBox;
+				trace(incb.data.validcode+"--"+incb.selected);
+				if(incb.selected) {
+					taskuuid.text+=incb.data.uuid+"="+incb.data.rulename+",";
+				}else {
+					taskuuid.text=taskuuid.text.replace(incb.data.uuid+"="+incb.data.rulename+",","");
+				}
+			}
+			[Bindable]
+			private var ac:ArrayCollection=new ArrayCollection();
+			public function ruleData(tablename:String):void {
+				ac=new ArrayCollection();
+				var service:AutoService=new AutoService();
+				//service.findByHql("from U_BANK_RISKRULEINFO",function(e:ResultEvent):void {
+				service.findByHql("from "+tablename,function(e:ResultEvent):void {
+					ac=e.result as ArrayCollection;
+					trace("ac.length:"+ac.length);
+				});
+			}
+			
+			public function ruletableChange():void {
+				taskuuid.text="";
+				ruleData(ruletable.selectedItem.value);
+			}
+		]]>
+	</mx:Script>
+	<mx:Array id="ds_state">
+		<mx:Object label="正常" value="1" />
+		<mx:Object label="禁用" value="0" />
+	</mx:Array>
+	<mx:Array id="ds_type">
+		<mx:Object label="Jython" value="JYTHON" />
+		<mx:Object label="数据抽取" value="ETL" />
+	</mx:Array>
+	<mx:Array id="ds_rule">
+		<mx:Object label="风险(U_BANK_RISKRULEINFO)" value="U_BANK_RISKRULEINFO" />
+		<mx:Object label="测试(U_TPL_RULE)" value="U_TPL_RULE" />
+	</mx:Array>
+	<mx:Array id="ds_cronexpressioncb">
+		<mx:Object label="请选择" value="null value" />
+		<mx:Object label="间隔5秒" value="10,15,20,25,30,35,40,45,50,55 * * * * ?" />
+		<mx:Object label="间隔10秒" value="10,20,30,40,50 * * * * ?" />
+	</mx:Array>
+	<mx:Form id="form" width="60%" height="90%">
+		<mx:FormItem label="UUID" visible="false" includeInLayout="false">
+			<mx:TextInput id="uuid"/>
+		</mx:FormItem>
+		<mx:FormItem label="规则库">
+			<mx:ComboBox id="ruletable"  dataProvider="{ds_rule}" selectedIndex="0" width="80" change="ruletableChange()"></mx:ComboBox>
+		</mx:FormItem>
+		<mx:FormItem label="任务名称">
+			<mx:TextInput id="taskname"/>
+		</mx:FormItem>
+		<mx:FormItem label="任务类型">
+			<mx:ComboBox id="tasktype"  dataProvider="{ds_type}" selectedIndex="0" width="80" ></mx:ComboBox>
+		</mx:FormItem>
+		<mx:FormItem label="调度计划">
+			<mx:ComboBox id="cronexpressioncb"  dataProvider="{ds_cronexpressioncb}" selectedIndex="0" width="80" 
+				change="cronexpression.text=cronexpressioncb.selectedItem.value" ></mx:ComboBox>
+			<mx:TextInput id="cronexpression"/>
+		</mx:FormItem>
+		<mx:FormItem label="选择规则" id="_rule">
+			<mx:PopUpButton id="rulePopup"
+                label="规则" openAlways="true"  width="200">
+            <mx:popUp>
+                <mx:TitleWindow id="titleWin"
+                        height="300" width="500"
+                        showCloseButton="true"
+                        verticalScrollPolicy="on"
+                        horizontalScrollPolicy="off"
+                        close="rulePopup.close();" >
+                    <mx:ToolBar  width="320" >
+                        <mx:Repeater id="myRep" dataProvider="{ac}">
+                            <mx:CheckBox id="incb" data="{myRep.currentItem}" change="incbChange(event)"
+                                    label="{myRep.currentItem.rulename}" selected="{validSelect(myRep.currentItem)}" 
+                                    width="100" />
+                        </mx:Repeater>                        
+                    </mx:ToolBar>
+                    <mx:ControlBar horizontalAlign="center" verticalAlign="middle">
+						<mx:Button label="确定" click="rulePopup.close();"/>
+					</mx:ControlBar>           
+                </mx:TitleWindow>
+            </mx:popUp>
+        </mx:PopUpButton>
+        <mx:TextArea id="taskuuid" visible="true" includeInLayout="true" width="300" height="100"/>
+		</mx:FormItem>
+		<!--mx:FormItem label="参数表达式">
+			<mx:TextInput id="paramexp"/>
+		</mx:FormItem-->
+		<mx:FormItem label="优先级">
+			<mx:NumericStepper id="taskpri" maximum="10" value="5"/>
+		</mx:FormItem>
+		<mx:FormItem label="任务描述">
+			<mx:TextArea id="taskdesc"/>
+		</mx:FormItem>
+		<mx:FormItem label="执行状态"  visible="false" includeInLayout="false">
+			<mx:TextArea id="runstate"/>
+		</mx:FormItem>
+		<mx:FormItem label="任务状态">
+			<mx:ComboBox id="state"  dataProvider="{ds_state}" selectedIndex="0" width="80" ></mx:ComboBox>
+		</mx:FormItem>
+	</mx:Form>
+	<mx:ControlBar horizontalAlign="center" verticalAlign="middle">
+		<mx:Button label="确定" click="submit()"/>
+		<mx:Button label="取消" click="PopUpManager.removePopUp(this)"/>
+	</mx:ControlBar>
+</mx:TitleWindow>

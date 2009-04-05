@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="500" height="500" 
+	horizontalAlign="center" verticalAlign="middle" showCloseButton="true" creationComplete="init();" close="PopUpManager.removePopUp(this)">
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.core.Application;
+			import mx.core.IFlexDisplayObject;
+			import org.utmost.img.BindImg;
+			import mx.rpc.events.FaultEvent;
+			import mx.controls.Alert;
+			import org.utmost.service.UtmostService;
+			import org.utmost.util.AutoUtil;
+			import mx.rpc.events.ResultEvent;
+			import org.utmost.tpl.PopType;
+			import org.utmost.service.AutoService;
+			import mx.controls.AdvancedDataGrid;
+			import mx.managers.PopUpManager;
+				
+			public var $adg:AdvancedDataGrid;
+			public var $tablename:String;
+			public var $dataInit:Function;
+			public var $handle:String;
+			
+			private function init():void {
+				AutoUtil.clearValue(form);
+				if($handle==PopType.EDIT) {
+					AutoUtil.fillValue(form,$adg.selectedItem as Object);
+				}else if($handle==PopType.ADD) {
+
+				}else {
+					trace("由于参数异常 操作无效 $handle:"+$handle);
+				}
+				
+				//设置回车提交
+				this.setFocus();
+				this.addEventListener(KeyboardEvent.KEY_DOWN,function(e:KeyboardEvent):void {
+					if(e.charCode==13) {
+						submit();
+					}
+				});
+			}
+			
+			private function submit():void {
+				var service:AutoService=new AutoService();
+				if($handle==PopType.ADD) {
+					service.autoSave($tablename,form,function(e:ResultEvent):void {
+						$dataInit.call();
+						close();
+					});
+				}else if($handle==PopType.EDIT) {
+					service.autoUpdate($tablename,form,function(e:ResultEvent):void {
+						$dataInit.call();
+						close();
+					});
+				} else {
+					trace("由于参数异常 操作无效 $handle:"+$handle);
+				}
+			}
+			private function close():void {
+				PopUpManager.removePopUp(this);
+			}
+			
+			private function templateChange(): void {
+				url.text=Template.selectedItem.url;
+				classname.text=Template.selectedItem.classname;
+			}
+		]]>
+	</mx:Script>
+	<mx:Array id="ds_Template">
+		<mx:Object label="" value="" />
+		<mx:Object label="MySQL" url="jdbc:mysql://localhost:3306/test" classname="com.mysql.jdbc.Driver"/>
+		<mx:Object label="DB2" url="jdbc:db2://localhost:$/$"  classname=""/>
+		<mx:Object label="Oracle" url="jdbc:db2://localhost:$/$" classname=""/>
+	</mx:Array>
+	<mx:Form id="form" width="60%" height="90%">
+		<mx:FormItem label="UUID" visible="false" includeInLayout="false">
+			<mx:TextInput id="uuid"/>
+		</mx:FormItem>
+		<mx:FormItem label="Template">
+			<mx:ComboBox id="Template"  dataProvider="{ds_Template}" change="templateChange()" selectedIndex="0" width="80" ></mx:ComboBox>
+		</mx:FormItem>
+		<mx:FormItem label="数据源">
+			<mx:TextInput id="drivername"/>
+		</mx:FormItem>
+		<mx:FormItem label="ClassName">
+			<mx:TextInput id="classname" width="280"/>
+		</mx:FormItem>
+		<mx:FormItem label="URL">
+			<mx:TextInput id="url" width="280"/>
+		</mx:FormItem>
+		<mx:FormItem label="用户名称">
+			<mx:TextInput id="username"/>
+		</mx:FormItem>
+		<mx:FormItem label="用户密码">
+			<mx:TextInput id="password"/>
+		</mx:FormItem>
+	</mx:Form>
+	<mx:ControlBar horizontalAlign="center" verticalAlign="middle">
+		<mx:Button label="确定" click="submit()"/>
+		<mx:Button label="测试"/>
+		<mx:Button label="取消" click="PopUpManager.removePopUp(this)"/>
+	</mx:ControlBar>
+</mx:TitleWindow>

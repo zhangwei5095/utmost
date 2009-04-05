@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%"
+	implements="module.ModuleInterface" creationComplete="init()">
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.rpc.events.ResultEvent;
+			import org.utmost.service.AutoService;
+			import mx.core.IFlexDisplayObject;
+			import mx.managers.PopUpManager;
+			import mx.controls.Alert;
+			import mx.controls.Tree;
+			import org.utmost.img.BindImg;
+			public function set $modulecode(_code:String):void {
+				trace("$modulecodecode:"+_code);
+			}
+			public function set $modulename(_name:String):void {
+				trace("$modulename:"+_name);
+			}
+			public function set $moduletree(_tree:XML):void {
+				trace("$moduletree:"+_tree);
+			}
+			private function init():void {
+				var tree:Tree=this.parentDocument.viewtree as Tree;
+				if(tree==null||tree.selectedItem==null) {
+		   			return;
+		   		}
+		   		tree.addEventListener(MouseEvent.CLICK,function(e:MouseEvent):void{
+		   			var s:String=e.currentTarget.selectedItem.@uuid;
+		   			flushData(s);
+		   		});
+		   		
+		   		referenceData();
+		   		validatorData();
+			}
+			public var reference:ArrayCollection;
+			private function referenceData():void {
+				reference=new ArrayCollection();
+				var service:AutoService=new AutoService();
+				var dic:Dictionary=new Dictionary();
+				service.findByHql("from U_TPL_REFERENCE",function(e:ResultEvent):void {
+					var tmp:ArrayCollection=e.result as ArrayCollection;
+					for(var i:int=0;i<tmp.length;i++) {
+						var obj:Object=tmp.getItemAt(i) as Object;
+						dic[obj.refname]=obj;
+					}
+					
+					//值引用
+					var tobj:Object=new Object();
+					tobj.refname="none";
+					tobj.value="none";
+					reference.addItem(tobj);
+					for(var o:Object in dic) {
+						var _o:Object=new Object();
+						_o.refname=dic[o.toString()].refname;
+						_o.value=dic[o.toString()].refname;
+						reference.addItem(_o);
+					}
+				});
+			}
+			public var validator:ArrayCollection;
+			public function validatorData():void {
+				validator=new ArrayCollection();
+				var service:AutoService=new AutoService();
+				service.findByHql("from U_TPL_VALIDATOR",function(e:ResultEvent):void {
+					validator=e.result as ArrayCollection;
+				});
+			}
+			public function openWindow(win:String):void {
+				var tree:Tree=this.parentDocument.viewtree as Tree;
+		   		if(tree==null||tree.selectedItem==null) {
+		   			return;
+		   		}
+		   		if(tree.selectedItem.@nodetype.toString()!="Collection") {
+		   			Alert.show("请选择数据集!","提示");
+		   			return;
+		   		}
+	        	if(viewADG==null||viewADG.selectedItem==null) {
+	        		Alert.show("请选择要修改的数据!");
+	        		return;
+	        	}
+				var obj:Object;
+				switch(win) {
+					case "ViewComponent":
+						obj=PopUpManager.createPopUp(this.parentApplication as DisplayObject, ViewComponent, true);
+						break;
+					default:
+						trace("参数错误!");
+				}
+				obj.$dataitem=viewADG.selectedItem;
+				obj.$flushData=flushData;
+				obj.$reference=reference;
+				obj.$validator=validator;
+				PopUpManager.centerPopUp(obj as IFlexDisplayObject);
+			}
+			
+			private var service:AutoService=new AutoService();
+			//刷新表格数据
+			public function flushData($cid:String):void {
+				var service:AutoService=new AutoService();
+				var hql:String="from U_TPL_TEMPLATEVIEW v where v.cid='"+$cid+"'";
+				service.findByHql(hql,function (e:ResultEvent):void {
+					var ac:ArrayCollection=e.result as  ArrayCollection;
+					//trace(ac.length);
+					viewADG.dataProvider=ac;
+				});
+			}
+		]]>
+	</mx:Script>
+	<mx:VBox width="100%" height="100%" horizontalGap="0" verticalGap="0">
+		 <mx:HBox width="100%" height="16" verticalAlign="middle" horizontalAlign="right" >
+	     	<mx:Image width="16" height="16" source="{BindImg.page_edit}" toolTip="修改" click="openWindow('ViewComponent')"/>
+         </mx:HBox>
+		<mx:AdvancedDataGrid id="viewADG" designViewDataType="flat" width="100%" height="100%" doubleClickEnabled="true" doubleClick="openWindow('ViewComponent')">
+			<mx:columns>
+				<mx:AdvancedDataGridColumn headerText="名称" dataField="fieldname"/>
+				<mx:AdvancedDataGridColumn headerText="编码" dataField="fieldcode"/>
+				<mx:AdvancedDataGridColumn headerText="长度" dataField="fieldlength"/>
+				<mx:AdvancedDataGridColumn headerText="必填" dataField="required"/>
+				<mx:AdvancedDataGridColumn headerText="约束" dataField="restrict"/>
+				<!--mx:AdvancedDataGridColumn headerText="次序" dataField="fieldorder"/-->
+				<mx:AdvancedDataGridColumn headerText="类型" dataField="fieldtype"/>
+				<mx:AdvancedDataGridColumn headerText="状态" dataField="state"/>
+			</mx:columns>
+		</mx:AdvancedDataGrid>
+	</mx:VBox>
+</mx:Module>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%">
+	<mx:Script>
+		<![CDATA[
+			import mx.containers.Form;
+			import org.utmost.tpl.ViewUtil;
+			import mx.containers.FormItem;
+			import mx.controls.TextInput;
+			import mx.collections.ArrayCollection;
+			import mx.rpc.events.ResultEvent;
+			import org.utmost.service.AutoService;
+			
+			private function viewInit($cid:String):void {
+				vbox.removeAllChildren();
+				trace("$cid:"+$cid);
+				var service:AutoService=new AutoService();
+				service.findByHql("from U_TPL_TEMPLATEVIEW v where v.cid='"+$cid+"'",function (e:ResultEvent):void {
+					var ac:ArrayCollection=e.result as ArrayCollection;
+					trace(ac.length);
+					var form:Form=ViewUtil.buildForm(ac);
+					form.width=400;
+					form.height=400;
+					form.visible=true;
+					vbox.addChild(form);
+				});
+			}
+			
+			private function findTables():void {
+				var service:AutoService=new AutoService();
+				service.findByHql("from U_TPL_TEMPLATE v where v.nodetype='Collection'",function(e:ResultEvent):void {
+					var ac:ArrayCollection=e.result as ArrayCollection;
+					tablename.dataProvider=ac;
+					viewInit((String)(tablename.selectedItem.uuid));
+				});
+			}
+		]]>
+	</mx:Script>
+	<mx:ComboBox id="tablename" labelField="tablename" creationComplete="findTables();"
+		 change="viewInit((String)(tablename.selectedItem.uuid))" rowCount="15">
+	</mx:ComboBox>
+	<mx:VBox id="vbox" width="100%" height="100%" horizontalAlign="center" verticalAlign="middle">
+	</mx:VBox>
+</mx:Module>

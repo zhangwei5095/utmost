@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" close="PopUpManager.removePopUp(this)" showCloseButton="true" 
+	layout="vertical" width="300" height="180" title="模式" verticalAlign="middle" horizontalAlign="center" creationComplete="init()">
+	<mx:Script>
+		<![CDATA[
+			import mx.controls.Tree;
+			import mx.controls.Alert;
+			import org.utmost.tpl.PopType;
+			import mx.managers.PopUpManager;
+			
+			public var $opertype:String;
+			public var $tree:Tree;
+			private function init():void {
+				
+				//				trace("$opertype:"+$opertype);
+				//				trace("$tree.selectedItem.@uuid:"+$tree.selectedItem.@uuid);
+				//				trace("$tree.selectedItem.@nodetype:"+$tree.selectedItem.@nodetype);
+			}
+			private function submit():void {
+				var adv:AdvViewService=new AdvViewService(mName.text,sclose);
+				if($opertype==PopType.ADD) {
+					adv.viewCopyToAdvView($tree.selectedItem.@uuid);//保存或修改
+				}else if($opertype==PopType.EDIT) {
+					//adv.viewCopyToAdvView($tree.selectedItem.@uuid);//保存或修改
+				}else {
+					Alert.show("Error!");
+				}
+			}
+			
+			private function sclose():void {
+				PopUpManager.removePopUp(this);
+			}
+		]]>
+	</mx:Script>
+	<mx:Array id="cb_mode">
+		<mx:Object label="M_ADD" value="M_ADD" />
+		<mx:Object label="M_EDIT" value="M_EDIT" />
+	</mx:Array>
+	<mx:Form width="80%" height="80%">
+		<mx:FormItem label="选择">
+			<mx:ComboBox id="mode" dataProvider="{cb_mode}" creationComplete="mName.text=mode.selectedItem.value" change="mName.text=mode.selectedItem.value"></mx:ComboBox>
+		</mx:FormItem>
+		<mx:FormItem label="模式名">
+			<mx:TextInput id="mName"/>
+		</mx:FormItem>
+	</mx:Form>
+	<mx:ControlBar verticalAlign="middle" horizontalAlign="center">
+		<mx:Button label="确定" click="submit();"/>
+		<mx:Button label="取消" click="PopUpManager.removePopUp(this)"/>
+	</mx:ControlBar>
+</mx:TitleWindow>

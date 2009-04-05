@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%"
+	 creationComplete="init()">
+	 <mx:Script>
+	 	<![CDATA[
+	 		import mx.collections.ArrayCollection;
+	 		import mx.rpc.events.ResultEvent;
+	 		import org.utmost.service.AutoService;
+	 		import mx.core.IFlexDisplayObject;
+	 		import mx.managers.PopUpManager;
+	 		import mx.controls.Alert;
+	 		import org.utmost.tpl.PopType;
+	 		import org.utmost.img.BindImg;
+	 		private var tablename:String="U_TPL_VALIDATOR";
+	 		private function init():void {
+	 			dataInit();
+	 		}
+	 		
+	 		public function dataInit():void {
+	 			var ac:ArrayCollection=new ArrayCollection();
+	 			var service:AutoService=new AutoService();
+				service.findByHql("from "+tablename,function(e:ResultEvent):void{
+					ac=e.result as ArrayCollection;
+					adg.dataProvider=ac;
+				});
+	 		}
+	 		
+	 		public function deleteData():void {
+	 			var service:AutoService=new AutoService();
+				var tmparr:Array=adg.selectedItems as Array;
+				var ac:ArrayCollection=new ArrayCollection();
+				for(var i:int=0;i<tmparr.length;i++) {
+					ac.addItem(tmparr[i].uuid);
+				}
+				if(ac.length==0) {
+					Alert.show("请选择你要删除的数据","提示");
+					return;
+				}
+				service.deleteByAllUUID(tablename,ac,function(e:ResultEvent):void{
+					trace("删除成功!");
+					dataInit();
+				});
+	 		}
+	 		
+	 		private function openWindow(win:String,handle:String):void {
+				if(handle==PopType.EDIT) {
+					if(adg.selectedItem==null) {
+						Alert.show("请选择要修改的数据!","提示");
+						return;
+					}
+				}
+				var obj:Object;
+				switch(win) {
+					case "ValidatorComponent":
+						obj=PopUpManager.createPopUp(this.parentApplication as DisplayObject, ValidatorComponent, true);
+					break;
+					default:
+						trace("参数错误!");
+				}
+				obj.$adg=adg;
+				obj.$tablename=tablename;
+				obj.$dataInit=dataInit;
+				obj.$handle=handle;//操作类型
+				PopUpManager.centerPopUp(obj as IFlexDisplayObject);
+			}
+	 	]]>
+	 </mx:Script>
+	<mx:VBox width="100%" height="100%" horizontalAlign="center" verticalAlign="middle" verticalGap="0">
+		<mx:HBox width="100%" height="16" verticalAlign="middle" horizontalAlign="right" >
+	           <mx:Image width="16" height="16" source="{BindImg.page_new}" toolTip="添加" click="openWindow('ValidatorComponent',PopType.ADD);" />
+	           <mx:Image width="16" height="16" source="{BindImg.page_edit}" toolTip="修改" click="openWindow('ValidatorComponent',PopType.EDIT);" />
+	           <mx:Image width="16" height="16" source="{BindImg.page_delete}" toolTip="删除" click="deleteData();" />
+     	</mx:HBox>
+		<mx:AdvancedDataGrid id="adg" doubleClickEnabled="true" allowMultipleSelection="true" 
+			designViewDataType="flat" width="100%" height="100%" selectionMode="multipleRows" doubleClick="openWindow('ValidatorComponent',PopType.EDIT);">
+			<mx:columns>
+				<mx:AdvancedDataGridColumn headerText="名称" dataField="validname"/>
+				<mx:AdvancedDataGridColumn headerText="编码" dataField="validcode"/>
+				<mx:AdvancedDataGridColumn headerText="校验类型" dataField="validtype"/>
+				<mx:AdvancedDataGridColumn headerText="表达式" dataField="expression"/>
+				<mx:AdvancedDataGridColumn headerText="成功提示" dataField="successmsg"/>
+				<mx:AdvancedDataGridColumn headerText="失败提示" dataField="errormsg"/>
+				<mx:AdvancedDataGridColumn headerText="描述" dataField="validdesc"/>
+			</mx:columns>
+		</mx:AdvancedDataGrid>
+	</mx:VBox>
+</mx:Module>

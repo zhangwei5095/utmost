@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="500" height="500"
+	 close="PopUpManager.removePopUp(this)" showCloseButton="true" implements="module.tpl.PopInterface" horizontalAlign="center" verticalAlign="middle" 
+	 creationComplete="init()">
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.charts.chartClasses.DataDescription;
+			import org.utmost.util.AutoUtil;
+			import org.utmost.tpl.PopType;
+			import mx.controls.Alert;
+			import mx.rpc.events.ResultEvent;
+			import org.utmost.service.AutoService;
+			import org.utmost.util.ComponentUtil;
+			import mx.managers.PopUpManager;
+			private var _opertype:String;
+			private var _treeitem:Object;
+			public function set opertype($opertype:String):void {_opertype=$opertype}
+			public function set treeitem($treeitem:Object):void {_treeitem=$treeitem}
+			
+			
+			private function init():void {
+				if(_opertype==PopType.EDIT) {
+					trace("$adgData:"+$adgData);
+					trace($adgData.uuid);
+					trace($adgData.dataname);
+					AutoUtil.fillValue(form,$adgData);
+				}
+				stateChange();
+				
+				//设置回车提交
+				this.setFocus();
+				this.addEventListener(KeyboardEvent.KEY_DOWN,function(e:KeyboardEvent):void {
+					if(e.charCode==13) {
+						submit();
+					}
+				});
+			}
+			private function stateChange():void {
+				cid.text=_treeitem.@uuid;//设置父ID
+				var value:String=(String)(ispk.selectedItem.value);
+				if(value=="true") {
+					ComponentUtil.setVisible(_generator,true);
+					ComponentUtil.setVisible(_isindex,false);
+					ComponentUtil.setVisible(_isunique,false);
+					ComponentUtil.setVisible(_isnotnull,false);
+					ComponentUtil.selectValue(datatype,"java.lang.String");
+					ComponentUtil.selectValue(state,"true");
+					ComponentUtil.selectValue(isindex,"true");
+					ComponentUtil.selectValue(isnotnull,"true");
+					ComponentUtil.selectValue(isunique,"true");
+					if(_opertype==PopType.ADD) {
+						ComponentUtil.selectValue(generator,"uuid");
+					}
+					datalength.value=36;
+					datacode.text="uuid";
+					dataname.text="主键";
+					datalength.enabled=false;
+					state.enabled=false;
+					datatype.enabled=false;
+					dataname.enabled=false;
+					datacode.enabled=false;
+				}else if(value=="false") {
+					ComponentUtil.setVisible(_generator,false);
+					ComponentUtil.setVisible(_isindex,true);
+					ComponentUtil.setVisible(_isunique,true);
+					ComponentUtil.setVisible(_isnotnull,true);
+					
+					ComponentUtil.selectValue(generator,"no");
+					datalength.enabled=true;
+					state.enabled=true;
+					datatype.enabled=true;
+					if(_opertype!=PopType.EDIT) {
+						dataname.text="";
+						datacode.text="";
+						datalength.value=128;
+					}
+					dataname.enabled=true;
+					datacode.enabled=true;
+				}else {
+					trace("stateChange() 异常..."+value);
+				}
+			}
+			private function submit():void {
+				var service:AutoService=new AutoService();
+				if(_opertype==PopType.ADD) {
+					service.autoSave("U_TPL_TEMPLATEDATA",form,findUUIDAndSaveToView);
+				}else if(_opertype==PopType.EDIT) {
+					service.autoUpdate("U_TPL_TEMPLATEDATA",form,findUUIDAndSaveToView);
+				}
+			}
+			private function findUUIDAndSaveToView(e:ResultEvent):void {
+				var service:AutoService=new AutoService();
+				var hql:String="from U_TPL_TEMPLATEDATA v where v.cid='"+cid.text+"' and v.datacode='"+datacode.text+"'";
+				service.findByHql(hql,saveToView);
+			}
+			//保存到页面模板
+			private function saveToView(e:ResultEvent):void {
+				var cpid:String=(e.result as ArrayCollection).getItemAt(0).uuid;
+				trace("saveToView:"+e.result);
+				trace("saveToView:"+(e.result as ArrayCollection).length);
+				var hql:String="from U_TPL_TEMPLATEVIEW v where v.cpid='"+cpid+"'";
+				var service:AutoService=new AutoService();
+				service.findByHql(hql,function(e:ResultEvent):void {
+					var ac:ArrayCollection=e.result as ArrayCollection;
+					var obj:Object;
+					if(ac.length!=0) {
+						obj=ac.getItemAt(0);
+					}
+					//trace(obj);
+					if(obj==null) {
+						obj=new Object();
+						obj.cid=cid.text;
+						obj.cpid=cpid;
+						trace("cpid:"+cpid);
+						obj.fieldname=dataname.text;
+						obj.fieldcode=datacode.text;
+						obj.required="true";
+						obj.fieldtype="TextInput";
+						obj.restrict="a-z\\A-Z\\0-9";
+						obj.fieldlength=(String)(datalength.value);
+						obj.fielddesc=nodedesc.text;
+						obj.fieldorder="0";
+						obj.state="01";
+						service.save("U_TPL_TEMPLATEVIEW",obj);
+					}else {
+						//obj.fieldname=dataname.text;
+						obj.fieldcode=datacode.text;
+						//obj.fieldlength=(String)(datalength.value);
+						//obj.fielddesc=nodedesc.text;
+						service.update("U_TPL_TEMPLATEVIEW",obj);
+					}
+				});
+				close();
+			}
+			
+			public var $flashData:Function=null;
+			private function close():void {
+				$flashData.call();//刷新表格数据
+				PopUpManager.removePopUp(this);
+			}
+			public var $adgData:Object=null;
+			
+		]]>
+	</mx:Script>
+	<mx:Array id="ds_type">
+		<mx:Object label="string" value="java.lang.String" />
+		<mx:Object label="long" value="java.lang.Long" />
+		<mx:Object label="double" value="java.lang.Double" />
+	</mx:Array>
+	<mx:Array id="ds_tf">
+		<mx:Object label="true" value="true" />
+		<mx:Object label="false" value="false" />
+	</mx:Array>
+	<mx:Array id="ds_generator">
+		<mx:Object label="uuid" value="uuid" />
+		<mx:Object label="assigned" value="assigned" />
+		<mx:Object label="no" value="no" />
+	</mx:Array>
+	<mx:Array id="ds_state">
+		<mx:Object label="正常" value="true" />
+		<mx:Object label="禁用" value="false" />
+	</mx:Array>
+	<mx:Form id="form" width="60%" height="90%">
+		<mx:FormItem label="uuid" id="_uuid" visible="false" includeInLayout="false">
+			<mx:TextInput id="uuid"/>
+		</mx:FormItem>
+		<mx:FormItem label="cid" id="_cid" visible="false" includeInLayout="false">
+			<mx:TextInput id="cid"/>
+		</mx:FormItem>
+		<mx:FormItem label="名称" id="_dataname">
+			<mx:TextInput id="dataname"/>
+		</mx:FormItem>
+		<mx:FormItem label="编码" id="_datacode">
+			<mx:TextInput id="datacode" change="datacode.text=datacode.text.toLowerCase();"/>
+		</mx:FormItem>
+		<mx:FormItem label="描述" id="_nodedesc">
+			<mx:TextArea id="nodedesc"/>
+		</mx:FormItem>
+		<mx:FormItem label="类型" id="_datatype">
+			<mx:ComboBox id="datatype" dataProvider="{ds_type}" selectedIndex="0" width="80"></mx:ComboBox>
+		</mx:FormItem>
+		<mx:FormItem id="_datalength" label="长度">
+			<mx:NumericStepper id="datalength" width="80" value="128" maximum="2048"/>
+		</mx:FormItem>
+		<mx:FormItem label="索引" id="_isindex">
+			<mx:ComboBox id="isindex"  dataProvider="{ds_tf}" selectedIndex="1" width="80"></mx:ComboBox>
+		</mx:FormItem>
+		<mx:FormItem label="唯一" id="_isunique">
+			<mx:ComboBox id="isunique"  dataProvider="{ds_tf}" selectedIndex="1" width="80"></mx:ComboBox>
+		</mx:FormItem>
+		<mx:FormItem label="非空" id="_isnotnull">
+			<mx:ComboBox id="isnotnull"  dataProvider="{ds_tf}" selectedIndex="1" width="80"></mx:ComboBox>
+		</mx:FormItem>
+		<mx:FormItem label="策略" id="_generator" visible="false" includeInLayout="false">
+			<mx:ComboBox id="generator"  dataProvider="{ds_generator}" selectedIndex="0" width="80" ></mx:ComboBox>
+		</mx:FormItem>
+		<mx:FormItem label="主键">
+			<mx:ComboBox id="ispk"  dataProvider="{ds_tf}" change="stateChange()" selectedIndex="1" width="80"></mx:ComboBox>
+		</mx:FormItem>
+		<mx:FormItem id="_state" label="状态">
+			<mx:ComboBox  id="state" dataProvider="{ds_state}" selectedIndex="0" width="80"></mx:ComboBox>
+		</mx:FormItem>
+	</mx:Form>
+	<mx:ControlBar horizontalAlign="center" verticalAlign="middle">
+		<mx:Button label="保存" click="submit()"/>
+		<mx:Button label="取消" click="PopUpManager.removePopUp(this)"/>
+	</mx:ControlBar>
+</mx:TitleWindow>

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="500" height="450"
+	 close="PopUpManager.removePopUp(this)" showCloseButton="true" implements="module.tpl.PopInterface" horizontalAlign="center" verticalAlign="middle"
+	  creationComplete="init()">
+	<mx:Script>
+		<![CDATA[
+			import org.utmost.util.ComponentUtil;
+			import mx.collections.ArrayCollection;
+			import mx.rpc.events.ResultEvent;
+			import org.utmost.service.AutoService;
+			import org.utmost.util.AutoUtil;
+			import mx.managers.PopUpManager;
+			import mx.controls.CheckBox;
+			private var _opertype:String;
+			private var _treeitem:Object;
+			public function set opertype($opertype:String):void {_opertype=$opertype}
+			public function set treeitem($treeitem:Object):void {_treeitem=$treeitem}
+			
+			public var $dataitem:Object;
+			public var $flushData:Function;
+			[Bindable]
+			public var $reference:ArrayCollection;
+			[Bindable]
+			public var $validator:ArrayCollection;
+			private function init():void {
+				AutoUtil.fillValue(form,$dataitem);
+				//设置回车提交
+				this.setFocus();
+				this.addEventListener(KeyboardEvent.KEY_DOWN,function(e:KeyboardEvent):void {
+					if(e.charCode==13) {
+						submit();
+					}
+				});
+				
+				fieldtypeChange();
+				myRep.dataProvider=$validator;
+			}
+			private function submit():void {
+				var service:AutoService=new AutoService();
+				service.autoUpdate("U_TPL_TEMPLATEVIEW",form,function(e:ResultEvent):void {
+					$flushData.call(this,cid.text);
+					close();
+					trace("submit success");
+				});
+			}
+			private function close():void {
+				PopUpManager.removePopUp(this);
+			}
+			public function validSelect(o:Object):Boolean {
+				var arr:Array=validator.text.split("#");
+				for(var i:int=0;i<arr.length;i++) {
+					if(arr[i]==o.validcode) {
+						return true;
+					}
+				}
+				return false;
+			}
+			public function incbChange(e:Event):void {
+				var cbox:CheckBox=e.target as CheckBox;
+				trace(cbox.data.validcode+"--"+cbox.selected);
+				if(cbox.selected) {
+					validator.text+=cbox.data.validcode+"#";
+				}else {
+					validator.text=validator.text.replace(cbox.data.validcode+"#","");
+				}
+			}
+			private function fieldtypeChange():void {
+				if(fieldtype.selectedItem!=null&&fieldtype.selectedItem.value=='ComboBox') {
+					ComponentUtil.setVisible(_reference,true);
+				}else {
+					ComponentUtil.setVisible(_reference,false);
+				}
+				if(fieldtype.selectedItem!=null&&fieldtype.selectedItem.value=='TextInput') {
+					ComponentUtil.setVisible(_validator,true);
+				}else {
+					ComponentUtil.setVisible(_validator,false);
+				}
+			}
+		]]>
+	</mx:Script>
+	<mx:Array id="ds_fieldtype">
+		<mx:Object label="TextInput" value="TextInput" />
+		<mx:Object label="TextArea" value="TextArea" />
+		<mx:Object label="ComboBox" value="ComboBox" />
+		<mx:Object label="NumericStepper" value="NumericStepper" />
+	</mx:Array>
+		<mx:Array id="ds_state">
+		<mx:Object label="显示" value="01" />
+		<mx:Object label="隐藏" value="02" />
+		<mx:Object label="禁用" value="03" />
+		<!--mx:Object label="不可编辑" value="04" /-->
+	</mx:Array>
+	<mx:Array id="cb_required">
+		<mx:Object label="是" value="true" />
+		<mx:Object label="否" value="false" />
+	</mx:Array>
+	<mx:Form id="form" width="60%" height="90%" >
+		<mx:FormItem label="UUID" id="_uuid" visible="false" includeInLayout="false">
+			<mx:TextInput id="uuid"/>
+		</mx:FormItem>
+		<mx:FormItem label="CID" id="_cid" visible="false" includeInLayout="false">
+			<mx:TextInput id="cid"/>
+		</mx:FormItem>
+		<mx:FormItem label="CPID" id="_cpid" visible="false" includeInLayout="false">
+			<mx:TextInput id="cpid"/>
+		</mx:FormItem>
+		<mx:FormItem label="名称" id="_fieldname">
+			<mx:TextInput id="fieldname"/>
+		</mx:FormItem>
+		<mx:FormItem label="编码" id="_fieldcode">
+			<mx:TextInput id="fieldcode" editable="false"/>
+		</mx:FormItem>
+		<mx:FormItem label="长度" id="_fieldlength">
+			<mx:NumericStepper id="fieldlength" maximum="50000" width="100"/>
+		</mx:FormItem>
+		<mx:FormItem label="次序" id="_fieldorder">
+			<mx:NumericStepper id="fieldorder" maximum="2000" width="100"/>
+		</mx:FormItem>
+		<mx:FormItem label="类型" id="_fieldtype">
+			<mx:ComboBox id="fieldtype" dataProvider="{ds_fieldtype}" change="fieldtypeChange()" width="150"></mx:ComboBox>
+		</mx:FormItem>
+		<mx:FormItem label="必填" id="_required">
+			<mx:ComboBox id="required" dataProvider="{cb_required}" width="150" />
+		</mx:FormItem>
+		<mx:FormItem label="约束" id="_restrict">
+			<mx:TextInput id="restrict"/>
+		</mx:FormItem>
+		<mx:FormItem label="值引用" id="_reference">
+			<mx:ComboBox id="reference" dataProvider="{$reference}" labelField="refname" width="150"></mx:ComboBox>
+		</mx:FormItem>
+		<mx:FormItem label="校验规则" id="_validator">
+			<!--mx:ComboBox id="validator"></mx:ComboBox-->
+			<mx:TextInput id="validator" visible="false" includeInLayout="false"/>
+			<mx:PopUpButton id="validatorPopup"
+                label="校验规则" openAlways="true"  width="150">
+            <mx:popUp>
+                <mx:TitleWindow id="titleWin"
+                        height="200"
+                        showCloseButton="true"
+                        verticalScrollPolicy="on"
+                        horizontalScrollPolicy="off"
+                        close="validatorPopup.close();" >
+                    <mx:ToolBar  width="320" >
+                        <mx:Repeater id="myRep">
+                            <mx:CheckBox id="incb" data="{myRep.currentItem}" change="incbChange(event)"
+                                    label="{myRep.currentItem.validname}" selected="{validSelect(myRep.currentItem)}" 
+                                    width="100" />
+                        </mx:Repeater>                        
+                    </mx:ToolBar>
+                    <mx:ControlBar horizontalAlign="center" verticalAlign="middle">
+						<mx:Button label="确定" click="validatorPopup.close();"/>
+					</mx:ControlBar>           
+                </mx:TitleWindow>
+            </mx:popUp>
+        </mx:PopUpButton>
+		</mx:FormItem>
+		<mx:FormItem label="默认值" id="_defaultvalue">
+			<!--mx:ComboBox id="defaultvalue"></mx:ComboBox-->
+			<mx:TextInput id="defaultvalue" />
+		</mx:FormItem>
+		<mx:FormItem label="描述" id="_fielddesc">
+			<mx:TextArea id="fielddesc"/>
+		</mx:FormItem>
+		<mx:FormItem label="状态" id="_state">
+			<mx:ComboBox id="state" dataProvider="{ds_state}"></mx:ComboBox>
+		</mx:FormItem>
+	</mx:Form>
+	<mx:ControlBar horizontalAlign="center" verticalAlign="middle">
+		<mx:Button label="保存" click="submit()"/>
+		<mx:Button label="取消" click="PopUpManager.removePopUp(this)"/>
+	</mx:ControlBar>
+</mx:TitleWindow>

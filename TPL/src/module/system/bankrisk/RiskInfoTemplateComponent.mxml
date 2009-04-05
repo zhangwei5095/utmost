@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="800" height="700" 
+	horizontalAlign="center" verticalAlign="top" showCloseButton="true" creationComplete="init();" close="PopUpManager.removePopUp(this)" title="规则模板" fontSize="12">
+	<mx:Script>
+		<![CDATA[
+			import mx.events.CollectionEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.controls.Alert;
+			import org.utmost.service.UtmostService;
+			import org.utmost.util.AutoUtil;
+			import mx.rpc.events.ResultEvent;
+			import org.utmost.tpl.PopType;
+			import org.utmost.service.AutoService;
+			import mx.controls.AdvancedDataGrid;
+			import mx.managers.PopUpManager;
+				
+			public var $adg:AdvancedDataGrid;
+			public var $tablename:String;
+			public var $dataInit:Function;
+			public var $handle:String;
+			public var paramTablename:String = "U_TPL_RULETEMPLATEPARAM";
+			import mx.collections.ArrayCollection;
+			import mx.core.IFlexDisplayObject;
+			import org.utmost.img.BindImg;
+			[Bindable]
+		    public var arrcRuleParams:ArrayCollection=new ArrayCollection();
+		    [Bindable]
+		    public var xmlRuleParams:XMLList=new XMLList();
+		    public var ruleexpressionold :String = "";
+		    [Bindable]
+            public var risktypeac:ArrayCollection = new ArrayCollection(
+                [ {label:"一级", value:1}, 
+                  {label:"二级", value:2}, 
+                  {label:"三级", value:3} ]);
+    
+			private function init():void {
+				
+				AutoUtil.clearValue(form);
+				if($handle==PopType.EDIT) {
+					AutoUtil.fillValue(form,$adg.selectedItem as Object);
+										
+					paramDataInit($adg.selectedItem.rulecode,"0");
+					if($adg.selectedItem.riskmode=="1"){
+						riskmode1.selected = true;
+					}else{
+						riskmode0.selected = true;
+					}
+					if($adg.selectedItem.risktype=="1"){
+						risktype1.selected = true;
+					}else{
+						risktype0.selected = true;
+					}
+					
+				}else if($handle==PopType.ADD) {
+					
+				}else {
+					trace("由于参数异常 操作无效 $handle:"+$handle);
+				}
+				
+				//设置回车提交
+//				this.setFocus();
+//				this.addEventListener(KeyboardEvent.KEY_DOWN,function(e:KeyboardEvent):void {
+//					if(e.charCode==13) {
+//						submit();
+//					}
+//				});
+//				expression.addEventListener(KeyboardEvent.KEY_DOWN,function(e:KeyboardEvent):void{});
+				//查询规则
+				ruleData();
+			}
+			[Bindable]
+			private var ac:ArrayCollection=new ArrayCollection();
+			public function ruleData():void {
+				var service:AutoService=new AutoService();
+				service.findByHql("from U_TPL_RULETEMPLATE",function(e:ResultEvent):void {
+					ac=e.result as ArrayCollection;
+					if($handle==PopType.EDIT) {
+						for(var i:int=0;i<ac.length;i++){
+							if(ruletplcode.text==ac.getItemAt(i).ruletplcode){
+								ruleexpressionold = ac.getItemAt(i).ruleexpression;
+								break;
+							}
+						}
+					}	
+				});
+			}
+			public function paramDataInit( RULETPLCODE:String,param_type:String):void {
+	 			var service:AutoService=new AutoService();
+	 			var sql:String = "from "+paramTablename+" v where v.param_type='"+param_type+"' and v.ruletplcode='"+RULETPLCODE+"'";
+					service.findByHql(sql,function(e:ResultEvent):void{
+					arrcRuleParams=e.result as ArrayCollection;
+					if(param_type=='1' && $handle==PopType.EDIT){
+						for(var i:int=0;i<arrcRuleParams.length;i++){
+						 	arrcRuleParams.getItemAt(i).param_type="0";
+						 	arrcRuleParams.getItemAt(i).ruletplcode=rulecode.text;
+						}
+					}
+				
+				});
+	 		}
+			private function submit():void {
+				var service:AutoService=new AutoService();
+				
+				var strruleexpression:String = ruleexpressionold;
+					strruleexpression = strruleexpression.replace("&sys_p_risklevel&",risklevel.value);
+					strruleexpression = strruleexpression.replace("&sys_p_riskcode&",rulecode.text);
+					strruleexpression = strruleexpression.replace("&sys_p_riskname&",rulename.text);
+					strruleexpression = strruleexpression.replace("&sys_p_risktype&",risktype.text);
+					
+				var paramname:String = "";
+				var paramvalue:String = "";
+				for(var i:int=0;i<arrcRuleParams.length;i++){
+					paramname = '&'+arrcRuleParams.getItemAt(i).param_code+'&';
+					paramvalue = arrcRuleParams.getItemAt(i).param_value;
+					strruleexpression = strruleexpression.replace(paramname,paramvalue);
+				}	
+				expression.text = strruleexpression;
+				if($handle==PopType.ADD) {
+					
+					service.autoSave($tablename,form,function(e:ResultEvent):void {
+						$dataInit.call();
+						close();
+					});
+				
+					for(var i:int=0;i<arrcRuleParams.length;i++){
+						 arrcRuleParams.getItemAt(i).param_type="0";
+						 arrcRuleParams.getItemAt(i).ruletplcode=rulecode.text;
+					}
+					
+					service.saveAll(paramTablename,arrcRuleParams);
+				}else if($handle==PopType.EDIT) {
+					service.autoUpdate($tablename,form,function(e:ResultEvent):void {
+						$dataInit.call();
+						close();
+					});
+					service.deleteByHql("from "+paramTablename+" v where v.ruletplcode='"+rulecode.text+"'");
+					service.saveAll(paramTablename,arrcRuleParams);
+				} else {
+					trace("由于参数异常 操作无效 $handle:"+$handle);
+				}
+			}
+			private function close():void {
+				PopUpManager.removePopUp(this);
+			}
+			private function test():void {
+				
+				var paramname:String = "";
+				var paramvalue:String = "";
+				var strruleexpression:String = ruleexpressionold;
+					strruleexpression = strruleexpression.replace("&sys_p_risklevel&",risktypeac.getItemAt(risklevel.selectedIndex).value);
+					strruleexpression = strruleexpression.replace("&sys_p_riskcode&",rulecode.text);
+					strruleexpression = strruleexpression.replace("&sys_p_riskname&",rulename.text);
+					strruleexpression = strruleexpression.replace("&sys_p_risktype&",risktype.text);
+					expression.text = strruleexpression;
+				for(var i:int=0;i<arrcRuleParams.length;i++){
+					paramname = '&'+arrcRuleParams.getItemAt(i).param_code+'&';
+					paramvalue = arrcRuleParams.getItemAt(i).param_value;
+					strruleexpression = strruleexpression.replace(paramname,paramvalue);
+				}
+				
+				var service:UtmostService=new UtmostService("RuleService");
+				service.ro.exec.addEventListener(ResultEvent.RESULT,testResultHandler);
+				service.ro.exec.addEventListener(FaultEvent.FAULT,testFaultHandler);
+				service.ro.exec(strruleexpression);
+			}
+			private function testResultHandler(e:ResultEvent):void {
+				
+				if(e.result!=null)
+				Alert.show(e.result.toString());
+			}
+			private function testFaultHandler(e:FaultEvent):void {
+				if(e.fault!=null) {
+					trace(e.fault);
+				}
+				Alert.show("测试失败!");
+			}
+			
+			
+			public function radioButton_change(evt:Event):void{
+		 	 	     var rb:RadioButton=evt.currentTarget as RadioButton;
+		 	 	     if(rb.selected){
+		 	 	     	rulenameLabel.text=rb.label;
+		 	 	     	ruletplcode.text=rb.data.ruletplcode;
+		 	 	     	//ruleexpression.text = rb.data.ruleexpression;
+		 	 	     	ruleexpressionold =  rb.data.ruleexpression;
+	
+		 	 	     }
+		 	 	     
+		 	 	   
+		 	 	
+		 	 }
+		 	 public function setRiskMode(evt:Event):void{
+		 	 	var rb:RadioButton=evt.currentTarget as RadioButton;
+		 	 	if(rb.selected){
+		 	 
+		 	 		riskmode.text = rb.value.toString();
+		 	 		
+		 	 	}
+		 	 
+		 	 } 
+		 	 public function setRiskType(evt:Event):void{
+		 	 	var rb:RadioButton=evt.currentTarget as RadioButton;
+		 	 	if(rb.selected){
+		 	 	
+		 	 		risktype.text = rb.value.toString();
+		 	 		
+		 	 	}
+		 	 	
+		 	 	
+		 	 }
+		 	 public function validSelect(o:Object):Boolean {
+		 	 	trace(ruletplcode.text);
+		 	 	trace(o.ruletplname);
+				var strruletplcode:String=ruletplcode.text;
+				if(strruletplcode==o.ruletplcode) {
+						rulenameLabel.text = o.ruletplname;
+						return true;
+				}	
+				return false;
+			}
+		 	 
+		]]>
+	</mx:Script>
+	<mx:Style>
+   	  .headTextAlign{
+   	 	 textAlign:center;
+   	  }
+   	 
+   </mx:Style>
+	<mx:Form id="form" width="95%" height="50%">
+		<mx:FormItem label="UUID" visible="false" includeInLayout="false">
+			<mx:TextInput id="uuid"/>
+		</mx:FormItem>
+		<mx:FormItem label="规则模板" visible="false" includeInLayout="false">
+			<mx:TextInput id="ruletplcode"/>
+			<mx:TextArea id="expression"/>
+		</mx:FormItem>
+		<mx:FormItem label="选择规则" id="_rule">
+			<mx:PopUpButton id="rulePopup"
+                label="规则" openAlways="true"  width="200">
+            <mx:popUp>
+                <mx:TitleWindow id="titleWin"
+                        height="300" width="500"
+                        showCloseButton="true"
+                        verticalScrollPolicy="on"
+                        horizontalScrollPolicy="off"
+                        close="rulePopup.close();" >
+                    <mx:ToolBar  width="320" >
+                        <mx:Repeater id="myRep" dataProvider="{ac}">
+                            <mx:RadioButton groupName="ruleinfo" id="inrb" data="{myRep.currentItem}" 
+                                    label="{myRep.currentItem.ruletplname}" 
+                                    selected="{validSelect(myRep.currentItem)}" 
+                                     change="radioButton_change(event);"
+                                    width="100"/>
+                        </mx:Repeater>                        
+                    </mx:ToolBar>
+                    <mx:ControlBar horizontalAlign="center" verticalAlign="middle">
+						<mx:Button label="确定" click="rulePopup.close();paramDataInit(ruletplcode.text,'1');"/>
+					</mx:ControlBar>           
+                </mx:TitleWindow>
+            </mx:popUp>
+            
+        </mx:PopUpButton>
+        <mx:Label text="" id="rulenameLabel"/>
+		</mx:FormItem>
+		<mx:FormItem label="风险预警代码" >
+			<mx:TextInput id="rulecode" />
+		</mx:FormItem>
+		<mx:FormItem label="风险预警名称" >
+			<mx:TextInput id="rulename" width="100%"/>
+		</mx:FormItem>
+		
+		<mx:FormItem label="预警级别" width="518">
+			<mx:ComboBox dataProvider="{risktypeac}" id="risklevel"/>
+			
+		</mx:FormItem>
+		
+			
+		
+		<mx:FormItem label="预警类型" width="518">
+			
+			<mx:RadioButton  groupName="risktypegro"  id="risktype1" label="事后"  value="1" change="setRiskType(event);"/>
+			<mx:RadioButton  groupName="risktypegro"  id="risktype0" label="实时" value="0" selected="true" change="setRiskType(event);"/>
+			<mx:TextInput id="risktype" visible="false" includeInLayout="false"/>
+			
+		</mx:FormItem>
+		<mx:FormItem label="预警方式" width="518">
+			<mx:RadioButton  groupName="riskmodegro"  id="riskmode1" label="弹出式"  value="1" change="setRiskMode(event);"/>
+			<mx:RadioButton  groupName="riskmodegro"  id="riskmode0" label="响铃式" value="0" selected="true" change="setRiskMode(event);"/>
+			<mx:TextInput id="riskmode" visible="false" includeInLayout="false"/>
+		</mx:FormItem>
+	
+		<mx:FormItem label="风险预警描述" width="519" height="53">
+			<mx:TextArea id="ruledesc" width="100%"  height="52"/>
+		</mx:FormItem>
+	</mx:Form>
+	<mx:VBox width="98%" horizontalAlign="center" verticalAlign="middle"  height="50%">
+	<mx:DataGrid width="90%" id="paramDG"  dataProvider="{arrcRuleParams}"  height="100%" editable="true">
+		<mx:columns>
+			<mx:DataGridColumn headerText="参数名" dataField="param_name" headerStyleName="headTextAlign" editable="false"/>
+			<mx:DataGridColumn headerText="参数编码" dataField="param_code" headerStyleName="headTextAlign" editable="false"/>
+			<mx:DataGridColumn headerText="参数值" dataField="param_value" headerStyleName="headTextAlign" editable="true"/>
+			<mx:DataGridColumn headerText="参数描述" dataField="param_desc" headerStyleName="headTextAlign" editable="false"/>
+		</mx:columns>
+	</mx:DataGrid>
+		
+	</mx:VBox>
+	<mx:ControlBar horizontalAlign="center" verticalAlign="middle">
+		<mx:Button label="确定" click="submit()"/>
+		<mx:Button label="测试" click="test()"/>
+		<mx:Button label="取消" click="PopUpManager.removePopUp(this)"/>
+	</mx:ControlBar>
+</mx:TitleWindow>

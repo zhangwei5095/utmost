@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ResizableTitleWindow xmlns="*" xmlns:mx="http://www.adobe.com/2006/mxml" width="400" height="300" title="sadf">
+	<mx:ControlBar>
+	</mx:ControlBar>
+</ResizableTitleWindow>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%">
+	<mx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			import mx.rpc.events.ResultEvent;
+			import org.utmost.service.UtmostService;
+			import mx.core.IFlexDisplayObject;
+			import mx.managers.PopUpManager;
+			private function openWindow(type:String):void {
+				var obj:Object;
+				obj=PopUpManager.createPopUp(this.parentApplication as DisplayObject, BackupAndRestoreComponent, true);
+				obj.$type=type;
+				PopUpManager.centerPopUp(obj as IFlexDisplayObject);
+			}
+			
+			public function backupToCsv():void {
+				var service:UtmostService=new UtmostService("ETLService");
+				service.ro.addEventListener(ResultEvent.RESULT,function(result:ResultEvent):void {
+					Alert.show("备份成功!");
+				});
+				service.ro.backupAndResotre("backup");
+			}
+			
+			public function restoreToDb():void {
+				var service:UtmostService=new UtmostService("ETLService");
+				service.ro.addEventListener(ResultEvent.RESULT,function(result:ResultEvent):void {
+					Alert.show("恢复成功!");
+				});
+				service.ro.backupAndResotre("restore");
+			}
+		]]>
+	</mx:Script>
+	<mx:HBox width="100%" height="100%" horizontalAlign="center" verticalAlign="middle">
+		<mx:Button label="系统参数备份" width="200" height="80" fontFamily="Georgia" fontSize="12" cornerRadius="15" click="backupToCsv()"/>
+		<mx:Spacer width="30"/>
+		<mx:Button label="系统参数还原" width="200" height="80" fontFamily="Georgia" fontSize="12" cornerRadius="15" click="restoreToDb()"/>
+	</mx:HBox>
+</mx:Module>

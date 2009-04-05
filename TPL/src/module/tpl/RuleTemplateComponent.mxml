@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="{Application.application.width*0.8}" height="{Application.application.height*0.9}" 
+	horizontalAlign="center" verticalAlign="top" showCloseButton="true" creationComplete="init();" close="PopUpManager.removePopUp(this)" title="规则模板" fontSize="12">
+	<mx:Script>
+		<![CDATA[
+			import mx.core.Application;
+			import mx.events.CollectionEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.controls.Alert;
+			import org.utmost.service.UtmostService;
+			import org.utmost.util.AutoUtil;
+			import mx.rpc.events.ResultEvent;
+			import org.utmost.tpl.PopType;
+			import org.utmost.service.AutoService;
+			import mx.controls.AdvancedDataGrid;
+			import mx.managers.PopUpManager;
+				
+			public var $adg:AdvancedDataGrid;
+			public var $tablename:String;
+			public var $dataInit:Function;
+			public var $handle:String;
+			public var paramTablename:String = "U_TPL_RULETEMPLATEPARAM";
+			import mx.collections.ArrayCollection;
+			import mx.core.IFlexDisplayObject;
+			import org.utmost.img.BindImg;
+			[Bindable]
+		    public var arrcRuleParams:ArrayCollection=new ArrayCollection();
+		  
+			private function init():void {
+				
+				AutoUtil.clearValue(form);
+				if($handle==PopType.EDIT) {
+					AutoUtil.fillValue(form,$adg.selectedItem as Object);
+					paramDataInit($adg.selectedItem.ruletplcode);
+				}else if($handle==PopType.ADD) {
+					
+				}else {
+					trace("由于参数异常 操作无效 $handle:"+$handle);
+				}
+				
+				//设置回车提交
+//				this.setFocus();
+//				this.addEventListener(KeyboardEvent.KEY_DOWN,function(e:KeyboardEvent):void {
+//					if(e.charCode==13) {
+//						submit();
+//					}
+//				});
+//				expression.addEventListener(KeyboardEvent.KEY_DOWN,function(e:KeyboardEvent):void{});
+			}
+			public function paramDataInit( RULETPLCODE:String):void {
+	 			var service:AutoService=new AutoService();
+				service.findByHql("from "+paramTablename+" v where v.param_type='1' and v.ruletplcode='"+RULETPLCODE+"'",function(e:ResultEvent):void{
+					arrcRuleParams=e.result as ArrayCollection;
+					
+					
+				});
+	 		}
+			private function submit():void {
+				var service:AutoService=new AutoService();
+				if($handle==PopType.ADD) {
+					service.autoSave($tablename,form,function(e:ResultEvent):void {
+						$dataInit.call();
+						close();
+					});
+					
+					service.saveAll(paramTablename,arrcRuleParams);
+				}else if($handle==PopType.EDIT) {
+					service.autoUpdate($tablename,form,function(e:ResultEvent):void {
+						$dataInit.call();
+						close();
+					});
+					service.deleteByHql("from "+paramTablename+" v where v.ruletplcode='"+ruletplcode.text+"'");
+					service.saveAll(paramTablename,arrcRuleParams);
+				} else {
+					trace("由于参数异常 操作无效 $handle:"+$handle);
+				}
+			}
+			private function close():void {
+				PopUpManager.removePopUp(this);
+			}
+			private function test():void {
+				var strRuleExpression:String = ruleexpression.text;
+				var paramname:String = "";
+				var paramvalue:String = "";
+				for(var i:int=0;i<arrcRuleParams.length;i++){
+					paramname = '&'+arrcRuleParams.getItemAt(i).param_code+'&';
+					paramvalue = arrcRuleParams.getItemAt(i).param_value;
+					strRuleExpression = strRuleExpression.replace(paramname,paramvalue);
+				}
+				
+				var service:UtmostService=new UtmostService("RuleService");
+				service.ro.exec.addEventListener(ResultEvent.RESULT,testResultHandler);
+				service.ro.exec.addEventListener(FaultEvent.FAULT,testFaultHandler);
+				service.ro.exec(strRuleExpression);
+			}
+			private function testResultHandler(e:ResultEvent):void {
+				trace(e.result);
+				if(e.result!=null)
+				Alert.show(e.result.toString());
+			}
+			private function testFaultHandler(e:FaultEvent):void {
+				if(e.fault!=null) {
+					trace(e.fault);
+				}
+				Alert.show("测试失败!");
+			}
+			
+			private function openWindow():void {
+				var obj:Object=PopUpManager.createPopUp(this.parentApplication as DisplayObject,RuleEditComponent,true);
+				obj.$expression=ruleexpression.text;
+				obj.$codename=ruletplcode.text+".py";
+				var tmpObj:IFlexDisplayObject=obj as IFlexDisplayObject;
+				tmpObj.addEventListener("RuleEditComponent_Save",function(e:Event):void{
+					//trace("test:"+e.currentTarget);
+					var rec:RuleEditComponent=e.currentTarget as RuleEditComponent;
+					ruleexpression.text=rec.expression.text;
+					PopUpManager.removePopUp(rec);
+				});
+				PopUpManager.centerPopUp(obj as IFlexDisplayObject);
+			}
+			private function openWindowParam(win:String,handle:String):void{
+				
+				if(handle==PopType.ADD){
+					if(ruletplcode.text==null || ruletplcode.text==""){
+						Alert.show("请输入规则编码后，再增加参数数据!","提示");
+						
+						return;
+					}
+				}
+				else
+				if(handle==PopType.EDIT) {
+					if(paramDG.selectedItem==null) {
+						
+						Alert.show("请选择要修改的数据!","提示");
+						
+						return;
+					}
+				}
+				var obj:Object;
+				switch(win) {
+					case "RuleTemplateParamComponent":
+						obj=PopUpManager.createPopUp(this.parentApplication as DisplayObject, RuleTemplateParamComponent, true);
+					break;
+					default:
+						trace("参数错误!");
+				}
+				//obj.$adg=paramDG;
+				obj.$parentTableSelect = paramDG.selectedItem;
+				obj.$handle=handle;//操作类型
+				var tmpObj:IFlexDisplayObject=obj as IFlexDisplayObject;
+				tmpObj.addEventListener("RuleParamComponent_Save",function(e:Event):void{
+					//trace("test:"+e.currentTarget);
+					var rec:RuleTemplateParamComponent=e.currentTarget as RuleTemplateParamComponent;
+					var recObj:Object = new Object();
+					recObj.param_code = rec.param_code.text;
+					recObj.param_name = rec.param_name.text;
+					recObj.param_value = rec.param_value.text;
+					recObj.param_desc = rec.param_desc.text;
+					recObj.ruletplcode = ruletplcode.text;
+					recObj.param_type="1";
+					if(handle==PopType.EDIT) {
+						arrcRuleParams.addItemAt(recObj,paramDG.selectedIndex);
+						
+						arrcRuleParams.removeItemAt(paramDG.selectedIndex);
+						
+						
+					}else{
+						arrcRuleParams.addItem(recObj);
+					}
+					//paramDG.addDataEffectItem(recObj);
+					PopUpManager.removePopUp(rec);
+				});
+				PopUpManager.centerPopUp(obj as IFlexDisplayObject);
+			}
+			//将DATAGRID中的参数信息删除，但暂时不删除数据库中数据，由规则保存时更新数据库
+			private function deleteParamData():void{
+				
+				if(paramDG.selectedItem==null) {
+						
+					Alert.show("请选择你要删除的数据","提示");
+					return;
+				}
+				
+				arrcRuleParams.removeItemAt(paramDG.selectedIndex);
+				
+			}
+		]]>
+	</mx:Script>
+	<mx:Style>
+   	  .headTextAlign{
+   	 	 textAlign:center;
+   	  }
+   	 
+   </mx:Style>
+	<mx:Form id="form" width="95%" height="349">
+		<mx:FormItem label="UUID" visible="false" includeInLayout="false">
+			<mx:TextInput id="uuid"/>
+		</mx:FormItem>
+		<mx:FormItem label="规则编码">
+			<mx:TextInput id="ruletplcode"/>
+		</mx:FormItem>
+		<mx:FormItem label="规则名称" width="518">
+			<mx:TextInput id="ruletplname" width="100%"/>
+		</mx:FormItem>
+		<mx:FormItem label="表达式" horizontalAlign="left">
+		<mx:HBox horizontalAlign="right" verticalAlign="top" horizontalGap="1">
+			<mx:TextArea id="ruleexpression" width="451" height="200"/>
+			<mx:Image width="16" height="16" source="{BindImg.page_edit}" toolTip="编辑" click="openWindow()" />	
+			</mx:HBox>
+		</mx:FormItem>
+		<mx:FormItem label="规则描述" width="519" height="53">
+			<mx:TextArea id="ruletpldesc" width="100%"  height="52"/>
+		</mx:FormItem>
+	</mx:Form>
+	<mx:VBox width="98%" horizontalAlign="center" verticalAlign="middle"  height="260">
+	<mx:DataGrid width="90%" id="paramDG"  dataProvider="{arrcRuleParams}" >
+		<mx:columns>
+			<mx:DataGridColumn headerText="参数名" dataField="param_name" headerStyleName="headTextAlign" />
+			<mx:DataGridColumn headerText="参数编码" dataField="param_code" headerStyleName="headTextAlign" />
+			<mx:DataGridColumn headerText="参数默认值" dataField="param_value" headerStyleName="headTextAlign" />
+			<mx:DataGridColumn headerText="参数描述" dataField="param_desc" headerStyleName="headTextAlign" />
+		</mx:columns>
+	</mx:DataGrid>
+		<mx:HBox width="90%" height="38" verticalAlign="middle" horizontalAlign="right" >
+	           <mx:Button label="添加参数" click="openWindowParam('RuleTemplateParamComponent',PopType.ADD)"/>
+	           <mx:Button label="修改参数" click="openWindowParam('RuleTemplateParamComponent',PopType.EDIT)"/>
+	           <mx:Button label="删除参数"  click="deleteParamData();"/>
+     	</mx:HBox>
+	</mx:VBox>
+	<mx:ControlBar horizontalAlign="center" verticalAlign="middle">
+		<mx:Button label="确定" click="submit()"/>
+		<mx:Button label="测试" click="test()"/>
+		<mx:Button label="取消" click="PopUpManager.removePopUp(this)"/>
+	</mx:ControlBar>
+</mx:TitleWindow>

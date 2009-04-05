@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="500" height="300" 
+	horizontalAlign="center" verticalAlign="top" showCloseButton="true" creationComplete="init();" close="PopUpManager.removePopUp(this)" title="规则参数设置" fontSize="12">
+	<mx:Script>
+		<![CDATA[
+			import mx.events.CollectionEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.controls.Alert;
+			import org.utmost.service.UtmostService;
+			import org.utmost.util.AutoUtil;
+			import mx.rpc.events.ResultEvent;
+			import org.utmost.tpl.PopType;
+			import org.utmost.service.AutoService;
+			import mx.controls.AdvancedDataGrid;
+			import mx.managers.PopUpManager;
+				
+			public var $adg:AdvancedDataGrid;
+			public var $tablename:String;
+			public var $dataInit:Function;
+			public var $handle:String;
+			public var $parentTableSelect:Object;
+			import mx.collections.ArrayCollection;
+			import mx.core.IFlexDisplayObject;
+			import org.utmost.img.BindImg;
+			[Bindable]
+		    public var arrcRuleParams:ArrayCollection=new ArrayCollection();
+		        
+			private function init():void {
+				if($handle==PopType.EDIT) {
+					AutoUtil.fillValue(form,$parentTableSelect);
+				}else if($handle==PopType.ADD) {
+					
+				}else {
+					trace("由于参数异常 操作无效 $handle:"+$handle);
+				}
+			}
+			//将参数信息写到父窗口的DATAGRID中，但不保存到数据库中
+			private function saveToParent():void {
+				this.dispatchEvent(new Event("RuleParamComponent_Save"));
+				var service:AutoService=new AutoService();
+				if($handle==PopType.ADD) {
+					
+				}else if($handle==PopType.EDIT) {
+					
+					
+					
+				} else {
+					trace("由于参数异常 操作无效 $handle:"+$handle);
+				}
+			}
+			private function close():void {
+				PopUpManager.removePopUp(this);
+			}
+			
+			private function addParam():void{
+			}
+		]]>
+	</mx:Script>
+	<mx:Style>
+   	  .headTextAlign{
+   	 	 textAlign:center;
+   	  }
+   	 
+   </mx:Style>
+	
+
+	<mx:Form id="form" width="60%" height="80%">
+		<mx:FormItem label="参数名" >
+			<mx:TextInput id="param_name" />
+		</mx:FormItem>
+		<mx:FormItem label="参数编码" >
+			<mx:TextInput id="param_code" />
+		</mx:FormItem>
+		<mx:FormItem label="参数默认值" >
+			<mx:TextInput id="param_value" />
+		</mx:FormItem>
+		<mx:FormItem label="参数描述" >
+			<mx:TextInput id="param_desc" />
+		</mx:FormItem>
+		
+	</mx:Form>	
+	<mx:ControlBar horizontalAlign="center" verticalAlign="middle">
+		<mx:Button label="确定" click="saveToParent()"/>
+		
+		<mx:Button label="取消" click="PopUpManager.removePopUp(this)"/>
+	</mx:ControlBar>
+</mx:TitleWindow>

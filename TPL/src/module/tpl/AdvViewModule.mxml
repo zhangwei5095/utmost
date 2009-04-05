@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%"
+	implements="module.ModuleInterface" creationComplete="init();" verticalGap="0">
+	<mx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			import mx.core.Application;
+			import mx.containers.TitleWindow;
+			import mx.events.AdvancedDataGridEvent;
+			import mx.containers.Canvas;
+			import mx.events.ListEvent;
+			import mx.events.ItemClickEvent;
+			import mx.collections.ArrayCollection;
+			import mx.rpc.events.ResultEvent;
+			import org.utmost.service.AutoService;
+			import mx.core.IFlexDisplayObject;
+			import mx.managers.PopUpManager;
+			import mx.controls.Alert;
+			import mx.controls.Tree;
+			import org.utmost.img.BindImg;
+			public function set $modulecode(_code:String):void {
+				trace("$modulecodecode:"+_code);
+			}
+			public function set $modulename(_name:String):void {
+				trace("$modulename:"+_name);
+			}
+			public function set $moduletree(_tree:XML):void {
+				trace("$moduletree:"+_tree);
+			}
+			
+			//初始化方法
+			private var tree:Tree;
+			private function init():void {
+				//trace("linkB.label:"+(linkB.getChildAt(0) as Object).label);
+				if(this.parentDocument.advviewtree==null) {
+					trace("error AdvViewModule init()");
+					return;
+				}
+				tree=this.parentDocument.advviewtree;
+				tree.addEventListener(ListEvent.ITEM_CLICK,treeItemClick);
+				//trace(tree.selectedItem.@nodetype);
+				
+				referenceData();
+		   		validatorData();
+			}
+			
+			
+			//刷新表格数据
+			private function flashDG():void {
+				if(linkB.selectedIndex<0||linkB.selectedIndex>vm.getChildren().length) {
+					return;
+				}
+				var label:String;
+				try{
+					label=(linkB.getChildAt(linkB.selectedIndex) as Object).label;
+				}catch(e:Error) {
+					Alert.show(e.message);
+					return;
+				}
+				var service:AutoService=new AutoService();
+				var hql:String="from U_TPL_TEMPLATEVIEWBYADV v where v.cid='"+tree.selectedItem.@uuid+"' and v.view='"+label+"'";
+				service.findByHql(hql,function(e:ResultEvent):void {
+					if(e.result!=null) {
+						var ac:ArrayCollection=e.result as ArrayCollection;
+						trace("ac.length:"+ac.length)
+						ADG.dataProvider=ac;
+					}
+				});
+			}
+			private function initMode(fun:Function=null):void {
+				vm.removeAllChildren();
+				var service:AutoService=new AutoService();
+				var hql:String="from U_TPL_TEMPLATEVIEWBYADV v where v.cid='"+tree.selectedItem.@uuid+"'";
+				service.findByHql(hql,function(e:ResultEvent):void {
+					if(e.result!=null) {
+						var ac:ArrayCollection=e.result as ArrayCollection;
+						var dic:Dictionary=new Dictionary();
+						for(var i:int=0;i<ac.length;i++) {
+							var o:Object=ac.getItemAt(i);
+							//trace("o.view:"+o.view);
+							dic[o.view]="testValue";
+						}
+						for (var s:String in dic) {
+							var canvas:Canvas=new Canvas();
+							canvas.label=s;
+							vm.addChild(canvas);
+						}
+					}
+					//fun.call();
+				});
+			}
+			//tree 单击事件
+			private function treeItemClick(e:ListEvent):void {
+				if(linkB.selectedIndex<0)
+					linkB.selectedIndex=-1;
+				if(tree.selectedItem.@nodetype=="Module") {
+					return;
+				}
+//				linkB.removeAllChildren();
+//				linkB.addEventListener("linkB_selectChanged",function(e:Event):void {
+//					flashDG();
+//				});
+				initMode(function():void {
+//					if(vm.getChildren().length>=0) {
+//						linkB.selectedIndex=0;
+//						linkB.dispatchEvent(new Event("linkB_selectChanged"));
+//					}
+				});
+				ADG.dataProvider=null;
+			}
+			//查询数据
+			private function linkBItemClick(e:ItemClickEvent):void {
+				//var label:String=(linkB.getChildAt(linkB.selectedIndex) as Object).label;
+				//trace("linkB.label:"+label);
+				flashDG();
+			}
+			public var reference:ArrayCollection;
+			private function referenceData():void {
+				reference=new ArrayCollection();
+				var service:AutoService=new AutoService();
+				var dic:Dictionary=new Dictionary();
+				service.findByHql("from U_TPL_REFERENCE",function(e:ResultEvent):void {
+					var tmp:ArrayCollection=e.result as ArrayCollection;
+					for(var i:int=0;i<tmp.length;i++) {
+						var obj:Object=tmp.getItemAt(i) as Object;
+						dic[obj.refname]=obj;
+					}
+					
+					//值引用
+					var tobj:Object=new Object();
+					tobj.refname="none";
+					tobj.value="none";
+					reference.addItem(tobj);
+					for(var o:Object in dic) {
+						var _o:Object=new Object();
+						_o.refname=dic[o.toString()].refname;
+						_o.value=dic[o.toString()].refname;
+						reference.addItem(_o);
+					}
+				});
+			}
+			public var validator:ArrayCollection;
+			public function validatorData():void {
+				validator=new ArrayCollection();
+				var service:AutoService=new AutoService();
+				service.findByHql("from U_TPL_VALIDATOR",function(e:ResultEvent):void {
+					validator=e.result as ArrayCollection;
+				});
+			}
+			
+			private function doubleClickADG(e:ListEvent):void {
+				trace(e.itemRenderer.data.uuid);
+				var obj:Object=PopUpManager.createPopUp(Application.application.document, AdvViewComponent, true);
+				obj.$dataitem=e.itemRenderer.data;
+				obj.$flushData=flashDG;
+				obj.$reference=reference;
+				obj.$validator=validator;
+				PopUpManager.centerPopUp(obj as IFlexDisplayObject);
+			}
+			
+			
+			//模式删除
+			private function delMName():void {
+				//var alert:Alert=Alert.show("确定删除?","提示");
+				if(linkB.selectedIndex<0) {
+					Alert.show("请选择模式视图","提示");
+					return;
+				}
+				if(linkB.selectedIndex>vm.getChildren().length) {
+					Alert.show("异常","提示");
+					return;
+				}
+				var label:String=(linkB.getChildAt(linkB.selectedIndex) as Object).label;
+				var uuid:String=tree.selectedItem.@uuid;
+				var service:AutoService=new AutoService();
+				var hql:String="from U_TPL_TEMPLATEVIEWBYADV v where v.cid='"+uuid+"' and v.view='"+label+"'";
+				service.deleteByHql(hql,function(e:ResultEvent):void{
+					initMode();
+				});
+			}
+		]]>
+	</mx:Script>
+	<mx:HBox width="100%"  horizontalGap="0" verticalGap="0" verticalAlign="bottom">
+		<mx:LinkBar id="linkB" dataProvider="vm" width="100%" itemClick="linkBItemClick(event)" height="28">
+		</mx:LinkBar>
+	     <!--mx:Image width="16" height="16" source="{BindImg.page_edit}" toolTip="修改" /-->
+	     <mx:Image width="16" height="16" source="{BindImg.page_delete}" toolTip="删除模式" click="delMName()"/>
+	</mx:HBox>
+	<mx:AdvancedDataGrid id="ADG" designViewDataType="flat" width="100%" height="100%" doubleClickEnabled="true" itemDoubleClick="doubleClickADG(event)">
+			<mx:columns>
+				<mx:AdvancedDataGridColumn headerText="名称" dataField="fieldname"/>
+				<mx:AdvancedDataGridColumn headerText="编码" dataField="fieldcode"/>
+				<mx:AdvancedDataGridColumn headerText="长度" dataField="fieldlength"/>
+				<mx:AdvancedDataGridColumn headerText="必填" dataField="required"/>
+				<mx:AdvancedDataGridColumn headerText="约束" dataField="restrict"/>
+				<!--mx:AdvancedDataGridColumn headerText="次序" dataField="fieldorder"/-->
+				<mx:AdvancedDataGridColumn headerText="类型" dataField="fieldtype"/>
+				<mx:AdvancedDataGridColumn headerText="视图" dataField="view"/>
+				<mx:AdvancedDataGridColumn headerText="状态" dataField="state"/>
+			</mx:columns>
+	</mx:AdvancedDataGrid>
+	<mx:ViewStack id="vm" width="200" height="200" visible="false" includeInLayout="false">
+		<!--mx:Canvas label="模式一" width="100%" height="100%">
+		</mx:Canvas>
+		<mx:Canvas label="模式二" width="100%" height="100%">
+		</mx:Canvas>
+		<mx:Canvas label="模式三" width="100%" height="100%">
+		</mx:Canvas>
+		<mx:Canvas label="模式四" width="100%" height="100%">
+		</mx:Canvas-->
+	</mx:ViewStack>
+</mx:Module>

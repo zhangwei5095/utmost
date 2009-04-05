@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow title="表单" xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="500" height="400"
+	 close="PopUpManager.removePopUp(this)" showCloseButton="true" horizontalAlign="center" 
+	 implements="module.tpl.PopInterface" creationComplete="init()">
+	<mx:Script>
+		<![CDATA[
+			import org.utmost.tpl.PopType;
+			import org.utmost.util.ComponentUtil;
+			import mx.controls.Alert;
+			import mx.rpc.events.ResultEvent;
+			import org.utmost.service.AutoService;
+			import mx.managers.PopUpManager;
+			
+			private var _opertype:String;
+			private var _treeitem:Object;
+			public function set opertype($opertype:String):void {_opertype=$opertype}
+			public function set treeitem($treeitem:Object):void {_treeitem=$treeitem}
+			
+			private function init():void {
+				trace(_opertype+"--"+_treeitem);
+				if(_treeitem!=null) {
+					trace(_treeitem.@uuid+"--"+_treeitem.@nodename);
+					parentnodename.text=_treeitem.@nodename;
+					pid.text=_treeitem.@uuid;
+					
+					var level:Number;
+					if(_treeitem.@uuid!="null" && _opertype==PopType.ADD) {
+						level=(Number)(_treeitem.@nodelevel)+1;
+						nodelevel.value=level;
+						if(_treeitem.@nodetype=="Collection") {
+							nodetype.selectedIndex=1;
+							nodetype.enabled=false;
+						}
+					}
+					if(_treeitem.@uuid!="null" && _opertype==PopType.EDIT) {
+						nodelevel.value=(Number)(_treeitem.@nodelevel);
+						uuid.text=_treeitem.@uuid;
+						pid.text=_treeitem.@pid;
+						nodename.text=_treeitem.@nodename;
+						nodecode.text=_treeitem.@nodecode;
+						nodedesc.text=_treeitem.@nodedesc;
+						tablename.text=_treeitem.@tablename;
+						
+						if(nodelevel.value==0)
+							pid.text="";
+						
+						if(_treeitem.@nodetype=="Module") 
+							nodetype.selectedIndex=0;
+						else 
+							nodetype.selectedIndex=1;
+						if(_treeitem.@allowview=="true") 
+							allowview.selectedIndex=0;
+						else 
+							allowview.selectedIndex=1;
+						if(_treeitem.@state=="true") 
+							state.selectedIndex=0;
+						else 
+							state.selectedIndex=1;
+						
+						nodetype.enabled=false;
+						nodecode.enabled=false;
+					}
+					nodetypeInit();
+				}
+				//设置回车提交
+				this.setFocus();
+				this.addEventListener(KeyboardEvent.KEY_DOWN,function(e:KeyboardEvent):void {
+					if(e.charCode==13) {
+						submit();
+					}
+				});
+			}
+			
+			private function submit():void {
+				var service:AutoService=new AutoService();
+				if(_opertype==PopType.ADD)
+					service.autoSave("U_TPL_TEMPLATE",form,resultSubmit);
+				else if(_opertype==PopType.EDIT)
+					service.autoUpdate("U_TPL_TEMPLATE",form,resultSubmit);
+				else 
+					trace("submit err:"+_opertype);
+			}
+			private function resultSubmit(e:ResultEvent):void {
+				PopUpManager.removePopUp(this);
+				this.dispatchEvent(new Event("flushDataTree"));
+				//Alert.show("操作成功!");
+			}
+			private function nodetypeInit():void {
+				if(nodetype.selectedItem.value=="Module") {
+					ComponentUtil.setVisible(_tablename,false);
+					ComponentUtil.setVisible(_allowview,false);
+				}else {
+					ComponentUtil.setVisible(_tablename,true);
+					ComponentUtil.setVisible(_allowview,true);
+				}
+			}
+		]]>
+	</mx:Script>
+	 <!-- 编码验证 -->
+	<mx:RegExpValidator id="nodecode_Validator" source="{nodecode}" property="text"
+		requiredFieldError="不允许为空"
+		expression="([a-zA-Z0-9]+)"
+        required="true"
+        noMatchError="非法字符！请输入数字或英文字母" triggerEvent="change" />
+     <!--名称验证 -->
+	<mx:RegExpValidator id="nodename_Validator" source="{nodename}" property="text"
+		requiredFieldError="不允许为空"
+		expression="([^/n]+)"
+        required="true"
+        noMatchError="非法字符" />
+	<mx:Form id="form" width="60%" height="100%">
+		<mx:FormItem label="父节点">
+			<mx:TextInput id="parentnodename" editable="false" enabled="false"/>
+		</mx:FormItem>
+		<mx:FormItem label="类型">
+			<mx:ComboBox id="nodetype" labelField="label" creationComplete="nodetypeInit()" change="nodetypeInit()">
+				<mx:Array>
+					<mx:Object label="应用模块" value="Module" />
+					<mx:Object label="数据集合" value="Collection" />
+				</mx:Array>
+			</mx:ComboBox>
+		</mx:FormItem>
+		<mx:FormItem id="_allowview" label="视图">
+			<mx:ComboBox id="allowview">
+				<mx:Array>
+					<mx:Object label="允许" value="true" />
+					<mx:Object label="禁止" value="false" />
+				</mx:Array>
+			</mx:ComboBox>
+		</mx:FormItem>
+		<mx:FormItem label="状态">
+			<mx:ComboBox id="state">
+				<mx:Array>
+					<mx:Object label="正常" value="true" />
+					<mx:Object label="禁用" value="false" />
+				</mx:Array>
+			</mx:ComboBox>
+		</mx:FormItem>
+		<mx:FormItem label="名称">
+			<mx:TextInput id="nodename"/>
+		</mx:FormItem>
+		<mx:FormItem label="编码">
+			<mx:TextInput id="nodecode"/>
+		</mx:FormItem>
+		<mx:FormItem id="_tablename" label="表名">
+			<mx:TextInput id="tablename" change="tablename.text=tablename.text.toUpperCase();"/>
+		</mx:FormItem>
+		<mx:FormItem label="描述">
+			<mx:TextArea id="nodedesc" maxChars="512"/>
+		</mx:FormItem>
+		<mx:FormItem label="层级" visible="false" includeInLayout="false">
+			<mx:NumericStepper id="nodelevel" maximum="100"/>
+		</mx:FormItem>
+		<mx:FormItem label="PID" visible="false" includeInLayout="false">
+			<mx:TextInput id="pid"/>
+		</mx:FormItem>
+		<mx:FormItem label="UUID" visible="false" includeInLayout="false">
+			<mx:TextInput id="uuid"/>
+		</mx:FormItem>
+	</mx:Form>
+	
+	<mx:ControlBar horizontalAlign="center" horizontalGap="0" verticalGap="0">
+		<mx:HBox width="60%" horizontalAlign="center" verticalAlign="middle">
+			<mx:Button label="保存" click="submit()"/>
+			<mx:Button label="取消" click="PopUpManager.removePopUp(this)"/>
+		</mx:HBox>
+	</mx:ControlBar>
+	
+</mx:TitleWindow>

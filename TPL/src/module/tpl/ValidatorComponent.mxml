@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="500" height="500" 
+	horizontalAlign="center" verticalAlign="middle" showCloseButton="true" creationComplete="init();" close="PopUpManager.removePopUp(this)">
+	<mx:Script>
+		<![CDATA[
+			import org.utmost.util.AutoUtil;
+			import mx.rpc.events.ResultEvent;
+			import org.utmost.tpl.PopType;
+			import org.utmost.service.AutoService;
+			import mx.controls.AdvancedDataGrid;
+			import mx.managers.PopUpManager;
+				
+			public var $adg:AdvancedDataGrid;
+			public var $tablename:String;
+			public var $dataInit:Function;
+			public var $handle:String;
+			
+			private function init():void {
+				AutoUtil.clearValue(form);
+				if($handle==PopType.EDIT) {
+					AutoUtil.fillValue(form,$adg.selectedItem as Object);
+				}else if($handle==PopType.ADD) {
+					successmsg.text="校验成功!";
+					errormsg.text="校验失败!";
+				}else {
+					trace("由于参数异常 操作无效 $handle:"+$handle);
+				}
+				
+				//设置回车提交
+				this.setFocus();
+				this.addEventListener(KeyboardEvent.KEY_DOWN,function(e:KeyboardEvent):void {
+					if(e.charCode==13) {
+						submit();
+					}
+				});
+			}
+			
+			private function submit():void {
+				var service:AutoService=new AutoService();
+				if($handle==PopType.ADD) {
+					service.autoSave($tablename,form,function(e:ResultEvent):void {
+						$dataInit.call();
+						close();
+					});
+				}else if($handle==PopType.EDIT) {
+					service.autoUpdate($tablename,form,function(e:ResultEvent):void {
+						$dataInit.call();
+						close();
+					});
+				} else {
+					trace("由于参数异常 操作无效 $handle:"+$handle);
+				}
+			}
+			private function close():void {
+				PopUpManager.removePopUp(this);
+			}
+		]]>
+	</mx:Script>
+	<mx:Array id="dp_validtype">
+		<mx:Object label="regex" value="regex" />
+		<mx:Object label="hql" value="hql" />
+	</mx:Array>
+	<mx:Form id="form" width="60%" height="90%">
+		<mx:FormItem label="UUID" visible="false" includeInLayout="false">
+			<mx:TextInput id="uuid"/>
+		</mx:FormItem>
+		<mx:FormItem label="名称">
+			<mx:TextInput id="validname"/>
+		</mx:FormItem>
+		<mx:FormItem label="编码">
+			<mx:TextInput id="validcode"/>
+		</mx:FormItem>
+		<mx:FormItem label="类型">
+			<mx:ComboBox id="validtype" dataProvider="{dp_validtype}"></mx:ComboBox>
+		</mx:FormItem>
+		<mx:FormItem label="表达式">
+			<mx:TextArea id="expression" width="300" height="100"/>
+		</mx:FormItem>
+		<mx:FormItem label="成功提示">
+			<mx:TextArea id="successmsg"/>
+		</mx:FormItem>
+		<mx:FormItem label="失败提示">
+			<mx:TextArea id="errormsg"/>
+		</mx:FormItem>
+		<mx:FormItem label="描述">
+			<mx:TextArea id="validdesc"/>
+		</mx:FormItem>
+	</mx:Form>
+	<mx:ControlBar horizontalAlign="center" verticalAlign="middle">
+		<mx:Button label="确定" click="submit()"/>
+		<mx:Button label="取消" click="PopUpManager.removePopUp(this)"/>
+	</mx:ControlBar>
+</mx:TitleWindow>

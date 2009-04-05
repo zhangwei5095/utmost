@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%" xmlns:component="component.*" creationComplete="init()">
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import org.utmost.service.AutoService;
+			import mx.core.Application;
+			import mx.rpc.events.ResultEvent;
+			import org.utmost.service.UtmostService;
+			public function test():void {
+				iFrame.source="http://localhost:8080/UtmostTPL/REPORT/b1d2daad-3331-4611-b79b-b761a8b0b07b.html";
+				iFrame.visible=true;
+			}
+			public function viewReport():void {
+				var ut:UtmostService=new UtmostService("ReportService",function(e:ResultEvent):void {
+					trace("e.result:"+e.result.toString());
+					iFrame.source=Application.application.REPORTPATH+e.result.toString();
+					iFrame.visible=true;
+				});
+				ut.ro.buildHtmlByHql(reportcode.text,hql.text);
+				//select new map(item.uuid as rname,item.columntitle as rcode) from U_TPL_REPORT_ITEM item
+				//reporttest
+			}
+			
+			public function openWindow():void {
+				//ExternalInterface.call("window.open ('"+iFrame.source+"')");
+				ExternalInterface.call("window.open ('"+iFrame.source+"', '报表', ', , top=0,left=0, toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, status=no') ");
+			}
+			
+			private function init():void {
+				AutoService.getInstance().findByHql("from U_TPL_REPORT",function(e:ResultEvent):void {
+					if(e.result!=null) {
+						reportid.dataProvider=e.result as ArrayCollection;
+						callLater(function():void {
+							changeValue();
+						});
+					}
+				});
+			}
+			public function changeValue():void {
+				reportcode.text=reportid.selectedItem.reportcode.toString();
+				hql.text=reportid.selectedItem.sourcehql.toString();
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:HBox width="100%" height="80" verticalAlign="middle" horizontalAlign="center">
+		<mx:ComboBox id="reportid" labelField="reportname" change="changeValue()"></mx:ComboBox>
+		<mx:TextInput id="reportcode"/>
+		<mx:TextArea  id="hql" width="400" height="60"/>
+		<mx:Button label="查看" click="viewReport()"/>
+		<mx:Button label="弹出" click="openWindow()"/>
+		<!--mx:Button label="测试" click="test()"/-->
+	</mx:HBox>
+	
+	<mx:HBox width="100%" height="100%">
+		<component:IFrame id="iFrame" source="" width="100%" height="100%"  />
+	</mx:HBox>
+</mx:Module>

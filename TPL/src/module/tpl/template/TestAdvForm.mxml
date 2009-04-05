@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%">
+	<mx:Script>
+		<![CDATA[
+			import mx.controls.ToolTip;
+			import org.utmost.util.AutoUtil;
+			import mx.validators.StringValidator;
+			import mx.validators.RegExpValidator;
+			import mx.containers.Form;
+			import org.utmost.tpl.ViewUtil;
+			import mx.containers.FormItem;
+			import mx.controls.TextInput;
+			import mx.collections.ArrayCollection;
+			import mx.rpc.events.ResultEvent;
+			import org.utmost.service.AutoService;
+			
+			private function viewInit($cid:String):void {
+				vbox.removeAllChildren();
+				trace("$cid:"+$cid);
+				var service:AutoService=new AutoService();
+				var hql:String="from U_TPL_TEMPLATEVIEWBYADV v where v.cid='"+$cid+"' and v.view='M_ADD'";
+				service.findByHql(hql,function (e:ResultEvent):void {
+					var ac:ArrayCollection=e.result as ArrayCollection;
+					trace(ac.length);
+					var form:Form=ViewUtil.buildForm(ac);
+					form.width=400;
+					form.height=400;
+					form.visible=true;
+					vbox.addChild(form);
+				});
+			}
+			
+			private function findTables():void {
+				var service:AutoService=new AutoService();
+				service.findByHql("from U_TPL_TEMPLATE v where v.nodetype='Collection'",function(e:ResultEvent):void {
+					var ac:ArrayCollection=e.result as ArrayCollection;
+					tablename.dataProvider=ac;
+					viewInit((String)(tablename.selectedItem.uuid));
+				});
+			}
+			
+			private function setValidator():void {
+				//this["1111111111111"]="22222222222222222";
+				var $cid:String=(String)(tablename.selectedItem.uuid);
+				var hql:String="from U_TPL_TEMPLATEVIEWBYADV v where v.cid='"+$cid+"' and v.view='M_ADD'";
+				var service:AutoService=new AutoService();
+				service.findByHql(hql,function(e:ResultEvent):void {
+					var ac:ArrayCollection=e.result as ArrayCollection;
+					for(var i:int=0;i<ac.length;i++) {
+						var o:Object=ac.getItemAt(i);
+						if(o.fieldtype=="TextInput"&&o.validator!="") {
+							trace(o.fieldname+"--"+o.fieldtype+"--"+o.validator);	
+							var val:String=o.validator;
+							var valArr:Array=val.split("#");
+							trace("valArr.length:"+valArr.length);
+							for(var x:int=0;x<valArr.length;x++) {
+								var s:String=valArr[x];
+								trace("s:"+s);
+								var service:AutoService=new AutoService();
+								if(s=="")
+									return;
+								service.findByHql("from U_TPL_VALIDATOR v where v.validcode='"+s+"'",function(e:ResultEvent):void {
+									var tac:ArrayCollection=e.result as ArrayCollection;
+									trace("tac.length:"+tac.length);
+									var vObj:Object=tac.getItemAt(0);
+									trace("vObj.expression:"+vObj.expression);
+									addValidator(o,vObj.expression);
+								});
+							}
+						}
+					}
+				});
+			}
+			
+			private function addValidator(o:Object,regex:String):void {
+				trace("addValidator:"+o+"--"+regex);
+//				var val:RegExpValidator=new RegExpValidator();
+//				val.source=o.fieldcode;
+//				val.property="text";
+				//var val:StringValidator=new StringValidator();
+				//trace(this);
+				//val.source=this.getChildByName(o.fieldcode);
+				//val.property="text";
+				//var obj:DisplayObject=(val as DisplayObject);
+				//obj.name="Validator_"+o.fieldcode;
+				//this.addChild(obj);
+//				trace("adbc");
+				//val.id="Validator_"+o.fieldcode;
+				//this["Validator_"+o.fieldcode]=val;
+				//this.
+				//this.
+				
+			}
+			
+			private function submit():void {
+				AutoUtil.findValue(vbox);
+			}
+			private function execJS():void {
+				ExternalInterface.call("alert","忽忽");
+				
+			}
+		]]>
+	</mx:Script>
+	<mx:RegExpValidator>
+		
+	</mx:RegExpValidator>
+	<mx:ComboBox id="tablename" labelField="tablename" creationComplete="findTables();"
+		 change="viewInit((String)(tablename.selectedItem.uuid))" rowCount="15">
+	</mx:ComboBox>
+	<mx:VBox id="vbox" width="100%" height="100%" horizontalAlign="center" verticalAlign="middle">
+	</mx:VBox>
+	<mx:HBox width="100%" height="30" horizontalAlign="center" verticalAlign="middle" horizontalGap="60">
+		<mx:Button label="校验测试" click="setValidator()"/>
+		<mx:Button label="保存测试" click="submit()"/>
+		<mx:Button label="修改测试" click="execJS()"/>
+	</mx:HBox>
+</mx:Module>

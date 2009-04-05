@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%" creationComplete="init()" xmlns:component="component.*">
+	<mx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			import mx.events.ListEvent;
+			import mx.collections.ArrayCollection;
+			import org.utmost.util.ComponentUtil;
+			import mx.core.Application;
+
+			private function init():void
+			{
+				//隐藏主窗口
+				ComponentUtil.setVisible(Application.application.MACB, false);
+			}
+
+			//produce programme 
+			private function programme():void
+			{
+				ComponentUtil.setVisible(Application.application.MACB, true);
+				Application.application.loadModule("module/TPLModule.swf");
+			}
+			[Bindable]
+			private var portalAC:ArrayCollection=new ArrayCollection();
+			
+			private function trasSystem(event:ListEvent):void {
+				var o:Object=event.itemRenderer.data;
+//				trace("o.@nodename:"+o.@nodename);
+//				trace("o.@nodecode:"+o.@nodecode);
+//				trace("o.@module:"+o.@module);
+//				trace("o.@icon:"+o.@icon);
+				if(o.@nodecode=="Portal") {
+					Application.application.$modulesystreeForChild=new XML(PortalTree.node);
+				}else if(o.@nodecode=="BankRisk") {
+					Application.application.$modulesystreeForChild=new XML(BankRiskTree.node);
+				}else if(o.@nodecode=="BankIntendance") {
+					Application.application.$modulesystreeForChild=new XML(BankIntendance.node);
+				}else if(o.@nodecode=="SysMonitor") {
+					Application.application.$modulesystreeForChild=new XML(SysMonitorTree.node);
+				}else{
+					Alert.show("无效的节点编码","提示");
+					return;
+				}
+				Application.application.$modulecodeForChild=o.@nodecode;
+				Application.application.$modulenameForChild=o.@nodename;
+				Application.application.loadModule(o.@module);
+			}
+		]]>
+	</mx:Script>
+	<mx:XML id="MainTree" source="xml/portal/MainTree.xml"/>
+	<mx:XML id="PortalTree" source="xml/portal/PortalTree.xml"/>
+	<mx:XML id="SysMonitorTree" source="xml/portal/SysMonitorTree.xml"/>
+	<mx:XML id="BankRiskTree" source="xml/portal/BankRiskTree.xml"/>
+	<mx:XML id="BankIntendance" source="xml/portal/BankIntendanceTree.xml"/>
+	<!--mx:ArrayCollection id="portalAC_bak">
+		<mx:source>
+			<mx:Array>
+				<mx:Object name="One"/>
+				<mx:Object name="Two"/>
+				<mx:Object name="Three"/>
+				<mx:Object name="Four"/>
+				<mx:Object name="Five"/>
+				<mx:Object name="Six"/>
+			</mx:Array>
+		</mx:source>
+	</mx:ArrayCollection>
+	<mx:Zoom id="effect_2" zoomHeightTo="1.1" zoomWidthTo="1.1" captureRollEvents="true" />
+		 <mx:Zoom id="effect_1" zoomHeightTo="1.1" zoomWidthTo="1.1" captureRollEvents="true" /-->
+	<mx:VBox width="100%" height="100%" horizontalAlign="center" verticalAlign="middle">
+		<mx:ApplicationControlBar width="100%" height="40">
+			<mx:HBox width="100%" height="100%" horizontalAlign="right" verticalAlign="middle">
+				<mx:Button label="编辑" click="programme()"/>
+			</mx:HBox>
+		</mx:ApplicationControlBar>
+		<mx:Spacer height="8%"/>
+		<component:MyTileList id="tileList" width="80%" height="80%" itemClick="trasSystem(event)" dataProvider="{MainTree.node}" itemRenderer="component.ImageItemRenderer" columnCount="4" backgroundAlpha="0.0" borderSides="0" dragEnabled="true" focusAlpha="0.0" dragMoveEnabled="true" dropEnabled="true">
+		</component:MyTileList>
+	</mx:VBox>
+</mx:Module>
