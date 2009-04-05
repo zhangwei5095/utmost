@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jwebap>
+	<!--plugins-->
+	<plugin name="Tracer" ref="${ABSOLUTE_PATH}/tracer.jar"/>
+	 
+	<!--dispatcher-->
+	<dispatcher name="RedirectDispatcher" mapping="" type="org.jwebap.ui.controler.DefaultRedirectDispatcher"  />
+	<dispatcher name="ActionDispatcher" mapping="/console/*" type="org.jwebap.ui.controler.ActionDispatcher"  />
+	<dispatcher name="ResourceDispatcher" mapping="/resources/*" type="org.jwebap.ui.controler.ResourceDispatcher"  />
+	
+	<!--action-mapping-->
+	<action-mapping>
+		<action path="/" type="org.jwebap.ui.action.EmptyAction" template="resources/view/index.ctl" />
+		<action path="/deploy/plugins" type="org.jwebap.ui.action.EmptyAction" template="resources/view/plugin_deploy.ctl" />
+		<action path="/deploy/plugins/list" type="org.jwebap.ui.action.PluginListAction" />
+		<action path="/deploy/plugins/remove" type="org.jwebap.ui.action.PluginRemoveAction" />
+		<action path="/deploy/plugins/new" type="org.jwebap.ui.action.PluginFormAction"  template="resources/view/plugin_deploy_new.ctl" />
+		<action path="/deploy/plugins/add" type="org.jwebap.ui.action.PluginAddAction"  />
+		
+		<action path="/deploy/plugins/detail" type="org.jwebap.ui.action.EmptyAction"  template="resources/view/plugin_detail.ctl" />
+		<action path="/deploy/plugins/components/list" type="org.jwebap.ui.action.ComponentListAction" />
+		<action path="/deploy/plugins/components/detail" type="org.jwebap.ui.action.ComponentFormAction"  template="resources/view/component_detail.ctl" />
+		<action path="/deploy/plugins/components/save" type="org.jwebap.ui.action.ComponentSaveAction"  />
+	</action-mapping>
+</jwebap>
