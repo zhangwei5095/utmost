@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%"
+	horizontalAlign="center" verticalAlign="middle" verticalScrollPolicy="off" paddingLeft="-10" paddingTop="-3"
+	horizontalScrollPolicy="off" creationComplete="init();">
+	<mx:MenuBar width="100%" height="100%" iconField="@icon" labelField="@label"
+		textAlign="center" dataProvider="{xmlMenu}" itemClick="popMen(event)">
+	</mx:MenuBar>
+	<mx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			import mx.events.MenuEvent;
+			[Bindable]
+			private var xmlMenu:XMLList;
+			public function init():void {
+				xmlMenu=this.parentDocument.DGboxXMLList;
+				if(xmlMenu==null) {
+					trace("缺少DGboxXMLList对象或对象为空");
+				}
+			}
+			public function popMen(event:MenuEvent):void {
+				var clickfun:String=event.item.@click;
+				if(this.parentDocument.hasOwnProperty(clickfun)) {
+					this.parentDocument[clickfun](event);
+				}else {
+					trace(clickfun+"方法未定义");
+				}
+			}
+		]]>
+	</mx:Script>
+</mx:HBox>

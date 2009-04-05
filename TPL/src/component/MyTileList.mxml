@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TileList xmlns:mx="http://www.adobe.com/2006/mxml">
+	<mx:Script>
+		<![CDATA[
+				import mx.controls.listClasses.IListItemRenderer;
+				protected override function drawItem(item:IListItemRenderer,selected:Boolean = false,highlighted:Boolean = false,caret:Boolean = false,transition:Boolean = false):void{     
+					    super.drawItem(item,false,false,caret,transition)                
+				}
+		]]>
+	</mx:Script>
+</mx:TileList>
