@@ -1,0 +1,39 @@
+<definitionInclude>
+	<importDefinition name="U_TPL_TEMPLATEVIEW" selectStatement="select
+		UUID, 
+	 	CID,
+	 	CPID,
+	 	FIELDNAME,
+	 	FIELDCODE,
+	 	FIELDTYPE,
+	 	FIELDORDER,
+	 	DEFAULTVALUE,
+	 	REFERENCE,
+	 	VALIDATOR,
+	 	FIELDLENGTH,
+	 	FIELDDESC,
+	 	STATE
+	from U_TPL_TEMPLATEVIEW
+	" logMode="full" objectIDIncrement="1" >
+		<valueColumns>
+			<valueColumn sourceColumnName="UUID" targetTableName="U_TPL_TEMPLATEVIEW" targetColumnName="UUID" targetTableID="0" valueMode="Key"/>
+			<valueColumn sourceColumnName="CID" targetTableName="U_TPL_TEMPLATEVIEW" targetColumnName="CID" targetTableID="0" valueMode="Overwrite"/>
+			<valueColumn sourceColumnName="CPID" targetTableName="U_TPL_TEMPLATEVIEW" targetColumnName="CPID" targetTableID="0" valueMode="Overwrite"/>
+			<valueColumn sourceColumnName="FIELDNAME" targetTableName="U_TPL_TEMPLATEVIEW" targetColumnName="FIELDNAME" targetTableID="0" valueMode="Overwrite"/>
+			<valueColumn sourceColumnName="FIELDCODE" targetTableName="U_TPL_TEMPLATEVIEW" targetColumnName="FIELDCODE" targetTableID="0" valueMode="Overwrite"/>
+			<valueColumn sourceColumnName="FIELDTYPE" targetTableName="U_TPL_TEMPLATEVIEW" targetColumnName="FIELDTYPE" targetTableID="0" valueMode="Overwrite"/>
+			<valueColumn sourceColumnName="FIELDORDER" targetTableName="U_TPL_TEMPLATEVIEW" targetColumnName="FIELDORDER" targetTableID="0" valueMode="Overwrite"/>
+			<valueColumn sourceColumnName="DEFAULTVALUE" targetTableName="U_TPL_TEMPLATEVIEW" targetColumnName="DEFAULTVALUE" targetTableID="0" valueMode="Overwrite"/>
+			<valueColumn sourceColumnName="REFERENCE" targetTableName="U_TPL_TEMPLATEVIEW" targetColumnName="REFERENCE" targetTableID="0" valueMode="Overwrite"/>
+			<valueColumn sourceColumnName="VALIDATOR" targetTableName="U_TPL_TEMPLATEVIEW" targetColumnName="VALIDATOR" targetTableID="0" valueMode="Overwrite"/>
+			<valueColumn sourceColumnName="FIELDLENGTH" targetTableName="U_TPL_TEMPLATEVIEW" targetColumnName="FIELDLENGTH" targetTableID="0" valueMode="Overwrite"/>
+			<valueColumn sourceColumnName="FIELDDESC" targetTableName="U_TPL_TEMPLATEVIEW" targetColumnName="FIELDDESC" targetTableID="0" valueMode="Overwrite"/>
+			<valueColumn sourceColumnName="STATE" targetTableName="U_TPL_TEMPLATEVIEW" targetColumnName="STATE" targetTableID="0" valueMode="Overwrite"/>
+		</valueColumns>
+		<tables>
+			<table tableName="U_TPL_TEMPLATEVIEW" tableID="0" insert="true" tableMode="Query" oidLogic="false"/>
+		</tables>
+	</importDefinition>
+	
+	
+</definitionInclude>

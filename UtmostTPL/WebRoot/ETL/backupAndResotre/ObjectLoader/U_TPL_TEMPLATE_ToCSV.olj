@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<loaderJob logMode="normal" objectIDIncrement="1" objectIDTableName="objectid" objectIDColumnName="next" >
+	<jdbcDefaultParameters>
+
+		<jdbcSourceParameters dbVendor="DB2" driverName="db2">
+            		<jdbcSourceParameter name='Password' value="db2admin"/>
+            		<jdbcSourceParameter name='Connection.Url' value='jdbc:db2://192.168.1.129:50000/tpl'/>
+            		<jdbcSourceParameter name='JdbcDriver' value='com.ibm.db2.jcc.DB2Driver'/>
+            		<jdbcSourceParameter name='User' value='db2admin'/>
+    </jdbcSourceParameters>
+
+		<jdbcTargetParameters dbVendor = "csv" >
+			<jdbcTargetParameter name="JdbcDriver" value="org.relique.jdbc.csv.CsvDriver"/>
+			<jdbcTargetParameter name="Connection.Url" value="jdbc:relique:csv:LoaderOutput;separator=,;fileExtension=csv;create=true;charset=UnicodeLittle"/>
+		</jdbcTargetParameters>
+	</jdbcDefaultParameters>	
+	<sql name="CreateTables" onErrorContinue="false" commit="true">
+		<sqlStmt>
+			<include href="includes/U_TPL_TEMPLATE.sql" parse="text"/>
+		</sqlStmt>
+	</sql>
+
+	<definitionInclude>	
+		<include href="U_TPL_TEMPLATEDefinition.oli" parse="xml"/>
+		<include href="U_TPL_TEMPLATEDATADefinition.oli" parse="xml"/>
+		<include href="U_TPL_TEMPLATEVIEWDefinition.oli" parse="xml"/>
+		
+	</definitionInclude>
+
+
+</loaderJob>
