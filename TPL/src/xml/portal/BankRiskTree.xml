@@ -1,0 +1,6 @@
+<node nodename="BankRiskTree">
+	<node nodename="预警信息">
+		<node nodename="风险预警配置" module="module/system/bankrisk/RiskInfoTemplateModule.swf" />
+		<node nodename="预警信息" module="module/system/bankrisk/RiskInfoModule.swf" />
+	</node>	
+</node>

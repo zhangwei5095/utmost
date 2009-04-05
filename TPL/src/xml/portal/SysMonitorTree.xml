@@ -1,0 +1,4 @@
+<node nodename="SysMonitorTree">
+	<node nodename="系统监控">
+	</node>
+</node>

@@ -1,0 +1,20 @@
+<node nodename="BankIntendanceTree">
+	<node nodename="事后监督">
+	    <node nodename="后督系统业务配置">
+	        <node nodename="差错种类管理" module="module/auth/AuthErrorTypeModule.swf" />
+		    <node nodename="监督业务类型管理" module="module/auth/AuthBusiTypeModule.swf" />
+		</node>
+		<node nodename="凭证影像管理">
+		</node>
+		<node nodename="系统监控">
+		</node>
+		<node nodename="影像存储">
+		</node>
+		<node nodename="后督系统业务处理">
+		</node>
+		<node nodename="OCR识别">
+		</node>
+		<node nodename="数据备份">
+		</node>
+	</node>
+</node>
