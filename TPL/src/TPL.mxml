@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" backgroundGradientColors="[#ffffff, #ffffff]"
+	layout="vertical" applicationComplete="init()" xmlns:kapit="fr.kapit.*" preloader="org.utmost.component.MyPreloader">
+	<mx:Style source="skins/style.css"/>
+	<!--mx:Style source="skins/ResizableTitleWindow.css"/-->
+	<!--
+		<mx:Style source="skins/vista/VistaTheme.css"/>
+	-->
+	
+	<mx:Style source="skins/itunes7/ItunesTheme.css"/>
+	<!--<mx:Style source="assets/css/Main.css" />-->
+	<!--
+	<mx:Style source="skins/undefined/css/skinPreview.css"/>-->
+	<!--<mx:Style source="skins/kingnare/style.css"/>-->
+	<mx:Script>
+		<![CDATA[
+			import ascb.util.NumberFormat;
+			import mx.formatters.NumberFormatter;
+			import flash.utils.setInterval;
+			import org.utmost.util.ComponentUtil;
+			import module.auth.LoginComponent;
+			import mx.controls.Alert;
+			import mx.core.IFlexDisplayObject;
+			import module.ModuleInterface;
+			import mx.events.ModuleEvent;
+			import mx.managers.PopUpManager;
+			public var REPORTPATH:String="http://localhost:8080/UtmostTPL/REPORT/";
+			public var DETECTPATH:String="http://localhost:8080/UtmostTPL/detect/";
+			
+			Alert.yesLabel="确定";
+			Alert.noLabel="取消";
+			private function init():void {
+				//this.loadModule("module/DefaultModule.swf");
+				//this.loadModule("module/PortalModule.swf");
+				ComponentUtil.setVisible(MACB,false);
+				showLogin();
+				memoryMonitor();
+				//this.loadModule("module/TPLModule.swf");
+			}
+			
+			//登陆页面
+			public function showLogin():void {
+				var obj:IFlexDisplayObject=PopUpManager.createPopUp(this, LoginComponent, true);
+				obj.addEventListener("LoginComponent_portal",function(e:Event):void {
+					//trace("LoginComponent_portal");
+					Application.application.loadModule("module/PortalModule.swf");
+					//ComponentUtil.setVisible(MACB,true);
+				});
+				obj.addEventListener("LoginComponent_programme",function(e:Event):void {
+					//trace("LoginComponent_programme");
+					Application.application.loadModule("module/TPLModule.swf");
+					ComponentUtil.setVisible(MACB,true);
+				});
+				PopUpManager.centerPopUp(obj);
+			}
+			//装载模板
+	        public function loadModule(name:String):void {
+	            currentModule.url = name;
+	        }
+	        //取消模板
+	        public function removeModule():void {
+	            currentModule.url = null;
+	        }
+	         
+	        public var $modulecodeForChild:String;
+	        public var $modulenameForChild:String;
+	        public var $modulesystreeForChild:XML;
+	        private function readyModule(e:ModuleEvent):void {
+	        	var mobj:ModuleLoader=e.target as ModuleLoader;
+	        	var child:ModuleInterface=mobj.child as ModuleInterface;
+	        	if(child!=null) {
+	        		child.$modulecode=$modulecodeForChild;
+	        		child.$modulename=$modulenameForChild;
+	        		child.$moduletree=$modulesystreeForChild;
+	        	}
+	        	$modulecodeForChild="";
+	        	$modulenameForChild="";
+	        	$modulesystreeForChild=null;
+	        }
+	        
+	        private var nf:NumberFormat=new NumberFormat("###.00");
+	        private function memoryMonitor():void {
+	        	setInterval(function():void {
+	        		var n:String=nf.format(System.totalMemory/1024/1024);
+	        		memory.text="VM "+n+" MB";
+	        	},1000);
+	        	
+	        	setInterval(function():void {
+	        		//System.gc();
+	        	},1000*60);
+	        }
+	        
+	        private function SysMonitor():void {
+	        	ExternalInterface.call("window.open ('"+DETECTPATH+"', '系统监测', ', , top=0,left=0, toolbar=no, menubar=no, scrollbars=yes, resizable=yes,location=no, status=no') ");
+	        }
+		]]>
+	</mx:Script>
+	<mx:RemoteObject id="SpringContext" showBusyCursor="true" destination="SpringContext" fault="Alert.show('异常-->'+event.fault)">
+		<mx:method name="reloadSpring" result="Alert.show('重新加载完毕!','提示')"/>
+	</mx:RemoteObject>
+	<mx:ApplicationControlBar id="MACB" dock="true" width="90%" paddingLeft="20" alpha="0.8" paddingTop="5">
+		<mx:Button label="Portal" click="loadModule('module/PortalModule.swf')"/>
+		<!--mx:Button label="TPL" click="loadModule('module/TPLModule.swf')"/-->
+		<mx:Button label="Reload" click="SpringContext.reloadSpring()"/>
+		<mx:Button label="监测" click="SysMonitor()"/>
+		<mx:Label id="memory"/>
+	</mx:ApplicationControlBar>
+	<mx:ModuleLoader id="currentModule" width="100%" height="100%" ready="readyModule(event)">
+	</mx:ModuleLoader>
+	<!--kapit:KapInspect/-->
+</mx:Application>
