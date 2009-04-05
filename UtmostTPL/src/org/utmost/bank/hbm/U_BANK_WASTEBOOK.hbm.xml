@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class entity-name="U_BANK_WASTEBOOK" table="U_BANK_WASTEBOOK">
+		<id name="uuid" column="UUID" length="36" type="java.lang.String">
+			<generator class="uuid" />
+		</id>
+		
+		<!--公用信息-->
+		<property name="uniseqno" type="java.lang.String">
+			<column length="36" name="UNISEQNO">
+				<comment>业务唯一标示号(流水等...)</comment>
+			</column>
+		</property>
+		<property name="zoneno" type="java.lang.String">
+			<column length="16" name="ZONENO">
+				<comment>地区号</comment>
+			</column>
+		</property>
+		<property name="brno" type="java.lang.String">
+			<column length="16" name="BRNO">
+				<comment>网点号</comment>
+			</column>
+		</property>
+		<property name="tellerno" type="java.lang.String">
+			<column length="16" name="TELLERNO">
+				<comment>柜员号</comment>
+			</column>
+		</property>
+		<property name="trxcode" type="java.lang.String">
+			<column length="16" name="TRXCODE">
+				<comment>交易代码</comment>
+			</column>
+		</property>
+		<property name="trxtype" type="java.lang.String">
+			<column length="16" name="TRXTYPE">
+				<comment>交易类型</comment>
+			</column>
+		</property>
+		<property name="trxdate" type="java.lang.String">
+			<column length="8" name="TRXDATE">
+				<comment>交易日期(yyyyMMdd)</comment>
+			</column>
+		</property>
+		<property name="trxtime" type="java.lang.String">
+			<column length="6" name="TRXTIME">
+				<comment>交易时间_24进制(HHmmss)</comment>
+			</column>
+		</property>
+		<property name="busstype" type="java.lang.String">
+			<column length="16" name="BUSSTYPE">
+				<comment>业务类型(Myself)</comment>
+			</column>
+		</property>
+		<property name="ref" type="java.lang.String">
+			<column length="20" name="REF">
+				<comment>业务编号(暂不用)</comment>
+			</column>
+		</property>
+		<property name="oref" type="java.lang.String">
+			<column length="20" name="OREF">
+				<comment>相关业务编号(暂不用)</comment>
+			</column>
+		</property>
+		<property name="summflag" type="java.lang.String">
+			<column length="128" name="SUMMFLAG">
+				<comment>摘要</comment>
+			</column>
+		</property>
+		
+		<!-- 凭证 -->
+		<property name="voukind" type="java.lang.String">
+			<column length="3" name="VOUKIND">
+				<comment>凭证种类</comment>
+			</column>
+		</property>
+		<property name="beginvouno" type="java.lang.String">
+			<column length="20" name="BEGINVOUNO">
+				<comment>起始凭证号</comment>
+			</column>
+		</property>
+		<property name="endvouno" type="java.lang.String">
+			<column length="20" name="ENDVOUNO">
+				<comment>终止凭证号</comment>
+			</column>
+		</property>
+		<!-- 标志 -->
+		<property name="cdflag" type="java.lang.String">
+			<column length="1" name="CDFLAG">
+				<comment>借贷标志(D 借付取往 C 贷收存来)</comment>
+			</column>
+		</property>
+		<property name="catrflag" type="java.lang.String">
+			<column length="1" name="CATRFLAG">
+				<comment>现转标志(1 现金 现钞 2 转账 现汇)</comment>
+			</column>
+		</property>
+		<property name="sealf" type="java.lang.String">
+			<column length="1" name="SEALF">
+				<comment>印密标志(1 印章 2 密码)</comment>
+			</column>
+		</property>
+		<property name="crosf" type="java.lang.String">
+			<column length="1" name="CROSF">
+				<comment>通兑标志(1 通兑 2 不通兑)</comment>
+			</column>
+		</property>
+		<property name="cashexf" type="java.lang.String">
+			<column length="1" name="CASHEXF">
+				<comment>钞汇标志(1 现金 现钞 2 转账 现汇) 暂不用</comment>
+			</column>
+		</property>
+		<property name="updatranf" type="java.lang.String">
+			<column length="1" name="UPDTRANF">
+				<comment>冲正交易标志(1 冲正 2 非冲正)</comment>
+			</column>
+		</property>
+		
+		<!--客户信息-->
+		<!--客户红方信息(主信息)-->
+		<property name="rcino" type="java.lang.String">
+			<column length="20" name="RCINO">
+				<comment>客户信息号</comment>
+			</column>
+		</property>
+		<property name="rcustname" type="java.lang.String">
+			<column length="30" name="RCUSTNAME">
+				<comment>户名</comment>
+			</column>
+		</property>
+		<property name="rcusttype" type="java.lang.String">
+			<column length="2" name="RCUSTTYPE">
+				<comment>客户类型</comment>
+			</column>
+		</property>
+		<property name="rlgldoctp" type="java.lang.String">
+			<column length="2" name="RLGLDOCTP">
+				<comment>证件类型</comment>
+			</column>
+		</property>
+		<property name="ridcode" type="java.lang.String">
+			<column length="20" name="RIDCODE">
+				<comment>证件号码</comment>
+			</column>
+		</property>
+		<!--客户蓝方信息-->
+		<property name="bcino" type="java.lang.String">
+			<column length="20" name="BCINO">
+				<comment>客户信息号</comment>
+			</column>
+		</property>
+		<property name="bcustname" type="java.lang.String">
+			<column length="30" name="BCUSTNAME">
+				<comment>户名</comment>
+			</column>
+		</property>
+		<property name="bcusttype" type="java.lang.String">
+			<column length="2" name="BCUSTTYPE">
+				<comment>客户类型</comment>
+			</column>
+		</property>
+		<property name="blgldoctp" type="java.lang.String">
+			<column length="2" name="BLGLDOCTP">
+				<comment>证件类型</comment>
+			</column>
+		</property>
+		<property name="bidcode" type="java.lang.String">
+			<column length="20" name="BIDCODE">
+				<comment>证件号码</comment>
+			</column>
+		</property>
+
+
+		<!--账户红方信息(主信息)-->
+		<property name="racctno" type="java.lang.String">
+			<column length="36" name="RACCTNO">
+				<comment>账户账号</comment>
+			</column>
+		</property>
+		<property name="rcardno" type="java.lang.String">
+			<column length="36" name="RCARDNO">
+				<comment>账户卡号</comment>
+			</column>
+		</property>
+		<property name="raccttype" type="java.lang.String">
+			<column length="2" name="RACCTTYPE">
+				<comment>账户类型</comment>
+			</column>
+		</property>
+		<!--账户蓝方信息-->
+		<property name="bacctno" type="java.lang.String">
+			<column length="36" name="BACCTNO">
+				<comment>账户账号</comment>
+			</column>
+		</property>
+		<property name="bcardno" type="java.lang.String">
+			<column length="36" name="BCARDNO">
+				<comment>账户卡号</comment>
+			</column>
+		</property>
+		<property name="baccttype" type="java.lang.String">
+			<column length="2" name="BACCTTYPE">
+				<comment>账户类型</comment>
+			</column>
+		</property>
+
+		<!--代理人-->
+		<property name="depuname" type="java.lang.String">
+			<column length="30" name="DEPUNAME">
+				<comment>代理人姓名</comment>
+			</column>
+		</property>
+		<property name="deputype" type="java.lang.String">
+			<column length="2" name="DEPUTYPE">
+				<comment>代理人证件类型</comment>
+			</column>
+		</property>
+		<property name="depuno" type="java.lang.String">
+			<column length="20" name="DEPUNO">
+				<comment>代理人证件号</comment>
+			</column>
+		</property>
+		
+		<!--账户信息-->
+		<property name="currtyp1" type="java.lang.String">
+			<column length="3" name="CURRTYP1">
+				<comment>币种1</comment>
+			</column>
+		</property>
+		<property name="amount1" type="java.lang.String">
+			<column length="30" name="AMOUNT1">
+				<comment>发生额1</comment>
+			</column>
+		</property>
+		<property name="currtyp2" type="java.lang.String">
+			<column length="3" name="CURRTYP2">
+				<comment>币种2</comment>
+			</column>
+		</property>
+		<property name="amount2" type="java.lang.String">
+			<column length="30" name="AMOUNT2">
+				<comment>发生额2</comment>
+			</column>
+		</property>
+		<property name="currtyp3" type="java.lang.String">
+			<column length="3" name="CURRTYP3">
+				<comment>币种3</comment>
+			</column>
+		</property>
+		<property name="amount3" type="java.lang.String">
+			<column length="30" name="AMOUNT3">
+				<comment>发生额3</comment>
+			</column>
+		</property>
+		<property name="CURRTYP4" type="java.lang.String">
+			<column length="4" name="CURRTYP4">
+				<comment>币种4</comment>
+			</column>
+		</property>
+		<property name="amount4" type="java.lang.String">
+			<column length="430" name="AMOUNT4">
+				<comment>发生额4</comment>
+			</column>
+		</property>
+		<property name="currtyp5" type="java.lang.String">
+			<column length="5" name="CURRTYP5">
+				<comment>币种5</comment>
+			</column>
+		</property>
+		<property name="amount5" type="java.lang.String">
+			<column length="30" name="AMOUNT5">
+				<comment>发生额5</comment>
+			</column>
+		</property>
+		<property name="currtyp6" type="java.lang.String">
+			<column length="6" name="CURRTYP6">
+				<comment>币种6</comment>
+			</column>
+		</property>
+		<property name="amount6" type="java.lang.String">
+			<column length="30" name="AMOUNT6">
+				<comment>发生额6</comment>
+			</column>
+		</property>
+		
+		<!--特殊交易-->
+		
+		
+	</class>
+</hibernate-mapping>

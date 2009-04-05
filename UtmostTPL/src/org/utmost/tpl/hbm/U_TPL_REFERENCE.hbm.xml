@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class entity-name="U_TPL_REFERENCE" table="U_TPL_REFERENCE">
+		<id column="UUID" length="36" name="uuid" type="java.lang.String">
+			<generator class="uuid" />
+		</id>
+		<property name="refname" type="java.lang.String">
+			<column length="128" name="REFNAME">
+				<comment>引用名称</comment>
+			</column>
+		</property>
+		<property name="datalabel" type="java.lang.String">
+			<column length="128" name="DATALABEL">
+				<comment>标签</comment>
+			</column>
+		</property>
+		<property name="datavalue" type="java.lang.String">
+			<column length="128" name="DATAVALUE">
+				<comment>值</comment>
+			</column>
+		</property>
+		<property name="dataorder" type="java.lang.String">
+			<column length="128" name="DATAORDER">
+				<comment>次序</comment>
+			</column>
+		</property>
+		<property name="datadesc" type="java.lang.String">
+			<column length="256" name="DATADESC">
+				<comment>描述</comment>
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>

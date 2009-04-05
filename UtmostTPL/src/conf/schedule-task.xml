@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+	<!-- 起动Bean -->
+	<bean id="schedulerTask"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="simpReportTrigger" />
+			</list>
+		</property>
+	</bean>	
+	<!-- 简单调度 -->
+	<bean id="simpReportTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail">
+			<ref bean="scheduledReportJobDetail" />
+		</property>
+		<property name="repeatCount">
+			<value>0</value>
+		</property>
+	</bean>
+
+	<!-- 定时器设定起动频率&启动时间我设的是每5秒起动一次 (0 0 4 * * ?每日四点起动.) -->
+	<bean id="cronReportTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<!-- property name="jobDetail">
+			<ref bean="scheduledReportJobDetail" />
+		</property>
+		<property name="cronExpression">
+			<value> 10,15,20,25,30,35,40,45,50,55 * * * * ? </value>
+		</property-->
+	</bean>
+
+	<!-- jobBean用于设定启动时运用的Bean与方法 -->
+	<bean id="scheduledReportJobDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="TPLTaskService" />
+		</property>
+		<property name="targetMethod">
+			<value>run</value>
+		</property>
+	</bean>
+</beans>

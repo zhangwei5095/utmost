@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="   
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd   
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd   
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+	<!-- Hibernate SessionFactory -->
+	<bean id="SessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration" />
+		<property name="configLocation">
+			<value>classpath:conf/hibernate.cfg.xml
+			</value>
+		</property>
+		<!--
+			<property name="mappingJarLocations"> <list>
+			<value>classpath*:../lib/jbpm-jpdl.jar</value> </list> </property>
+		-->
+		<property name="mappingDirectoryLocations">
+			<list>
+				<value>classpath:/org/utmost/tpl/hbm/
+				</value>
+				<value>classpath:/org/utmost/etl/hbm/
+				</value>
+				<value>classpath:/org/utmost/portal/hbm/
+				</value>
+				<value>classpath:/org/utmost/report/hbm/
+				</value>
+				<!-- <value>classpath:/org/utmost/bank/hbm/</value> -->
+				<value>classpath:/org/utmost/hbm/</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="SessionFactory" />
+	</bean>
+
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="save*" propagation="REQUIRED"
+				rollback-for="Exception" read-only="false" />
+			<tx:method name="delete*" propagation="REQUIRED"
+				no-rollback-for="Exception" read-only="false" />
+			<tx:method name="update*" propagation="REQUIRED"
+				no-rollback-for="Exception" read-only="false" />
+			<tx:method name="find*" propagation="REQUIRED"
+				rollback-for="Exception" read-only="true" />
+			<tx:method name="*" propagation="REQUIRED" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+
+	<tx:advice id="noTxAdvice">
+		<tx:attributes>
+			<tx:method name="*" propagation="NEVER" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config proxy-target-class="true">
+		<aop:pointcut id="default"
+			expression="execution(* org.utmost..service.*.*(..))" />
+		<aop:advisor pointcut-ref="default" advice-ref="txAdvice" />
+	</aop:config>
+
+	<tx:annotation-driven transaction-manager="transactionManager"
+		mode="proxy" proxy-target-class="true" />
+	<aop:aspectj-autoproxy />
+</beans>

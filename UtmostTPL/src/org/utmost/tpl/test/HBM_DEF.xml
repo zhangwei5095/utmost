@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class entity-name="HBM_DEF" table="HBM_DEF">
+		<id column="UUID" length="36" name="uuid" type="java.lang.String">
+			<!-- <generator class="native"/>-->
+			<!-- <generator class="assigned" />-->
+		</id>
+		<property name="pid" type="java.lang.String">
+			<column length="36" name="PID" index="_INDEX_PID">
+				<comment>父节点编码</comment>
+			</column>
+		</property>
+		<property name="nodename" type="java.lang.String">
+			<column length="128" name="NODENAME">
+				<comment>节点名称</comment>
+			</column>
+		</property>
+		<property name="nodecode" type="java.lang.String">
+			<column length="128" name="NODECODE" index="_INDEX_NODECODE" not-null="true"
+				unique="true">
+				<comment>节点编码</comment>
+			</column>
+		</property>
+		<property name="nodetype" type="java.lang.String">
+			<column length="128" name="NODETYPE">
+				<comment>节点类型</comment>
+			</column>
+		</property>
+		<property name="nodelevel" type="java.lang.Long">
+			<column length="20" name="NODELEVEL">
+				<comment>节点层级</comment>
+			</column>
+		</property>
+		<property name="status" type="java.lang.String">
+			<column length="32" name="STATUS">
+				<comment>状态</comment>
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class entity-name="U_PORTAL_FUNC" table="U_PORTAL_FUNC">
+		<id name="uuid" column="UUID" length="36" type="java.lang.String">
+			<generator class="uuid" />
+		</id>
+		<property name="pid" type="java.lang.String">
+			<column length="36" name="PID">
+				<comment>父节点编码</comment>
+			</column>
+		</property>
+		<property name="funccode" type="java.lang.String" 
+			index="_INDEX_FUNCCODE" not-null="true" unique="true">
+			<column length="128" name="FUNCCODE">
+				<comment>功能编码</comment>
+			</column>
+		</property>
+		<property name="funcname" type="java.lang.String">
+			<column length="256" name="FUNCNAME">
+				<comment>功能名称</comment>
+			</column>
+		</property>
+		<property name="funcdesc" type="java.lang.String">
+			<column length="256" name="FUNCDESC">
+				<comment>功能描述</comment>
+			</column>
+		</property>
+		<property name="funcpath" type="java.lang.String">
+			<column length="1024" name="FUNCPATH">
+				<comment>链接路径</comment>
+			</column>
+		</property>
+		<property name="funcicon" type="java.lang.String">
+			<column length="1024" name="FUNCICON">
+				<comment>功能图标</comment>
+			</column>
+		</property>
+		<property name="state" type="java.lang.String">
+			<column length="36" name="STATE">
+				<comment>状态</comment>
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>

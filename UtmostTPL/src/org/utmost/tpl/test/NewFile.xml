@@ -1,0 +1,4 @@
+<node label="视图测试">
+	<node label="表单测试" module="module/tpl/template/TestForm.swf" />
+	<node label="增删查改" module="module/tpl/template/SimpleCRUD.swf" />
+</node>

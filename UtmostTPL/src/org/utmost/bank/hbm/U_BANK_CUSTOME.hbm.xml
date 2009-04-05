@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class entity-name="U_BANK_CUSTOME" table="U_BANK_CUSTOME">
+		<id column="UUID" length="36" name="uuid" type="java.lang.String">
+			<generator class="uuid" />
+		</id>
+		<!--客户信息-->
+		<property name="CINO" type="java.lang.String">
+			<column length="20" name="CINO">
+				<comment>客户信息号</comment>
+			</column>
+		</property>
+		<property name="CUSTNAME" type="java.lang.String">
+			<column length="30" name="CUSTNAME">
+				<comment>户名</comment>
+			</column>
+		</property>
+		<property name="CUSTTYPE" type="java.lang.String">
+			<column length="2" name="CUSTTYPE">
+				<comment>客户类型</comment>
+			</column>
+		</property>
+		<property name="LGLDOCTP" type="java.lang.String">
+			<column length="2" name="LGLDOCTP">
+				<comment>证件类型</comment>
+			</column>
+		</property>
+		<property name="IDCODE" type="java.lang.String">
+			<column length="20" name="IDCODE">
+				<comment>证件号码</comment>
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>

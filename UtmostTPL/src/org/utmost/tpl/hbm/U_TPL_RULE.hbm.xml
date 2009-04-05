@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class entity-name="U_TPL_RULE" table="U_TPL_RULE">
+		<id column="UUID" length="36" name="uuid" type="java.lang.String">
+			<generator class="uuid" />
+		</id>
+		<property name="rulename" type="java.lang.String">
+			<column length="128" name="RULENAME">
+				<comment>规则名称</comment>
+			</column>
+		</property>
+		<property name="rulecode" type="java.lang.String">
+			<column length="128" name="RULECODE">
+				<comment>规则编码</comment>
+			</column>
+		</property>
+		<property name="expression" type="java.lang.String">
+			<column length="2048" name="EXPRESSION">
+				<comment>规则表达式(jython)</comment>
+			</column>
+		</property>
+		<property name="ruledesc" type="java.lang.String">
+			<column length="256" name="RULEDESC">
+				<comment>规则描述</comment>
+			</column>
+		</property>
+		<property name="state" type="java.lang.String">
+			<column length="32" name="STATE">
+				<comment>状态(0禁用 1正常)</comment>
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>

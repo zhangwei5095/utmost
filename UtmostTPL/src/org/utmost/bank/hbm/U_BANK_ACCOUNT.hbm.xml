@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class entity-name="U_BANK_ACCOUNT" table="U_BANK_ACCOUNT">
+		<id column="UUID" length="36" name="uuid" type="java.lang.String">
+			<generator class="uuid" />
+		</id>
+		<property name="BACCTNO" type="java.lang.String">
+			<column length="36" name="BACCTNO">
+				<comment>账户卡号</comment>
+			</column>
+		</property>
+		<property name="BACCTTYPE" type="java.lang.String">
+			<column length="2" name="BACCTTYPE">
+				<comment>账户类型</comment>
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>

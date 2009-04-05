@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml>
+	<node>
+		<columns>
+			<column headerText="column_A" dataField="A" type="string"
+				length="10" fill=" " position="before"></column>
+			<column headerText="column_B" dataField="B" type="string"
+				length="20" fill=" " position="before"></column>
+			<column headerText="column_C" dataField="C" type="string"
+				length="15" fill=" " position="before"></column>
+		</columns>
+	</node>
+
+	<node>
+		<columns>
+			<column headerText="column_A" dataField="A" type="string"
+				length="8" fill="#" position="before"></column>
+			<column headerText="column_B" dataField="B" type="string"
+				length="10" fill="#" position="before"></column>
+			<column headerText="column_C" dataField="C" type="string"
+				length="12" fill="#" position="after"></column>
+		</columns>
+	</node>
+	<node>
+		<columns>
+			<column headerText="column_A" dataField="A" type="string"
+				length="18" fill="-" position="after"></column>
+			<column headerText="column_B" dataField="B" type="string"
+				length="10" fill="-" position="after"></column>
+			<column headerText="column_C" dataField="C" type="string"
+				length="30" fill="-" position="after"></column>
+		</columns>
+	</node>
+</xml>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class entity-name="U_TPL_TASKSCHEDULE" table="U_TPL_TASKSCHEDULE">
+		<id column="UUID" length="36" name="uuid" type="java.lang.String">
+			<generator class="uuid" />
+		</id>
+		<property name="taskname" type="java.lang.String">
+			<column length="128" name="TASKNAME">
+				<comment>任务名称</comment>
+			</column>
+		</property>
+		<property name="tasktype" type="java.lang.String">
+			<column length="128" name="TASKTYPE">
+				<comment>任务类型(JYTHON,ETL)</comment>
+			</column>
+		</property>
+		<property name="ruletable" type="java.lang.String">
+			<column length="128" name="RULETABLE">
+				<comment>规则表</comment>
+			</column>
+		</property>
+		<property name="paramexp" type="java.lang.String">
+			<column length="128" name="PARAMEXP">
+				<comment>参数表达式(JYTHON(tablename=*;expression=*))</comment>
+			</column>
+		</property>
+		<property name="starttime" type="java.lang.String">
+			<column length="128" name="STARTTIME">
+				<comment>开始时间(yyyyMMddHHmmss)</comment>
+			</column>
+		</property>
+		<property name="endtime" type="java.lang.String">
+			<column length="128" name="ENDTIME">
+				<comment>结束时间(yyyyMMddHHmmss)</comment>
+			</column>
+		</property>
+		<property name="taskpri" type="java.lang.String">
+			<column length="128" name="TASKPRI">
+				<comment>优先级(0-10 数字越大优先级越高 默认为5)</comment>
+			</column>
+		</property>
+		<property name="cronexpression" type="java.lang.String">
+			<column length="128" name="CRONEXPRESSION">
+				<comment>cron表达式</comment>
+			</column>
+		</property>
+		<property name="taskuuid" type="java.lang.String">
+			<column length="1024" name="TASKUUID">
+				<comment>子任务列表以逗号,分隔(源自U_TPL_RULE)</comment>
+			</column>
+		</property>
+		<property name="taskdesc" type="java.lang.String">
+			<column length="256" name="TASKDESC">
+				<comment>任务描述</comment>
+			</column>
+		</property>
+		<property name="runstate" type="java.lang.String">
+			<column length="32" name="RUNSTATE">
+				<comment>执行状态</comment>
+			</column>
+		</property>
+		<property name="state" type="java.lang.String">
+			<column length="32" name="STATE">
+				<comment>状态</comment>
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class entity-name="U_BANK_RISKINFO" table="U_BANK_RISKINFO">
+		<id column="UUID" name="uuid" length="36" type="java.lang.String">
+			<generator class="uuid" />
+		</id>
+		<property name="uniseqno" type="java.lang.String">
+			<column length="36" name="UNISEQNO">
+				<comment>业务唯一标示号</comment>
+			</column>
+		</property>
+		<property name="custname" type="java.lang.String">
+			<column length="40" name="CUSTNAME">
+				<comment>客户名称</comment>
+			</column>
+		</property>
+		<property name="riskcode" type="java.lang.String">
+			<column length="20" name="RISKCODE">
+				<comment>预警编码</comment>
+			</column>
+		</property>
+		<property name="riskname" type="java.lang.String">
+			<column length="200" name="RISKNAME">
+				<comment>预警名称</comment>
+			</column>
+		</property>
+		<property name="risklevel" type="java.lang.String">
+			<column length="2" name="RISKLEVEL">
+				<comment>预警级别</comment>
+			</column>
+		</property>
+		<property name="risktype" type="java.lang.String">
+			<column length="2" name="RISKTYPE">
+				<comment>预警类型(实时－－00＼事后－－10)</comment>
+			</column>
+		</property>
+		<property name="trxdate" type="java.lang.String">
+			<column length="8" name="TRXDATE">
+				<comment>交易日期(yyyyMMdd)</comment>
+			</column>
+		</property>
+		<property name="trxtime" type="java.lang.String">
+			<column length="6" name="TRXTIME">
+				<comment>交易时间_24进制(HHmmss)</comment>
+			</column>
+		</property>
+		<property name="riskdate" type="java.lang.String">
+			<column length="8" name="RISKDATE">
+				<comment>预警日期(yyyymmdd)</comment>
+			</column>
+		</property>
+		<property name="risktime" type="java.lang.String">
+			<column length="6" name="RISKTIME">
+				<comment>预警时间_24进制</comment>
+			</column>
+		</property>
+		<property name="zoneno" type="java.lang.String">
+			<column length="16" name="ZONENO">
+				<comment>地区号</comment>
+			</column>
+		</property>
+		<property name="brno" type="java.lang.String">
+			<column length="16" name="BRNO">
+				<comment>网点号</comment>
+			</column>
+		</property>
+		<property name="tellerno" type="java.lang.String">
+			<column length="16" name="TELLERNO">
+				<comment>柜员号</comment>
+			</column>
+		</property>
+		<property name="state" type="java.lang.String">
+			<column length="1" name="STATE">
+				<comment>状态</comment>
+			</column>
+		</property>
+		<property name="opcode" type="java.lang.String">
+			<column length="20" name="OPCODE">
+				<comment>处理人</comment>
+			</column>
+		</property>
+		<property name="opdate" type="java.lang.String">
+			<column length="20" name="OPDATE">
+				<comment>处理时间(YYYY-MM-DD HH:MM:SS)</comment>
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>
