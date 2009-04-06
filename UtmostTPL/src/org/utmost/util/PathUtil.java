@@ -29,7 +29,9 @@ public class PathUtil {
 		}
 		return null;
 	}
-
+	public static String getRootPath() {
+		return System.getProperty("RootPath");
+	}
 	public static void main(String[] args) {
 		System.out.println(PathUtil.getClassFilePath());
 		System.out.println(PathUtil.getClassPath());
