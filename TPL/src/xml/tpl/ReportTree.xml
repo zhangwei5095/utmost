@@ -1,0 +1,3 @@
+<node nodename="报表视图配置">
+	<node nodename="简单报表定义" module="module/report/SimpleReportModule.swf" />
+</node>

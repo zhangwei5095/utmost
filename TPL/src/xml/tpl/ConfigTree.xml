@@ -1,0 +1,9 @@
+<node nodename="系统参数配置">
+	<node nodename="引用值配置" module="module/tpl/ReferenceModule.swf" />
+	<node nodename="数据校验配置" module="module/tpl/ValidatorModule.swf" />
+	<node nodename="数据备份">
+		<node nodename="系统备份还原" module="module/tpl/BackupAndRestoreModule.swf" />
+		<node nodename="导出" module="module/tpl/DefaultModule.swf" />
+		<node nodename="导入" module="module/tpl/DefaultModule.swf" />
+	</node>	
+</node>

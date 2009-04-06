@@ -1,0 +1,19 @@
+<node nodename="系统规则配置">
+	<node nodename="数据抽取配置">
+		<node nodename="数据源配置" module="module/etl/DataSourceModule.swf" />
+		<node nodename="调度器配置" module="module/tpl/DefaultModule.swf" />
+		<node nodename="数据映射" module="module/tpl/DefaultModule.swf" />
+	</node>	
+	<node nodename="业务规则配置">
+		<node nodename="规则配置" module="module/tpl/RuleModule.swf" />
+		<node nodename="规则模板配置" module="module/tpl/RuleTemplateModule.swf" />
+	</node>
+	<node nodename="任务调度配置">
+		<node nodename="任务配置" module="module/tpl/TaskScheduleModule.swf" />
+		<node nodename="调度历史" module="module/tpl/DefaultModule.swf" />
+	</node>	
+	<node nodename="预警信息">
+		<node nodename="风险预警配置" module="module/system/bankrisk/RiskInfoTemplateModule.swf" />
+		<node nodename="预警信息" module="module/system/bankrisk/RiskInfoModule.swf" />
+	</node>	
+</node>

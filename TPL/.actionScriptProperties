@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actionScriptProperties mainApplicationPath="TPL.mxml" version="3">
+<compiler additionalCompilerArguments="-locale en_US -compiler.services services-config.xml" copyDependentFiles="true" enableModuleDebug="true" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="true" htmlHistoryManagement="true" htmlPlayerVersion="9.0.124" htmlPlayerVersionCheck="false" outputFolderPath="bin-debug" sourceFolderPath="src" strict="true" useApolloConfig="false" verifyDigests="true" warn="true">
+<compilerSourcePath/>
+<libraryPath defaultLinkType="3">
+<libraryPathEntry kind="4" path="">
+<modifiedEntries>
+<libraryPathEntry kind="3" linkType="4" path="${PROJECT_FRAMEWORKS}/libs/framework.swc" useDefaultLinkType="true">
+<crossDomainRsls>
+<crossDomainRslEntry autoExtract="true" policyFileUrl="" rslUrl="framework_3.2.0.3958.swz"/>
+<crossDomainRslEntry autoExtract="true" policyFileUrl="" rslUrl="framework_3.2.0.3958.swf"/>
+</crossDomainRsls>
+</libraryPathEntry>
+</modifiedEntries>
+</libraryPathEntry>
+<libraryPathEntry kind="1" linkType="1" path="libs"/>
+</libraryPath>
+<sourceAttachmentPath/>
+</compiler>
+<applications>
+<application path="TPL.mxml"/>
+</applications>
+<modules>
+<module application="src/TPL.mxml" destPath="module/auth/AuthFunRoleModule.swf" optimize="true" sourcePath="src/module/auth/AuthFunRoleModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/tpl/TaskScheduleModule.swf" optimize="true" sourcePath="src/module/tpl/TaskScheduleModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/etl/DataSourceModule.swf" optimize="true" sourcePath="src/module/etl/DataSourceModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/tpl/ReferenceModule.swf" optimize="true" sourcePath="src/module/tpl/ReferenceModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/tpl/RuleTemplateModule.swf" optimize="true" sourcePath="src/module/tpl/RuleTemplateModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/tpl/RuleModule.swf" optimize="true" sourcePath="src/module/tpl/RuleModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/tpl/template/SimpleCRUD.swf" optimize="true" sourcePath="src/module/tpl/template/SimpleCRUD.mxml"/>
+<module application="src/TPL.mxml" destPath="module/tpl/DefaultModule.swf" optimize="true" sourcePath="src/module/tpl/DefaultModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/auth/AuthVisualizerForRoleModule.swf" optimize="true" sourcePath="src/module/auth/AuthVisualizerForRoleModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/tpl/DataModule.swf" optimize="true" sourcePath="src/module/tpl/DataModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/report/SimpleReportModule.swf" optimize="true" sourcePath="src/module/report/SimpleReportModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/auth/AuthUserRoleModule.swf" optimize="true" sourcePath="src/module/auth/AuthUserRoleModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/auth/AuthFunModule.swf" optimize="true" sourcePath="src/module/auth/AuthFunModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/etl/ETLTaskModule.swf" optimize="true" sourcePath="src/module/etl/ETLTaskModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/SystemModule.swf" optimize="true" sourcePath="src/module/SystemModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/tpl/template/TestForm.swf" optimize="true" sourcePath="src/module/tpl/template/TestForm.mxml"/>
+<module application="src/TPL.mxml" destPath="module/auth/AuthRoleModule.swf" optimize="true" sourcePath="src/module/auth/AuthRoleModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/tpl/ValidatorModule.swf" optimize="true" sourcePath="src/module/tpl/ValidatorModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/auth/AuthVisualizerForOrgModule.swf" optimize="true" sourcePath="src/module/auth/AuthVisualizerForOrgModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/auth/AuthUserOrgModule.swf" optimize="true" sourcePath="src/module/auth/AuthUserOrgModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/tpl/BackupAndRestoreModule.swf" optimize="true" sourcePath="src/module/tpl/BackupAndRestoreModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/auth/AuthVisualizerForFunModule.swf" optimize="true" sourcePath="src/module/auth/AuthVisualizerForFunModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/tpl/template/SimpleReportModule.swf" optimize="true" sourcePath="src/module/tpl/template/SimpleReportModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/DefaultModule.swf" optimize="true" sourcePath="src/module/DefaultModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/TPLModule.swf" optimize="true" sourcePath="src/module/TPLModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/tpl/template/TestAdvForm.swf" optimize="true" sourcePath="src/module/tpl/template/TestAdvForm.mxml"/>
+<module application="src/TPL.mxml" destPath="module/tpl/AdvViewModule.swf" optimize="true" sourcePath="src/module/tpl/AdvViewModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/auth/AuthOrgModule.swf" optimize="true" sourcePath="src/module/auth/AuthOrgModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/PortalModule.swf" optimize="true" sourcePath="src/module/PortalModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/tpl/ViewModule.swf" optimize="true" sourcePath="src/module/tpl/ViewModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/auth/AuthUserModule.swf" optimize="true" sourcePath="src/module/auth/AuthUserModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/auth/AuthParamModule.swf" optimize="true" sourcePath="src/module/auth/AuthParamModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/auth/AuthErrorTypeModule.swf" optimize="true" sourcePath="src/module/auth/AuthErrorTypeModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/auth/AuthUserAddComponent.swf" optimize="true" sourcePath="src/module/auth/AuthUserAddComponent.mxml"/>
+<module application="src/TPL.mxml" destPath="module/auth/AuthUserOrgModule.swf" optimize="true" sourcePath="src/module/auth/AuthUserOrgModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/auth/AuthParamModule.swf" optimize="true" sourcePath="src/module/auth/AuthParamModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/auth/AuthErrorTypeModule.swf" optimize="true" sourcePath="src/module/auth/AuthErrorTypeModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/auth/AuthBusiTypeModule.swf" optimize="true" sourcePath="src/module/auth/AuthBusiTypeModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/auth/AuthBusiTypeModule.swf" optimize="true" sourcePath="src/module/auth/AuthBusiTypeModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/monitor/system/SystemMonitorModule.swf" optimize="true" sourcePath="src/module/monitor/system/SystemMonitorModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/monitor/system/SystemInfoModule.swf" optimize="true" sourcePath="src/module/monitor/system/SystemInfoModule.mxml"/>
+</modules>
+<buildCSSFiles/>
+</actionScriptProperties>
