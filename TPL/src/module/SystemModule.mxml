@@ -56,8 +56,10 @@
 			//装载模板
 			public function loadModule(name:String):void
 			{
+				currentModule.url=null;
 				currentModule.url=name;
 			}
+			
 		]]>
 	</mx:Script>
 	<!--mx:XML id="SystemTree" source="xml/portal/SystemTree.xml"/-->

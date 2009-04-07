@@ -37,6 +37,7 @@
 			}
 			//装载模板
 	        public function loadModule(name:String):void {
+	        	removeModule();
 	            currentModule.url = name;
 	        }
 	        //取消模板
