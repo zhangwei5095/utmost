@@ -55,6 +55,7 @@
 			}
 			//装载模板
 	        public function loadModule(name:String):void {
+	        	removeModule();
 	            currentModule.url = name;
 	        }
 	        //取消模板
@@ -102,7 +103,7 @@
 		<mx:Button label="Portal" click="loadModule('module/PortalModule.swf')"/>
 		<!--mx:Button label="TPL" click="loadModule('module/TPLModule.swf')"/-->
 		<mx:Button label="Reload" click="SpringContext.reloadSpring()"/>
-		<mx:Button label="监测" click="SysMonitor()"/>
+		<!--mx:Button label="监测" click="SysMonitor()"/-->
 		<mx:Label id="memory"/>
 	</mx:ApplicationControlBar>
 	<mx:ModuleLoader id="currentModule" width="100%" height="100%" ready="readyModule(event)">

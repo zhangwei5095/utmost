@@ -16,6 +16,7 @@
             <destination id="ETLService"/>
             <destination id="TreeService"/>
             <destination id="CodecUtil"/>
+            <destination id="SystemMonitorService"/>            
            <default-channels>
                 <channel ref="spring-amf"/>
             </default-channels>
