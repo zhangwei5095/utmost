@@ -284,6 +284,21 @@ public class DBSupport extends HibernateDaoSupport {
 		}
 	}
 
+	/**
+	 * 命名查询
+	 * 
+	 * @return
+	 */
+	public List findByNamedQuery(String queryName) {
+		log.debug("findByNamedQuery void with queryName: " + queryName);
+		try {
+			return this.getHibernateTemplate().findByNamedQuery(queryName);
+		} catch (RuntimeException re) {
+			log.error("findByNamedQuery failed", re);
+			throw re;
+		}
+	}
+
 	/** */
 	/**
 	 * 设置分页, pageNo或pageList<=0时返回所有记录

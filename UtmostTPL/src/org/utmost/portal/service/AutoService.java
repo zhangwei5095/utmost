@@ -229,4 +229,13 @@ public class AutoService extends CommService {
 	public List findAll(String tableName) {
 		return getDb().findAll(tableName);
 	}
+
+	/**
+	 * 命名查询
+	 * 
+	 * @return
+	 */
+	public List findByNamedQuery(String queryName) {
+		return getDb().findByNamedQuery(queryName);
+	}
 }
