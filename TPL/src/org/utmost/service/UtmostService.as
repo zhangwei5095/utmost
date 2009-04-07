@@ -14,7 +14,7 @@ package org.utmost.service
 		import mx.rpc.remoting.mxml.RemoteObject;
 
 		public var ro:RemoteObject=new RemoteObject();
-
+		
 		public function UtmostService(destination:String, _resultHandler:Function=null, _faultHandler:Function=null)
 		{
 			ro.destination=destination;

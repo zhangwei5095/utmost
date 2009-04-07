@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%" xmlns:component="component.*" creationComplete="init()">
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%" xmlns:component="component.*" creationComplete="init();downloadInit();">
 	<mx:Script>
 		<![CDATA[
 			import mx.collections.ArrayCollection;
@@ -41,6 +41,43 @@
 				reportcode.text=reportid.selectedItem.reportcode.toString();
 				hql.text=reportid.selectedItem.sourcehql.toString();
 			}
+			
+			private var Download_URL:String="http://localhost:8080/UtmostTPL/FB3_win_new.exe";
+			private var fr:FileReference;
+			public function downloadInit():void {
+				fr=new FileReference();
+				fr.addEventListener(Event.OPEN, openHandler);
+				fr.addEventListener(ProgressEvent.PROGRESS, progressHandler);
+				fr.addEventListener(Event.COMPLETE, completeHandler);
+			}
+			public function startDownload():void
+			{
+				//downloadInit();
+				var request:URLRequest = new URLRequest();
+				request.url = Download_URL;
+				fr.download(request);
+			}
+			private function openHandler(event:Event):void
+			{
+				pb.label = "下载中......";
+				btn.enabled = true;
+			}
+			private function progressHandler(event:ProgressEvent):void
+			{
+				pb.label="总共："+event.bytesTotal+"  已下载："+event.bytesLoaded+" 完成比例："+Math.round((event.bytesLoaded/event.bytesTotal) * 100) +"%";
+				pb.setProgress(event.bytesLoaded, event.bytesTotal);
+			}
+			private function completeHandler(event:Event):void
+			{
+				pb.label = "DOWNLOAD COMPLETE";
+				btn.enabled = false;
+			}
+			public function cancelDownload():void
+			{
+				fr.cancel();
+				pb.label = "DOWNLOAD CANCELLED";
+				btn.enabled = false;
+			}
 		]]>
 	</mx:Script>
 	
@@ -50,10 +87,14 @@
 		<mx:TextArea  id="hql" width="400" height="60"/>
 		<mx:Button label="查看" click="viewReport()"/>
 		<mx:Button label="弹出" click="openWindow()"/>
+		<mx:Button label="下载" click="startDownload()"/>
+		<mx:Button label="中止" id="btn" enabled="false" click="cancelDownload()"/>
 		<!--mx:Button label="测试" click="test()"/-->
 	</mx:HBox>
 	
-	<mx:HBox width="100%" height="100%">
-		<component:IFrame id="iFrame" source="" width="100%" height="100%"  />
-	</mx:HBox>
+	<mx:VBox width="100%" height="100%">
+		<mx:ProgressBar id="pb" width="100%" height="25" labelPlacement="bottom"  minimum="0" maximum="100" indeterminate="true" enabled="true"/>
+		<component:IFrame id="iFrame" source="" width="100%" height="100%"  >
+		</component:IFrame>
+	</mx:VBox>
 </mx:Module>
