@@ -1,0 +1,24 @@
+ResizableTitleWindow
+{
+    closeButtonDisabledSkin: Embed('img/ResizableTitleWindow/close.png');
+	closeButtonDownSkin: Embed('img/ResizableTitleWindow/close.png');
+    closeButtonOverSkin: Embed('img/ResizableTitleWindow/close.png');
+	closeButtonUpSkin: Embed('img/ResizableTitleWindow/close.png');
+	/*
+    minimizeButtonDisabledSkin: Embed('img/ResizableTitleWindow/min.png');
+	minimizeButtonDownSkin: Embed('img/ResizableTitleWindow/min.png');
+    minimizeButtonOverSkin: Embed('img/ResizableTitleWindow/min.png');
+	minimizeButtonUpSkin: Embed('img/ResizableTitleWindow/min.png');
+	*/
+    maximizeButtonDisabledSkin: Embed('img/ResizableTitleWindow/max.png');
+	maximizeButtonDownSkin: Embed('img/ResizableTitleWindow/max.png');
+    maximizeButtonOverSkin: Embed('img/ResizableTitleWindow/max.png');
+	maximizeButtonUpSkin: Embed('img/ResizableTitleWindow/max.png');
+    /*
+    restoreButtonDisabledSkin: Embed('img/ResizableTitleWindow/restore.png');
+	restoreButtonDownSkin: Embed('img/ResizableTitleWindow/restore.png');
+    restoreButtonOverSkin: Embed('img/ResizableTitleWindow/restore.png');
+	restoreButtonUpSkin: Embed('img/ResizableTitleWindow/restore.png');
+	*/
+    resizeAffordance: 6;
+}
