@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%" creationComplete="init()">
+	<mx:VBox width="100%" height="100%" horizontalAlign="center" verticalAlign="top">
+		<mx:Spacer height="30"/>
+		<mx:TextArea id="sysinfo" width="100%" height="100%" editable="false"/>
+	</mx:VBox>
+	<mx:Script>
+		<![CDATA[
+			import mx.rpc.events.ResultEvent;
+			import org.utmost.service.UtmostService;
+			public function init():void {
+				setSystemInfo();
+			}
+			public function setSystemInfo():void {
+				var service:UtmostService=new UtmostService("SystemMonitorService",function(e:ResultEvent):void {
+					//trace(e.result.toString());
+					sysinfo.text=e.result.toString();
+				});
+				service.ro.getSysInfo();
+			}
+		]]>
+	</mx:Script>
+</mx:Module>

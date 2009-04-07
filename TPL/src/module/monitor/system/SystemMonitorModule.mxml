@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%" creationComplete="init()" remove="timeStop()">
+	<mx:SeriesSlide  id="eff" direction="left" elementOffset="100" minimumElementDuration="200" duration="500"/>
+	<mx:Accordion width="100%" height="100%" headerStyleName="AccordionHeader">
+		<mx:VBox label="资源概述" width="100%" height="100%" backgroundColor="#6666FF">
+			<mx:HBox width="100%" height="50%">
+				<mx:VBox height="100%" width="50%">
+					<mx:Text text="CPU" fontWeight="bold" textAlign="center" fontFamily="Verdana" />
+					<!--<mx:ComboBox id="lineForm" selectedItem="segment" dataProvider="{['segment','curve','horizontal','vertical','step','reverseStep']}" />-->
+					<mx:LineChart id="Cpu" height="100%" width="100%" 
+						dataProvider="{CpuPercs}"  showDataTips="false" includeInLayout="true">
+						<mx:fill>
+							<mx:LinearGradient angle="70">
+								<mx:GradientEntry color="#6666FF" />
+								<mx:GradientEntry color="#DDDDFF" />
+							</mx:LinearGradient>
+						</mx:fill>
+						<mx:horizontalAxis>
+			            	<mx:CategoryAxis dataProvider="{CpuPercs}" categoryField=" " />
+				        </mx:horizontalAxis>
+				        <mx:series>
+				           <mx:LineSeries  yField="combined" displayName="combined" form="segment" >
+					           	<mx:lineStroke>
+					                <mx:Stroke color="0x0044EB" weight="2" alpha=".8"/>
+					            </mx:lineStroke> 
+				           </mx:LineSeries>
+				           <mx:LineSeries yField="total" displayName="total"/>
+				        </mx:series>
+					</mx:LineChart>
+				</mx:VBox>
+				<mx:VBox height="100%" width="50%" >
+					<mx:Text text="磁盘" fontWeight="bold" textAlign="center" fontFamily="Verdana"/>
+						<mx:PieChart  id="DISK" height="100%" width="100%" dataProvider="{DiskPercs}"
+							 showDataTips="true" >
+							 <mx:fill>
+								<mx:LinearGradient angle="70">
+									<mx:GradientEntry color="#6666FF" />
+									<mx:GradientEntry color="#DDDDFF" />
+								</mx:LinearGradient>
+							</mx:fill>
+							<mx:series>
+								<mx:PieSeries field="Size"  nameField="Driver" labelFunction="PieSeries_Fun"
+								 labelPosition="outside"/>
+							</mx:series>
+						</mx:PieChart>
+				</mx:VBox>
+			</mx:HBox>
+			<mx:HBox width="100%" height="50%">
+				<mx:VBox height="100%" width="50%" >
+					<mx:Label text="网络" />
+					<mx:LineChart id="NetWork" height="100%" width="100%" 
+						dataProvider="{NetPercs}"  showDataTips="false" includeInLayout="true">
+						<mx:fill>
+							<mx:LinearGradient angle="70">
+								<mx:GradientEntry color="#6666FF" />
+								<mx:GradientEntry color="#DDDDFF" />
+							</mx:LinearGradient>
+						</mx:fill>
+						<mx:horizontalAxis>
+			            	<mx:CategoryAxis dataProvider="{NetPercs}" categoryField=" " />
+				        </mx:horizontalAxis>
+				        <mx:series>
+				           <mx:LineSeries  yField="txbps" displayName="txbps" form="segment" >
+					           	<mx:lineStroke>
+					                <mx:Stroke color="0x0044EB" weight="2" alpha=".8"/>
+					            </mx:lineStroke> 
+				           </mx:LineSeries>
+				           <mx:LineSeries yField="rxbps" displayName="rxbps"/>
+				        </mx:series>
+					</mx:LineChart>
+				</mx:VBox>
+				
+				<mx:VBox height="100%" width="50%" backgroundColor="#6666FF">
+					<mx:Text text="内存" fontWeight="bold" textAlign="center" fontFamily="Verdana" />
+					<mx:LineChart id="Mem" height="100%" width="100%" 
+						dataProvider="{MemPercs}"  showDataTips="false" includeInLayout="true">
+						<mx:fill>
+							<mx:LinearGradient angle="70">
+								<mx:GradientEntry color="#6666FF" />
+								<mx:GradientEntry color="#DDDDFF" />
+							</mx:LinearGradient>
+						</mx:fill>
+						<mx:horizontalAxis>
+			            	<mx:CategoryAxis dataProvider="{MemPercs}" categoryField=" " />
+				        </mx:horizontalAxis>
+				        <mx:series>
+				           <mx:LineSeries  yField="used" displayName="used" form="segment" >
+					           	<mx:lineStroke>
+					                <mx:Stroke color="0x0044EB" weight="2" alpha=".8"/>
+					            </mx:lineStroke> 
+				           </mx:LineSeries>
+				           <mx:LineSeries yField="total" displayName="total"/>
+				        </mx:series>
+					</mx:LineChart>
+				</mx:VBox>
+			</mx:HBox>
+		</mx:VBox>
+		<!--mx:Button label="getMemPercs()" click="getDiskPercs()" /-->
+		<!--
+		<mx:VBox label="CPU" width="100%" height="100%">
+		</mx:VBox>
+		<mx:VBox label="磁盘" width="100%" height="100%">
+		</mx:VBox>
+		<mx:VBox label="网络" width="100%" height="100%">
+		</mx:VBox>
+		<mx:VBox label="内存" width="100%" height="100%">
+		</mx:VBox>
+		-->
+	</mx:Accordion>
+	  <mx:Script>
+	  <![CDATA[
+	  	import mx.rpc.events.FaultEvent;
+	  	import mx.controls.Alert;
+	  	import org.utmost.service.UtmostService;
+	  	import mx.utils.StringUtil;
+	  	import mx.core.Application;
+	  	import ascb.util.NumberUtilities;
+	  	import mx.formatters.NumberFormatter;
+	  	import mx.rpc.events.ResultEvent;
+		import mx.collections.ArrayCollection;
+		     [Bindable]
+		     public var DiskPercs:ArrayCollection = new ArrayCollection();
+//		        {Driver:"本地磁盘(C:)", Size:200},
+//		        {Driver:"本地磁盘(C:)", Size:1000},
+//		        {Driver:"本地磁盘(C:)", Size:100},
+//		        {Driver:"本地磁盘(C:)", Size:450},
+//		     ]);
+		     
+		     [Bindable]
+		     public var CpuPercs:ArrayCollection=new ArrayCollection();
+		     [Bindable]
+		     public var MemPercs:ArrayCollection=new ArrayCollection(); 
+		     [Bindable]
+		     public var NetPercs:ArrayCollection=new ArrayCollection();
+		   
+		     //获取磁盘信息
+		     public function getDiskPercs():void {
+				var service:UtmostService=new UtmostService("SystemMonitorService",function(e:ResultEvent):void {
+		     		trace(e.result.toString());
+		     		var xml:XML=new XML(e.result);
+			     	var list:XMLList=xml.children();
+			     	for(var i:int=0;i<list.length();i++) {
+			     		var obj:Object=new Object();
+			        	obj.Driver=list[i].@Driver;
+			        	obj.Size=list[i].@Size;
+			        	DiskPercs.addItem(obj);
+			     	}
+		     	});
+		     	service.ro.getDiskIO();
+		     }
+		     
+		     public function PieSeries_Fun(item:Object, field:String, index:Number, percentValue:Number):String { 
+                //return StringUtil.substitute("{0} ({1}%)", item.Size, percentValue.toFixed(1));
+                return item.Driver;
+             }
+		     public function process(e:TimerEvent):void {
+		     	getAll();
+		     }
+		     public var timer:Timer=new Timer(2000,0);
+		     public function init():void {
+		     	
+		     	getDiskPercs();
+		     	timer.addEventListener(TimerEvent.TIMER,process);
+		     	timer.start();
+		     	
+		     }
+		     public function timeStop():void {
+		     	timer.removeEventListener(TimerEvent.TIMER,process);
+		     	timer.stop();
+		     }
+		     
+		     public function getAll():void {
+		     	var service:UtmostService=new UtmostService("SystemMonitorService",function(e:ResultEvent):void {
+		     		onGetAll(e);
+		     	},function(e:FaultEvent):void {timeStop();});
+		     	service.ro.showBusyCursor=false;
+		     	service.ro.getAll();
+		     }
+		     
+		     public function processAC(obj:Object):ArrayCollection {
+		     	var arr:ArrayCollection=obj as ArrayCollection;
+		     	while(arr.length<100) {
+		     		arr.addItem(new Object());
+		     	}
+		     	if(arr.length>100) {
+		     		arr.removeItemAt(0);
+		     	}
+		     	return arr;
+		     }
+		     public function onGetAll(e:ResultEvent):void {
+		     	var arr:ArrayCollection=e.result as ArrayCollection;
+		     	if(arr!=null)
+		     	if(arr.length==4) {
+			     	var cpuperc:XML=new XML(arr.getItemAt(0));
+			     	var memperc:XML=new XML(arr.getItemAt(1));
+			     	var netperc:XML=new XML(arr.getItemAt(2));
+			     	var diskperc:XML=new XML(arr.getItemAt(3));
+			     	
+			     	CpuPercs=this.processAC(CpuPercs);
+			     	MemPercs=this.processAC(MemPercs);
+			     	NetPercs=this.processAC(NetPercs);
+			     	//trace(cpuperc.toXMLString());
+			     	var obj:Object=new Object();
+		        	obj.total=100;
+		        	obj.combined=NumberUtilities.round(cpuperc.combined*100,.01);
+			     	CpuPercs.addItem(obj);
+			     	//trace(cpuperc.total+"--"+cpuperc.combined);
+			     	obj=new Object();
+		        	obj.total=NumberUtilities.round((memperc.total)/1024/1024,.01);
+		        	obj.used=NumberUtilities.round((memperc.used)/1024/1024,.01);
+		        	MemPercs.addItem(obj);
+		        	
+		        	obj=new Object();
+		        	obj.rxbps=netperc.rxbps;
+		        	obj.txbps=netperc.txbps;
+		        	NetPercs.addItem(obj);
+	       		}else {
+	       			trace("onGetAll-->数据异常");
+	       		}
+		     }
+  		]]>
+  		</mx:Script>
+</mx:Module>
