@@ -1,0 +1,1005 @@
+/* CSS file */
+
+@font-face
+{
+	src:					url("../assets/fonts/Framd.TTF");
+	fontFamily: 			franklin1;
+	font-anti-alias-type: 	advanced;
+	font-weight: 			normal;
+}
+
+
+@font-face
+{
+	src:					url("../assets/fonts/FRABK.TTF");
+	fontFamily: 			franklin;
+	font-anti-alias-type: 	advanced;
+	font-weight: 			normal;
+}
+
+
+CursorManager
+{
+	busy-cursor: Embed("../assets/UndefinedPersonalSkinLoad.swf");
+} 
+
+
+Application
+{
+	font-family: 				franklin;
+	font-size: 					11;
+	color: 						#333333;
+	background-gradient-alphas: 0, 0;
+	background-color: 			#666666;
+	theme-color: 				#333333;
+	font-weight:				normal;
+	background-image:			Embed("../assets/general/fondo3.jpg");
+	background-size:			"100%";
+	modal-transparency-color:	#000000;
+	modal-transparency-blur:	2;
+}
+
+
+/*
+------------------------------------------------------------------------
+ALL COMBO
+------------------------------------------------------------------------
+*/
+
+PopUpMenuButton
+{
+	pop-up-over-skin:		Embed("../assets/botones/PopUpMenuButton1.png", scaleGridTop="6", scaleGridBottom="17", scaleGridLeft="3", scaleGridRight="11");
+	pop-up-down-skin:		Embed("../assets/botones/PopUpMenuButton2.png", scaleGridTop="6", scaleGridBottom="17", scaleGridLeft="3", scaleGridRight="11");
+	up-skin:				Embed("../assets/botones/PopUpMenuButton.png", scaleGridTop="6", scaleGridBottom="17", scaleGridLeft="3", scaleGridRight="11");
+	over-skin:				Embed("../assets/botones/PopUpMenuButton_1.png", scaleGridTop="6", scaleGridBottom="17", scaleGridLeft="3", scaleGridRight="11");
+	down-skin:				Embed("../assets/botones/PopUpMenuButton_2.png", scaleGridTop="6", scaleGridBottom="17", scaleGridLeft="3", scaleGridRight="11");
+	disabled-skin:			Embed("../assets/botones/PopUpMenuButton_dis.png", scaleGridTop="6", scaleGridBottom="17", scaleGridLeft="3", scaleGridRight="11");
+	disabled-color:			#999999;
+}
+
+
+PopUpButton
+{
+	pop-up-over-skin:		Embed("../assets/botones/PopUpButton.png", scaleGridTop="6", scaleGridBottom="17", scaleGridLeft="3", scaleGridRight="11");
+	pop-up-down-skin:		Embed("../assets/botones/PopUpButton2.png", scaleGridTop="6", scaleGridBottom="17", scaleGridLeft="3", scaleGridRight="11");
+	up-skin:				Embed("../assets/botones/PopUpButton_0.png", scaleGridTop="6", scaleGridBottom="17", scaleGridLeft="3", scaleGridRight="11");
+	over-skin:				Embed("../assets/botones/PopUpButton_1.png", scaleGridTop="6", scaleGridBottom="17", scaleGridLeft="3", scaleGridRight="11");
+	down-skin:				Embed("../assets/botones/PopUpButton_2.png", scaleGridTop="6", scaleGridBottom="17", scaleGridLeft="3", scaleGridRight="11");
+	disabled-skin:			Embed("../assets/botones/PopUpButton_dis.png", scaleGridTop="6", scaleGridBottom="17", scaleGridLeft="3", scaleGridRight="11");
+	disabled-color:			#999999;
+}
+
+
+ComboBox
+{
+	up-skin: 				Embed("../assets/botones/combo.png", scaleGridTop="6", scaleGridBottom="8", scaleGridLeft="3", scaleGridRight="68");
+	over-skin: 				Embed("../assets/botones/combo1.png", scaleGridTop="6", scaleGridBottom="8", scaleGridLeft="3", scaleGridRight="68");
+	down-skin: 				Embed("../assets/botones/combo2.png", scaleGridTop="6", scaleGridBottom="8", scaleGridLeft="3", scaleGridRight="68");
+	disabled-skin: 			Embed("../assets/botones/combo_dis.png", scaleGridTop="6", scaleGridBottom="8", scaleGridLeft="3", scaleGridRight="68");
+	font-family: 			franklin1;
+	font-weight:			normal;
+	drop-down-style-name:	comboBoxDropDown;
+	padding-left: 1;
+	disabled-color:			#999999;
+}
+
+
+.comboBoxDropDown
+{
+	font-family: 	franklin;
+}
+
+
+/*
+------------------------------------------------------------------------
+BUTTON
+------------------------------------------------------------------------
+*/
+
+
+.buttonNoOfficial
+{
+	up-skin:        		Embed("../assets/botones/boton_classic.png", scaleGridTop="6", scaleGridBottom="14", scaleGridLeft="6", scaleGridRight="14");
+	over-skin:      		Embed("../assets/botones/boton_classic1.png", scaleGridTop="6", scaleGridBottom="14", scaleGridLeft="6", scaleGridRight="14");
+	down-skin:      		Embed("../assets/botones/boton_classic2.png", scaleGridTop="6", scaleGridBottom="14", scaleGridLeft="6", scaleGridRight="14");
+	disabled-skin:			Embed("../assets/botones/boton_dis.png", scaleGridTop="6", scaleGridBottom="14", scaleGridLeft="6", scaleGridRight="11");
+
+	color: 					#333333;
+	font-family: 			franklin1;
+	font-weight:			normal;
+	font-size:				11;
+
+	padding-left: 			6;
+	padding-right: 			6;
+
+	text-roll-over-color: 	#333333;
+	text-selected-color: 	#000000;
+}
+
+
+.buttonOfficial
+{
+	up-skin:        		Embed("../assets/botones/boton.png", scaleGridTop="6", scaleGridBottom="14", scaleGridLeft="6", scaleGridRight="14");
+	over-skin:      		Embed("../assets/botones/boton1.png", scaleGridTop="6", scaleGridBottom="14", scaleGridLeft="6", scaleGridRight="14");
+	down-skin:      		Embed("../assets/botones/boton2.png", scaleGridTop="6", scaleGridBottom="14", scaleGridLeft="6", scaleGridRight="14");
+	disabled-skin:			Embed("../assets/botones/boton_dis.png", scaleGridTop="6", scaleGridBottom="14", scaleGridLeft="6", scaleGridRight="11");
+
+	color: 					#e8e8e8;
+	font-family: 			franklin1;
+
+	padding-left: 			6;
+	padding-right: 			6;
+
+	text-roll-over-color: 	#e8e8e8;
+	text-selected-color: 	#cccccc;
+}
+
+
+LinkButton
+{
+	font-family: 			franklin;
+	font-weight: 			normal;
+	font-size: 				11;
+	text-decoration: 		underline;
+	corner-radius:			0;
+	disabled-color:			#999999;
+	text-roll-over-color: 	#666666;
+	up-skin:				Embed("../assets/blanc.png");
+	down-skin:				Embed("../assets/blanc.png");
+	over-skin:				Embed("../assets/blanc.png");
+}
+
+
+/*
+------------------------------------------------------------------------
+TOGGLE BUTTONS
+------------------------------------------------------------------------
+*/
+
+
+ToggleButtonBar
+{
+	firstButtonStyleName: 			"buttonPrevievStyle";
+	buttonStyleName: 				"buttonInfoEpresaStyleFirst";
+	lastButtonStyleName: 			"buttonInfoEpresaStyleLast";
+	selectedButtonTextStyleName:	"buttonInfoEpresaStyleSelected";
+	header-height:					21;
+	color:							#ffffff;
+}
+
+
+.buttonPrevievStyle
+/*1 primero*/
+{
+	up-skin:        		Embed("../assets/botones/prev_toggle.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
+	over-skin:      		Embed("../assets/botones/prev_toggle1.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
+	down-skin:      		Embed("../assets/botones/prev_toggle2.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
+	selected-up-skin:   	Embed("../assets/botones/prev_toggle3.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
+	selected-over-skin: 	Embed("../assets/botones/prev_toggle3.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
+	selected-down-skin: 	Embed("../assets/botones/prev_toggle3.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
+	color:					#333333;
+	text-roll-over-color: 	#333333;
+	text-selected-color:	#000000;
+	font-weight: 			normal;
+	font-family: 			franklin1;
+	padding-left: 			6;
+	padding-right:			6;
+	padding-top:			3;
+}
+
+
+.buttonInfoEpresaStyleFirst
+/*2 medio*/
+{
+	up-skin:        		Embed("../assets/botones/toggle_medio.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
+	over-skin:      		Embed("../assets/botones/toggle_medio1.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
+	down-skin:      		Embed("../assets/botones/toggle_medio2.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
+	selected-up-skin: 		Embed("../assets/botones/toggle_medio3.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
+	selected-over-skin: 	Embed("../assets/botones/toggle_medio3.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
+	selected-down-skin: 	Embed("../assets/botones/toggle_medio3.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
+	color: 					#333333;
+	text-roll-over-color: 	#333333;
+	text-selected-color: 	#000000;
+	font-weight: 			normal;
+	font-family: 			franklin1;
+	padding-left: 			6;
+	padding-right:			6;
+	padding-top:			3;
+}
+
+
+.buttonInfoEpresaStyleLast 
+/*3 último*/
+{
+	up-skin:        		Embed("../assets/botones/last_toggle.png", scaleGridTop="7", scaleGridBottom="14", scaleGridLeft="3", scaleGridRight="12");
+	over-skin:      		Embed("../assets/botones/last_toggle1.png", scaleGridTop="7", scaleGridBottom="14", scaleGridLeft="3", scaleGridRight="12");
+	down-skin:      		Embed("../assets/botones/last_toggle2.png", scaleGridTop="7", scaleGridBottom="14", scaleGridLeft="3", scaleGridRight="12");
+	selected-up-skin:   	Embed("../assets/botones/last_toggle3.png", scaleGridTop="7", scaleGridBottom="14", scaleGridLeft="3", scaleGridRight="12");
+	selected-over-skin: 	Embed("../assets/botones/last_toggle3.png", scaleGridTop="7", scaleGridBottom="14", scaleGridLeft="3", scaleGridRight="12");
+	selected-down-skin: 	Embed("../assets/botones/last_toggle3.png", scaleGridTop="7", scaleGridBottom="14", scaleGridLeft="3", scaleGridRight="12");
+	color: 					#333333;
+	text-roll-over-color: 	#333333;
+	text-selected-color: 	#000000;
+	font-weight: 			normal;
+	font-family: 			franklin1;
+	padding-left: 			6;
+	padding-right:			6;
+	padding-top:			3;
+}
+
+
+.buttonInfoEpresaStyleSelected
+/*4 color seleccionado*/
+{
+	color: 					#f0f0f0;
+}
+
+
+/*----------------------------------------------------------------------------------------------------------*/
+
+
+ButtonBar
+{
+	firstButtonStyleName: 			"buttonPrevievStyle";
+	buttonStyleName: 				"buttonInfoEpresaStyleFirst";
+	lastButtonStyleName: 			"buttonInfoEpresaStyleLast";
+	selectedButtonTextStyleName:	"buttonInfoEpresaStyleSelected";
+	header-height:					21;
+	color:							#ffffff;
+}
+
+
+.buttonPrevievStyle
+/*1 primero*/
+{
+	up-skin:        		Embed("../assets/botones/prev_toggle.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
+	over-skin:      		Embed("../assets/botones/prev_toggle1.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
+	down-skin:      		Embed("../assets/botones/prev_toggle2.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
+	selected-up-skin:   	Embed("../assets/botones/prev_toggle3.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
+	selected-over-skin: 	Embed("../assets/botones/prev_toggle3.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
+	selected-down-skin: 	Embed("../assets/botones/prev_toggle3.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
+	color:					#333333;
+	text-roll-over-color: 	#333333;
+	text-selected-color:	#000000;
+	font-weight: 			normal;
+	font-family: 			franklin1;
+	padding-left: 			6;
+	padding-right:			6;
+	padding-top:			3;
+}
+
+
+.buttonInfoEpresaStyleFirst
+/*2 medio*/
+{
+	up-skin:        		Embed("../assets/botones/toggle_medio.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
+	over-skin:      		Embed("../assets/botones/toggle_medio1.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
+	down-skin:      		Embed("../assets/botones/toggle_medio2.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
+	selected-up-skin: 		Embed("../assets/botones/toggle_medio3.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
+	selected-over-skin: 	Embed("../assets/botones/toggle_medio3.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
+	selected-down-skin: 	Embed("../assets/botones/toggle_medio3.png", scaleGridTop="3", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="15");
+	color: 					#333333;
+	text-roll-over-color: 	#333333;
+	text-selected-color: 	#000000;
+	font-weight: 			normal;
+	font-family: 			franklin1;
+	padding-left: 			6;
+	padding-right:			6;
+	padding-top:			3;
+}
+
+
+.buttonInfoEpresaStyleLast 
+/*3 último*/
+{
+	up-skin:        		Embed("../assets/botones/last_toggle.png", scaleGridTop="7", scaleGridBottom="14", scaleGridLeft="3", scaleGridRight="12");
+	over-skin:      		Embed("../assets/botones/last_toggle1.png", scaleGridTop="7", scaleGridBottom="14", scaleGridLeft="3", scaleGridRight="12");
+	down-skin:      		Embed("../assets/botones/last_toggle2.png", scaleGridTop="7", scaleGridBottom="14", scaleGridLeft="3", scaleGridRight="12");
+	selected-up-skin:   	Embed("../assets/botones/last_toggle3.png", scaleGridTop="7", scaleGridBottom="14", scaleGridLeft="3", scaleGridRight="12");
+	selected-over-skin: 	Embed("../assets/botones/last_toggle3.png", scaleGridTop="7", scaleGridBottom="14", scaleGridLeft="3", scaleGridRight="12");
+	selected-down-skin: 	Embed("../assets/botones/last_toggle3.png", scaleGridTop="7", scaleGridBottom="14", scaleGridLeft="3", scaleGridRight="12");
+	color: 					#333333;
+	text-roll-over-color: 	#333333;
+	text-selected-color: 	#000000;
+	font-weight: 			normal;
+	font-family: 			franklin1;
+	padding-left: 			6;
+	padding-right:			6;
+	padding-top:			3;
+}
+
+
+.buttonInfoEpresaStyleSelected
+/*4 color seleccionado*/
+{
+	color: 					#f0f0f0;
+	text-roll-over-color:	#f0f0f0;
+	text-selected-color:	#f0f0f0;
+}
+
+
+/*
+------------------------------------------------------------------------
+RADIOS & CHECKBOX
+------------------------------------------------------------------------
+*/
+
+
+CheckBox
+{
+	up-icon: 			Embed("../assets/botones/chekOff.png");
+	over-icon: 			Embed("../assets/botones/chekOff1.png");
+	down-icon: 			Embed("../assets/botones/chekOff2.png");
+	selected-up-icon: 	Embed("../assets/botones/chekOn.png");
+	selected-over-icon: Embed("../assets/botones/chekOn1.png");
+	selected-down-icon: Embed("../assets/botones/chekOn2.png");
+	disabled-icon: 		Embed("../assets/botones/chek_dis.png");
+	font-family:		franklin;
+}
+
+
+RadioButton
+{
+	up-icon: 			Embed("../assets/botones/radio.png");
+	over-icon: 			Embed("../assets/botones/radio1.png");
+	down-icon: 			Embed("../assets/botones/radio2.png");
+	selected-up-icon: 	Embed("../assets/botones/radio3.png");
+	selected-over-icon: Embed("../assets/botones/radio3.png");
+	selected-down-icon: Embed("../assets/botones/radio4.png");
+	disabled-icon: 		Embed("../assets/botones/radio_dis.png");
+	color:				#333333;
+	font-family:		franklin;
+}
+
+
+
+/*
+------------------------------------------------------------------------
+ACCORDION
+------------------------------------------------------------------------
+*/
+
+Accordion
+{
+	border-color:			#cfcfcf;
+	background-color:		#f3f3f3;
+}
+
+
+AccordionHeader
+{
+	header-height:			22;
+	border-style:			solid;
+	font-family:			franklin1;
+	font-weight:			normal;
+	color:					#333333;
+	text-roll-over-color:	#333333;
+	text-selected-color:	#000000;
+	font-size:				11;	
+	up-skin:				Embed("../assets/botones/accordion_barra.png", scaleGridTop="3", scaleGridBottom="19", scaleGridLeft="3", scaleGridRight="74");
+	over-skin:				Embed("../assets/botones/accordion_barra1.png", scaleGridTop="3", scaleGridBottom="19", scaleGridLeft="3", scaleGridRight="74");	
+	down-skin:				Embed("../assets/botones/accordion_barra2.png", scaleGridTop="3", scaleGridBottom="19", scaleGridLeft="3", scaleGridRight="74");
+	selected-up-skin:		Embed("../assets/botones/accordion_barra3.png", scaleGridTop="3", scaleGridBottom="19", scaleGridLeft="3", scaleGridRight="74");
+	selected-over-skin:		Embed("../assets/botones/accordion_barra3.png", scaleGridTop="3", scaleGridBottom="19", scaleGridLeft="3", scaleGridRight="74");
+	selected-down-skin:		Embed("../assets/botones/accordion_barra3.png", scaleGridTop="3", scaleGridBottom="19", scaleGridLeft="3", scaleGridRight="74");
+}
+
+
+/*
+------------------------------------------------------------------------
+TREE
+------------------------------------------------------------------------
+*/
+
+Tree
+{
+	default-leaf-icon:		Embed("../assets/botones/hoja.png");
+	folder-closed-icon:		Embed("../assets/botones/folder_close.png");
+	folder-open-icon:		Embed("../assets/botones/folder_open.png");
+	disclosure-closed-icon:	Embed("../assets/botones/open_folder.png");
+	disclosure-open-icon:	Embed("../assets/botones/close_folder.png");
+	color:					#333333;
+	text-roll-over-color:	#333333;
+	text-selected-color:	#333333;
+	roll-over-color:		#e4e4e4;
+	selection-color:		#cdcdcd;
+}
+
+/*
+------------------------------------------------------------------------
+PANELS & WINDOWS
+------------------------------------------------------------------------
+*/
+
+
+Panel
+{
+	border-style:			solid;
+	background-color:		#efefef;
+	font-family: 			franklin;
+	font-weight: 			normal;
+	/*title-background-skin: 	Embed("../assets/general/titleWindow1.png", scaleGridTop="42", scaleGridBottom="138", scaleGridLeft="11", scaleGridRight="118");
+	header-background-skin: Embed("../assets/general/titleWindow1.png", scaleGridTop="42", scaleGridBottom="138", scaleGridLeft="11", scaleGridRight="118");*/
+	background-size: 		"100%";
+	title-style-name:		"myTitlePanel";
+	shadow-direction:		90;
+	shadow-distance:		1;
+}
+
+.myTitlePanel
+{
+	font-family:	franklin1;
+	font-weight:	normal;
+	font-size:		14;
+	color:			#333333;
+}
+
+
+
+TabNavigator
+{
+	horizontal-gap: 				1;
+	font-family:					franklin1;
+	font-size:						11;
+	font-weight:					normal;
+	border-color:					#cbcbcb;
+	color:							#333333;
+	text-align:						left;
+	tab-style-name:					"tabNavigatorTab";
+	selected-tab-text-style-name:	"tabNavigatorSelectedText";
+	
+}
+
+
+.tabNavigatorTab
+{
+	up-skin:			Embed("../assets/botones/TabNavigator1.png", scaleGridTop="5", scaleGridBottom="18", scaleGridLeft="5", scaleGridRight="12");
+	over-skin:			Embed("../assets/botones/TabNavigator2.png", scaleGridTop="5", scaleGridBottom="18", scaleGridLeft="5", scaleGridRight="12");
+	down-skin:			Embed("../assets/botones/TabNavigator.png", scaleGridTop="5", scaleGridBottom="18", scaleGridLeft="5", scaleGridRight="12");
+	selected-up-skin:	Embed("../assets/botones/TabNavigator.png", scaleGridTop="5", scaleGridBottom="18", scaleGridLeft="5", scaleGridRight="12");
+	selected-down-skin:	Embed("../assets/botones/TabNavigator.png", scaleGridTop="5", scaleGridBottom="18", scaleGridLeft="5", scaleGridRight="12");
+	selected-over-skin:	Embed("../assets/botones/TabNavigator.png", scaleGridTop="5", scaleGridBottom="18", scaleGridLeft="5", scaleGridRight="12");
+	font-weight: 		normal;
+	font-family:		franklin1;
+	font-size:			11;
+	color:				#666666;
+	border-color: 		#c0c0c0;
+	padding-top:		3;
+	padding-left:		6;
+	padding-right:		6;
+	border-style:		none;
+	border-thickness:	0;
+}
+
+
+.tabNavigatorSelectedText
+{
+	roll-over-color:	#333333;
+	font-weight: 		normal;
+	font-family:		franklin1;
+	font-size:			11;
+	color:				#333333;
+	padding-top:		3;
+	padding-left:		6;
+	padding-right:		6;
+}
+
+
+TabBar
+{
+	tab-height:						25;
+	horizontal-gap: 				1;
+	font-family:					franklin1;
+	font-size:						11;
+	font-weight:					normal;
+	border-color:					#cbcbcb;
+	color:							#333333;
+	text-align:						left;
+	tab-style-name:					"tabNavigatorTab";
+	selected-tab-text-style-name:	"tabNavigatorSelectedText";
+	
+}
+
+
+.tabNavigatorTab
+{
+	up-skin:			Embed("../assets/botones/TabNavigator1.png", scaleGridTop="5", scaleGridBottom="18", scaleGridLeft="5", scaleGridRight="12");
+	over-skin:			Embed("../assets/botones/TabNavigator2.png", scaleGridTop="5", scaleGridBottom="18", scaleGridLeft="5", scaleGridRight="12");
+	down-skin:			Embed("../assets/botones/TabNavigator.png", scaleGridTop="5", scaleGridBottom="18", scaleGridLeft="5", scaleGridRight="12");
+	selected-up-skin:	Embed("../assets/botones/TabNavigator.png", scaleGridTop="5", scaleGridBottom="18", scaleGridLeft="5", scaleGridRight="12");
+	selected-down-skin:	Embed("../assets/botones/TabNavigator.png", scaleGridTop="5", scaleGridBottom="18", scaleGridLeft="5", scaleGridRight="12");
+	selected-over-skin:	Embed("../assets/botones/TabNavigator.png", scaleGridTop="5", scaleGridBottom="18", scaleGridLeft="5", scaleGridRight="12");
+	font-weight: 		normal;
+	font-family:		franklin1;
+	font-size:			11;
+	color:				#666666;
+	border-color: 		#c0c0c0;
+	padding-top:		3;
+	padding-left:		6;
+	padding-right:		6;
+	border-style:		none;
+	border-thickness:	0;
+}
+
+
+.tabNavigatorSelectedText
+{
+	roll-over-color:	#333333;
+	font-weight: 		normal;
+	font-family:		franklin1;
+	font-size:			11;
+	color:				#333333;
+	padding-top:		3;
+	padding-left:		6;
+	padding-right:		6;
+}
+
+
+/*
+------------------------------------------------------------------------
+LIST
+------------------------------------------------------------------------
+*/
+
+List
+{
+	font-family:				franklin;
+	font-weight:				normal;
+	font-size:					11;
+	color:						#333333;
+	text-roll-over-color:		#333333;
+	text-selected-color:		#333333;
+	roll-over-color:			#e4e4e4;
+	selection-color:			#cdcdcd;
+	alternating-item-colors:	#f8f8f8, #ffffff;	
+}
+
+
+DataGrid {
+	headerStyleName: 			"mydataGridHeaderStyle";
+	font-family:				franklin;
+	font-weight:				normal;
+	font-size:					11;
+   	color:						#333333;
+	text-roll-over-color:		#333333;
+	text-selected-color:		#333333;
+	roll-over-color:			#e4e4e4;
+	selection-color:			#cdcdcd;
+	alternating-item-colors:	#f8f8f8, #ffffff;
+	sortArrowSkin:				Embed("../assets/botones/icon_up.png");
+}
+
+.mydataGridHeaderStyle {
+   textAlign: 				left;
+   color:					#333333;
+   font-family:				franklin1;
+   font-weight:				normal;
+   font-size:				11;
+}
+
+TileList
+{
+	background-image:		Embed("../assets/general/fondo_list.png", scaleGridTop="5", scaleGridBottom="45", scaleGridLeft="5", scaleGridRight="45");
+	background-size:		"100%";
+	background-color:		#dddddd;
+	border-thickness:		1;
+	padding-left:			0;
+	padding-right:			0;
+	padding-top:			0;
+	padding-bottom:			0;
+	vertical-gap:			0;
+	horizontal-gap:			0;
+	selection-color:		#707070;
+	roll-over-color:		#999999;
+}
+
+HorizontalList
+{
+	background-image:		Embed("../assets/general/fondo_list.png", scaleGridTop="5", scaleGridBottom="45", scaleGridLeft="5", scaleGridRight="45");
+	background-size:		"100%";
+	background-color:		#dddddd;
+	border-thickness:		0;
+	padding-left:			0;
+	padding-right:			0;
+	padding-top:			0;
+	padding-bottom:			0;
+	vertical-gap:			0;
+	horizontal-gap:			0;
+	selection-color:		#707070;
+	roll-over-color:		#999999;
+}
+
+/*
+------------------------------------------------------------------------
+COMPONENTS
+------------------------------------------------------------------------
+*/
+
+
+
+Alert
+{
+	title-background-skin: 		Embed("../assets/general/alert_titulo1.png", scaleGridTop="9", scaleGridBottom="16", scaleGridLeft="13", scaleGridRight="85");
+	/*background-image: 		Embed("../assets/general/alert.png",  scaleGridTop="10", scaleGridBottom="58", scaleGridLeft="10", scaleGridRight="147");*/
+	background-size: 			"100%";
+	
+	padding-left: 				0;
+	padding-bottom: 			14;
+	padding-right: 				0;
+	padding-top: 				0;
+	
+	header-height: 				25;
+	borderStyle: 				none;
+	background-color: 			none;
+	
+	border-thickness-top:		0;
+	border-thickness-bottom:	0;
+	border-thickness-left:		0;
+	border-thickness-right:		0;
+
+	
+	color: 						#333333;
+	
+	messageStyleName: 			"alertText";
+	button-style-name: 			"buttonNoOfficial";
+	title-style-name:			"myTitle";
+}
+
+.alertText
+{
+	background-image: 			Embed("../assets/general/alert_fondo1.png", scaleGridTop="1", scaleGridBottom="26", scaleGridLeft="5", scaleGridRight="85");
+	background-size: 			"100%";
+	font-family:				franklin1;
+	font-size:					11;
+	font-weight: 				normal;
+}
+
+.myTitle
+{
+	font-family:				franklin1;
+	font-size:					12;
+	font-weight: 				normal;
+	color:						#ffffff;
+	padding-left:				3;	
+}
+
+
+
+ScrollBar
+{
+	up-arrow-up-skin: 		Embed("../assets/botones/Scroll_up.png" );
+	up-arrow-over-skin:		Embed("../assets/botones/Scroll_up.png");
+	up-arrow-down-skin:		Embed("../assets/botones/Scroll_up1.png");
+	
+	down-arrow-up-skin:		Embed("../assets/botones/Scroll_down.png" );
+	down-arrow-over-skin:	Embed("../assets/botones/Scroll_down.png");
+	down-arrow-down-skin:	Embed("../assets/botones/Scroll_down1.png");
+	
+	thumb-up-skin:			Embed("../assets/botones/Scroll_barra.png", scaleGridTop="3", scaleGridBottom="7", scaleGridLeft="2", scaleGridRight="11");
+	thumb-over-skin:		Embed("../assets/botones/Scroll_barra1.png", scaleGridTop="3", scaleGridBottom="7", scaleGridLeft="2", scaleGridRight="11");
+	thumb-down-skin:		Embed("../assets/botones/Scroll_barra2.png", scaleGridTop="3", scaleGridBottom="7", scaleGridLeft="2", scaleGridRight="11");
+	
+	track-skin: 			Embed("../assets/botones/Scroll_fondo.png", scaleGridTop="17", scaleGridBottom="28", scaleGridLeft="3", scaleGridRight="12");
+	/*track-down-skin: 		Embed("../assets/botones/Scroll_fondo.png", scaleGridTop="26", scaleGridBottom="28", scaleGridLeft="8", scaleGridRight="9");*/
+
+	thumb-icon:				Embed("../assets/botones/Scroll_icon.png");
+}
+
+NumericStepper
+{
+	border-thickness: 			0;
+	focus-thickness:			0;
+	up-arrow-up-skin: 			Embed("../assets/botones/numericStepper_Up.png");
+	up-arrow-over-skin:			Embed("../assets/botones/numericStepper_Up1.png");
+	up-arrow-down-skin:			Embed("../assets/botones/numericStepper_Up2.png");
+	up-arrow-disabled-skin:		Embed("../assets/botones/numericStepper_Up_dis.png");
+	down-arrow-up-skin:			Embed("../assets/botones/numericStepper_Down.png");
+	down-arrow-over-skin:		Embed("../assets/botones/numericStepper_Down1.png");
+	down-arrow-down-skin:		Embed("../assets/botones/numericStepper_Down2.png");
+	down-arrow-disabled-skin:	Embed("../assets/botones/numericStepper_Down_dis.png");
+	background-image:			Embed("../assets/botones/numericStepper_Text.png", scaleGridTop="2", scaleGridBottom="15", scaleGridLeft="7", scaleGridRight="10");
+	background-size: 			"100%";
+	border-style: 				none;
+	disabled-color:				#999999;
+	background-disabled-color:	none;
+	font-family:				franklin;
+}
+
+
+ColorPicker
+{
+	up-skin: 			Embed("../assets/botones/colorPicker_blanco.png");
+	over-skin: 			Embed("../assets/botones/colorPicker_blanco1.png");
+	down-skin: 			Embed("../assets/botones/colorPicker_blanco2.png");
+	disabled-skin: 		Embed("../assets/botones/colorPicker_dis.png");
+	focus-thickness: 	0;
+	font-family:		franklin;
+	font-weight:		normal;
+}
+.myText
+{
+	font-family:	franklin;
+	font-weight:	normal;
+	font-size:		11;
+}
+
+
+DateField
+{
+	up-skin: 				Embed("../assets/botones/dataIcon.png");
+	over-skin: 				Embed("../assets/botones/dataIcon1.png");
+	down-skin: 				Embed("../assets/botones/dataIcon2.png");
+	disabled-skin: 			Embed("../assets/botones/dataIcon_dis.png");
+	textInputStyleName:  	textFieldStyle;
+	font-family:			franklin;
+}
+
+
+.textFieldStyle
+{
+	border-skin:        	Embed("../assets/botones/dataText.png", scaleGridTop="2", scaleGridBottom="15", scaleGridLeft="6", scaleGridRight="10");
+	background-size: 		"100%";
+}
+
+
+HRule
+{
+	stroke-color: 	#cccccc;
+	stroke-width:	2;
+	shadow-color:	#ffffff;
+	font-family:	franklin;
+}
+
+
+VRule
+{
+	stroke-color:	#cccccc;
+	stroke-width:	2;
+	shadow-color:	#ffffff;
+	font-family:	franklin;
+}
+
+
+HSlider
+{
+	thumb-skin: 			Embed("../assets/botones/bullet.png");
+	thumb-down-skin: 		Embed(source="../assets/botones/bullet1.png");
+	thumb-disabled-skin:	Embed(source="../assets/botones/bullet_dis.png");
+	track-skin: 			Embed(source="../assets/botones/barra.png", scaleGridTop="2", scaleGridBottom="3", scaleGridLeft="4", scaleGridRight="50");
+	data-tip-offset:		0;
+}
+
+
+VSlider
+{
+	thumb-skin: 			Embed("../assets/botones/bullet_v.png");
+	thumb-down-skin: 		Embed(source="../assets/botones/bullet_v1.png");
+	thumb-disabled-skin:	Embed(source="../assets/botones/bullet_V_dis.png");
+	track-skin: 			Embed(source="../assets/botones/barra.png", scaleGridTop="2", scaleGridBottom="3", scaleGridLeft="4", scaleGridRight="50");
+	data-tip-offset:		0;
+}
+
+
+ProgressBar
+{
+	bar-skin:						Embed(source="../assets/botones/progress_barra.png", scaleGridTop="3", scaleGridBottom="4", scaleGridLeft="5", scaleGridRight="6");
+	track-skin:						Embed(source="../assets/botones/progress.png", scaleGridTop="4", scaleGridBottom="5", scaleGridLeft="4", scaleGridRight="6");
+	track-disabled-skin:			Embed(source="../assets/botones/progress_dis.png", scaleGridTop="4", scaleGridBottom="5", scaleGridLeft="4", scaleGridRight="6");
+	font-family: 					franklin1;
+	color: 							#333333;
+	font-weight: 					normal;
+	font-size: 						11;
+	label-placement: 				top;
+	indeterminate-skin:				Embed(source="../assets/botones/progress_charning.png");
+	indeterminate-move-interval: 	13;
+}
+
+
+/*
+------------------------------------------------------------------------
+TEXT INPUT - AREA
+------------------------------------------------------------------------
+*/
+
+.personalTextInput
+{
+	background-image: 			Embed("../assets/botones/textInput.png", scaleGridTop="6", scaleGridBottom="16", scaleGridLeft="6", scaleGridRight="16");
+	background-disabled-color:	none;
+	background-size: 			"100%";
+	color:						#333333;
+	disabled-color:				#999999;
+	border-thickness:			0;
+	focus-thickness:			0;
+	font-size:					11;
+	font-family:				franklin;
+	border-style:				none;
+	font-weight:				normal;
+	padding-left:				3;
+	padding-top:				2;
+}
+
+TextArea
+{
+	background-image: 			Embed("../assets/botones/textArea.png", scaleGridTop="6", scaleGridBottom="16", scaleGridLeft="6", scaleGridRight="16");
+	background-size:			"100%";
+	background-disabled-color:	none;
+	disabled-color:				#999999;
+	border-thickness:			0;
+	focus-thickness:			0;
+	color:						#333333;
+	font-family:				franklin;
+	font-weight:				normal;
+	font-size:					11;
+}
+
+/*
+------------------------------------------------------------------------
+TITLE WINDOW
+------------------------------------------------------------------------
+*/
+
+TitleWindow
+{
+	border-skin:			Embed("../assets/general/titleWindow.png", scaleGridTop="42", scaleGridBottom="138", scaleGridLeft="11", scaleGridRight="118");
+	background-size:		"100%";
+	border-style:			none;
+	font-family:			franklin1;
+	font-size:				11;
+	font-weight:			normal;
+	color:					#333333;
+	border-thickness:		0;
+	background-color:		none;
+	padding-bottom:			0;
+	padding-left:			0;
+	padding-right:			0;
+	padding-top:			0;
+	title-style-name:		"myWindow";
+	close-button-up-skin:	Embed("../assets/botones/close.png");
+	close-button-over-skin:	Embed("../assets/botones/close1.png");
+	close-button-down-skin:	Embed("../assets/botones/close2.png");
+}
+
+.myWindow
+{
+	font-family:		franklin1;
+	font-size:			12;
+	font-weight:		normal;
+	color:				#333333;
+
+}
+
+/* .closeButtonWindow
+{
+	up-skin: Embed("../assets/botones/close.png");
+	over-skin: Embed("../assets/botones/close1.png");
+	down-skin: Embed("../assets/botones/close1.png");	
+} */
+
+
+/*
+------------------------------------------------------------------------
+MENU
+------------------------------------------------------------------------
+*/
+
+MenuBar
+{
+	background-skin: 		Embed("../assets/general/menu.png", scaleGridTop="4", scaleGridBottom="20", scaleGridLeft="5", scaleGridRight="13");
+	background-size:		"100%";
+	color:					#cccccc;
+	disabledColor: 			#cccccc;
+	item-up-skin:			Embed("../assets/general/blanc.png");
+	item-over-skin:			Embed("../assets/general/MenuItem1.png", scaleGridTop="5", scaleGridBottom="23", scaleGridLeft="5", scaleGridRight="8");
+	item-down-skin:			Embed("../assets/general/MenuItem.png", scaleGridTop="5", scaleGridBottom="23", scaleGridLeft="5", scaleGridRight="8");
+	horizontal-gap:			0;
+	vertical-gap:			0;
+	padding-bottom:			0;
+	padding-left:			0;
+	padding-right:			0;
+	padding-top:			0;
+	font-family:			franklin1;
+	font-size:				12;
+	menu-style-name: 		"myMenu";
+}
+
+.myMenu
+{
+	background-color:		#000000;
+	font-family:			franklin;
+	color:					#333333;
+	font-weight:			normal;
+	font-size:				11;
+	border-color:			#333333;
+	horizontal-gap:			0;
+	vertical-gap:			0;
+	padding-bottom:			0;
+	padding-left:			0;
+	padding-right:			0;
+	padding-top:			0;
+	text-align:				left;
+	separator-skin:			Embed("../assets/general/separator.png");
+}
+
+
+/*
+------------------------------------------------------------------------
+DATA CHOOSER - CALENDARIO
+------------------------------------------------------------------------
+*/
+
+
+DateChooser
+{
+	border-thickness: 			1;
+	border-color:				#cccccc;
+	dropShadowEnabled: 			true;
+	shadowDistance: 			0;
+	header-colors:				#dfdfdf, #dfdfdf;
+	disabled-color:				#999999;
+	font-family:				franklin;
+	headerStyleName: 			"mydateChooserHeaderStyle";
+	week-day-style-name: 		"weekDayChooserStyle";
+	roll-over-indicator-skin:	Embed("../assets/botones/seleccionData.png", scaleGridTop="7", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="14");
+	today-indicator-skin:		Embed("../assets/botones/seleccionDataSelected.png", scaleGridTop="7", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="14");
+	selection-indicator-skin:	Embed("../assets/botones/seleccionDataUp.png", scaleGridTop="7", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="14");
+	prev-month-up-skin:			Embed("../assets/botones/atras.png");
+	prev-month-over-skin:		Embed("../assets/botones/atras1.png");
+	prev-month-down-skin:		Embed("../assets/botones/atras2.png");
+	prev-month-disabled-skin:	Embed("../assets/botones/atras_dis.png");
+	next-month-up-skin:			Embed("../assets/botones/adelante.png");
+	next-month-over-skin:		Embed("../assets/botones/adelante1.png");
+	next-month-down-skin:		Embed("../assets/botones/adelante2.png");
+	next-month-disabled-skin:	Embed("../assets/botones/adelante_dis.png");
+}
+
+
+.mydateChooserHeaderStyle 
+{
+   color: 					#333333;
+   font-weight:				normal;
+   font-size:				13px;
+   font-family:				franklin1;
+} 
+
+
+.weekDayChooserStyle
+{
+	color:					#333333;
+	font-weight:			normal;
+	font-size:				13;
+	font-family:			franklin1;
+}
+
+
+ToolTip
+{
+	background-image: 		Embed("../assets/botones/toolTip.png", scaleGridTop="4", scaleGridBottom="5", scaleGridLeft="7", scaleGridRight="16");
+	color:					#333333;
+	border-style:			none;
+	border-color:			none;
+	background-size: 		"100%";
+	font-family: 			franklin1;
+	font-weight: 			normal;
+	font-size: 				10;
+	drop-shadow-enabled:	false;
+	padding-bottom: 		5;
+	dding-left:				6;
+	dding-right:			6;
+	dding-top:				3;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
