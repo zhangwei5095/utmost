@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <actionScriptProperties mainApplicationPath="TPL.mxml" version="3">
-<compiler additionalCompilerArguments="-locale en_US -compiler.services services-config.xml" copyDependentFiles="true" enableModuleDebug="true" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="true" htmlHistoryManagement="true" htmlPlayerVersion="9.0.124" htmlPlayerVersionCheck="false" outputFolderPath="bin-debug" sourceFolderPath="src" strict="true" useApolloConfig="false" verifyDigests="true" warn="true">
+<compiler additionalCompilerArguments="-locale en_US -compiler.services services-config.xml" copyDependentFiles="true" enableModuleDebug="true" flexSDK="Flex 3.1" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="true" htmlHistoryManagement="true" htmlPlayerVersion="9.0.124" htmlPlayerVersionCheck="false" outputFolderPath="bin-debug" sourceFolderPath="src" strict="true" useApolloConfig="false" verifyDigests="true" warn="true">
 <compilerSourcePath/>
-<libraryPath defaultLinkType="3">
+<libraryPath defaultLinkType="1">
 <libraryPathEntry kind="4" path="">
 <modifiedEntries>
 <libraryPathEntry kind="3" linkType="4" path="${PROJECT_FRAMEWORKS}/libs/framework.swc" useDefaultLinkType="true">
@@ -60,6 +60,7 @@
 <module application="src/TPL.mxml" destPath="module/PortalModule.swf" optimize="true" sourcePath="src/module/PortalModule.mxml"/>
 <module application="src/TPL.mxml" destPath="module/auth/AuthUserAddComponent.swf" optimize="true" sourcePath="src/module/auth/AuthUserAddComponent.mxml"/>
 <module application="src/TPL.mxml" destPath="module/tpl/template/TestForm.swf" optimize="true" sourcePath="src/module/tpl/template/TestForm.mxml"/>
+<module application="src/TPL.mxml" destPath="module/tpl/template/TestNamedQuery.swf" optimize="true" sourcePath="src/module/tpl/template/TestNamedQuery.mxml"/>
 </modules>
 <buildCSSFiles/>
 </actionScriptProperties>

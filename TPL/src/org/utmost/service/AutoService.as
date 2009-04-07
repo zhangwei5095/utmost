@@ -156,6 +156,15 @@ package org.utmost.service
 				ro.findByHql.addEventListener(FaultEvent.FAULT, faultHandler);
 			ro.findByHql(hql);
 		}
+		
+		//根据命名 查询
+		public function findByNamedQuery(queryName:String, resultHandler:Function, faultHandler:Function=null):void
+		{
+			ro.findByNamedQuery.addEventListener(ResultEvent.RESULT, resultHandler);
+			if (faultHandler != null)
+				ro.findByNamedQuery.addEventListener(FaultEvent.FAULT, faultHandler);
+			ro.findByNamedQuery(queryName);
+		}
 
 		//唯一性校验  successHandler 为校验通过执行的函数
 		public static function unique(tableName:String,field:String,value:String,successHandler:Function,errorHandler:Function=null):void {
