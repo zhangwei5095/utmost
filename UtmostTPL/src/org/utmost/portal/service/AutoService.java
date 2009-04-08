@@ -238,4 +238,17 @@ public class AutoService extends CommService {
 	public List findByNamedQuery(String queryName) {
 		return getDb().findByNamedQuery(queryName);
 	}
+
+	/**
+	 * 设置分页, pageNo或pageList<=0时返回所有记录
+	 * 
+	 * @param pageNo
+	 *            页数, 从1开始, <=0时返回所有记录
+	 * @param pageList
+	 *            每页记录数, <=0时返回所有记录
+	 * @param hql
+	 */
+	public List pagination(int pageNo, int pageSize, String hql) {
+		return getDb().pagination(pageNo, pageSize, hql);
+	}
 }

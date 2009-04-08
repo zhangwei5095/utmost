@@ -326,16 +326,25 @@ public class DBSupport extends HibernateDaoSupport {
 	 *            每页记录数, <=0时返回所有记录
 	 * @param hql
 	 */
-	public List pagination(int pageNo, int pageList, String hql) {
-		Query query = this.getSession().createQuery(hql);
-		if (pageList > 0 && pageNo > 0) {
-			query.setMaxResults(pageList);
-			int beginIndex = (pageNo - 1) * pageList;
-			query.setFirstResult(beginIndex);
-		}
-		return query.list();
+	public List pagination(int pageNo, int pageSize, String hql) {
+		List list = this.getSession().createQuery(hql).setFirstResult(pageNo)
+				.setMaxResults(pageSize).list();
+		return list;
 	}
 
+	/**
+	 * 标准sql分页方式
+	 * 
+	 * @param pageNo
+	 * @param pageSize
+	 * @param sql
+	 * @return
+	 */
+	public List paginationBySql(int pageNo, int pageSize, String sql) {
+		List list = this.getSession().createSQLQuery(sql)
+				.setFirstResult(pageNo).setMaxResults(pageSize).list();
+		return list;
+	}
 	/**
 	 * 设置分页, pageNo或pageList<=0时返回所有记录
 	 * 
@@ -345,11 +354,11 @@ public class DBSupport extends HibernateDaoSupport {
 	 *            每页记录数, <=0时返回所有记录
 	 * @param criteria
 	 */
-	public void pagination(int pageNo, int pageList, Criteria criteria) {
-		if (pageList > 0 && pageNo > 0) {
-			criteria.setMaxResults(pageList);
-			int beginIndex = (pageNo - 1) * pageList;
-			criteria.setFirstResult(beginIndex);
-		}
-	}
+	// public void pagination(int pageNo, int pageList, Criteria criteria) {
+	// if (pageList > 0 && pageNo > 0) {
+	// criteria.setMaxResults(pageList);
+	// int beginIndex = (pageNo - 1) * pageList;
+	// criteria.setFirstResult(beginIndex);
+	// }
+	// }
 }
