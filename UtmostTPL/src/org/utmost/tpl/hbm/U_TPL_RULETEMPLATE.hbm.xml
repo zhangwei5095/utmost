@@ -2,6 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class entity-name="U_TPL_RULETEMPLATE" table="U_TPL_RULETEMPLATE">
+	<cache usage="read-write"/>
 		<id column="UUID" name="uuid" length="36" type="java.lang.String">
 			<generator class="uuid" />
 		</id>

@@ -32,7 +32,9 @@
 			property
 			name="cache.provider_class">org.hibernate.cache.EhCacheProvider</property
 		-->
+
 		<property name="hibernate.cache.provider_class">org.hibernate.cache.HashtableCacheProvider</property>
+
 		<!--
 			<property
 			name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>

@@ -3,6 +3,7 @@
                                    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class entity-name="U_TPL_REFERENCE" table="U_TPL_REFERENCE">
+	<cache usage="read-write"/>
 		<id column="UUID" length="36" name="uuid" type="java.lang.String">
 			<generator class="uuid" />
 		</id>
