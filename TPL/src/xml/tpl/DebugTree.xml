@@ -4,4 +4,5 @@
 	<node nodename="增删查改" module="module/tpl/template/SimpleCRUD.swf" />
 	<node nodename="报表测试" module="module/tpl/template/SimpleReportModule.swf" />
 	<node nodename="命名查询测试" module="module/tpl/template/TestNamedQuery.swf" />
+	<node nodename="HQL/SQL查询" module="module/tpl/template/QueryModule.swf" />
 </node>

@@ -12,7 +12,6 @@ package org.utmost.tpl
 	import mx.controls.advancedDataGridClasses.AdvancedDataGridColumn;
 	import mx.controls.dataGridClasses.DataGridColumn;
 	import mx.core.UIComponent;
-	import mx.managers.ToolTipManager;
 	import mx.rpc.events.ResultEvent;
 	
 	import org.utmost.service.AutoService;
@@ -131,6 +130,24 @@ package org.utmost.tpl
 				}
 				col.headerText=(String)(o.fieldname);
 				col.dataField=(String)(o.fieldcode);
+				arrCol.addItem(col);
+			}
+			dg.columns=arrCol.toArray();
+			return dg;
+		}
+		
+		
+		/**
+		 * 自动生成表头
+		 * */
+		public static function buildAdvancedDataGridByHeader(headerObj:Object):AdvancedDataGrid {
+			var dg:AdvancedDataGrid=new AdvancedDataGrid();
+			var arrCol:ArrayCollection=new ArrayCollection();
+			for(var header:String in headerObj) {
+				trace(header+" "+headerObj[header]);
+				var col:AdvancedDataGridColumn=new AdvancedDataGridColumn();
+				col.headerText=header;
+				col.dataField=header;
 				arrCol.addItem(col);
 			}
 			dg.columns=arrCol.toArray();

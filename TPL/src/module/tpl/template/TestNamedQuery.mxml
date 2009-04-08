@@ -13,7 +13,7 @@
 			import org.utmost.service.UtmostService;
 			public function run():void {
 				var service:AutoService=new AutoService();
-				service.findByNamedQuery("Query_U_TPL_TEMPLATE",function(e:ResultEvent):void {
+				service.findByNamedQuery("Query_U_TPL_TEMPLATE_HQL",function(e:ResultEvent):void {
 					trace(e.result.toString());
 				});
 			}

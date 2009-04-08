@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%">
+	<mx:VDividedBox width="100%" height="100%">
+		<mx:VBox width="100%" height="25%" verticalGap="0">
+			<mx:TextArea id="exp" width="100%" height="100%" text="from U_TPL_TEMPLATEDATA"/>
+			<mx:HBox width="100%" height="30" verticalAlign="middle" horizontalAlign="right">
+				<mx:Label text="限制返回"/>
+				<mx:NumericStepper id="pageSize" maximum="10000" width="120" stepSize="1" value="1000"/>
+				<mx:Button label="执行" click="paginationQuery()"/>
+			</mx:HBox>
+		</mx:VBox>
+		<mx:VBox width="100%" height="75%">
+			<mx:HBox id="adgContiner" width="100%" height="80%">
+			</mx:HBox>	
+			<mx:TextArea id="log" height="20%" width="100%"/>
+		</mx:VBox>
+	</mx:VDividedBox>
+	<mx:Script>
+		<![CDATA[
+			import mx.controls.AdvancedDataGrid;
+			import org.utmost.tpl.ViewUtil;
+			import mx.collections.ArrayCollection;
+			import mx.rpc.events.ResultEvent;
+			import org.utmost.service.AutoService;
+			public function paginationQuery():void {
+				trace("pageSize.value:"+pageSize.value);
+				adgContiner.removeAllChildren();
+				AutoService.getInstance().pagination(0,pageSize.value,exp.text,function(e:ResultEvent):void{
+					var ac:ArrayCollection=e.result as ArrayCollection;
+					trace("ac.length:"+ac.length);
+					trace("ac:"+ac);
+					log.text=ac.toString();
+					if(ac.length!=0) {
+						var headerObj:Object=ac.getItemAt(0);
+						var dg:AdvancedDataGrid=ViewUtil.buildAdvancedDataGridByHeader(headerObj);
+						dg.dataProvider=ac;
+						dg.height=adgContiner.height-30;
+						adgContiner.addChild(dg);
+					}
+				});
+			}
+		]]>
+	</mx:Script>
+</mx:Module>

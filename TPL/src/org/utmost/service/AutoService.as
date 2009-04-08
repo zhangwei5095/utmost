@@ -165,6 +165,15 @@ package org.utmost.service
 				ro.findByNamedQuery.addEventListener(FaultEvent.FAULT, faultHandler);
 			ro.findByNamedQuery(queryName);
 		}
+		
+		//设置分页
+		public function pagination(pageNo:int,pageSize:int,hql:String, resultHandler:Function, faultHandler:Function=null):void
+		{
+			ro.pagination.addEventListener(ResultEvent.RESULT, resultHandler);
+			if (faultHandler != null)
+				ro.pagination.addEventListener(FaultEvent.FAULT, faultHandler);
+			ro.pagination(pageNo,pageSize,hql);
+		}
 
 		//唯一性校验  successHandler 为校验通过执行的函数
 		public static function unique(tableName:String,field:String,value:String,successHandler:Function,errorHandler:Function=null):void {

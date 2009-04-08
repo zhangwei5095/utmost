@@ -61,6 +61,7 @@
 <module application="src/TPL.mxml" destPath="module/auth/AuthUserAddComponent.swf" optimize="true" sourcePath="src/module/auth/AuthUserAddComponent.mxml"/>
 <module application="src/TPL.mxml" destPath="module/tpl/template/TestForm.swf" optimize="true" sourcePath="src/module/tpl/template/TestForm.mxml"/>
 <module application="src/TPL.mxml" destPath="module/tpl/template/TestNamedQuery.swf" optimize="true" sourcePath="src/module/tpl/template/TestNamedQuery.mxml"/>
+<module application="src/TPL.mxml" destPath="module/tpl/template/QueryModule.swf" optimize="true" sourcePath="src/module/tpl/template/QueryModule.mxml"/>
 </modules>
 <buildCSSFiles/>
 </actionScriptProperties>
