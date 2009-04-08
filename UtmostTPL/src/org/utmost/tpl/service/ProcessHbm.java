@@ -66,7 +66,7 @@ public class ProcessHbm {
 				+ datatype + "\" unique=\"" + unique + "\" >" + "\n");
 		sb.append("<column length=\"" + datalength + "\" name=\""
 				+ datacode.toUpperCase() + "\">" + "\n");
-		sb.append("<comment>" + nodedesc + "</comment>" + "\n");
+		//sb.append("<comment>" + nodedesc + "</comment>" + "\n");
 		sb.append("</column>" + "\n");
 		sb.append("</property>" + "\n");
 		return sb.toString();

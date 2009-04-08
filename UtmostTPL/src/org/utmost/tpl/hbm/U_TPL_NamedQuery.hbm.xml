@@ -3,6 +3,10 @@
                                    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<sql-query name="Query_U_TPL_TEMPLATE">
-		from U_TPL_TEMPLATE
+		SELECT * FROM U_TPL_TEMPLATE
+		<return alias="U_TPL_TEMPLATE" entity-name="U_TPL_TEMPLATE" />
+	</sql-query>
+	<sql-query name="Query_U_TPL_TEMPLATEBYMAP">
+		SELECT * FROM U_TPL_TEMPLATE
 	</sql-query>
 </hibernate-mapping>
