@@ -14,6 +14,9 @@
 	<!--<mx:Style source="skins/kingnare/style.css"/>-->
 	<mx:Script>
 		<![CDATA[
+			import mx.events.ResizeEvent;
+		
+			import mx.managers.IHistoryManager; 
 			import ascb.util.NumberFormat;
 			import mx.formatters.NumberFormatter;
 			import flash.utils.setInterval;
@@ -24,9 +27,9 @@
 			import module.ModuleInterface;
 			import mx.events.ModuleEvent;
 			import mx.managers.PopUpManager;
+			private var iHistoryManager:IHistoryManager;
 			public var REPORTPATH:String="http://localhost:8080/UtmostTPL/REPORT/";
-			public var DETECTPATH:String="http://localhost:8080/UtmostTPL/detect/";
-			
+			public var DETECTPATH:String="http://localhost:8080/UtmostTPL/detect/"; 
 			Alert.yesLabel="确定";
 			Alert.noLabel="取消";
 			private function init():void {
@@ -40,7 +43,7 @@
 			
 			//登陆页面
 			public function showLogin():void {
-				var obj:IFlexDisplayObject=PopUpManager.createPopUp(this, LoginComponent, true);
+				var obj:IFlexDisplayObject=PopUpManager.createPopUp(this, LoginComponent, false);
 				obj.addEventListener("LoginComponent_portal",function(e:Event):void {
 					//trace("LoginComponent_portal");
 					Application.application.loadModule("module/PortalModule.swf");
@@ -52,6 +55,9 @@
 					ComponentUtil.setVisible(MACB,true);
 				});
 				PopUpManager.centerPopUp(obj);
+				this.addEventListener(ResizeEvent.RESIZE,function(e:Event):void{
+					PopUpManager.centerPopUp(obj);
+				});
 			}
 			//装载模板
 	        public function loadModule(name:String):void {

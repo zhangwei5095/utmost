@@ -1,4 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%">
-	
+	<mx:VBox width="100%" height="100%">
+		<mx:HBox width="100%" height="80" verticalAlign="middle" horizontalAlign="center" horizontalGap="60">
+			<mx:TextArea height="100%" width="80%"/>
+			<mx:Button label="运行" click="run()"/>
+		</mx:HBox>
+	</mx:VBox>
+	<mx:Script>
+		<![CDATA[
+			import mx.rpc.events.ResultEvent;
+			import org.utmost.service.AutoService;
+			import org.utmost.service.UtmostService;
+			public function run():void {
+				var service:AutoService=new AutoService();
+				service.findByNamedQuery("Query_U_TPL_TEMPLATE",function(e:ResultEvent):void {
+					trace(e.result.toString());
+				});
+			}
+		]]>
+	</mx:Script>
 </mx:Module>

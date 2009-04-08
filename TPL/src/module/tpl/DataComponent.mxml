@@ -172,7 +172,7 @@
 			<mx:TextInput id="dataname"/>
 		</mx:FormItem>
 		<mx:FormItem label="编码" id="_datacode">
-			<mx:TextInput id="datacode" change="datacode.text=datacode.text.toLowerCase();"/>
+			<mx:TextInput id="datacode" restrict="a-z\0-9\_" change="datacode.text=datacode.text.toLowerCase();"/>
 		</mx:FormItem>
 		<mx:FormItem label="描述" id="_nodedesc">
 			<mx:TextArea id="nodedesc"/>
