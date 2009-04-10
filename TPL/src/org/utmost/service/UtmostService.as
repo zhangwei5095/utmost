@@ -17,6 +17,7 @@ package org.utmost.service
 		
 		public function UtmostService(destination:String, _resultHandler:Function=null, _faultHandler:Function=null)
 		{
+			ro.channelSet=StaticChannelSet.getChannelSet();//
 			ro.destination=destination;
 			ro.showBusyCursor=true;
 			if (_resultHandler != null)

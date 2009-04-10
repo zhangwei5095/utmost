@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="400" height="260" title="登录" horizontalAlign="center" verticalAlign="middle" creationComplete="init()">
 	<mx:Form>
+		<mx:FormItem label="服务器">
+			<mx:TextInput id="uritxt" text="localhost:8080"/>
+		</mx:FormItem>
 		<mx:FormItem label="帐号">
 			<mx:TextInput id="loginname" maxChars="20" text="UtmostAdmin"/>
 		</mx:FormItem>
@@ -22,6 +25,7 @@
 	</mx:ControlBar>
 	<mx:Script>
 		<![CDATA[
+			import org.utmost.service.StaticChannelSet;
 			import org.utmost.util.UtmostLSOBean;
 			import org.utmost.util.UtmostLSO;
 			import mx.managers.PopUpManager;
@@ -63,6 +67,7 @@
 
 			private function loginPortal():void
 			{
+				setUri();
 				if (loginname.text == "UtmostAdmin" && password.text == "UtmostAdmin")
 				{
 					trace("UtmostAdmin 登陆!");
@@ -73,9 +78,13 @@
 				this.dispatchEvent(new Event("LoginComponent_portal"));
 				PopUpManager.removePopUp(this);
 			}
-
+			private function setUri():void {
+				StaticChannelSet.setUri("http://"+uritxt.text+"/UtmostTPL/flamingo/amf");
+				StaticChannelSet.setAddress(uritxt.text);
+			}
 			private function loginProgramme():void
 			{
+				setUri();
 				this.dispatchEvent(new Event("LoginComponent_programme"));
 				PopUpManager.removePopUp(this);
 			}

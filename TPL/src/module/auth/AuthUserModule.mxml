@@ -328,20 +328,6 @@
 						
 		]]>
 	</mx:Script>
-	
-	<!-- 远程对象连接配置 -->
-	<mx:RemoteObject id="UserService" destination="UserService" fault="faultHandler(event)">       
-        <mx:method name="findAll" fault="faultHandler(event)"/>
-        <mx:method name="findByParam" result="resultReturnFindByParam(event)" fault="faultHandler(event)"/>
-        <mx:method name="findAllByOU" fault="faultHandler(event)"/>
-        <mx:method name="findAllByRU" fault="faultHandler(event)"/>
-        <mx:method name="findbyUserCode" fault="faultHandler(event)"/>
-        <mx:method name="findbyUserLoginname" fault="faultHandler(event)"/>
-        <mx:method name="saveUser" fault="faultHandler(event)"/>
-        <!-- <mx:method name="saveUser" result="resultReturnUpdateUser(event)" fault="faultHandler(event)"/> -->
-    </mx:RemoteObject>
-	
-	
 		
 	<mx:TabNavigator id="tabN" width="100%" height="100%" >
 		<mx:Canvas label="查询" width="100%" height="100%" show="findAll()">

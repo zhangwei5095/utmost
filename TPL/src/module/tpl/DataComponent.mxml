@@ -162,11 +162,11 @@
 		<mx:Object label="禁用" value="false" />
 	</mx:Array>
 	<mx:Form id="form" width="60%" height="90%">
-		<mx:FormItem label="uuid" id="_uuid" visible="false" includeInLayout="false">
-			<mx:TextInput id="uuid"/>
+		<mx:FormItem label="uuid" id="_uuid" visible="false" includeInLayout="false" >
+			<mx:TextInput id="uuid" editable="false"/>
 		</mx:FormItem>
-		<mx:FormItem label="cid" id="_cid" visible="false" includeInLayout="false">
-			<mx:TextInput id="cid"/>
+		<mx:FormItem label="cid" id="_cid" visible="true" includeInLayout="true">
+			<mx:TextInput id="cid" editable="false"/>
 		</mx:FormItem>
 		<mx:FormItem label="名称" id="_dataname">
 			<mx:TextInput id="dataname"/>

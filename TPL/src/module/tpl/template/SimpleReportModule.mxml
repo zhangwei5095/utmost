@@ -2,19 +2,20 @@
 <mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%" xmlns:component="component.*" creationComplete="init();downloadInit();">
 	<mx:Script>
 		<![CDATA[
+			import org.utmost.service.StaticChannelSet;
 			import mx.collections.ArrayCollection;
 			import org.utmost.service.AutoService;
 			import mx.core.Application;
 			import mx.rpc.events.ResultEvent;
 			import org.utmost.service.UtmostService;
-			public function test():void {
-				iFrame.source="http://localhost:8080/UtmostTPL/REPORT/b1d2daad-3331-4611-b79b-b761a8b0b07b.html";
-				iFrame.visible=true;
-			}
+//			public function test():void {
+//				iFrame.source="http://localhost:8080/UtmostTPL/REPORT/b1d2daad-3331-4611-b79b-b761a8b0b07b.html";
+//				iFrame.visible=true;
+//			}
 			public function viewReport():void {
 				var ut:UtmostService=new UtmostService("ReportService",function(e:ResultEvent):void {
 					trace("e.result:"+e.result.toString());
-					iFrame.source=Application.application.REPORTPATH+e.result.toString();
+					iFrame.source="http://"+StaticChannelSet.getAddress()+"/UtmostTPL/REPORT/"+e.result.toString();
 					iFrame.visible=true;
 				});
 				ut.ro.buildHtmlByHql(reportcode.text,hql.text);

@@ -14,6 +14,10 @@
 	<!--<mx:Style source="skins/kingnare/style.css"/>-->
 	<mx:Script>
 		<![CDATA[
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			import org.utmost.service.UtmostService;
+			import org.utmost.service.StaticChannelSet;
 			import mx.events.ResizeEvent;
 		
 			import mx.managers.IHistoryManager; 
@@ -28,8 +32,8 @@
 			import mx.events.ModuleEvent;
 			import mx.managers.PopUpManager;
 			private var iHistoryManager:IHistoryManager;
-			public var REPORTPATH:String="http://localhost:8080/UtmostTPL/REPORT/";
-			public var DETECTPATH:String="http://localhost:8080/UtmostTPL/detect/"; 
+			//public var REPORTPATH:String="http://localhost:8080/UtmostTPL/REPORT/";
+			//public var DETECTPATH:String="http://localhost:8080/UtmostTPL/detect/"; 
 			Alert.yesLabel="确定";
 			Alert.noLabel="取消";
 			private function init():void {
@@ -39,7 +43,9 @@
 				showLogin();
 				memoryMonitor();
 				//this.loadModule("module/TPLModule.swf");
+				
 			}
+			
 			
 			//登陆页面
 			public function showLogin():void {
@@ -98,17 +104,23 @@
 	        }
 	        
 	        private function SysMonitor():void {
-	        	ExternalInterface.call("window.open ('"+DETECTPATH+"', '系统监测', ', , top=0,left=0, toolbar=no, menubar=no, scrollbars=yes, resizable=yes,location=no, status=no') ");
+	        	//ExternalInterface.call("window.open ('"+DETECTPATH+"', '系统监测', ', , top=0,left=0, toolbar=no, menubar=no, scrollbars=yes, resizable=yes,location=no, status=no') ");
 	        }
+	    
+	    	public function reloadSys():void {
+	    		var service:UtmostService=new UtmostService("SpringContext",function(e:ResultEvent):void {
+	    			Alert.show('重新加载完毕!','提示');
+	    		},function(e:FaultEvent):void {
+	    			Alert.show('异常-->'+e.fault);
+	    		});
+	    		service.ro.reloadSpring();
+	    	}
 		]]>
 	</mx:Script>
-	<mx:RemoteObject id="SpringContext" showBusyCursor="true" destination="SpringContext" fault="Alert.show('异常-->'+event.fault)">
-		<mx:method name="reloadSpring" result="Alert.show('重新加载完毕!','提示')"/>
-	</mx:RemoteObject>
 	<mx:ApplicationControlBar id="MACB" dock="true" width="90%" paddingLeft="20" alpha="0.8" paddingTop="5">
 		<mx:Button label="Portal" click="loadModule('module/PortalModule.swf')"/>
 		<!--mx:Button label="TPL" click="loadModule('module/TPLModule.swf')"/-->
-		<mx:Button label="Reload" click="SpringContext.reloadSpring()"/>
+		<mx:Button label="Reload" click="reloadSys()"/>
 		<!--mx:Button label="监测" click="SysMonitor()"/-->
 		<mx:Label id="memory"/>
 	</mx:ApplicationControlBar>

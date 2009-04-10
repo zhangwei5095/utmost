@@ -33,6 +33,7 @@
 				trace("$moduletree:"+_tree);
 			}
 			private function init():void {
+				TemplateServiceAddEventListener();//以后需改动
 				hdbox.setStyle("dividerSkin",DividerBox);
 			}
 			//装载模板
@@ -148,10 +149,10 @@
         	}
         	
         	private function initDataTree():void {
-        		TemplateService.processTreeForData();
+        		TemplateService.ro.processTreeForData();
         	}
         	private function initViewTree():void {
-        		TemplateService.processTreeForView();
+        		TemplateService.ro.processTreeForView();
         	}
         	private function initAdvViewTree():void {
         		//trace("start");
@@ -176,7 +177,7 @@
 				alert.addEventListener(CloseEvent.CLOSE,function (e:CloseEvent):void {
 					switch(e.detail) {
 						case Alert.YES:
-						TemplateService.deleteByUUID(datatree.selectedItem.@uuid.toString());
+						TemplateService.ro.deleteByUUID(datatree.selectedItem.@uuid.toString());
 						break;
 						case Alert.NO:
 						break;	
@@ -203,13 +204,20 @@
 			private function currentModuleReady():void {
 				ComponentUtil.setVisible(pbar,false);
 			}
+			
+			private var TemplateService:UtmostService=new UtmostService("TemplateService");
+			private function TemplateServiceAddEventListener():void {
+				TemplateService.ro.processTreeForData.addEventListener(ResultEvent.RESULT,resultDataTreeHandler);
+				TemplateService.ro.processTreeForView.addEventListener(ResultEvent.RESULT,resultViewTreeHandler);
+				TemplateService.ro.deleteByUUID.addEventListener(ResultEvent.RESULT,initDataTree);
+			}
 		]]>
 	</mx:Script>
-    <mx:RemoteObject id="TemplateService" destination="TemplateService" fault="faultHandler(event)">
+    <!--mx:RemoteObject id="TemplateService" destination="TemplateService" fault="faultHandler(event)">
 	 	<mx:method name="processTreeForData" result="resultDataTreeHandler(event)" />
 	 	<mx:method name="processTreeForView" result="resultViewTreeHandler(event)" />
 	 	<mx:method name="deleteByUUID" result="initDataTree()" />
-    </mx:RemoteObject>
+    </mx:RemoteObject-->
 	<mx:HDividedBox id="hdbox" width="100%" height="100%">
 		<mx:Panel width="220" height="100%" layout="horizontal" id="leftPanel">
 			<mx:Accordion width="100%" height="100%" headerStyleName="AccordionHeader">

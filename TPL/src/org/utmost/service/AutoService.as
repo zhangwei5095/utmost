@@ -24,6 +24,7 @@ package org.utmost.service
 		//private var ro:HessianService=new HessianService();
 		public function AutoService()
 		{
+			ro.channelSet=StaticChannelSet.getChannelSet();//特别注意
 			ro.destination="AutoService";
 			ro.showBusyCursor=true;
 			ro.addEventListener(FaultEvent.FAULT, faultHandler);
