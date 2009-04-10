@@ -8,7 +8,6 @@ public class TestConsole {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		Console console=System.console();
 		System.out.println(""+console);
 		if(console!=null) {
