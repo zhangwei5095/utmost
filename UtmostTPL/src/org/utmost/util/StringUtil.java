@@ -1,5 +1,7 @@
 package org.utmost.util;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -180,6 +182,11 @@ public class StringUtil {
 			}
 		}
 		return false;
+	}
+
+	public static InputStream parseInputStream(String str) {
+		InputStream is = new ByteArrayInputStream(str.getBytes());
+		return is;
 	}
 
 	public static void main(String[] args) throws Exception {
