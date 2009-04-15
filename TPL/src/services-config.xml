@@ -26,7 +26,7 @@
     <channels>
         <channel-definition id="spring-amf" class="mx.messaging.channels.AMFChannel">
             <endpoint
-                uri="http://localhost:8080/UtmostTPL/flamingo/amf"
+                uri="http://0.0.0.0/UtmostTPL/flamingo/amf"
                 class="flex.messaging.endpoints.AMFEndpoint"/>
         </channel-definition>
     </channels>

@@ -105,10 +105,14 @@
 					viewADG.dataProvider=ac;
 				});
 			}
+			
+			//冲洗视图
+			
 		]]>
 	</mx:Script>
 	<mx:VBox width="100%" height="100%" horizontalGap="0" verticalGap="0">
 		 <mx:HBox width="100%" height="16" verticalAlign="middle" horizontalAlign="right" >
+		 	<mx:Image width="16" height="16" source="{BindImg.action_refresh_blue}" toolTip="Flush"/>
 	     	<mx:Image width="16" height="16" source="{BindImg.page_edit}" toolTip="修改" click="openWindow('ViewComponent')"/>
          </mx:HBox>
 		<mx:AdvancedDataGrid id="viewADG" designViewDataType="flat" width="100%" height="100%" doubleClickEnabled="true" doubleClick="openWindow('ViewComponent')">

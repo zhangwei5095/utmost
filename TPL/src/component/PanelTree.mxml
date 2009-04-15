@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="400" height="600" creationComplete="init()"  >
+	<mx:Tree width="100%" height="100%"></mx:Tree>
+	<mx:ControlBar>
+		<mx:VBox width="100%" height="100%">
+			<mx:Text text="asfsaf"/>
+			<mx:Text text="sdfds"/>
+		</mx:VBox>
+	</mx:ControlBar>
+	<mx:Script>
+		<![CDATA[
+			import mx.controls.Image;
+			import mx.controls.Button;
+			private function init():void {
+				var button:Button=new Button();
+				button.label="adsf";
+				var image:Image=new Image();
+				image.width=32;
+				image.height=32;
+				this.titleBar.addChild(button);
+				this.titleBar.addChild(image);
+			}
+		]]>
+	</mx:Script>
+</mx:Panel>
