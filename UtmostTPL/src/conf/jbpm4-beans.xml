@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+	<bean id="commandService" class="org.jbpm.pvm.internal.spring.SpringCommandService"
+		scope="singleton">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="environmentFactory" ref="environmentFactory" />
+	</bean>
+
+	<bean id="processService" class="org.jbpm.pvm.internal.svc.ProcessServiceImpl"
+		scope="singleton">
+		<property name="commandService" ref="commandService" />
+	</bean>
+
+	<bean id="executionService" class="org.jbpm.pvm.internal.svc.ExecutionServiceImpl"
+		scope="singleton">
+		<property name="commandService" ref="commandService" />
+	</bean>
+
+	<bean id="historyService" class="org.jbpm.pvm.internal.svc.HistoryServiceImpl"
+		scope="singleton">
+
+	</bean>
+
+	<bean id="taskService" class="org.jbpm.pvm.internal.task.TaskServiceImpl"
+		scope="singleton">
+		<property name="commandService" ref="commandService" />
+	</bean>
+
+	<bean id="environmentFactory" class="org.jbpm.pvm.internal.cfg.SpringConfiguration"
+		scope="singleton" />
+
+	<bean id="hibernateSessionManager" class="org.jbpm.pvm.internal.spring.HibernateSessionManager"
+		scope="singleton">
+		<property name="sessionFactory" ref="SessionFactory" />
+	</bean>
+
+</beans>
