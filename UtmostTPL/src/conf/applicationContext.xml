@@ -7,9 +7,11 @@
 	<import resource="db-beans.xml" />
 	<import resource="schedule-task.xml" />
 	<import resource="plugins-beans.xml" />
-
+	<import resource="jbpm3-beans.xml" />
+	
 	<!--
 		<import resource="jco-beans.xml" /> <import
-		resource="schedule_task.xml" /> <import resource="jbpm-beans.xml" />
+		resource="jbpm-beans.xml"/>
+		<import resource="jbpm3-beans.xml" />
 	-->
 </beans>

@@ -15,10 +15,10 @@
 			<value>classpath:conf/hibernate.cfg.xml
 			</value>
 		</property>
-		<!--
-			<property name="mappingJarLocations"> <list>
-			<value>classpath*:../lib/jbpm-jpdl.jar</value> </list> </property>
-		-->
+
+		<property name="mappingJarLocations" ref="jbpm3hbmlist">
+		</property>
+
 		<property name="mappingDirectoryLocations">
 			<list>
 				<value>classpath:/org/utmost/tpl/hbm/

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+	<bean id="jbpmConfiguration"
+		class="org.springmodules.workflow.jbpm31.LocalJbpmConfigurationFactoryBean">
+		<property name="sessionFactory" ref="SessionFactory" />
+		<property name="configuration" value="classpath:conf/jbpm.cfg.xml" />
+
+		<!--
+			<property name="processDefinitions"> <list> <ref
+			local="simpleWorkflow" /> </list> </property> <property
+			name="createSchema" value="true" /> <property
+			name="processDefinitionsResources"> <list> <value>
+			classpath:/org/springmodules/workflow/jbpm31/someOtherWorkflow.xml
+			</value> </list> </property>
+		-->
+	</bean>
+	<bean id="jbpm3hbmlist" class="java.util.ArrayList">
+		<constructor-arg>
+			<list>
+				<value>classpath*:../lib/jbpm-jpdl.jar
+				</value>
+			</list>
+		</constructor-arg>
+		<!--
+			<constructor-arg> <list>
+			<value>classpath*:../lib/jbpm-jpdl.jar</value> </list>
+			</constructor-arg>
+		-->
+	</bean>
+	<!--
+		jBPM template <bean id="jbpmTemplate"
+		class="org.springmodules.workflow.jbpm31.JbpmTemplate">
+		<constructor-arg index="0" ref="jbpmConfiguration" /> <constructor-arg
+		index="1" ref="simpleWorkflow" /> </bean>
+	-->
+</beans>
