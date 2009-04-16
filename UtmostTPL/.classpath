@@ -39,22 +39,12 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jasperreports-3.1.4-javaflow.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/javassist-3.4.GA.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jaxen-1.1.1.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jboss-j2ee.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jboss-logging-spi.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jbpm-api.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jbpm-jpdl.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jbpm-log.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jbpm-pvm.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jbpm-spi.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jcr-1.0.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jdom-1.0.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jdt-compiler-3.1.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jfreechart-1.0.12.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/js.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jta-1.1.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/juel-engine.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/juel-impl.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/juel.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/junit.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jwebap_0.6.0.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jython-2.2.1.jar"/>
