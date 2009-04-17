@@ -1,5 +1,6 @@
 package org.utmost.util;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLDecoder;
@@ -29,9 +30,20 @@ public class PathUtil {
 		}
 		return null;
 	}
+
 	public static String getRootPath() {
 		return System.getProperty("RootPath");
 	}
+
+	public static String getUploadPath() {
+		String path = PathUtil.getRootPath() + "UPLOAD";
+		File file = new File(path);
+		if (!file.exists()) {
+			file.mkdirs();
+		}
+		return path;
+	}
+
 	public static void main(String[] args) {
 		System.out.println(PathUtil.getClassFilePath());
 		System.out.println(PathUtil.getClassPath());

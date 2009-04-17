@@ -9,7 +9,7 @@
 		<property name="connection.useUnicode">true</property>
 		<property name="connection.characterEncoding">UTF-8</property>
 
-		<property name="connection.url">jdbc:mysql://localhost:3306/goodpartner</property>
+		<property name="connection.url">jdbc:mysql://localhost:3306/devjbpm</property>
 		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
 		<property name="connection.username">root</property>
