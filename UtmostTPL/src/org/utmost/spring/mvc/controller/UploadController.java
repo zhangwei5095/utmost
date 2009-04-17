@@ -32,6 +32,12 @@ public class UploadController extends MultiActionController {
 		// jbpmcon.getCurrentJbpmContext().
 	}
 
+	/**
+	 * 
+	 * @param rq
+	 * @param rp
+	 * @throws FileUploadException
+	 */
 	public void upload(HttpServletRequest rq, HttpServletResponse rp)
 			throws FileUploadException {
 		String path = PathUtil.getUploadPath() + "/upload";
