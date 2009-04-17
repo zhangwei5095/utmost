@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%">
+<mx:Script>
+	<![CDATA[
+		import mx.core.IFlexDisplayObject;
+		import mx.managers.PopUpManager;
+		import org.utmost.service.StaticChannelSet;
+		import org.utmost.component.upload.FileUpload;
+		private function fileupload():void {
+			//var upload:FileUpload=new FileUpload();
+			var upload:Object=PopUpManager.createPopUp(this.parentApplication as DisplayObject, FileUpload, true);
+			upload.width=400;
+			upload.height=300;
+			upload.uploadUrl="http://"+StaticChannelSet.getAddress()+"/UtmostTPL/upload.form?method=upload";
+			var fu:FileUpload=upload as FileUpload;
+			fu.showCloseButton=true;
+			PopUpManager.centerPopUp(upload as IFlexDisplayObject);
+		}
+	]]>
+</mx:Script>
+	<mx:VBox width="100%" height="100%" horizontalAlign="center">
+		<mx:Form width="80%" height="100%">
+			<mx:FormItem label="文件上传">
+				<mx:Button label="上传" click="fileupload()"/>
+			</mx:FormItem>
+		</mx:Form>
+	</mx:VBox>
+</mx:Module>
