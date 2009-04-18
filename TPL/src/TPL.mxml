@@ -127,4 +127,24 @@
 	<mx:ModuleLoader id="currentModule" width="100%" height="100%" ready="readyModule(event)">
 	</mx:ModuleLoader>
 	<!--kapit:KapInspect/-->
+	<!--处理CSS-->
+	<mx:HBox includeInLayout="false" visible="false">
+		<mx:ButtonBar/>
+		<mx:ColorPicker/>
+		<mx:DateChooser/>
+		<mx:DateField/>
+		<mx:DividedBox/>
+		<mx:HSlider/>
+		<mx:MenuBar/>
+		<mx:VSlider/>
+		<mx:ToggleButtonBar/>
+		<mx:TextArea/>
+		<mx:TabBar/>
+		<mx:RadioButton/>
+		<mx:NumericStepper/>
+		<mx:Image/>
+		<mx:PopUpButton/>
+		<mx:PopUpMenuButton/>
+		<mx:LinkButton/>
+	</mx:HBox>
 </mx:Application>
