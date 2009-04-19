@@ -10,4 +10,7 @@
 		init-method="setPythonPath" lazy-init="true" />
 	<bean id="PythonInterpreter" class="org.python.util.PythonInterpreter"
 		depends-on="PythonPlugin" lazy-init="true" />
+		
+	<!-- groovy -->
+	
 </beans>

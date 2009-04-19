@@ -15,7 +15,7 @@ import org.utmost.common.CommService;
 public class RuleService extends CommService {
 	public String exec(String arg) throws FileNotFoundException,
 			UnsupportedEncodingException {
-		System.out.println("arg----->:\n" + arg);
+		//System.out.println("arg----->:\n" + arg);
 		return RuleEngine.exec(arg);
 	}
 }

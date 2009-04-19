@@ -100,7 +100,7 @@ public class TemplateService extends CommService {
 	public String processAllHbm() {
 		String hql = "from U_TPL_TEMPLATE v where v.nodetype='Collection'";
 		List<HashMap> list = getDb().findByHql(hql);
-		for (HashMap map : list) {
+		for (HashMap<Object, Object> map : list) {
 			String uuid = (String) map.get("uuid");
 			try {
 				this.processHbm(uuid);
