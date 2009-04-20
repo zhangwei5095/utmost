@@ -8,4 +8,7 @@
 	<node nodename="demo">
 		<node nodename="文件上传" module="module/demo/FileUploadDemoModule.swf" />	
 	</node>
+	<node nodename="JBPM3">
+		<node nodename="流程发布" module="module/jbpm3/ProcessModule.swf" />	
+	</node>
 </node>

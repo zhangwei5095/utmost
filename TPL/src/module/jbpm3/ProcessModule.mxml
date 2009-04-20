@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%">
+	<mx:VBox width="100%" height="100%" horizontalAlign="center">
+		<mx:HBox width="98%" height="50" horizontalAlign="right" verticalAlign="bottom">
+			<mx:Button label="发布新流程"/>
+		</mx:HBox>
+		<mx:AdvancedDataGrid id="adg" designViewDataType="flat" width="100%" height="100%">
+			<mx:columns>
+				<mx:AdvancedDataGridColumn headerText="Column 1" dataField="col1"/>
+				<mx:AdvancedDataGridColumn headerText="Column 2" dataField="col2"/>
+				<mx:AdvancedDataGridColumn headerText="Column 3" dataField="col3"/>
+			</mx:columns>
+		</mx:AdvancedDataGrid>
+	</mx:VBox>
+	
+</mx:Module>
