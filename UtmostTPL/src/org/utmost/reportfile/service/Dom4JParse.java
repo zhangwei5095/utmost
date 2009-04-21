@@ -17,30 +17,25 @@ import org.utmost.util.StringUtil;
 public class Dom4JParse {
 	public static void main(String[] args) throws NumberFormatException,
 			Exception {
-		ArrayList datalist = new ArrayList();
-		ArrayList node1 = new ArrayList();
-		ArrayList node2 = new ArrayList();
-		ArrayList node3 = new ArrayList();
-		for (int x = 0; x < 20; x++) {
-			HashMap m = new HashMap();
-			m.put("A", "AAA");
-			m.put("B", "BBB");
-			m.put("C", "总共");
-			node1.add(m);
-			node2.add(m);
-			node3.add(m);
-		}
-		datalist.add(node1);
-		datalist.add(node2);
-		datalist.add(node3);
-		Dom4JParse o = new Dom4JParse();
-		o.buildReportFile("Template_Demo.xml", "d:/ddc.txt", datalist);
+		// ArrayList datalist = new ArrayList();
+		// ArrayList node1 = new ArrayList();
+		// ArrayList node2 = new ArrayList();
+		// ArrayList node3 = new ArrayList();
+		// for (int x = 0; x < 20; x++) {
+		// HashMap m = new HashMap();
+		// m.put("A", "AAA");
+		// m.put("B", "BBB");
+		// m.put("C", "总共");
+		// node1.add(m);
+		// node2.add(m);
+		// node3.add(m);
+		// }
+		// datalist.add(node1);
+		// datalist.add(node2);
+		// datalist.add(node3);
+		// Dom4JParse o = new Dom4JParse();
+		// o.buildReportFile("Template_Demo.xml", "d:/ddc.txt", datalist);
 	}
-
-	// public void buildReportFile(String templatename, String targetname,
-	// ArrayList datalist) throws NumberFormatException, Exception {
-	// parseXMLToText(templatename, targetname, datalist);
-	// }
 
 	public String buildReportFile(String templatename, String targetname,
 			ArrayList datalist) throws NumberFormatException, Exception {

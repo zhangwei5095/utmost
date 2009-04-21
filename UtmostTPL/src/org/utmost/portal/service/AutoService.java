@@ -9,7 +9,6 @@ import java.util.Map.Entry;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.Session;
 import org.hibernate.metadata.ClassMetadata;
 import org.springframework.stereotype.Service;
 import org.utmost.common.CommService;
