@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:com="*"
 	layout="vertical" width="100%" minWidth="400" height="100%" minHeight="200"
-	title="文件上传" creationComplete="initCom()" showCloseButton="false" close="closeWindow()">
+	title="文件上传" creationComplete="initCom()" showCloseButton="false" close="closeWindow()" paddingBottom="50" paddingLeft="20" paddingRight="20" paddingTop="40">
 	
 	<mx:Metadata>
 		[Event(name="uploadComplete", type="flash.events.Event")]
@@ -284,6 +284,8 @@
 			// Change view state
 			private function changeView():void {
 				currentState = (currentState == "mini") ? "" : "mini";
+				listFiles.visible=(listFiles.visible==true)?false:true;
+				listFiles.includeInLayout=(listFiles.includeInLayout==true)?false:true;
 			}
 			
 		]]>
@@ -302,17 +304,14 @@
 			<mx:Resize target="{this}" duration="1000"/>
 		</mx:Transition>
 	</mx:transitions>
-	
-	<mx:Canvas width="100%" height="100%">
-		<mx:DataGrid id="listFiles" left="0" top="0" bottom="0" right="0"
-			allowMultipleSelection="true" verticalScrollPolicy="on"
-			draggableColumns="false" resizableColumns="false" sortableColumns="false">
+		<mx:DataGrid id="listFiles" width="100%" height="100%"
+			allowMultipleSelection="true" verticalScrollPolicy="auto"
+		    sortableColumns="false">
 			<mx:columns>
 				<mx:DataGridColumn headerText="文件" dataField="name" wordWrap="true"/>
 				<mx:DataGridColumn headerText="大小" dataField="size" width="75" textAlign="right"/>
 			</mx:columns>
 		</mx:DataGrid>
-	</mx:Canvas>
 	<mx:ControlBar horizontalAlign="center" verticalAlign="middle">
 		<mx:Button id="btnAdd" toolTip="Add file(s)" click="addFiles()" icon="@Embed('assets/add.png')" width="26"/>
 		<mx:Button id="btnRemove" toolTip="Remove file(s)" click="removeFiles()" icon="@Embed('assets/delete.png')" width="26"/>

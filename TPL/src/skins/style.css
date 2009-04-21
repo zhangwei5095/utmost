@@ -10,6 +10,7 @@ Application
 	horizontalScrollPolicy: "off";
 	verticalScrollPolicy:"off";
 	fontFamily:"Arial";
+	backgroundGradientColors: #030303, #030303;
 	/*background-image:			Embed("undefined/assets/general/fondo3.jpg");*/
 }
 Alert {
@@ -18,6 +19,14 @@ Alert {
     borderAlpha: 0.8;
     /*borderColor: red;*/
     dropShadowEnabled: false;
+}
+ApplicationControlBar
+{
+	verticalAlign: middle;
+	background-color:#030303;
+	background-alpha:0.3;
+	backgroundGradientColors: #030303, #030303;
+	bar-color:#030303;
 }
 .AccordionHeader {
 	fillAlphas: 1.0, 0.5;

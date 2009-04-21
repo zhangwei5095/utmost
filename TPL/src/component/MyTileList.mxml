@@ -4,7 +4,7 @@
 		<![CDATA[
 				import mx.controls.listClasses.IListItemRenderer;
 				protected override function drawItem(item:IListItemRenderer,selected:Boolean = false,highlighted:Boolean = false,caret:Boolean = false,transition:Boolean = false):void{     
-					    super.drawItem(item,false,false,caret,transition)                
+					    super.drawItem(item,false,false,caret,transition)       					             
 				}
 		]]>
 	</mx:Script>

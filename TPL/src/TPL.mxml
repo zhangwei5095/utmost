@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" backgroundGradientColors="[#ffffff, #ffffff]"
-	layout="vertical" applicationComplete="init()" xmlns:kapit="fr.kapit.*" preloader="org.utmost.component.MyPreloader">
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" 
+	layout="vertical" applicationComplete="init()" xmlns:kapit="fr.kapit.*" preloader="org.utmost.component.MyPreloader" paddingTop="10">
 	<mx:Style source="skins/style.css"/>
 	<!--mx:Style source="skins/ResizableTitleWindow.css"/-->
 	<!--
-		<mx:Style source="skins/vista/VistaTheme.css"/>
+	<mx:Style source="skins/vista/VistaTheme.css"/>
 	-->
-	
-	<mx:Style source="skins/itunes7/ItunesTheme.css"/>
+	<!--<mx:Style source="skins/itunes7/ItunesTheme.css"/>-->
 	<!--<mx:Style source="assets/css/Main.css" />-->
-	<!--
-	<mx:Style source="skins/undefined/css/skinPreview.css"/>-->
+	
+	<mx:Style source="skins/undefined/css/skinPreview.css"/>
 	<!--<mx:Style source="skins/kingnare/style.css"/>-->
 	<mx:Script>
 		<![CDATA[
@@ -117,7 +116,7 @@
 	    	}
 		]]>
 	</mx:Script>
-	<mx:ApplicationControlBar id="MACB" dock="true" width="90%" paddingLeft="20" alpha="0.8" paddingTop="5">
+	<mx:ApplicationControlBar id="MACB" dock="false" width="100%" paddingLeft="20" alpha="0.8" paddingTop="6">
 		<mx:Button label="Portal" click="loadModule('module/PortalModule.swf')"/>
 		<!--mx:Button label="TPL" click="loadModule('module/TPLModule.swf')"/-->
 		<mx:Button label="Reload" click="reloadSys()"/>

@@ -22,24 +22,34 @@
 			}
 			[Bindable]
 			private var portalAC:ArrayCollection=new ArrayCollection();
-			
-			private function trasSystem(event:ListEvent):void {
+
+			private function trasSystem(event:ListEvent):void
+			{
 				var o:Object=event.itemRenderer.data;
 //				trace("o.@nodename:"+o.@nodename);
 //				trace("o.@nodecode:"+o.@nodecode);
 //				trace("o.@module:"+o.@module);
 //				trace("o.@icon:"+o.@icon);
-				if(o.@nodecode=="Portal") {
+				if (o.@nodecode == "Portal")
+				{
 					Application.application.$modulesystreeForChild=new XML(PortalTree.node);
-				}else if(o.@nodecode=="BankRisk") {
+				}
+				else if (o.@nodecode == "BankRisk")
+				{
 					Application.application.$modulesystreeForChild=new XML(BankRiskTree.node);
-				}else if(o.@nodecode=="BankIntendance") {
+				}
+				else if (o.@nodecode == "BankIntendance")
+				{
 					Application.application.$modulesystreeForChild=new XML(BankIntendance.node);
-				}else if(o.@nodecode=="SysMonitor") {
+				}
+				else if (o.@nodecode == "SysMonitor")
+				{
 					Application.application.$modulesystreeForChild=new XML(SysMonitorTree.node);
-				}else{
-					Alert.show("无效的节点编码","提示");
-					return;
+				}
+				else
+				{
+					Alert.show("无效的节点编码", "提示");
+					return ;
 				}
 				Application.application.$modulecodeForChild=o.@nodecode;
 				Application.application.$modulenameForChild=o.@nodename;
@@ -53,19 +63,21 @@
 	<mx:XML id="BankRiskTree" source="xml/portal/BankRiskTree.xml"/>
 	<mx:XML id="BankIntendance" source="xml/portal/BankIntendanceTree.xml"/>
 	<!--mx:ArrayCollection id="portalAC_bak">
-		<mx:source>
-			<mx:Array>
-				<mx:Object name="One"/>
-				<mx:Object name="Two"/>
-				<mx:Object name="Three"/>
-				<mx:Object name="Four"/>
-				<mx:Object name="Five"/>
-				<mx:Object name="Six"/>
-			</mx:Array>
-		</mx:source>
-	</mx:ArrayCollection>
-	<mx:Zoom id="effect_2" zoomHeightTo="1.1" zoomWidthTo="1.1" captureRollEvents="true" />
+		 <mx:source>
+		 <mx:Array>
+		 <mx:Object name="One"/>
+		 <mx:Object name="Two"/>
+		 <mx:Object name="Three"/>
+		 <mx:Object name="Four"/>
+		 <mx:Object name="Five"/>
+		 <mx:Object name="Six"/>
+		 </mx:Array>
+		 </mx:source>
+		 </mx:ArrayCollection>
+		 <mx:Zoom id="effect_2" zoomHeightTo="1.1" zoomWidthTo="1.1" captureRollEvents="true" />
 		 <mx:Zoom id="effect_1" zoomHeightTo="1.1" zoomWidthTo="1.1" captureRollEvents="true" /-->
+	<mx:Glow id="glowImage" duration="1000" alphaFrom="1.0" alphaTo="0.3" blurXFrom="0.0" blurXTo="80.0" blurYFrom="0.0" blurYTo="80.0" color="0x22A050"/>
+	<mx:Glow id="unglowImage" duration="1000" alphaFrom="0.3" alphaTo="1.0" blurXFrom="80.0" blurXTo="0.0" blurYFrom="80.0" blurYTo="0.0" color="0x3380DD"/>
 	<mx:VBox width="100%" height="100%" horizontalAlign="center" verticalAlign="middle">
 		<mx:ApplicationControlBar width="100%" height="40">
 			<mx:HBox width="100%" height="100%" horizontalAlign="right" verticalAlign="middle">

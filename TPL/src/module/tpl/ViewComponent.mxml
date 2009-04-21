@@ -31,7 +31,6 @@
 						submit();
 					}
 				});
-				
 				fieldtypeChange();
 				myRep.dataProvider=$validator;
 			}

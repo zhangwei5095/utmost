@@ -703,13 +703,13 @@ ControlBar
 	borderSkin: Embed(source="wmp11.swf", symbol="Panel_controlBarBackgroundSkin");
 	themeColor:#000000;
 }
-
+/*
 ApplicationControlBar
 {
 	borderSkin: Embed(source="wmp11.swf", symbol="app_controlBarBackgroundSkin");
 	verticalAlign: middle;
 }
-
+*/
 /*
 //------------------------------
 //  StartBar
