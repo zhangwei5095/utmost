@@ -136,7 +136,7 @@
                 <mx:TitleWindow id="titleWin"
                         height="200"
                         showCloseButton="true"
-                        verticalScrollPolicy="on"
+                        verticalScrollPolicy="auto"
                         horizontalScrollPolicy="off"
                         close="validatorPopup.close();" >
                     <mx:ToolBar  width="320" >

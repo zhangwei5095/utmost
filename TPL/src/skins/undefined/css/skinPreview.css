@@ -2,7 +2,7 @@
 /*
 @font-face
 {
-	src:					url("../assets/fonts/Framd.TTF");
+	src:					url("../assets/fonts/msyh.ttf");
 	fontFamily: 			franklin1;
 	font-anti-alias-type: 	advanced;
 	font-weight: 			normal;
@@ -11,7 +11,7 @@
 
 @font-face
 {
-	src:					url("../assets/fonts/FRABK.TTF");
+	src:					url("../assets/fonts/msyhbd.ttf");
 	fontFamily: 			franklin;
 	font-anti-alias-type: 	advanced;
 	font-weight: 			normal;
@@ -107,7 +107,7 @@ BUTTON
 	color: 					#333333;
 	font-family: 			franklin1;
 	font-weight:			normal;
-	font-size:				11;
+	font-size:				12;
 
 	padding-left: 			6;
 	padding-right: 			6;
@@ -139,7 +139,7 @@ LinkButton
 {
 	font-family: 			franklin;
 	font-weight: 			normal;
-	font-size: 				11;
+	font-size: 				12;
 	text-decoration: 		underline;
 	corner-radius:			0;
 	disabled-color:			#999999;
@@ -375,7 +375,7 @@ AccordionHeader
 	color:					#333333;
 	text-roll-over-color:	#333333;
 	text-selected-color:	#000000;
-	font-size:				11;	
+	font-size:				12;	
 	up-skin:				Embed("../assets/botones/accordion_barra.png", scaleGridTop="3", scaleGridBottom="19", scaleGridLeft="3", scaleGridRight="74");
 	over-skin:				Embed("../assets/botones/accordion_barra1.png", scaleGridTop="3", scaleGridBottom="19", scaleGridLeft="3", scaleGridRight="74");	
 	down-skin:				Embed("../assets/botones/accordion_barra2.png", scaleGridTop="3", scaleGridBottom="19", scaleGridLeft="3", scaleGridRight="74");
@@ -440,7 +440,7 @@ TabNavigator
 {
 	horizontal-gap: 				1;
 	font-family:					franklin1;
-	font-size:						11;
+	font-size:						12;
 	font-weight:					normal;
 	border-color:					#cbcbcb;
 	color:							#333333;
@@ -461,7 +461,7 @@ TabNavigator
 	selected-over-skin:	Embed("../assets/botones/TabNavigator.png", scaleGridTop="5", scaleGridBottom="18", scaleGridLeft="5", scaleGridRight="12");
 	font-weight: 		normal;
 	font-family:		franklin1;
-	font-size:			11;
+	font-size:			12;
 	color:				#666666;
 	border-color: 		#c0c0c0;
 	padding-top:		3;
@@ -477,7 +477,7 @@ TabNavigator
 	roll-over-color:	#333333;
 	font-weight: 		normal;
 	font-family:		franklin1;
-	font-size:			11;
+	font-size:			12;
 	color:				#333333;
 	padding-top:		3;
 	padding-left:		6;
@@ -490,7 +490,7 @@ TabBar
 	tab-height:						25;
 	horizontal-gap: 				1;
 	font-family:					franklin1;
-	font-size:						11;
+	font-size:						12;
 	font-weight:					normal;
 	border-color:					#cbcbcb;
 	color:							#333333;
@@ -511,7 +511,7 @@ TabBar
 	selected-over-skin:	Embed("../assets/botones/TabNavigator.png", scaleGridTop="5", scaleGridBottom="18", scaleGridLeft="5", scaleGridRight="12");
 	font-weight: 		normal;
 	font-family:		franklin1;
-	font-size:			11;
+	font-size:			12;
 	color:				#666666;
 	border-color: 		#c0c0c0;
 	padding-top:		3;
@@ -545,7 +545,7 @@ List
 {
 	font-family:				franklin;
 	font-weight:				normal;
-	font-size:					11;
+	font-size:					12;
 	color:						#333333;
 	text-roll-over-color:		#333333;
 	text-selected-color:		#333333;
@@ -559,7 +559,7 @@ DataGrid {
 	headerStyleName: 			"mydataGridHeaderStyle";
 	font-family:				franklin;
 	font-weight:				normal;
-	font-size:					11;
+	font-size:					12;
    	color:						#333333;
 	text-roll-over-color:		#333333;
 	text-selected-color:		#333333;
@@ -574,7 +574,7 @@ DataGrid {
    color:					#333333;
    font-family:				franklin1;
    font-weight:				normal;
-   font-size:				11;
+   font-size:				12;
 }
 
 TileList
@@ -650,7 +650,7 @@ Alert
 	background-image: 			Embed("../assets/general/alert_fondo1.png", scaleGridTop="1", scaleGridBottom="26", scaleGridLeft="5", scaleGridRight="85");
 	background-size: 			"100%";
 	font-family:				franklin1;
-	font-size:					11;
+	font-size:					12;
 	font-weight: 				normal;
 }
 
@@ -788,7 +788,7 @@ ProgressBar
 	font-family: 					franklin1;
 	color: 							#333333;
 	font-weight: 					normal;
-	font-size: 						11;
+	font-size: 						12;
 	label-placement: 				top;
 	indeterminate-skin:				Embed(source="../assets/botones/progress_charning.png");
 	indeterminate-move-interval: 	13;
@@ -829,7 +829,7 @@ TextArea
 	color:						#333333;
 	font-family:				franklin;
 	font-weight:				normal;
-	font-size:					11;
+	font-size:					12;
 }
 
 /*
@@ -844,12 +844,12 @@ TitleWindow
 	background-size:		"100%";
 	border-style:			none;
 	font-family:			franklin1;
-	font-size:				11;
+	font-size:				12;
 	font-weight:			normal;
 	color:					#333333;
 	border-thickness:		0;
 	background-color:		none;
-	padding-bottom:			20;
+	padding-bottom:			40;
 	padding-left:			15;
 	padding-right:			15;
 	padding-top:			20;
@@ -980,7 +980,7 @@ ToolTip
 	background-size: 		"100%";
 	font-family: 			franklin1;
 	font-weight: 			normal;
-	font-size: 				10;
+	font-size: 				11;
 	drop-shadow-enabled:	false;
 	padding-bottom: 		5;
 	dding-left:				6;

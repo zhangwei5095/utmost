@@ -55,6 +55,8 @@
 <module application="src/TPL.mxml" destPath="module/auth/AuthErrorTypeModule.swf" optimize="true" sourcePath="src/module/auth/AuthErrorTypeModule.mxml"/>
 <module application="src/TPL.mxml" destPath="module/auth/AuthVisualizerForFunModule.swf" optimize="true" sourcePath="src/module/auth/AuthVisualizerForFunModule.mxml"/>
 <module application="src/TPL.mxml" destPath="module/report/SimpleReportModule.swf" optimize="true" sourcePath="src/module/report/SimpleReportModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/monitor/system/SystemMonitorModule.swf" optimize="true" sourcePath="src/module/monitor/system/SystemMonitorModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/monitor/system/SystemInfoModule.swf" optimize="true" sourcePath="src/module/monitor/system/SystemInfoModule.mxml"/>
 </modules>
 <buildCSSFiles/>
 </actionScriptProperties>

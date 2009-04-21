@@ -76,8 +76,8 @@
 		 </mx:ArrayCollection>
 		 <mx:Zoom id="effect_2" zoomHeightTo="1.1" zoomWidthTo="1.1" captureRollEvents="true" />
 		 <mx:Zoom id="effect_1" zoomHeightTo="1.1" zoomWidthTo="1.1" captureRollEvents="true" /-->
-	<mx:Glow id="glowImage" duration="1000" alphaFrom="1.0" alphaTo="0.3" blurXFrom="0.0" blurXTo="80.0" blurYFrom="0.0" blurYTo="80.0" color="0x22A050"/>
-	<mx:Glow id="unglowImage" duration="1000" alphaFrom="0.3" alphaTo="1.0" blurXFrom="80.0" blurXTo="0.0" blurYFrom="80.0" blurYTo="0.0" color="0x3380DD"/>
+	<mx:Glow id="glowImage" duration="1000" alphaFrom="1.0" alphaTo="0.5" blurXFrom="0.0" blurXTo="80.0" blurYFrom="0.0" blurYTo="80.0" color="0x22A050"/>
+	<mx:Glow id="unglowImage" duration="1000" alphaFrom="0.5" alphaTo="1.0" blurXFrom="80.0" blurXTo="0.0" blurYFrom="80.0" blurYTo="0.0" color="0x3380DD"/>
 	<mx:VBox width="100%" height="100%" horizontalAlign="center" verticalAlign="middle">
 		<mx:ApplicationControlBar width="100%" height="40">
 			<mx:HBox width="100%" height="100%" horizontalAlign="right" verticalAlign="middle">
