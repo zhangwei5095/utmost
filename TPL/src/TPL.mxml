@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" 
-	layout="vertical" applicationComplete="init()" xmlns:kapit="fr.kapit.*" preloader="org.utmost.component.MyPreloader" paddingTop="10">
+	layout="vertical" applicationComplete="init()" horizontalScrollPolicy="off" xmlns:kapit="fr.kapit.*" preloader="org.utmost.component.MyPreloader" paddingTop="10">
 	<mx:Style source="skins/style.css"/>
 	<!--mx:Style source="skins/ResizableTitleWindow.css"/-->
 	<!--
 	<mx:Style source="skins/vista/VistaTheme.css"/>
 	-->
-	<!--<mx:Style source="skins/itunes7/ItunesTheme.css"/>-->
+	<!--
+	<mx:Style source="skins/itunes7/ItunesTheme.css"/>
+	-->
 	<!--<mx:Style source="assets/css/Main.css" />-->
-	
 	<mx:Style source="skins/undefined/css/skinPreview.css"/>
 	<!--<mx:Style source="skins/kingnare/style.css"/>-->
 	<mx:Script>
 		<![CDATA[
+			import component.MainPopUp;
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
 			import org.utmost.service.UtmostService;
@@ -58,6 +60,7 @@
 					//trace("LoginComponent_programme");
 					Application.application.loadModule("module/TPLModule.swf");
 					ComponentUtil.setVisible(MACB,true);
+					createMainPopUp();//尝试
 				});
 				PopUpManager.centerPopUp(obj);
 				this.addEventListener(ResizeEvent.RESIZE,function(e:Event):void{
@@ -114,6 +117,26 @@
 	    		});
 	    		service.ro.reloadSpring();
 	    	}
+	    	
+	    	/**
+	    	 * 尝试PopUpManager
+	    	 * */
+	    	 private var mpu:MainPopUp=new MainPopUp();
+	    	 private function createMainPopUp():void {
+	    	 	mpu.width=500;
+	    	 	mpu.height=60;
+//	    	 	mpu.x=this.width/2-mpu.width/2;
+//	    	 	mpu.y=this.height-mpu.height-30;
+				resizeMainPopUp();
+	    	 	this.addEventListener(ResizeEvent.RESIZE,function():void {
+	    	 		resizeMainPopUp();
+	    	 	});
+	    	 	PopUpManager.addPopUp(mpu,this,false);
+	    	 }
+	    	 private function resizeMainPopUp():void {
+	    	 	mpu.x=Application.application.width/2-mpu.width/2;
+	    	 	mpu.y=Application.application.height-mpu.height-30;
+	    	 }
 		]]>
 	</mx:Script>
 	<mx:ApplicationControlBar id="MACB" dock="false" width="100%" paddingLeft="20" alpha="0.8" paddingTop="6">
@@ -121,9 +144,9 @@
 		<!--mx:Button label="TPL" click="loadModule('module/TPLModule.swf')"/-->
 		<mx:Button label="Reload" click="reloadSys()"/>
 		<!--mx:Button label="监测" click="SysMonitor()"/-->
-		<mx:Label id="memory"/>
+		<mx:Label id="memory" color="#F2C423" fontFamily="Arial" fontWeight="bold" fontStyle="italic"/>
 	</mx:ApplicationControlBar>
-	<mx:ModuleLoader id="currentModule" width="100%" height="100%" ready="readyModule(event)">
+	<mx:ModuleLoader id="currentModule" width="100%" height="100%" ready="readyModule(event)" horizontalScrollPolicy="off">
 	</mx:ModuleLoader>
 	<!--kapit:KapInspect/-->
 	<!--处理CSS-->
@@ -145,5 +168,13 @@
 		<mx:PopUpButton/>
 		<mx:PopUpMenuButton/>
 		<mx:LinkButton/>
+		<mx:Accordion/>
+		<mx:DataGrid/>
+		<mx:HorizontalList/>
+		<mx:HRule/>
+		<mx:ProgressBar/>
+		<mx:TabNavigator/>
+		<mx:TileList/>
+		<mx:VRule/>
 	</mx:HBox>
 </mx:Application>

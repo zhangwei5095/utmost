@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="500" height="60" backgroundColor="#F6F308" backgroundAlpha="0.0" cornerRadius="20" borderThickness="6" cacheAsBitmap="true" shadowDirection="center" shadowDistance="20" creationComplete="setAC()" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+	<mx:Script>
+		<![CDATA[
+			import mx.utils.ObjectProxy;
+			import mx.binding.utils.BindingUtils;
+			import mx.collections.ArrayCollection;
+			[Bindable]
+			private var ac:ArrayCollection=new ArrayCollection();
+			public function setAC():void {
+				var o:Object=new Object();
+				o.label="a";
+				o.icon="img/png/Start Menu/Computer.png";
+				ac.addItem(new ObjectProxy(o));
+				o=new Object();
+				o.label="b";
+				o.icon="img/png/Start Menu/Favorites.png";
+				ac.addItem(new ObjectProxy(o));
+				o=new Object();
+				o.label="c";
+				o.icon="img/png/Start Menu/Recycle Bin Full.png";
+				ac.addItem(new ObjectProxy(o));
+				o=new Object();
+				o.label="c";
+				o.icon="img/png/Others/Email.png";
+				ac.addItem(new ObjectProxy(o));
+				o=new Object();
+				o.label="c";
+				o.icon="img/png/Others/Notepad.png";
+				ac.addItem(new ObjectProxy(o));
+				o=new Object();
+				o.label="c";
+				o.icon="img/png/Alarm/Padlock.png";
+				ac.addItem(new ObjectProxy(o));
+				o=new Object();
+				o.label="c";
+				o.icon="img/png/Alarm/Windows Security.png";
+				ac.addItem(new ObjectProxy(o));
+			}
+		]]>
+	</mx:Script>
+	<mx:HorizontalList width="500" height="60" rowHeight="60" columnCount="6" horizontalCenter="0" verticalCenter="0" dataProvider="{ac}" columnWidth="60" backgroundAlpha="0.3" borderStyle="none" focusAlpha="0" mouseFocusEnabled="false" allowDragSelection="false" allowMultipleSelection="false" enabled="false">
+		<mx:itemRenderer>
+			<mx:Component>
+				<mx:VBox name="innerVbox" verticalGap="0" horizontalGap="0" height="100%" width="100%" horizontalAlign="center" verticalAlign="middle" horizontalScrollPolicy="off" verticalScrollPolicy="off" borderStyle="none">
+					<mx:Script>
+						<![CDATA[
+							private function test():void {
+								trace("test");
+							}
+						]]>
+					</mx:Script>
+					<mx:Image id="img"  source="{data.icon}" click="test()" height="50" width="50"  rollOverEffect="{expand}" rollOutEffect="{contract}" mouseDownEffect="{unglowImage}"  scaleContent="true"></mx:Image>
+					<mx:Parallel id="expand">
+				        <mx:Glow id="glowImage" duration="1200" alphaFrom="1.0" alphaTo="0.0" blurXFrom="0.0" blurXTo="50.0" blurYFrom="0.0" blurYTo="50.0" color="0x3380DD"/>
+				        <mx:Resize widthTo="60" heightTo="60" duration="100"/>
+				    </mx:Parallel>
+				    <mx:Parallel id="contract">
+				        <mx:Resize widthTo="50" heightTo="50"/>
+				    </mx:Parallel>
+					<mx:Glow id="unglowImage" duration="2000" alphaFrom="1.0" alphaTo="0.0" blurXFrom="50.0" blurXTo="0.0" blurYFrom="50.0" blurYTo="0.0" color="0x22A050"/>
+					<!--<mx:Label text="{data.label}" height="50" ></mx:Label>-->
+				</mx:VBox>
+			</mx:Component>
+		</mx:itemRenderer>
+	</mx:HorizontalList>
+</mx:Canvas>

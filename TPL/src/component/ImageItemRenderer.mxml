@@ -1,25 +1,37 @@
-<?xml version="1.0" encoding="utf-8"?> 
-<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"  verticalScrollPolicy="off" horizontalScrollPolicy="off"
-	 width="120" height="160"  paddingBottom="15" horizontalAlign="center" verticalAlign="middle" paddingLeft="15" paddingRight="15" paddingTop="15">
-	<mx:VBox id="vbox"
-        horizontalAlign="center" 
-        verticalAlign="middle"
-        width="100%"  height="100%" alpha="0.3" dropShadowEnabled="true" 
-					dropShadowColor="#3C3A40" shadowDirection="center" shadowDistance="10"  cornerRadius="15" 
-					borderStyle="solid" mouseOut="mOut()" mouseOver="mOver()" backgroundColor="#FFFFFF"
-					verticalScrollPolicy="off" horizontalScrollPolicy="off" rollOverEffect="{this.parentDocument.glowImage}" rollOutEffect="{this.parentDocument.unglowImage}"> 
-						<mx:Script>
-						<![CDATA[
-							import mx.controls.Alert;
-							private function mOut():void {
-								//vbox.setStyle("backgroundColor","");
-							}
-							private function mOver():void {
-								vbox.setStyle("backgroundColor","#FFFFFF");
-							}
-						]]>
-					</mx:Script>
-	    <mx:Image source="{data.@icon}" /> 
-	    <mx:Label text="{data.@nodename}"  fontSize="15"  fontWeight="bold"/> 
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:reflector="org.utmost.effect.*"  verticalScrollPolicy="off" horizontalScrollPolicy="off" width="280" height="320" paddingBottom="15" horizontalAlign="center" verticalAlign="middle" paddingLeft="15" paddingRight="15" paddingTop="15">
+	<mx:Parallel id="expand">
+		<mx:Glow id="glowImage" alphaFrom="1.0" alphaTo="0.0" blurXFrom="0.0" blurXTo="50.0" blurYFrom="0.0" blurYTo="50.0" color="0x3380DD"/>
+		<mx:Sequence>
+			<mx:Resize widthTo="210" heightTo="110" duration="150"/>
+			<mx:Resize widthTo="250" heightTo="150" duration="400"/>
+		</mx:Sequence>
+	</mx:Parallel>
+	<mx:Parallel id="contract">
+		<mx:Resize widthFrom="{vbox.width}" heightFrom="{vbox.height}" widthTo="230" heightTo="130"/>
+	</mx:Parallel>
+	<!--
+	<reflector:Reflector  id="myReflector" target="{vbox}" alpha="0.5" falloff="0.5" blurAmount="0.5"/>
+	-->
+	<mx:VBox id="vbox" horizontalAlign="center" verticalAlign="middle" width="230" height="130" alpha="0.3" dropShadowEnabled="true" dropShadowColor="#3C3A40" shadowDirection="center" shadowDistance="10" cornerRadius="15" borderStyle="solid" mouseOut="mOut()" mouseOver="mOver()" backgroundColor="#FFFFFF" verticalScrollPolicy="off" horizontalScrollPolicy="off" rollOverEffect="{expand}" rollOutEffect="{contract}">
+		<mx:Script>
+			<![CDATA[
+				import org.utmost.effect.Reflector;
+				import mx.controls.Alert;
+				private function mOut():void
+				{
+				//vbox.setStyle("backgroundColor","");
+				}
+				private function mOver():void
+				{
+					vbox.setStyle("backgroundColor", "#FFFFFF");
+				}
+			]]>
+		</mx:Script>
+		<mx:Image source="{data.@icon}"/>
+		<mx:Label text="{data.@nodename}" fontSize="15" fontWeight="bold"/>
 	</mx:VBox>
+	
+	<reflector:Reflector  id="myReflector" target="{vbox}" alpha="0.15" falloff="0.4" blurAmount="0.8"/>
+	
 </mx:VBox>
