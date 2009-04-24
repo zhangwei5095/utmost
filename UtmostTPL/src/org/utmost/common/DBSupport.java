@@ -327,9 +327,13 @@ public class DBSupport extends HibernateDaoSupport {
 	 * @param hql
 	 */
 	public List pagination(int pageNo, int pageSize, String hql) {
-		List list = this.getSession().createQuery(hql).setFirstResult(pageNo)
-				.setMaxResults(pageSize).list();
-		return list;
+		if (pageNo > 0 && pageSize > 0) {
+			pageNo = (pageNo - 1) * pageSize;
+			List list = this.getSession().createQuery(hql).setFirstResult(
+					pageNo).setMaxResults(pageSize).list();
+			return list;
+		}
+		return null;
 	}
 
 	/**

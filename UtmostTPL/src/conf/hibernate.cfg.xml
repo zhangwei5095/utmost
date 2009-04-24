@@ -8,14 +8,14 @@
 	<session-factory>
 		<property name="connection.useUnicode">true</property>
 		<property name="connection.characterEncoding">UTF-8</property>
-
+<!-- 
 		<property name="connection.url">jdbc:mysql://localhost:3306/devjbpm</property>
 		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
 		<property name="connection.username">root</property>
 		<property name="connection.password">wygrzwygrz</property>
-
-		<!--
+ -->
+		
 			<property
 			name="connection.url">jdbc:db2://localhost:50000/tpl</property>
 			<property name="dialect">org.hibernate.dialect.DB2Dialect</property>
@@ -23,7 +23,7 @@
 			name="connection.driver_class">com.ibm.db2.jcc.DB2Driver</property>
 			<property name="connection.username">db2admin</property> <property
 			name="connection.password">db2admin</property>
-		-->
+		
 
 		<property name="cache.use_structured_entries">true</property>
 		<property name="cache.use_second_level_cache">true</property>
