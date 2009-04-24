@@ -7,6 +7,9 @@
 	<mx:XML id="RuleTree" source="xml/tpl/RuleTree.xml"/>
 	<mx:Script>
 		<![CDATA[
+			import org.utmost.effect.PopUpEffect;
+			import component.MainPopUp;
+			import mx.events.ResizeEvent;
 			import module.tpl.MainAdvViewComponent;
 			import org.utmost.service.UtmostService;
 			import org.utmost.component.DividerBox;
@@ -36,7 +39,45 @@
 			private function init():void {
 				TemplateServiceAddEventListener();//以后需改动
 				hdbox.setStyle("dividerSkin",DividerBox);
+				
+				setQuickKey();
 			}
+			
+			private function setQuickKey():void {
+				this.setFocus();
+				//设置快捷键
+				this.addEventListener(KeyboardEvent.KEY_DOWN,function(e:KeyboardEvent):void {
+					//trace(e.ctrlKey+"--"+e.altKey+"--"+e.keyCode);	
+					if(e.ctrlKey&&e.keyCode==192) {//Ctrl+~  快捷菜单
+							if(mpu==null||mpu.isShow==false) {
+								createMainPopUp();
+							} else {
+								mpu.isShow=false; 
+								PopUpEffect.remove(mpu);
+								mpu=null;
+							}
+					}
+				});
+			}
+			/**
+	    	 * 尝试PopUpManager
+	    	 * */
+	    	 private var mpu:MainPopUp;
+	    	 private function createMainPopUp():void {
+	    	 	mpu=new MainPopUp();
+	    	 	mpu.width=500;
+	    	 	mpu.height=60;
+				resizeMainPopUp();
+	    	 	this.addEventListener(ResizeEvent.RESIZE,function():void {
+	    	 		resizeMainPopUp();
+	    	 	});
+	    	 	mpu.isShow=true;//改变状态
+	    	 	PopUpManager.addPopUp(mpu,this,false);
+	    	 }
+	    	 private function resizeMainPopUp():void {
+	    	 	mpu.x=Application.application.width/2-mpu.width/2;
+	    	 	mpu.y=Application.application.height-mpu.height-30;
+	    	 }
 			//装载模板
 	        public function loadModule(name:String):void {
 	        	removeModule();

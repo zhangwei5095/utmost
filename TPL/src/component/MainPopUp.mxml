@@ -5,6 +5,7 @@
 			import mx.utils.ObjectProxy;
 			import mx.binding.utils.BindingUtils;
 			import mx.collections.ArrayCollection;
+			public var isShow:Boolean=false;
 			[Bindable]
 			private var ac:ArrayCollection=new ArrayCollection();
 			public function setAC():void {
