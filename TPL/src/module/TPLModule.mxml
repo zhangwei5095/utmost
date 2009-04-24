@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%"
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%" remove="PopUpManager.removePopUp(mpu)"
 	implements="module.ModuleInterface" creationComplete="init()">
 	<mx:XML id="DebugTree" source="xml/tpl/DebugTree.xml"/>
 	<mx:XML id="ConfigTree" source="xml/tpl/ConfigTree.xml"/>
@@ -40,7 +40,9 @@
 				TemplateServiceAddEventListener();//以后需改动
 				hdbox.setStyle("dividerSkin",DividerBox);
 				
+				//
 				setQuickKey();
+				createMainPopUp();
 			}
 			
 			private function setQuickKey():void {
