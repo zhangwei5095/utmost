@@ -3,6 +3,7 @@
 	implements="module.ModuleInterface" creationComplete="init()">
 	<mx:Script>
 		<![CDATA[
+			import org.utmost.effect.PopUpEffect;
 			import mx.rpc.events.FaultEvent;
 			import org.utmost.service.UtmostService;
 			import mx.events.CloseEvent;
@@ -80,6 +81,7 @@
 				pi.opertype=_opertype;
 				pi.treeitem=tree.selectedItem;
 				PopUpManager.centerPopUp(pi as IFlexDisplayObject);
+				//PopUpEffect.show(pi as IFlexDisplayObject);
 			}
 			
 			private function deleteByUUID():void {

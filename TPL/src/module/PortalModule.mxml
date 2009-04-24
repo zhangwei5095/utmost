@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%" creationComplete="init()" xmlns:component="component.*">
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%" creationComplete="init()" xmlns:component="component.*" horizontalScrollPolicy="off" verticalScrollPolicy="off">
 	<mx:Script>
 		<![CDATA[
 			import mx.controls.Alert;
@@ -76,15 +76,14 @@
 		 </mx:ArrayCollection>
 		 <mx:Zoom id="effect_2" zoomHeightTo="1.1" zoomWidthTo="1.1" captureRollEvents="true" />
 		 <mx:Zoom id="effect_1" zoomHeightTo="1.1" zoomWidthTo="1.1" captureRollEvents="true" /-->
-	<mx:Glow id="glowImage" duration="1000" alphaFrom="1.0" alphaTo="0.5" blurXFrom="0.0" blurXTo="80.0" blurYFrom="0.0" blurYTo="80.0" color="0x22A050"/>
-	<mx:Glow id="unglowImage" duration="1000" alphaFrom="0.5" alphaTo="1.0" blurXFrom="80.0" blurXTo="0.0" blurYFrom="80.0" blurYTo="0.0" color="0x3380DD"/>
-	<mx:VBox width="100%" height="100%" horizontalAlign="center" verticalAlign="middle">
+	<mx:VBox width="100%" height="100%" horizontalAlign="center" verticalAlign="middle" horizontalScrollPolicy="off" verticalScrollPolicy="off">
 		<mx:ApplicationControlBar width="100%" height="40">
 			<mx:HBox width="100%" height="100%" horizontalAlign="right" verticalAlign="middle">
 				<mx:Button label="编辑" click="programme()"/>
 			</mx:HBox>
 		</mx:ApplicationControlBar>
 		<mx:Spacer height="8%"/>
+		
 		<component:MyTileList id="tileList" width="80%" height="80%" itemClick="trasSystem(event)" dataProvider="{MainTree.node}" itemRenderer="component.ImageItemRenderer" columnCount="4" backgroundAlpha="0.0" borderSides="0" dragEnabled="true" focusAlpha="0.0" dragMoveEnabled="true" dropEnabled="true">
 		</component:MyTileList>
 	</mx:VBox>

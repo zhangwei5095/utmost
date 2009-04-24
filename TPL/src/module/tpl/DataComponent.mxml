@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="500" height="500"
-	 close="PopUpManager.removePopUp(this)" showCloseButton="true" implements="module.tpl.PopInterface" horizontalAlign="center" verticalAlign="middle" 
+	 close="close()" showCloseButton="true" implements="module.tpl.PopInterface" horizontalAlign="center" verticalAlign="middle" 
 	 creationComplete="init()">
 	<mx:Script>
 		<![CDATA[
+			import org.utmost.effect.PopUpEffect;
 			import mx.collections.ArrayCollection;
 			import mx.charts.chartClasses.DataDescription;
 			import org.utmost.util.AutoUtil;
@@ -136,8 +137,9 @@
 			
 			public var $flashData:Function=null;
 			private function close():void {
-				$flashData.call();//刷新表格数据
-				PopUpManager.removePopUp(this);
+				$flashData.call();//刷新表格数据   取消和直接关闭时冗余 待patch
+				//PopUpManager.removePopUp(this);
+				PopUpEffect.remove(this);
 			}
 			public var $adgData:Object=null;
 			
@@ -204,6 +206,6 @@
 	</mx:Form>
 	<mx:ControlBar horizontalAlign="center" verticalAlign="middle">
 		<mx:Button label="保存" click="submit()"/>
-		<mx:Button label="取消" click="PopUpManager.removePopUp(this)"/>
+		<mx:Button label="取消" click="close()"/>
 	</mx:ControlBar>
 </mx:TitleWindow>
