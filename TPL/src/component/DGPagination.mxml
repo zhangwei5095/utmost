@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="40" horizontalAlign="right" verticalAlign="bottom">
+<mx:Script>
+	<![CDATA[
+		import mx.controls.Alert;
+		import mx.collections.ArrayCollection;
+		import mx.rpc.events.ResultEvent;
+		import org.utmost.service.AutoService;
+		//当前页码
+		[Bindable]
+		public var pageNo:int=0;
+		//分页大小
+		[Bindable]
+		public var pageSize:int;
+		//总共页码
+		[Bindable]
+		public var countPage:int;
+		//回调函数
+		public var callfunc:Function=null;
+		
+		
+		private var countHQL:String;
+		//设置总页数
+		public function  set setCountPageByHql(_hql:String):void {
+			countHQL=_hql.replace("from","select count(*) from ");
+			queryCount();
+		}
+		private function queryCount():void {
+			AutoService.getInstance().findByHql(countHQL,function(e:ResultEvent):void {
+				var count:int=int(e.result);
+				trace("count:"+count);
+				countPage=count/returnSize.value+1;
+				countPageSize.text=String(countPage);
+			});
+		}
+		
+	
+		
+		private function next():void {
+			pageNo++;
+			query();
+		}
+		private function prev():void {
+			pageNo--;
+			query();
+		}
+		private function first():void {
+			pageNo=1;
+			query();
+		}
+		private function last():void {
+			pageNo=countPage;
+			query();
+		}
+		private function goto():void {
+			pageNo=nowPage.value;
+			if(pageNo==0) {
+				pageNo=1;
+			}
+			query();
+		}
+		private function query():void {
+//			if(pageNo>countPage) {
+//				Alert.show("没有更多页");
+//			}
+			if(pageNo>=1)
+				callfunc.call();
+			else 
+				Alert.show("页数不能小于1");
+		}
+	]]>
+</mx:Script>
+	<mx:Label text="页数:"/>
+	<mx:Label id="countPageSize" text="{countPage}"/>
+	<mx:Label text="当前:"/>
+	<mx:NumericStepper id="nowPage" value="{pageNo}" maximum="100000" minimum="0" stepSize="1"/>
+	<mx:Button label="跳转" click="goto()"/>
+	<mx:Button label="首页" click="first()"/>
+	<mx:Button label="上一页" click="prev()"/>
+	<mx:Button label="下一页" click="next()"/>
+	<mx:Button label="尾页" click="last()"/>
+	<mx:Label text="限制返回:"/>
+	<mx:NumericStepper id="returnSize" maximum="100000" minimum="0"  value="{pageSize}" change="pageSize=returnSize.value;queryCount();"/>
+</mx:HBox>

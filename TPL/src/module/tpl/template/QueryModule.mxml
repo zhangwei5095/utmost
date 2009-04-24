@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%">
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%" xmlns:component="component.*">
 	<mx:VDividedBox width="100%" height="100%">
 		<mx:VBox width="100%" height="25%" verticalGap="0">
 			<mx:TextArea id="exp" width="100%" height="100%" text="from U_TPL_TEMPLATEDATA"/>
-			<mx:HBox width="100%" height="30" verticalAlign="middle" horizontalAlign="right">
-				<mx:Label text="限制返回"/>
-				<mx:NumericStepper id="pageSize" maximum="10000" width="120" stepSize="1" value="1000"/>
-				<mx:Button label="执行" click="paginationQuery()"/>
-			</mx:HBox>
+			<component:DGPagination id="dgp" callfunc="paginationQuery" pageSize="12" />
 		</mx:VBox>
 		<mx:VBox width="100%" height="75%">
 			<mx:HBox id="adgContiner" width="100%" height="80%">
@@ -23,12 +19,13 @@
 			import mx.rpc.events.ResultEvent;
 			import org.utmost.service.AutoService;
 			public function paginationQuery():void {
-				trace("pageSize.value:"+pageSize.value);
+				//trace("pageSize.value:"+pageSize.value);
 				adgContiner.removeAllChildren();
-				AutoService.getInstance().pagination(0,pageSize.value,exp.text,function(e:ResultEvent):void{
+				dgp.setCountPageByHql=exp.text;//总页数必须
+				AutoService.getInstance().pagination(dgp.pageNo,dgp.pageSize,exp.text,function(e:ResultEvent):void{
 					var ac:ArrayCollection=e.result as ArrayCollection;
-					trace("ac.length:"+ac.length);
-					trace("ac:"+ac);
+					//trace("ac.length:"+ac.length);
+					//trace("ac:"+ac);
 					log.text=ac.toString();
 					if(ac.length!=0) {
 						var headerObj:Object=ac.getItemAt(0);
