@@ -38,8 +38,7 @@
 			}
 			private function init():void {
 				TemplateServiceAddEventListener();//以后需改动
-				hdbox.setStyle("dividerSkin",DividerBox);
-				
+				//hdbox.setStyle("dividerSkin",DividerBox);
 				//
 				setQuickKey();
 				createMainPopUp();
@@ -49,7 +48,7 @@
 				this.setFocus();
 				//设置快捷键
 				this.addEventListener(KeyboardEvent.KEY_DOWN,function(e:KeyboardEvent):void {
-					//trace(e.ctrlKey+"--"+e.altKey+"--"+e.keyCode);	
+					trace(e.ctrlKey+"--"+e.altKey+"--"+e.keyCode);	
 					if(e.ctrlKey&&e.keyCode==192) {//Ctrl+~  快捷菜单
 							if(mpu==null||mpu.isShow==false) {
 								createMainPopUp();
@@ -59,7 +58,20 @@
 								mpu=null;
 							}
 					}
+					if(e.shiftKey&&e.keyCode==192) {
+						//布局切换
+						setLayout();
+					}
 				});
+			}
+			private function setLayout():void {
+				if(leftPanel.width!=0) {
+					leftPanel.width=0;
+					ComponentUtil.setVisible(Application.application.MACB,false);
+				}else {
+					leftPanel.width=220;
+					ComponentUtil.setVisible(Application.application.MACB,true);
+				}
 			}
 			/**
 	    	 * 尝试PopUpManager
@@ -71,14 +83,16 @@
 	    	 	mpu.height=60;
 				resizeMainPopUp();
 	    	 	this.addEventListener(ResizeEvent.RESIZE,function():void {
-	    	 		resizeMainPopUp();
+	    	 		callLater(resizeMainPopUp);
 	    	 	});
 	    	 	mpu.isShow=true;//改变状态
 	    	 	PopUpManager.addPopUp(mpu,this,false);
 	    	 }
 	    	 private function resizeMainPopUp():void {
-	    	 	mpu.x=Application.application.width/2-mpu.width/2;
-	    	 	mpu.y=Application.application.height-mpu.height-30;
+	    	 	if(mpu!=null) {
+		    	 	mpu.x=Application.application.width/2-mpu.width/2;
+		    	 	mpu.y=Application.application.height-mpu.height-30;
+	    	 	}
 	    	 }
 			//装载模板
 	        public function loadModule(name:String):void {

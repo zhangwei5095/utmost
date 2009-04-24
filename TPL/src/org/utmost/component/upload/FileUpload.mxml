@@ -244,7 +244,7 @@
 			private function updateProgBar(numPerc:Number = 0):void {
 				var strLabel:String = (_numCurrentUpload + 1) + "/" + _arrUploadFiles.length;
 				strLabel = (_numCurrentUpload + 1 <= _arrUploadFiles.length && numPerc > 0 && numPerc < 100) ? numPerc + "% - " + strLabel : strLabel;
-				strLabel = (_numCurrentUpload + 1 == _arrUploadFiles.length && numPerc == 100) ? "Upload Complete - " + strLabel : strLabel;
+				strLabel = (_numCurrentUpload + 1 == _arrUploadFiles.length && numPerc == 100) ? "上传完成 - " + strLabel : strLabel;
 				strLabel = (_arrUploadFiles.length == 0) ? "" : strLabel;
 				progBar.label = strLabel;
 				progBar.setProgress(numPerc, 100);

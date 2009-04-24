@@ -25,7 +25,7 @@
 			
 			private function init():void
 			{
-				hdbox.setStyle("dividerSkin", DividerBox);
+				//hdbox.setStyle("dividerSkin", DividerBox);
 				//隐藏主窗口
 				ComponentUtil.setVisible(Application.application.MACB, false);
 				ComponentUtil.ocAllTree(systree);
