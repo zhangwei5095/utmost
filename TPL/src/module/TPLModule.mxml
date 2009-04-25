@@ -48,7 +48,7 @@
 				this.setFocus();
 				//设置快捷键
 				this.addEventListener(KeyboardEvent.KEY_DOWN,function(e:KeyboardEvent):void {
-					trace(e.ctrlKey+"--"+e.altKey+"--"+e.keyCode);	
+					//trace(e.ctrlKey+"--"+e.altKey+"--"+e.keyCode);	
 					if(e.ctrlKey&&e.keyCode==192) {//Ctrl+~  快捷菜单
 							if(mpu==null||mpu.isShow==false) {
 								createMainPopUp();

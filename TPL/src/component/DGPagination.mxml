@@ -8,7 +8,7 @@
 		import org.utmost.service.AutoService;
 		//当前页码
 		[Bindable]
-		public var pageNo:int=0;
+		public var pageNo:int=1;
 		//分页大小
 		[Bindable]
 		public var pageSize:int;
@@ -17,7 +17,6 @@
 		public var countPage:int;
 		//回调函数
 		public var callfunc:Function=null;
-		
 		
 		private var countHQL:String;
 		//设置总页数
@@ -33,9 +32,6 @@
 				countPageSize.text=String(countPage);
 			});
 		}
-		
-	
-		
 		private function next():void {
 			pageNo++;
 			query();
@@ -59,7 +55,7 @@
 			}
 			query();
 		}
-		private function query():void {
+		public function query():void {
 //			if(pageNo>countPage) {
 //				Alert.show("没有更多页");
 //			}
@@ -73,12 +69,12 @@
 	<mx:Label text="页数:"/>
 	<mx:Label id="countPageSize" text="{countPage}"/>
 	<mx:Label text="当前:"/>
-	<mx:NumericStepper id="nowPage" value="{pageNo}" maximum="100000" minimum="0" stepSize="1"/>
+	<mx:NumericStepper id="nowPage" value="{pageNo}" maximum="100000" minimum="1" stepSize="1"/>
 	<mx:Button label="跳转" click="goto()"/>
 	<mx:Button label="首页" click="first()"/>
 	<mx:Button label="上一页" click="prev()"/>
 	<mx:Button label="下一页" click="next()"/>
 	<mx:Button label="尾页" click="last()"/>
 	<mx:Label text="限制返回:"/>
-	<mx:NumericStepper id="returnSize" maximum="100000" minimum="0"  value="{pageSize}" change="pageSize=returnSize.value;queryCount();"/>
+	<mx:NumericStepper id="returnSize" maximum="100000" minimum="1"  value="{pageSize}" change="pageSize=returnSize.value;queryCount();"/>
 </mx:HBox>
