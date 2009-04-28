@@ -14,6 +14,5 @@ public class DBTest {
 		map.put("uuid", "sss");
 		map.put("nodecode", "娃哈哈ha");
 		db.save("U_TPL_TEMPLATEDATA", map);
-
 	}
 }

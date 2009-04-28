@@ -8,6 +8,7 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
+import org.hibernate.EntityMode;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -35,17 +36,28 @@ public class DBSupport extends HibernateDaoSupport {
 		this.setSessionFactory(sessionFactory);
 	}
 
+	public Session getMapSession() {
+		Session session = this.getSession();
+		session = session.getSession(EntityMode.MAP);
+		return session;
+	}
+
+	public Session getPOJOSession() {
+		Session session = this.getSession();
+		session = session.getSession(EntityMode.POJO);
+		return session;
+	}
+
 	/**
 	 * 根据HQL查询返回List
 	 * 
 	 * @param hql
 	 * @return
 	 */
-
 	public List findByHql(String hql) {
 		log.debug("findByHql List with hql: " + hql);
 		try {
-			return this.getSession().createQuery(hql).list();
+			return getMapSession().createQuery(hql).list();
 		} catch (RuntimeException re) {
 			log.error("findByHql failed", re);
 			throw re;
@@ -55,7 +67,7 @@ public class DBSupport extends HibernateDaoSupport {
 	public Query createSQLQuery(String sql) {
 		log.debug("createSQLQuery List with hql: " + sql);
 		try {
-			return this.getSession().createSQLQuery(sql);
+			return getMapSession().createSQLQuery(sql);
 		} catch (RuntimeException re) {
 			log.error("createSQLQuery failed", re);
 			throw re;
@@ -68,10 +80,9 @@ public class DBSupport extends HibernateDaoSupport {
 	 * @param exampleEntity
 	 * @return
 	 */
-	public List findByExample(Object exampleEntity) {
-		return this.getHibernateTemplate().findByExample(exampleEntity);
-	}
-
+	// public List findByExample(Object exampleEntity) {
+	// return this.getHibernateTemplate().findByExample(exampleEntity);
+	// }
 	/**
 	 * 返回第一个对象
 	 * 
@@ -92,7 +103,7 @@ public class DBSupport extends HibernateDaoSupport {
 	public List findAll(String tableName) {
 		log.debug("findAll List with tableName: " + tableName);
 		try {
-			return this.getSession().createQuery("from " + tableName).list();
+			return getMapSession().createQuery("from " + tableName).list();
 		} catch (RuntimeException re) {
 			log.error("findAll failed", re);
 			throw re;
@@ -107,7 +118,7 @@ public class DBSupport extends HibernateDaoSupport {
 	public void save(Object entity) {
 		log.debug("save void with entity: " + entity);
 		try {
-			this.getHibernateTemplate().save(entity);
+			getMapSession().save(entity);
 		} catch (RuntimeException re) {
 			log.error("save failed", re);
 			throw re;
@@ -122,7 +133,7 @@ public class DBSupport extends HibernateDaoSupport {
 	public void save(String entityName, Map entity) {
 		log.debug("save void with entity by entityName: " + entity);
 		try {
-			this.getHibernateTemplate().save(entityName, entity);
+			getMapSession().save(entityName, entity);
 		} catch (RuntimeException re) {
 			log.error("save failed", re);
 			throw re;
@@ -136,7 +147,7 @@ public class DBSupport extends HibernateDaoSupport {
 	 */
 	public void exteriorSave(String entityName, Map entity) {
 		log.debug("save void with entity by entityName: " + entity);
-		Session session = this.getSessionFactory().openSession();
+		Session session = getMapSession();
 		Transaction tx = session.beginTransaction();
 		try {
 			session.save(entityName, entity);
@@ -158,7 +169,7 @@ public class DBSupport extends HibernateDaoSupport {
 	public void update(Object entity) {
 		log.debug("update void with entity: " + entity);
 		try {
-			this.getHibernateTemplate().update(entity);
+			getMapSession().update(entity);
 		} catch (RuntimeException re) {
 			log.error("update failed", re);
 			throw re;
@@ -173,7 +184,7 @@ public class DBSupport extends HibernateDaoSupport {
 	public void update(String entityName, Map entity) {
 		log.debug("update void with entity by entityName: " + entity);
 		try {
-			this.getHibernateTemplate().update(entityName, entity);
+			getMapSession().update(entityName, entity);
 		} catch (RuntimeException re) {
 			log.error("update failed", re);
 			throw re;
@@ -186,7 +197,7 @@ public class DBSupport extends HibernateDaoSupport {
 	public void saveOrUpdate(Object entity) {
 		log.debug("saveOrUpdate void with entity: " + entity);
 		try {
-			this.getHibernateTemplate().saveOrUpdate(entity);
+			getMapSession().saveOrUpdate(entity);
 		} catch (RuntimeException re) {
 			log.error("saveOrUpdate failed", re);
 			throw re;
@@ -207,7 +218,7 @@ public class DBSupport extends HibernateDaoSupport {
 					entity.remove("uuid");
 				}
 			}
-			this.getHibernateTemplate().saveOrUpdate(entityName, entity);
+			getMapSession().saveOrUpdate(entityName, entity);
 		} catch (RuntimeException re) {
 			log.error("saveOrUpdate failed", re);
 			throw re;
@@ -220,7 +231,10 @@ public class DBSupport extends HibernateDaoSupport {
 	public void saveOrUpdateAll(Collection<Object> entities) {
 		log.debug("saveOrUpdateAll void with entities: " + entities);
 		try {
-			this.getHibernateTemplate().saveOrUpdateAll(entities);
+			for (Object entity : entities) {
+				getMapSession().saveOrUpdate(entity);
+			}
+			// this.getHibernateTemplate().saveOrUpdateAll(entities);
 		} catch (RuntimeException re) {
 			log.error("saveOrUpdateAll failed", re);
 			throw re;
@@ -235,7 +249,7 @@ public class DBSupport extends HibernateDaoSupport {
 	public void delete(String entityName, Map entity) {
 		log.debug("delete void with entity by entityName: " + entity);
 		try {
-			this.getHibernateTemplate().delete(entityName, entity);
+			getMapSession().delete(entityName, entity);
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);
 			throw re;
@@ -250,7 +264,7 @@ public class DBSupport extends HibernateDaoSupport {
 	public void delete(Object entity) {
 		log.debug("delete void with entity: " + entity);
 		try {
-			this.getHibernateTemplate().delete(entity);
+			getMapSession().delete(entity);
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);
 			throw re;
@@ -277,7 +291,10 @@ public class DBSupport extends HibernateDaoSupport {
 	public void deleteAll(Collection<Object> entities) {
 		log.debug("deleteAll void with entities: " + entities);
 		try {
-			this.getHibernateTemplate().deleteAll(entities);
+			for (Object entity : entities) {
+				getMapSession().delete(entity);
+			}
+			// this.getHibernateTemplate().deleteAll(entities);
 		} catch (RuntimeException re) {
 			log.error("deleteAll failed", re);
 			throw re;
@@ -309,14 +326,13 @@ public class DBSupport extends HibernateDaoSupport {
 	 *            每页记录数, <=0时返回所有记录
 	 * @param query
 	 */
-	public void pagination(int pageNo, int pageList, Query query) {
-		if (pageList > 0 && pageNo > 0) {
-			query.setMaxResults(pageList);
-			int beginIndex = (pageNo - 1) * pageList;
-			query.setFirstResult(beginIndex);
-		}
-	}
-
+	// public void pagination(int pageNo, int pageList, Query query) {
+	// if (pageList > 0 && pageNo > 0) {
+	// query.setMaxResults(pageList);
+	// int beginIndex = (pageNo - 1) * pageList;
+	// query.setFirstResult(beginIndex);
+	// }
+	// }
 	/**
 	 * 设置分页, pageNo或pageList<=0时返回所有记录
 	 * 
@@ -329,8 +345,8 @@ public class DBSupport extends HibernateDaoSupport {
 	public List pagination(int pageNo, int pageSize, String hql) {
 		if (pageNo > 0 && pageSize > 0) {
 			pageNo = (pageNo - 1) * pageSize;
-			List list = this.getSession().createQuery(hql).setFirstResult(
-					pageNo).setMaxResults(pageSize).list();
+			List list = getMapSession().createQuery(hql).setFirstResult(pageNo)
+					.setMaxResults(pageSize).list();
 			return list;
 		}
 		return null;
@@ -344,11 +360,11 @@ public class DBSupport extends HibernateDaoSupport {
 	 * @param sql
 	 * @return
 	 */
-	public List paginationBySql(int pageNo, int pageSize, String sql) {
-		List list = this.getSession().createSQLQuery(sql)
-				.setFirstResult(pageNo).setMaxResults(pageSize).list();
-		return list;
-	}
+	// public List paginationBySql(int pageNo, int pageSize, String sql) {
+	// List list = this.getSession().createSQLQuery(sql)
+	// .setFirstResult(pageNo).setMaxResults(pageSize).list();
+	// return list;
+	// }
 	/**
 	 * 设置分页, pageNo或pageList<=0时返回所有记录
 	 * 

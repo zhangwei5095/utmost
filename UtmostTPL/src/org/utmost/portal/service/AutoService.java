@@ -153,7 +153,7 @@ public class AutoService extends CommService {
 	 */
 	public void deleteAll(String entityName, List<HashMap> list) {
 		for (HashMap entity : list) {
-			this.delete(entityName, entity);
+			delete(entityName, entity);
 		}
 	}
 
