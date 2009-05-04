@@ -4,10 +4,15 @@
 		<mx:HBox width="100%" height="80" verticalAlign="middle" horizontalAlign="center" horizontalGap="60">
 			<mx:TextArea height="100%" width="80%"/>
 			<mx:Button label="运行" click="run()"/>
+			<mx:Button label="图像处理" click="processImage()"/>
 		</mx:HBox>
 	</mx:VBox>
 	<mx:Script>
 		<![CDATA[
+			import mx.core.IFlexDisplayObject;
+			import mx.managers.PopUpManager;
+			import mx.controls.Image;
+			import component.ImagePro;
 			import mx.rpc.events.ResultEvent;
 			import org.utmost.service.AutoService;
 			import org.utmost.service.UtmostService;
@@ -16,6 +21,14 @@
 				service.findByNamedQuery("Query_U_TPL_TEMPLATE_HQL",function(e:ResultEvent):void {
 					trace(e.result.toString());
 				});
+			}
+			
+			public function processImage():void {
+				var ip:Object=PopUpManager.createPopUp(this.parentApplication as DisplayObject, ImagePro, true);
+				var image:Image=new Image();
+				image.source="img/AmfToJava.jpg";
+				(ip as ImagePro).$photoImage=image;
+				PopUpManager.centerPopUp(ip as IFlexDisplayObject);
 			}
 		]]>
 	</mx:Script>

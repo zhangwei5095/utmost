@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" 
+	 showCloseButton="true" close="PopUpManager.removePopUp(this)" width="700" height="500"
+	  xmlns:oh="com.roguedevelopment.objecthandles.*"  horizontalAlign="center" verticalAlign="middle" horizontalGap="0" verticalGap="0" paddingBottom="0" paddingLeft="0" paddingRight="0" paddingTop="0" backgroundColor="#CFCCCC">
+	<mx:Script>
+		<![CDATA[
+			import mx.events.ResizeEvent;
+			import mx.controls.Image;
+			import mx.managers.PopUpManager;
+			
+			import flash.display.Shader;
+            import flash.filters.ShaderFilter;
+			
+			[Bindable]
+			public var $photoImage:Image;
+			
+			[Embed(source="component/magnify.pbj", mimeType="application/octet-stream")]
+			private var shaderObj:Class;
+			private var shader:Shader;
+			private var shaderFilter:ShaderFilter;
+			
+			private function review():void {
+//				photoImage.width=hbox.width*0.7;
+//				photoImage.height=hbox.height*0.7;
+//				oh.width=vbox.width*0.8;
+//				oh.height=vbox.height*0.8;
+				var rp:Point=new Point(oh.width/2,oh.height/2);
+			    var a:Point = oh.parent.globalToLocal(oh.localToGlobal(rp)); 
+			    oh.rotation=0; 
+			    var B:Point = oh.parent.globalToLocal(oh.localToGlobal(rp)); 
+			    oh.x -= B.x - a.x; 
+			    oh.y -= B.y - a.y; 
+			    
+			    photoImage.filters=null;
+			    
+			}
+			
+			private function zoomIn():void {
+//				var x:int=photoImage.x;
+//				var y:int=photoImage.y;
+            	oh.width+=30;
+            	oh.height+=30;
+//            	photoImage.x=x;
+//            	photoImage.y=y;
+            }
+            private function zoom(n:Number):void {
+//            	photoImage.width+=n;
+//            	photoImage.height+=n;
+//				var rot:int=hbox.rotation;
+//				trace("rot:"+rot);
+//				var rp:Point=new Point(hbox.width/2,hbox.height/2);
+//			    var a:Point = hbox.parent.globalToLocal(hbox.localToGlobal(rp)); 
+//			    hbox.rotation=0; 
+//			    var b:Point = hbox.parent.globalToLocal(hbox.localToGlobal(rp)); 
+//			    hbox.x -= b.x - a.x; 
+//			    hbox.y -= b.y - a.y; 
+			    
+            	oh.width+=n;
+            	oh.height+=n;
+            	//hbox.addEventListener(ResizeEvent.RESIZE,function():void{
+//            		rp=new Point(hbox.width/2,hbox.height/2);
+//				    a= hbox.parent.globalToLocal(hbox.localToGlobal(rp)); 
+//				    hbox.rotation=rot; 
+//				    b = hbox.parent.globalToLocal(hbox.localToGlobal(rp)); 
+//				    hbox.x -= b.x - a.x; 
+//				    hbox.y -= b.y - a.y;
+            //	});
+            	
+            }
+            private function zoomOut():void {
+//            	var x:int=photoImage.x;
+//				var y:int=photoImage.y;
+            	oh.width-=30;
+            	oh.height-=30;
+//            	photoImage.x=x;
+//            	photoImage.y=y;
+            }
+            private function rotationImg(n:int):void {
+			 	var rp:Point=new Point(oh.width/2,oh.height/2);
+			    var a:Point = oh.parent.globalToLocal(oh.localToGlobal(rp)); 
+			    oh.rotation=n+oh.rotation; 
+			    var B:Point = oh.parent.globalToLocal(oh.localToGlobal(rp)); 
+			    oh.x -= B.x - a.x; 
+			    oh.y -= B.y - a.y; 
+				
+//			    hbox.width=hbox.width;
+//			    hbox.height=hbox.height;
+			   
+			    
+			    trace(oh.x+"---"+oh.y); 
+//			    var rp:Point=new Point(photoImage.width/2,photoImage.height/2);
+//			    var a:Point = photoImage.parent.globalToLocal(photoImage.localToGlobal(rp)); 
+//			    photoImage.rotation=n+photoImage.rotation; 
+//			    var b:Point = photoImage.parent.globalToLocal(photoImage.localToGlobal(rp)); 
+//			    photoImage.x -= b.x - a.x; 
+//			    photoImage.y -= b.y - a.y; 
+            }
+            
+            private function huidu():void {
+            	var colorArray:Array = [1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0];
+            	colorArray[0] = (1-0)*0.3086+0;
+				colorArray[1] = (1-0)*0.6094;
+				colorArray[2] = (1-0)*0.0820;
+				colorArray[5] = (1-0)*0.3086;
+				colorArray[6] = (1-0)*0.6094+0;
+				colorArray[7] = (1-0)*0.0820;
+				colorArray[10] = (1-0)*0.3086;
+				colorArray[11] = (1-0)*0.6094;
+				colorArray[12] = (1-0)*0.0820+0;
+				colorArray[18] = 1;
+				photoImage.filters = [new ColorMatrixFilter(colorArray)];
+            }
+            private function fudiao():void {
+            	photoImage.filters = [new ConvolutionFilter(3,3,[-10,-1,0,-1,1,1,0,1,10])];
+            }
+            private function baohedu(_saturation:Number):void {
+            	var colorArray:Array = [1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0];
+            	var saturation:Number=_saturation;//取值范围0~3
+				colorArray[0] = (1-saturation)*0.3086+saturation;
+				colorArray[1] = (1-saturation)*0.6094;
+				colorArray[2] = (1-saturation)*0.0820;
+				colorArray[5] = (1-saturation)*0.3086;
+				colorArray[6] = (1-saturation)*0.6094+saturation;
+				colorArray[7] = (1-saturation)*0.0820;
+				colorArray[10] = (1-saturation)*0.3086;
+				colorArray[11] = (1-saturation)*0.6094;
+				colorArray[12] = (1-saturation)*0.0820+saturation;
+				colorArray[18] = 1;
+				photoImage.filters = [new ColorMatrixFilter(colorArray)];
+            }
+            private function duibidu(contrast:Number):void {
+            	var colorArray:Array = [1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0];
+            	var a:Number = contrast*11;
+				var B:Number = 63.5-(contrast*698.5);
+				colorArray[0] = a;
+				colorArray[4] = B;
+				colorArray[6] = a;
+				colorArray[9] = B;
+				colorArray[12] = a;
+				colorArray[14] = B;
+				colorArray[18] = 1;
+				photoImage.filters = [new ColorMatrixFilter(colorArray)];
+            }
+            private function liangdu(brightness:Number):void {
+            	var colorArray:Array = [1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0];
+				//取值范围0~5
+				colorArray[0] = brightness;
+				colorArray[6] = brightness;
+				colorArray[12] = brightness;
+				colorArray[18] = 1;
+				photoImage.filters = [new ColorMatrixFilter(colorArray)];
+            }
+            private function lvjing():void
+			{
+				shader = new Shader( new shaderObj() );
+				shader.data.center.value = [photoImage.width/2, photoImage.height/2];
+				
+				setShader();
+				
+				stage.addEventListener( Event.ENTER_FRAME, onEnterFrame, false, 0, true );
+			}
+			private function onEnterFrame( event:Event ):void
+			{
+				setShader();
+			}
+			
+			private function setShader():void
+			{
+				var centerX:Number = photoImage.mouseX;
+				var centerY:Number = photoImage.mouseY;
+				if( centerX < 0 || centerY < 0 || centerX > photoImage.width || centerY > photoImage.height )
+				{
+					var currentX:Number = shader.data.center.value[0];
+					var currentY:Number = shader.data.center.value[1]
+					centerX = currentX + ((photoImage.width / 2)-currentX) / 2;
+					centerY = currentY + ((photoImage.height / 2)-currentY) / 2;
+				}
+
+				shader.data.center.value = [centerX, centerY];
+				shader.data.innerRadius.value = [innerRadiusSlider.value];
+				shader.data.outerRadius.value = [outerRadiusSlider.value];
+				shader.data.magnification.value = [magnificationSlider.value];
+				shaderFilter = new ShaderFilter( shader );
+				photoImage.filters = [shaderFilter];
+			}
+            [Bindable]
+			[Embed(source="img/imgPro/image61.png")]
+			public var icon_zoomIn:Class;
+			[Bindable]
+			[Embed(source="img/imgPro/image68.png")]
+			public var icon_zoomOut:Class;
+			[Bindable]
+			[Embed(source="img/imgPro/image55.png")]
+			public var icon_zoom:Class;
+			[Bindable]
+			[Embed(source="img/imgPro/image53.png")]
+			public var icon_liangdu:Class;
+			[Bindable]
+			[Embed(source="img/imgPro/image49.png")]
+			public var icon_duibidu:Class;
+		]]>
+	</mx:Script>
+	<mx:Tile width="100%" height="40" verticalAlign="middle" horizontalGap="3" verticalGap="3"  click="oh.deselect()" horizontalAlign="left" backgroundColor="#A25B5B" cornerRadius="6" borderStyle="solid" borderColor="#080000" barColor="#EB1515" dropShadowEnabled="true" shadowDistance="2" direction="horizontal" paddingTop="3" paddingLeft="4">
+		<mx:Button icon="{icon_zoom}"  toolTip="还原" click="review()" height="32" width="32"/>
+		<mx:Button icon="{icon_zoomIn}"  toolTip="放大" click="zoom(30)" height="32" width="32" />
+		<mx:Button icon="{icon_zoomOut}" toolTip="缩小" click="zoom(-30)" height="32" width="32"/>
+		<mx:Button label="左" toolTip="左转" click="rotationImg(45)" height="32" width="32"/>
+		<mx:Button label="右" toolTip="右转" click="rotationImg(-45)" height="32" width="32"/>
+		<mx:Button label="灰度" click="huidu()" height="32" width="32"/>
+		<mx:Button label="浮雕" click="fudiao()" height="32" width="32"/>
+		
+		<mx:PopUpButton id="pub_baohedu" label="饱" toolTip="饱和度" openAlways="true" height="32" width="42">
+			<mx:popUp>
+				<mx:TitleWindow  showCloseButton="true"  click="pub_baohedu.close()">
+					<mx:HSlider id="hsliderID" minimum="0" maximum="3" liveDragging="true" change="baohedu(hsliderID.value)"/>	
+				</mx:TitleWindow>
+			</mx:popUp>
+		</mx:PopUpButton>
+		<mx:PopUpButton id="pub_duibidu" icon="{icon_duibidu}" toolTip="对比度" openAlways="false" height="32" width="42">
+			<mx:popUp>
+				<mx:TitleWindow  showCloseButton="true"  click="pub_duibidu.close()">
+					<mx:HSlider id="hsliderDuibidu" minimum="0" maximum="1" liveDragging="true" change="liangdu(hsliderDuibidu.value)"/>	
+				</mx:TitleWindow>
+			</mx:popUp>
+		</mx:PopUpButton>
+		<mx:PopUpButton id="pub_liangdu" icon="{icon_liangdu}" toolTip="亮度" openAlways="true" height="32" width="42">
+			<mx:popUp>
+				<mx:TitleWindow  showCloseButton="true"  click="pub_liangdu.close()">
+					<mx:HSlider id="hsliderLiangdu" minimum="0" maximum="0.3" liveDragging="true" change="duibidu(hsliderLiangdu.value)"/>	
+				</mx:TitleWindow>
+			</mx:popUp>
+		</mx:PopUpButton>
+		<mx:PopUpButton id="pub_lvjing" label="滤" toolTip="滤镜" openAlways="true" height="32" width="42" click="lvjing()">
+			<mx:popUp>
+				<mx:TitleWindow  showCloseButton="true"  click="pub_lvjing.close()">
+					<mx:HSlider id="innerRadiusSlider" minimum="0" maximum="200" value="100" liveDragging="true" />
+					<mx:HSlider id="outerRadiusSlider" minimum="0" maximum="200" value="100" liveDragging="true" />
+					<mx:HSlider id="magnificationSlider" minimum="1" maximum="50" value="3" liveDragging="true" />
+				</mx:TitleWindow>
+			</mx:popUp>
+		</mx:PopUpButton>
+	</mx:Tile>
+	
+	<mx:VBox id="vbox" width="100%" height="100%" verticalAlign="middle" horizontalAlign="center" horizontalScrollPolicy="off" verticalScrollPolicy="off" horizontalGap="0" verticalGap="0">
+		<!--mx:HBox id="hbox" width="70%" height="70%" horizontalAlign="center" verticalAlign="middle" verticalGap="0" horizontalGap="0" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+			<mx:Image id="photoImage" source="{$photoImage.source}" horizontalAlign="center" verticalAlign="middle" width="100%" height="100%"/>	
+		</mx:HBox-->
+		<mx:Canvas width="100%" height="100%" id="_canvas">
+			<oh:ObjectHandles id="oh"  allowRotate="true" x="0" y="0" width="100%" click="oh.select()" height="100%" minHeight="30" minWidth="200">
+				<mx:Image id="photoImage" maintainAspectRatio="false" width="100%" height="100%" source="{$photoImage.source}"/>
+			</oh:ObjectHandles>
+		</mx:Canvas>
+	</mx:VBox>
+	
+	<mx:ControlBar>
+	</mx:ControlBar>
+</mx:TitleWindow>
