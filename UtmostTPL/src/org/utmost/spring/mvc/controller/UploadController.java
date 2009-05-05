@@ -15,22 +15,35 @@ import org.jbpm.JbpmConfiguration;
 import org.jbpm.JbpmContext;
 import org.jbpm.graph.def.ProcessDefinition;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
+import org.utmost.bpm.jbpm3.service.JBPMService;
 import org.utmost.common.SpringContext;
 import org.utmost.util.PathUtil;
 
 public class UploadController extends MultiActionController {
-	public void deployJbpm3(HttpServletRequest rq, HttpServletResponse rp) {
-		System.out.println("rq-->" + rq);
-		InputStream inputStream = null;//
-		JbpmConfiguration config = (JbpmConfiguration) SpringContext
-				.getBean("jbpmConfiguration");
-		ProcessDefinition processDefinition = ProcessDefinition
-				.parseXmlInputStream(inputStream);
-		JbpmContext context = config.createJbpmContext();
-		context.deployProcessDefinition(processDefinition);
-		context.close();
-		// jbpmcon.getCurrentJbpmContext().
+	
+	/**
+	 * 将上传的工作流流程数据发布到工作流上。
+	 * @param rq
+	 * @param rp
+	 * @throws FileUploadException
+	 */         
+	public void deployJBPMProc(HttpServletRequest rq, HttpServletResponse rp) 
+		throws FileUploadException{
+			
+			JBPMService jbpmS = (JBPMService) SpringContext.getBean("JBPMService");
+			List<FileItem> items = getFileUpload().parseRequest(rq);
+			for (FileItem item : items) {
+				if (!item.isFormField()) {
+					try{
+						jbpmS.deployProcDef(item.getInputStream());
+					}	
+					catch(Exception e){
+						e.printStackTrace();
+					}
+				}
+			}
 	}
+	
 
 	/**
 	 * 
