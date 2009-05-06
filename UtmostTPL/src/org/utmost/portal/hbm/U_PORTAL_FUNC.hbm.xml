@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                                    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<hibernate-mapping>
+<hibernate-mapping >
 	<class entity-name="U_PORTAL_FUNC" table="U_PORTAL_FUNC">
 		<id name="uuid" column="UUID" length="36" type="java.lang.String">
 			<generator class="uuid" />

@@ -36,12 +36,22 @@ public class DBSupport extends HibernateDaoSupport {
 		this.setSessionFactory(sessionFactory);
 	}
 
-	public Session getMapSession() {
+	/**
+	 * MapSession出口
+	 * 
+	 * @return
+	 */
+	public Session getDynamicSession() {
 		Session session = this.getSession();
 		session = session.getSession(EntityMode.MAP);
 		return session;
 	}
 
+	/**
+	 * PojoSession出口
+	 * 
+	 * @return
+	 */
 	public Session getPOJOSession() {
 		Session session = this.getSession();
 		session = session.getSession(EntityMode.POJO);
@@ -57,7 +67,7 @@ public class DBSupport extends HibernateDaoSupport {
 	public List findByHql(String hql) {
 		log.debug("findByHql List with hql: " + hql);
 		try {
-			return getMapSession().createQuery(hql).list();
+			return getDynamicSession().createQuery(hql).list();
 		} catch (RuntimeException re) {
 			log.error("findByHql failed", re);
 			throw re;
@@ -67,7 +77,7 @@ public class DBSupport extends HibernateDaoSupport {
 	public Query createSQLQuery(String sql) {
 		log.debug("createSQLQuery List with hql: " + sql);
 		try {
-			return getMapSession().createSQLQuery(sql);
+			return getDynamicSession().createSQLQuery(sql);
 		} catch (RuntimeException re) {
 			log.error("createSQLQuery failed", re);
 			throw re;
@@ -103,7 +113,7 @@ public class DBSupport extends HibernateDaoSupport {
 	public List findAll(String tableName) {
 		log.debug("findAll List with tableName: " + tableName);
 		try {
-			return getMapSession().createQuery("from " + tableName).list();
+			return getDynamicSession().createQuery("from " + tableName).list();
 		} catch (RuntimeException re) {
 			log.error("findAll failed", re);
 			throw re;
@@ -118,7 +128,7 @@ public class DBSupport extends HibernateDaoSupport {
 	public void save(Object entity) {
 		log.debug("save void with entity: " + entity);
 		try {
-			getMapSession().save(entity);
+			getDynamicSession().save(entity);
 		} catch (RuntimeException re) {
 			log.error("save failed", re);
 			throw re;
@@ -133,7 +143,7 @@ public class DBSupport extends HibernateDaoSupport {
 	public void save(String entityName, Map entity) {
 		log.debug("save void with entity by entityName: " + entity);
 		try {
-			getMapSession().save(entityName, entity);
+			getDynamicSession().save(entityName, entity);
 		} catch (RuntimeException re) {
 			log.error("save failed", re);
 			throw re;
@@ -147,7 +157,7 @@ public class DBSupport extends HibernateDaoSupport {
 	 */
 	public void exteriorSave(String entityName, Map entity) {
 		log.debug("save void with entity by entityName: " + entity);
-		Session session = getMapSession();
+		Session session = getDynamicSession();
 		Transaction tx = session.beginTransaction();
 		try {
 			session.save(entityName, entity);
@@ -169,7 +179,7 @@ public class DBSupport extends HibernateDaoSupport {
 	public void update(Object entity) {
 		log.debug("update void with entity: " + entity);
 		try {
-			getMapSession().update(entity);
+			getDynamicSession().update(entity);
 		} catch (RuntimeException re) {
 			log.error("update failed", re);
 			throw re;
@@ -184,7 +194,7 @@ public class DBSupport extends HibernateDaoSupport {
 	public void update(String entityName, Map entity) {
 		log.debug("update void with entity by entityName: " + entity);
 		try {
-			getMapSession().update(entityName, entity);
+			getDynamicSession().update(entityName, entity);
 		} catch (RuntimeException re) {
 			log.error("update failed", re);
 			throw re;
@@ -197,7 +207,7 @@ public class DBSupport extends HibernateDaoSupport {
 	public void saveOrUpdate(Object entity) {
 		log.debug("saveOrUpdate void with entity: " + entity);
 		try {
-			getMapSession().saveOrUpdate(entity);
+			getDynamicSession().saveOrUpdate(entity);
 		} catch (RuntimeException re) {
 			log.error("saveOrUpdate failed", re);
 			throw re;
@@ -218,7 +228,7 @@ public class DBSupport extends HibernateDaoSupport {
 					entity.remove("uuid");
 				}
 			}
-			getMapSession().saveOrUpdate(entityName, entity);
+			getDynamicSession().saveOrUpdate(entityName, entity);
 		} catch (RuntimeException re) {
 			log.error("saveOrUpdate failed", re);
 			throw re;
@@ -232,7 +242,7 @@ public class DBSupport extends HibernateDaoSupport {
 		log.debug("saveOrUpdateAll void with entities: " + entities);
 		try {
 			for (Object entity : entities) {
-				getMapSession().saveOrUpdate(entity);
+				getDynamicSession().saveOrUpdate(entity);
 			}
 			// this.getHibernateTemplate().saveOrUpdateAll(entities);
 		} catch (RuntimeException re) {
@@ -249,7 +259,7 @@ public class DBSupport extends HibernateDaoSupport {
 	public void delete(String entityName, Map entity) {
 		log.debug("delete void with entity by entityName: " + entity);
 		try {
-			getMapSession().delete(entityName, entity);
+			getDynamicSession().delete(entityName, entity);
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);
 			throw re;
@@ -264,7 +274,7 @@ public class DBSupport extends HibernateDaoSupport {
 	public void delete(Object entity) {
 		log.debug("delete void with entity: " + entity);
 		try {
-			getMapSession().delete(entity);
+			getDynamicSession().delete(entity);
 		} catch (RuntimeException re) {
 			log.error("delete failed", re);
 			throw re;
@@ -292,7 +302,7 @@ public class DBSupport extends HibernateDaoSupport {
 		log.debug("deleteAll void with entities: " + entities);
 		try {
 			for (Object entity : entities) {
-				getMapSession().delete(entity);
+				getDynamicSession().delete(entity);
 			}
 			// this.getHibernateTemplate().deleteAll(entities);
 		} catch (RuntimeException re) {
@@ -345,8 +355,8 @@ public class DBSupport extends HibernateDaoSupport {
 	public List pagination(int pageNo, int pageSize, String hql) {
 		if (pageNo > 0 && pageSize > 0) {
 			pageNo = (pageNo - 1) * pageSize;
-			List list = getMapSession().createQuery(hql).setFirstResult(pageNo)
-					.setMaxResults(pageSize).list();
+			List list = getDynamicSession().createQuery(hql).setFirstResult(
+					pageNo).setMaxResults(pageSize).list();
 			return list;
 		}
 		return null;
