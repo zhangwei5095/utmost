@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="60" styleName="headerStyle">
+	<mx:Image source="@Embed(source='skins/brownie/images/panel_dec_right.png')" right="0"/>
+	<mx:Image source="@Embed(source='skins/brownie/images/panel_dec_left.png')" left="0"/>
+</mx:Canvas>

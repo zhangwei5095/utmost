@@ -1,0 +1,401 @@
+/* CSS file */
+Application
+{
+	backgroundColor:#fbf6e1;
+/*	borderSkin: ClassReference("skins.brownie.skins.ApplicationSkin");*/
+	background-repeat:repeat-x;
+	background-image: Embed(source='skins/brownie/images/application_bg.png');
+	/* fontFamily: "Lucida Grande"; */
+	color: #ffffff;
+	fontSize: 12;
+	themeColor:#2e2821;
+	disabled-color: #656361;
+	font-sharpness: 100;
+	font-thickness: -100;
+}
+MenuBar
+{
+	background-skin: Embed(source='skins/brownie/images/menuBar_bg.png',scaleGridLeft=7, scaleGridRight=8, scaleGridTop=11,scaleGridBottom=12); 
+	background-size: "100%";
+	menuStyleName: menuStyleName;
+	selectionColor:#2e2821;
+	rollOverColor:#2e2821;
+	textRollOverColor:#ffffff;
+	textSelectedColor:#ffffff; 
+	color: #ffffff;
+	itemOverSkin: Embed(source='skins/brownie/images/menuBar_itemOver.png', scaleGridLeft=8, scaleGridRight=9, scaleGridTop=11,scaleGridBottom=12);
+	itemDownSkin: Embed(source='skins/brownie/images/menuBar_itemOver.png', scaleGridLeft=8, scaleGridRight=9, scaleGridTop=11,scaleGridBottom=12);
+}
+.menuStyleName
+{
+	background-color: #413b37;
+	border-color: #2e2821;
+}
+
+Panel, Alert, TitleWindow
+{
+	background-color: #3e3e3e;
+	border-color: #22201e;
+	header-height:60;
+	border-alpha: 1;
+	corner-radius: 10;
+	dropShadowStyleName: panelDropShadow;
+/*	border-skin: ClassReference("skins.brownie.skins.SmartPanelSkin");*/
+	dropShadowEnabled: false;
+	title-style-name: headerStyle;
+/*	headerSkin: ClassReference("skins.brownie.skins.HeaderSkin");*/
+}
+.panelDropShadow
+{
+	distance:5;
+	size:28;
+	alpha:0.7;
+}
+.headerStyle
+{
+	text-align:center;
+	font-size: 15;
+	fontFamily:"Century Gothic";
+	border-skin: Embed(source='skins/brownie/images/header_bg.png', scaleGridLeft=20, scaleGridRight=200, scaleGridTop=40,scaleGridBottom=42);
+}
+
+Alert
+{
+	background-alpha: 1.0;
+	padding-bottom: 10;
+}
+ViewStack
+{
+	border-skin: Embed(source='skins/brownie/images/content_bg.png', scaleGridLeft=10, scaleGridRight=40, scaleGridTop=10,scaleGridBottom=30);
+	padding-top: 1;
+	padding-right: 1;
+	padding-bottom:1;
+}
+HRule, VRule
+{
+	strokeColor: #65605d;
+	shadowColor: #222222;
+}
+ScrollBar{
+	trackSkin: Embed(source='skins/brownie/images/track.png', scaleGridLeft=6, scaleGridRight=7, scaleGridTop=26,scaleGridBottom=330);
+	thumbUpSkin:Embed(source='skins/brownie/images/thumb_up.png', scaleGridLeft=8, scaleGridRight=9, scaleGridTop=8,scaleGridBottom=120);
+	thumbOverSkin:Embed(source='skins/brownie/images/thumb_over.png', scaleGridLeft=8, scaleGridRight=9, scaleGridTop=8,scaleGridBottom=120);
+	thumbDownSkin:Embed(source='skins/brownie/images/thumb_over.png', scaleGridLeft=8, scaleGridRight=9, scaleGridTop=8,scaleGridBottom=120); 
+	upArrowUpSkin:Embed(source='skins/brownie/images/top_arrow_up.png');
+	upArrowDownSkin:Embed(source='skins/brownie/images/top_arrow_over.png');
+	upArrowOverSkin:Embed(source='skins/brownie/images/top_arrow_over.png');
+	downArrowUpSkin:Embed(source='skins/brownie/images/bottom_arrow_up.png');
+	downArrowDownSkin:Embed(source='skins/brownie/images/bottom_arrow_over.png');
+	downArrowOverSkin:Embed(source='skins/brownie/images/bottom_arrow_over.png'); 
+}
+ToggleButtonBar, ButtonBar
+{
+	buttonStyleName: buttonStyleName;
+	firstButtonStyleName: firstButtonStyleName;
+	lastButtonStyleName: lastButtonStyleName;
+	verticalGap: 0;
+	horizontalGap: 0;
+	buttonHeight: 27;
+}
+.buttonStyleName
+{
+	upSkin:Embed(source='skins/brownie/images/button_bar2_up.png', scaleGridLeft=5, scaleGridRight=6, scaleGridTop=11,scaleGridBottom=12);
+	downSkin:Embed(source='skins/brownie/images/button_bar2_up.png', scaleGridLeft=5, scaleGridRight=6, scaleGridTop=11,scaleGridBottom=12);
+	overSkin:Embed(source='skins/brownie/images/button_bar2_selected.png', scaleGridLeft=5, scaleGridRight=6, scaleGridTop=11,scaleGridBottom=12);
+	selectedUpSkin:Embed(source='skins/brownie/images/button_bar2_selected.png', scaleGridLeft=5, scaleGridRight=6, scaleGridTop=11,scaleGridBottom=12);
+	selectedOverSkin:Embed(source='skins/brownie/images/button_bar2_selected.png', scaleGridLeft=5, scaleGridRight=6, scaleGridTop=11,scaleGridBottom=12);
+	selectedDownSkin:Embed(source='skins/brownie/images/button_bar2_selected.png', scaleGridLeft=5, scaleGridRight=6, scaleGridTop=11,scaleGridBottom=12);
+	font-weight: normal;
+	textRollOverColor:#111111;
+	color: #ffffff;
+	font-size:12;
+}
+.firstButtonStyleName
+{
+	upSkin:Embed(source='skins/brownie/images/firstButton2_up.png', scaleGridLeft=10, scaleGridRight=11, scaleGridTop=11,scaleGridBottom=12);
+	downSkin:Embed(source='skins/brownie/images/firstButton2_up.png', scaleGridLeft=10, scaleGridRight=11, scaleGridTop=11,scaleGridBottom=12);
+	overSkin:Embed(source='skins/brownie/images/firstButton2_selected.png', scaleGridLeft=10, scaleGridRight=11, scaleGridTop=11,scaleGridBottom=12);
+	selectedUpSkin:Embed(source='skins/brownie/images/firstButton2_selected.png', scaleGridLeft=10, scaleGridRight=11, scaleGridTop=11,scaleGridBottom=12);
+	selectedOverSkin:Embed(source='skins/brownie/images/firstButton2_selected.png', scaleGridLeft=10, scaleGridRight=11, scaleGridTop=11,scaleGridBottom=12);
+	selectedDownSkin:Embed(source='skins/brownie/images/firstButton2_selected.png', scaleGridLeft=10, scaleGridRight=11, scaleGridTop=11,scaleGridBottom=12);
+	font-weight: normal;
+	textRollOverColor:#111111;
+	color: #ffffff;
+	font-size:12;
+}
+.lastButtonStyleName
+{
+	upSkin:Embed(source='skins/brownie/images/lastButton2_up.png', scaleGridLeft=5, scaleGridRight=6, scaleGridTop=11,scaleGridBottom=12);
+	downSkin:Embed(source='skins/brownie/images/lastButton2_up.png', scaleGridLeft=5, scaleGridRight=6, scaleGridTop=11,scaleGridBottom=12);
+	overSkin:Embed(source='skins/brownie/images/lastButton2_selected.png', scaleGridLeft=5, scaleGridRight=6, scaleGridTop=11,scaleGridBottom=12);
+	selectedUpSkin:Embed(source='skins/brownie/images/lastButton2_selected.png', scaleGridLeft=5, scaleGridRight=6, scaleGridTop=11,scaleGridBottom=12);
+	selectedOverSkin:Embed(source='skins/brownie/images/lastButton2_selected.png', scaleGridLeft=5, scaleGridRight=6, scaleGridTop=11,scaleGridBottom=12);
+	selectedDownSkin:Embed(source='skins/brownie/images/lastButton2_selected.png', scaleGridLeft=5, scaleGridRight=6, scaleGridTop=11,scaleGridBottom=12);
+	font-weight: normal;
+	textRollOverColor:#111111;
+	color: #ffffff;
+	font-size:12;
+}
+.controlBarToogleBar
+{
+	buttonStyleName: controlBarButtonStyleName;
+	firstButtonStyleName: controlBarfirstButtonStyleName;
+	lastButtonStyleName: controlBarlastButtonStyleName;
+	verticalGap: 0;
+	horizontalGap: 0;
+	buttonHeight: 27;
+	
+}
+.controlBarButtonStyleName
+{
+	upSkin:Embed(source='skins/brownie/images/button_bar_up.png', scaleGridLeft=5, scaleGridRight=6, scaleGridTop=11,scaleGridBottom=12);
+	downSkin:Embed(source='skins/brownie/images/button_bar_up.png', scaleGridLeft=5, scaleGridRight=6, scaleGridTop=11,scaleGridBottom=12);
+	overSkin:Embed(source='skins/brownie/images/button_bar_over.png', scaleGridLeft=5, scaleGridRight=6, scaleGridTop=11,scaleGridBottom=12);
+	selectedUpSkin:Embed(source='skins/brownie/images/button_bar_selected.png', scaleGridLeft=5, scaleGridRight=6, scaleGridTop=11,scaleGridBottom=12);
+	selectedOverSkin:Embed(source='skins/brownie/images/button_bar_selected.png', scaleGridLeft=5, scaleGridRight=6, scaleGridTop=11,scaleGridBottom=12);
+	selectedDownSkin:Embed(source='skins/brownie/images/button_bar_selected.png', scaleGridLeft=5, scaleGridRight=6, scaleGridTop=11,scaleGridBottom=12);
+	font-weight: normal;
+	textRollOverColor:#111111;
+	color: #ffffff;
+	font-size:12;
+}
+.controlBarfirstButtonStyleName
+{
+	upSkin:Embed(source='skins/brownie/images/firstButton_up.png', scaleGridLeft=10, scaleGridRight=11, scaleGridTop=11,scaleGridBottom=12);
+	downSkin:Embed(source='skins/brownie/images/firstButton_up.png', scaleGridLeft=10, scaleGridRight=11, scaleGridTop=11,scaleGridBottom=12);
+	overSkin:Embed(source='skins/brownie/images/firstButton_over.png', scaleGridLeft=10, scaleGridRight=11, scaleGridTop=11,scaleGridBottom=12);
+	selectedUpSkin:Embed(source='skins/brownie/images/firstButton_selected.png', scaleGridLeft=10, scaleGridRight=11, scaleGridTop=11,scaleGridBottom=12);
+	selectedOverSkin:Embed(source='skins/brownie/images/firstButton_selected.png', scaleGridLeft=10, scaleGridRight=11, scaleGridTop=11,scaleGridBottom=12);
+	selectedDownSkin:Embed(source='skins/brownie/images/firstButton_selected.png', scaleGridLeft=10, scaleGridRight=11, scaleGridTop=11,scaleGridBottom=12);
+	font-weight: normal;
+	textRollOverColor:#111111;
+	color: #ffffff;
+	font-size:12;
+}
+.controlBarlastButtonStyleName
+{
+	upSkin:Embed(source='skins/brownie/images/lastButton_up.png', scaleGridLeft=5, scaleGridRight=6, scaleGridTop=11,scaleGridBottom=12);
+	downSkin:Embed(source='skins/brownie/images/lastButton_up.png', scaleGridLeft=5, scaleGridRight=6, scaleGridTop=11,scaleGridBottom=12);
+	overSkin:Embed(source='skins/brownie/images/lastButton_over.png', scaleGridLeft=5, scaleGridRight=6, scaleGridTop=11,scaleGridBottom=12);
+	selectedUpSkin:Embed(source='skins/brownie/images/lastButton_selected.png', scaleGridLeft=5, scaleGridRight=6, scaleGridTop=11,scaleGridBottom=12);
+	selectedOverSkin:Embed(source='skins/brownie/images/lastButton_selected.png', scaleGridLeft=5, scaleGridRight=6, scaleGridTop=11,scaleGridBottom=12);
+	selectedDownSkin:Embed(source='skins/brownie/images/lastButton_selected.png', scaleGridLeft=5, scaleGridRight=6, scaleGridTop=11,scaleGridBottom=12);
+	font-weight: normal;
+	textRollOverColor:#111111;
+	color: #ffffff;
+	font-size:12;
+}
+ TabBar
+{
+	tabStyleName: tabStyle;
+	background-color: #3e3e3e;
+}
+.tabStyle {
+    upSkin:Embed(source='skins/brownie/images/tab.png', scaleGridLeft=10, scaleGridRight=96, scaleGridTop=15, scaleGridBottom=16);
+    downSkin:Embed(source='skins/brownie/images/tab_selected.png', scaleGridLeft=10, scaleGridRight=96, scaleGridTop=15,scaleGridBottom=16);
+    overSkin:Embed(source='skins/brownie/images/tab_selected.png', scaleGridLeft=10, scaleGridRight=96, scaleGridTop=15,scaleGridBottom=16);
+    disabledSkin: Embed(source='skins/brownie/images/tab_disabled.png', scaleGridLeft=10, scaleGridRight=96, scaleGridTop=15,scaleGridBottom=16);
+    selectedUpSkin: Embed(source='skins/brownie/images/tab_selected.png', scaleGridLeft=10, scaleGridRight=96, scaleGridTop=15,scaleGridBottom=16);
+    selectedOverSkin:Embed(source='skins/brownie/images/tab_selected.png', scaleGridLeft=10, scaleGridRight=96, scaleGridTop=15,scaleGridBottom=16);
+    color:#444444;
+    font-size: 11;
+}
+Button
+{
+	upSkin:Embed(source='skins/brownie/images/button_up.png', scaleGridLeft=10, scaleGridRight=96, scaleGridTop=15, scaleGridBottom=16);
+	downSkin:Embed(source='skins/brownie/images/button_up.png', scaleGridLeft=10, scaleGridRight=96, scaleGridTop=15,scaleGridBottom=16);
+	overSkin:Embed(source='skins/brownie/images/button_over.png', scaleGridLeft=10, scaleGridRight=96, scaleGridTop=15,scaleGridBottom=16);
+	disabledSkin: Embed(source='skins/brownie/images/button_disabled.png', scaleGridLeft=10, scaleGridRight=96, scaleGridTop=15,scaleGridBottom=16);
+	color:#444444;
+	font-size: 11;
+}
+LinkButton
+{
+	color: #ffffff;
+	roll-over-color: #555555;
+	textRollOverColor:#eeeeee;
+}
+CheckBox
+{
+	upIcon: Embed(source='skins/brownie/images/CheckBox_upIcon.png');
+	downIcon:Embed(source='skins/brownie/images/CheckBox_downIcon.png');
+	overIcon:Embed(source='skins/brownie/images/CheckBox_overIcon.png');
+	selectedUpIcon:Embed(source='skins/brownie/images/CheckBox_selectedUpIcon.png');
+	selectedOverIcon:Embed(source='skins/brownie/images/CheckBox_selectedDownIcon.png');
+	selectedDownIcon:Embed(source='skins/brownie/images/CheckBox_selectedOverIcon.png');
+	disabledIcon:Embed(source='skins/brownie/images/CheckBox_selectedDisabledIcon.png');
+	selectedDisabledIcon:Embed(source='skins/brownie/images/CheckBox_disabledIcon.png');
+	textRollOverColor:#dddddd;
+	textSelectedColor:#aaaaaa;
+	color: #ffffff;
+}
+
+RadioButton
+{
+	upIcon: Embed(source='skins/brownie/images/RadioButton_upIcon.png');
+	downIcon:Embed(source='skins/brownie/images/RadioButton_downIcon.png');
+	overIcon:Embed(source='skins/brownie/images/RadioButton_overIcon.png');
+	selectedUpIcon:Embed(source='skins/brownie/images/RadioButton_selectedUpIcon.png');
+	selectedOverIcon:Embed(source='skins/brownie/images/RadioButton_selectedDownIcon.png');
+	selectedDownIcon:Embed(source='skins/brownie/images/RadioButton_selectedOverIcon.png');
+	disabledIcon:Embed(source='skins/brownie/images/RadioButton_selectedDisabledIcon.png');
+	selectedDisabledIcon:Embed(source='skins/brownie/images/RadioButton_disabledIcon.png');
+	textRollOverColor:#dddddd;
+	textSelectedColor:#aaaaaa; 
+	color: #ffffff;
+}
+
+ComboBox, PopUpButton
+{
+	upSkin:Embed(source='skins/brownie/images/comboBox_up.png', scaleGridLeft=10, scaleGridRight=82, scaleGridTop=19, scaleGridBottom=20);
+	downSkin:Embed(source='skins/brownie/images/comboBox_up.png', scaleGridLeft=10, scaleGridRight=82, scaleGridTop=19,scaleGridBottom=20);
+	overSkin:Embed(source='skins/brownie/images/comboBox_over.png', scaleGridLeft=10, scaleGridRight=82, scaleGridTop=19,scaleGridBottom=20);
+	disabledSkin: Embed(source='skins/brownie/images/comboBox_disabled.png', scaleGridLeft=10, scaleGridRight=82, scaleGridTop=19,scaleGridBottom=20);
+	padding-left: 10;
+	color:#444444;
+	dropdownStyleName: dropdownStyleName;
+}
+PopUpButton{
+	padding-right: 10;
+	popUpDownSkin: Embed(source='skins/brownie/images/comboBox_up.png', scaleGridLeft=10, scaleGridRight=82, scaleGridTop=19,scaleGridBottom=20);
+	popUpOverSkin: Embed(source='skins/brownie/images/comboBox_over.png', scaleGridLeft=10, scaleGridRight=82, scaleGridTop=19,scaleGridBottom=20);
+}
+.dropdownStyleName
+{
+	background-color: #2b2a2a;
+	border-color: #2e2821;
+	selectionColor:#3e3d3d;
+	rollOverColor:#3e3d3d;
+	textRollOverColor:#ffffff;
+	textSelectedColor:#ffffff; 
+	color: #ffffff;
+	font-weight:normal;
+	dropShadowEnabled: true;
+}
+TextInput, TextArea
+{
+	border-skin: Embed(source='skins/brownie/images/input_bg.png', scaleGridLeft=8, scaleGridRight=20, scaleGridTop=8,scaleGridBottom=9);
+	padding-top:2;
+	padding-left:2;
+	font-size:11;
+}
+.editable
+{
+	font-weight:normal;
+	color: #eeeeee;
+	fillColors: #e5b421, #e5b421;
+	fillAlphas: 1,1;
+	border-color: #e5b421;
+}
+ColorPicker
+{
+	upSkin: Embed(source='skins/brownie/images/ColorPicker_upSkin.png');
+	downSkin: Embed(source='skins/brownie/images/ColorPicker_downSkin.png');
+	overSkin: Embed(source='skins/brownie/images/ColorPicker_overSkin.png');
+	disabledSkin: Embed(source='skins/brownie/images/ColorPicker_disabledSkin.png');
+}
+ProgressBar
+{
+	track-skin: Embed(source='skins/brownie/images/progressbar_bg.png', scaleGridLeft=8, scaleGridRight=30, scaleGridTop=5,scaleGridBottom=6);
+	bar-skin: Embed(source='skins/brownie/images/progressbar_bar.png', scaleGridLeft=6, scaleGridRight=30, scaleGridTop=4,scaleGridBottom=5);
+	/*indeterminate-skin: ClassReference("skins.brownie.skins.ProgressIndeterminateSkin");*/
+	barColor: #22201e;
+	font-size: 10;
+	font-thickness: -200;
+}
+HSlider, VSlider
+{
+	thumbUpSkin: Embed(source='skins/brownie/images/slider_thumbUp.png');
+	thumbOverSkin: Embed(source='skins/brownie/images/slider_thumbOver.png');
+	thumbDownSkin: Embed(source='skins/brownie/images/slider_thumbDown.png');
+	trackSkin: 	Embed(source='skins/brownie/images/slider_track.png', scaleGridLeft=5, scaleGridRight=20, scaleGridTop=2,scaleGridBottom=3);
+}
+NumericStepper
+{
+	upArrowUpSkin: Embed(source='skins/brownie/images/NS_upArrowUpSkin.png');
+	upArrowOverSkin: Embed(source='skins/brownie/images/NS_upArrowOverSkin.png');
+	upArrowDownSkin: Embed(source='skins/brownie/images/NS_upArrowDownSkin.png');
+	downArrowUpSkin: Embed(source='skins/brownie/images/NS_downArrowUpSkin.png');
+	downArrowOverSkin: Embed(source='skins/brownie/images/NS_downArrowOverSkin.png');
+	downArrowDownSkin: Embed(source='skins/brownie/images/NS_downArrowDownSkin.png');
+}
+DateField
+{
+	dateChooserStyleName: dateChooserStyleName;
+}
+DateChooser, .dateChooserStyleName
+{
+	background-color: #2b2a2a;
+	dropShadowEnabled: true;
+	border-color: #787370;
+	color: #ffffff;
+	header-colors: #44413d, #2d2b28;
+	prevMonthUpSkin: Embed(source='skins/brownie/images/prevMonthUpSkin.png');
+	nextMonthUpSkin: Embed(source='skins/brownie/images/nextMonthUpSkin.png');
+	prevMonthDownSkin: Embed(source='skins/brownie/images/prevMonthUpSkin.png');
+	nextMonthDownSkin: Embed(source='skins/brownie/images/nextMonthUpSkin.png');
+	prevMonthOverSkin: Embed(source='skins/brownie/images/prevMonthOverSkin.png');
+	nextMonthOverSkin: Embed(source='skins/brownie/images/nextMonthOverSkin.png');
+	headerStyleName: dateChooserHeader;
+	corner-radius:8;
+	roll-over-color: #e5b421;
+	selectionColor: #ff9c00;
+}
+.dateChooserHeader
+{
+ 	font-weight:normal;
+}
+HorizontalList, TileList
+{
+	border-skin: Embed(source='skins/brownie/images/content_bg.png', scaleGridLeft=10, scaleGridRight=40, scaleGridTop=10,scaleGridBottom=30);
+}
+Tree, List
+{
+	background-color: #2b2a2a;
+	border-color: #555555;
+	rollOverColor:#444444;
+	selectionColor: #e5b421;
+	textRollOverColor:#ffffff;
+}
+DataGrid
+{
+	headerColors: #44413d, #2d2b28;
+	alternatingItemColors: #2b2a2a, #2b2a2a;
+	border-color: #555555;
+	verticalGridLineColor: #555555;
+	color: #dddddd;
+	headerStyleName: dataGridHeader;
+	rollOverColor:#444444;
+	textRollOverColor:#ffffff;
+	selectionColor: #212121;
+	textSelectedColor:#ffffff;
+}
+Tree {
+    folderClosedIcon: Embed(source='skins/brownie/images/folder.png');
+    folderOpenIcon: Embed(source='skins/brownie/images/folder_open.png');
+    defaultLeafIcon: Embed(source='skins/brownie/images/new_page.png');
+    selectionColor: #212121;
+    textSelectedColor:#ffffff;
+}
+
+Accordion {
+    backgroundColor: #3e3e3e;
+    headerStyleName: accordionHeader;
+    borderColor: #22201E;
+    fontSize: 10;
+}
+
+.accordionHeader {
+    fillColors: #D19A48, #D17C01;    
+    upSkin:Embed(source='skins/brownie/images/acc.png', scaleGridLeft=10, scaleGridRight=96, scaleGridTop=15, scaleGridBottom=16);
+    downSkin:Embed(source='skins/brownie/images/acc_selected.png', scaleGridLeft=10, scaleGridRight=96, scaleGridTop=15,scaleGridBottom=16);
+    overSkin:Embed(source='skins/brownie/images/acc_selected.png', scaleGridLeft=10, scaleGridRight=96, scaleGridTop=15,scaleGridBottom=16);
+    selectedUpSkin: Embed(source='skins/brownie/images/acc_selected.png', scaleGridLeft=10, scaleGridRight=96, scaleGridTop=15,scaleGridBottom=16);
+    selectedOverSkin:Embed(source='skins/brownie/images/acc_selected.png', scaleGridLeft=10, scaleGridRight=96, scaleGridTop=15,scaleGridBottom=16);
+    fontSize: 10;
+    paddingTop: 3;
+    paddingLeft: 10;
+    paddingBottom: 1;
+    paddingRight: 10;
+}
+
