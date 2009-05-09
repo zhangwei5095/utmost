@@ -2,6 +2,7 @@
 <mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%" xmlns:controls="com.adobe.flex.extras.controls.*" xmlns:component="component.*" xmlns:code="http://code.google.com/p/flexlib/">
 	<mx:Script>
 		<![CDATA[
+			import org.utmost.component.macpopup.controls.CocoaAlert;
 			[Bindable]
 			public var myDP:Array=[{name:"beijin"},{name:"hebei"},{name:"shangdi"},{name:"shanghai"}];
 		]]>
@@ -78,7 +79,7 @@
 			</mx:AdvancedDataGrid>
 			<component:DGPagination verticalGap="0" id="dgp" horizontalGap="6" verticalAlign="top" pageSize="30"/>
 			<mx:HBox width="100%" horizontalAlign="center" verticalAlign="middle" horizontalGap="100">
-				<mx:Button label="Export"/>
+				<mx:Button label="Export" />
 				<mx:Button label="Print"/>
 			</mx:HBox>
 		</mx:VBox>

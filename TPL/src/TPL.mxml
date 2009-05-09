@@ -192,6 +192,7 @@
 	    	 }
 		]]>
 	</mx:Script>
+	<mx:Blur id="ablur" blurXTo="50" blurYTo="50" duration="1000" />
 	<mx:ApplicationControlBar id="MACB" dock="false" width="100%" paddingLeft="20" alpha="0.8" paddingTop="6">
 		<mx:Button label="Portal" click="loadModule('module/PortalModule.swf')"/>
 		<!--mx:Button label="TPL" click="loadModule('module/TPLModule.swf')"/-->

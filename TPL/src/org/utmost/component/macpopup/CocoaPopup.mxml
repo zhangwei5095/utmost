@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="800" height="600" >
+	<mx:Style>
+		Application{
+			/* set modal transparency to 0 if you want to use the background fade */
+			modal-transparency: 0;
+			background-image: Embed(source="/images/bg.jpg"); 
+			background-size: "100%";
+		}
+	</mx:Style>
+		
+	<mx:Script>
+		<![CDATA[
+			import xsive.managers.CocoaPopUpManager;		
+			import xsive.controls.*;
+				
+			import mx.controls.Alert;		
+			
+			private function panelPopUp(modal:Boolean):void{
+				CocoaAlert.show("Some alert about stuff", "Ekkkk WTF", 0x4, this.examplePanel, modal);
+			}
+			
+			private function applicationPopUp(modal:Boolean):void{
+				CocoaAlert.show("Some alert about stuff", "Ekkkk WTF", 0x4, this, modal);
+			}
+			
+			private function standardAlertPopup():void{
+				var a:Alert = new Alert();
+				a.text = "Standard alert";
+				a.title = "Standard alert";
+				CocoaPopUpManager.addPopUp(a, this, true);
+			}
+			
+				CocoaAlert.show("my bet this is a fake cc number", "", 0x4, this.examplePanel, false);
+			
+			private function showJoke():void{}
+			
+		]]>
+	</mx:Script>
+	
+	<mx:TitleWindow id="examplePanel" x="315" y="126" width="453" height="224" layout="absolute" title="For $1 a minute">
+		<mx:Label x="10" y="119" text="Credit card number:"/>
+		<mx:TextInput x="146" y="117" width="277"/>
+		<mx:TextArea x="10" y="10" width="413" height="85" borderStyle="none">
+			<mx:text><![CDATA[Help Campbell pay for his dentist bill!
+
+Enter your credit card number below and he will use it to not only pay for 
+having his wisdom teeth out but also an HDTV to play Xbox on while 
+sitting around with  a fat mouth ;)]]></mx:text>
+		</mx:TextArea>
+		<mx:Button x="322" y="147" label="Donate away" click="{showJoke()}"/>
+	</mx:TitleWindow>
+	
+	<mx:Panel x="26" y="126" width="250" height="379" layout="absolute" title="Tests">
+		<mx:Button x="10" y="53" label="Show Application popup" width="210" height="35" click="{applicationPopUp(false)}"/>
+		<mx:Button x="10" y="10" label="Show Application popup modal" width="210" height="35" click="{applicationPopUp(true)}"/>
+		<mx:Button x="10" y="96" label="Show Panel popup modal" width="210" height="35" click="{panelPopUp(true)}"/>
+		<mx:Button x="10" y="139" label="Show Panel popup" width="210" height="35" click="{panelPopUp(false)}"/>
+		<mx:Button x="10" y="219" label="Stock standard alert" width="210" height="35" click="{standardAlertPopup()}"/>
+	</mx:Panel>
+
+</mx:Application>
