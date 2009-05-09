@@ -71,11 +71,7 @@
 	<mx:XML id="VolkswagenTree" source="xml/portal/VolkswagenTree.xml"/>
 	
 	<mx:VBox width="100%" height="100%" horizontalAlign="center" verticalAlign="middle" horizontalScrollPolicy="off" verticalScrollPolicy="off" verticalGap="10">
-		<mx:ApplicationControlBar width="100%" height="40">
-			<mx:HBox width="100%" height="100%" horizontalAlign="right" verticalAlign="middle">
-				<mx:LinkButton label="编辑" click="programme()" enabled="true" color="#E8E231"/>
-			</mx:HBox>
-		</mx:ApplicationControlBar>
+		<component:SystemMenuBar height="35"/>
 		<mx:Spacer height="8%"/>
 		<component:MyTileList id="tileList" width="80%" height="80%" itemClick="trasSystem(event)" dataProvider="{MainTree.node}" itemRenderer="component.ImageItemRenderer" columnCount="4" backgroundAlpha="0.0" borderSides="0" dragEnabled="true" focusAlpha="0.0" dragMoveEnabled="true" dropEnabled="true">
 		</component:MyTileList>

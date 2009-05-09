@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="40" verticalGap="0" horizontalGap="0" horizontalAlign="center" verticalAlign="middle" paddingBottom="0" paddingLeft="0" paddingRight="0" paddingTop="0">
+	<mx:MenuBar labelField="@label" height="100%" itemClick="menuItemClick(event)" width="100%">
+	<mx:XMLList>
+		<menuitem label="File">
+			<menuitem label="Relogin"/>
+			<menuitem label="Exit"/>
+		</menuitem>
+		<menuitem label="Theme">
+			<menuitem label="Default" data="default"/>
+			<menuitem label="Black" data="black"/>
+			<menuitem label="Vista" data="vista"/>
+			<menuitem label="Classic" data="classic"/>
+			<menuitem label="Itunes7" data="itunes7"/>
+			<menuitem label="Brownie" data="brownie"/>
+		</menuitem>
+		<menuitem label="Language">
+			<menuitem label="English" data="en" type="radio" groupName="language"/>
+			<menuitem label="Chinese" data="zh" type="radio" groupName="language" toggle="true"/>
+			<menuitem label="German" type="radio" groupName="language"/>
+		</menuitem>
+		<menuitem label="Window">
+			<menuitem label="Portal" data="portal" type="radio" groupName="window"/>
+			<menuitem label="TPL" data="tpl" type="radio" groupName="window"/>
+		</menuitem>
+		<menuitem label="Help">
+		</menuitem>
+	</mx:XMLList>
+	<mx:Script>
+		<![CDATA[
+			import org.utmost.util.ComponentUtil;
+			import mx.core.Application;
+			import mx.events.MenuEvent;
+			private function programme():void
+			{
+				ComponentUtil.setVisible(Application.application.MACB, true);
+				Application.application.loadModule("module/TPLModule.swf");
+			}
+			private function portal():void {
+				ComponentUtil.setVisible(Application.application.MACB, false);
+				Application.application.loadModule("module/PortalModule.swf");
+			}
+			private function menuItemClick(event:MenuEvent):void {
+				var data:String=event.item.@data;
+				trace("data:"+data);
+				if(data=="portal") {
+					portal();
+				}
+				if(data=="tpl") {
+					programme();
+				}
+				//主题
+				if(data=="vista"||data=="black"||data=="itunes7"||data=="brownie"||data=="classic"||data=="default") {
+					Application.application.theme(data);
+				}
+			}
+		]]>
+	</mx:Script>
+</mx:MenuBar>
+</mx:HBox>

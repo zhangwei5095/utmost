@@ -29,6 +29,20 @@ ApplicationControlBar
 	backgroundGradientColors: #030303, #030303;
 	bar-color:#030303;
 }
+HorizontalList
+{
+	background-size:		"100%";
+	background-color:		#dddddd;
+	border-thickness:		0;
+	padding-left:			0;
+	padding-right:			0;
+	padding-top:			0;
+	padding-bottom:			0;
+	vertical-gap:			0;
+	horizontal-gap:			0;
+	selection-color:		#707070;
+	roll-over-color:		#999999;
+}
 .AccordionHeader {
 	fillAlphas: 1.0, 0.5;
 	font-size:13;

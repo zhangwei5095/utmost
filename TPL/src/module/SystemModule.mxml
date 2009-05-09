@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%" implements="module.ModuleInterface" creationComplete="init()">
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%" implements="module.ModuleInterface" creationComplete="init()" xmlns:component="component.*">
 	<mx:Script>
 		<![CDATA[
 			import mx.events.MenuEvent;
@@ -79,39 +79,7 @@
 	</mx:Script>
 	<!--mx:XML id="SystemTree" source="xml/portal/SystemTree.xml"/-->
 	<mx:VBox width="100%" height="100%" horizontalAlign="center" verticalAlign="middle" verticalGap="12">
-			<mx:HBox width="100%" height="35" horizontalAlign="left" verticalAlign="middle">
-				<mx:MenuBar labelField="@label" height="100%" itemClick="menuItemClick(event)" width="100%"> 
-					<mx:XMLList> 
-						<menuitem label="File">
-							<menuitem label="Relogin"/> 
-							<menuitem label="Exit"/>  
-						</menuitem>
-						<menuitem label="Theme">
-							<menuitem label="Default" data="default"/>
-							<menuitem label="Black" data="black"/> 
-							<menuitem label="Vista" data="vista"/>
-							<menuitem label="Classic" data="classic"/>
-							<menuitem label="Itunes7" data="itunes7"/>
-							<menuitem label="Brownie" data="brownie"/>  
-						</menuitem> 
-						<menuitem label="Language"> 
-							<menuitem label="English" data="en" type="radio" groupName="language"/> 
-							<menuitem label="Chinese" data="zh" type="radio" groupName="language" toggle="true"/> 
-							<menuitem label="German" type="radio" groupName="language"/> 
-						</menuitem> 
-						<menuitem label="Window"> 
-							<menuitem label="Portal" data="portal" type="radio" groupName="window"/> 
-							<menuitem label="TPL" data="tpl" type="radio" groupName="window"/> 
-						</menuitem>
-						<menuitem label="Help"> 
-						</menuitem>
-					</mx:XMLList> 
-				</mx:MenuBar> 
-				<!--
-				<mx:Button label="Portal" click="portal()"/>
-				<mx:Button label="编辑" click="programme()"/>
-				-->
-			</mx:HBox>
+			<component:SystemMenuBar height="35"/>
 		<mx:HDividedBox id="hdbox" width="100%" height="100%">
 			<mx:Panel width="220" height="100%" layout="horizontal">
 				<mx:Tree id="systree" width="100%" height="100%" dataProvider="{$treeXML}" showRoot="true" labelField="@nodename" borderStyle="none" click="treeItemClick(systree)" doubleClickEnabled="true" doubleClick="ComponentUtil.ocSelectTree(event)">

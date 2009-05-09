@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:reflector="org.utmost.effect.*"  verticalScrollPolicy="off" horizontalScrollPolicy="off" width="280" height="320" paddingBottom="15" horizontalAlign="center" verticalAlign="middle" paddingLeft="15" paddingRight="15" paddingTop="15">
 	<mx:Parallel id="expand">
-		<mx:Glow id="glowImage" alphaFrom="1.0" alphaTo="0.0" blurXFrom="0.0" blurXTo="50.0" blurYFrom="0.0" blurYTo="50.0" color="0x3380DD"/>
+		<mx:Glow id="glowImage" alphaFrom="1.0" alphaTo="0.0" blurXFrom="0.0" blurXTo="100.0" blurYFrom="0.0" blurYTo="100.0" color="0x3380DD"/>
 		<mx:Sequence>
 			<mx:Resize widthTo="210" heightTo="110" duration="150"/>
 			<mx:Resize widthTo="250" heightTo="150" duration="400"/>
@@ -20,16 +20,18 @@
 				import mx.controls.Alert;
 				private function mOut():void
 				{
+					itxt.setStyle("fontSize",18);
 				//vbox.setStyle("backgroundColor","");
 				}
 				private function mOver():void
 				{
+					itxt.setStyle("fontSize",23);
 					vbox.setStyle("backgroundColor", "#FFFFFF");
 				}
 			]]>
 		</mx:Script>
 		<mx:Image source="{data.@icon}"/>
-		<mx:Label text="{data.@nodename}" fontSize="15" fontWeight="bold"/>
+		<mx:Label id="itxt" text="{data.@nodename}" fontSize="18" fontWeight="bold" textAlign="center" fontFamily="Georgia" color="#060201" enabled="true"/>
 	</mx:VBox>
 	
 	<reflector:Reflector  id="myReflector" target="{vbox}" alpha="0.15" falloff="0.4" blurAmount="0.8"/>

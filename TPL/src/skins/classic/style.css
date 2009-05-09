@@ -213,7 +213,7 @@ ToolTip
 {
    backgroundnotexported: Embed(skinClass="ToolTip_backgroundnotexported");
    borderSkin: Embed(skinClass="ToolTip_borderSkin");
-   fontSize: 10;
+   fontSize: 12;
    color: #000000;
    fontFamily:"Arial";
 }
