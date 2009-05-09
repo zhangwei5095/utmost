@@ -55,7 +55,6 @@ Panel, Alert, TitleWindow
 {
 	text-align:center;
 	font-size: 15;
-	fontFamily:"Century Gothic";
 	border-skin: Embed(source='skins/brownie/images/header_bg.png', scaleGridLeft=20, scaleGridRight=200, scaleGridTop=40,scaleGridBottom=42);
 }
 
@@ -382,17 +381,17 @@ Accordion {
     backgroundColor: #3e3e3e;
     headerStyleName: accordionHeader;
     borderColor: #22201E;
-    fontSize: 10;
+    fontSize: 12;
 }
 
-.accordionHeader {
+.AccordionHeader {
     fillColors: #D19A48, #D17C01;    
     upSkin:Embed(source='skins/brownie/images/acc.png', scaleGridLeft=10, scaleGridRight=96, scaleGridTop=15, scaleGridBottom=16);
     downSkin:Embed(source='skins/brownie/images/acc_selected.png', scaleGridLeft=10, scaleGridRight=96, scaleGridTop=15,scaleGridBottom=16);
     overSkin:Embed(source='skins/brownie/images/acc_selected.png', scaleGridLeft=10, scaleGridRight=96, scaleGridTop=15,scaleGridBottom=16);
     selectedUpSkin: Embed(source='skins/brownie/images/acc_selected.png', scaleGridLeft=10, scaleGridRight=96, scaleGridTop=15,scaleGridBottom=16);
     selectedOverSkin:Embed(source='skins/brownie/images/acc_selected.png', scaleGridLeft=10, scaleGridRight=96, scaleGridTop=15,scaleGridBottom=16);
-    fontSize: 10;
+    fontSize: 12;
     paddingTop: 3;
     paddingLeft: 10;
     paddingBottom: 1;

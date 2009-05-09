@@ -39,7 +39,7 @@ global
 //  AccordionHeader
 //------------------------------
 */
-AccordionHeader
+.AccordionHeader
 {
 
 	disabledSkin: Embed(source="wmp11.swf", symbol="AccordionHeader_disabledSkin");

@@ -26,7 +26,6 @@ CursorManager
 
 Application
 {
-	font-family: 				franklin;
 	font-size: 					12;
 	color: 						#333333;
 	background-gradient-alphas: 0, 0;
@@ -76,7 +75,6 @@ ComboBox
 	over-skin: 				Embed("../assets/botones/combo1.png", scaleGridTop="6", scaleGridBottom="8", scaleGridLeft="3", scaleGridRight="68");
 	down-skin: 				Embed("../assets/botones/combo2.png", scaleGridTop="6", scaleGridBottom="8", scaleGridLeft="3", scaleGridRight="68");
 	disabled-skin: 			Embed("../assets/botones/combo_dis.png", scaleGridTop="6", scaleGridBottom="8", scaleGridLeft="3", scaleGridRight="68");
-	font-family: 			franklin1;
 	font-weight:			normal;
 	drop-down-style-name:	comboBoxDropDown;
 	padding-left: 1;
@@ -86,7 +84,6 @@ ComboBox
 
 .comboBoxDropDown
 {
-	font-family: 	franklin;
 }
 
 
@@ -105,7 +102,6 @@ BUTTON
 	disabled-skin:			Embed("../assets/botones/boton_dis.png", scaleGridTop="6", scaleGridBottom="14", scaleGridLeft="6", scaleGridRight="11");
 
 	color: 					#333333;
-	font-family: 			franklin1;
 	font-weight:			normal;
 	font-size:				12;
 
@@ -125,7 +121,7 @@ BUTTON
 	disabled-skin:			Embed("../assets/botones/boton_dis.png", scaleGridTop="6", scaleGridBottom="14", scaleGridLeft="6", scaleGridRight="11");
 
 	color: 					#e8e8e8;
-	font-family: 			franklin1;
+	
 
 	padding-left: 			6;
 	padding-right: 			6;
@@ -137,7 +133,7 @@ BUTTON
 
 LinkButton
 {
-	font-family: 			franklin;
+	
 	font-weight: 			normal;
 	font-size: 				12;
 	text-decoration: 		underline;
@@ -181,7 +177,7 @@ ToggleButtonBar
 	text-roll-over-color: 	#333333;
 	text-selected-color:	#000000;
 	font-weight: 			normal;
-	font-family: 			franklin1;
+	
 	padding-left: 			6;
 	padding-right:			6;
 	padding-top:			3;
@@ -201,7 +197,7 @@ ToggleButtonBar
 	text-roll-over-color: 	#333333;
 	text-selected-color: 	#000000;
 	font-weight: 			normal;
-	font-family: 			franklin1;
+	
 	padding-left: 			6;
 	padding-right:			6;
 	padding-top:			3;
@@ -221,7 +217,7 @@ ToggleButtonBar
 	text-roll-over-color: 	#333333;
 	text-selected-color: 	#000000;
 	font-weight: 			normal;
-	font-family: 			franklin1;
+	
 	padding-left: 			6;
 	padding-right:			6;
 	padding-top:			3;
@@ -262,7 +258,7 @@ ButtonBar
 	text-roll-over-color: 	#333333;
 	text-selected-color:	#000000;
 	font-weight: 			normal;
-	font-family: 			franklin1;
+	
 	padding-left: 			6;
 	padding-right:			6;
 	padding-top:			3;
@@ -282,7 +278,7 @@ ButtonBar
 	text-roll-over-color: 	#333333;
 	text-selected-color: 	#000000;
 	font-weight: 			normal;
-	font-family: 			franklin1;
+	
 	padding-left: 			6;
 	padding-right:			6;
 	padding-top:			3;
@@ -302,7 +298,7 @@ ButtonBar
 	text-roll-over-color: 	#333333;
 	text-selected-color: 	#000000;
 	font-weight: 			normal;
-	font-family: 			franklin1;
+	
 	padding-left: 			6;
 	padding-right:			6;
 	padding-top:			3;
@@ -334,7 +330,6 @@ CheckBox
 	selected-over-icon: Embed("../assets/botones/chekOn1.png");
 	selected-down-icon: Embed("../assets/botones/chekOn2.png");
 	disabled-icon: 		Embed("../assets/botones/chek_dis.png");
-	font-family:		franklin;
 }
 
 
@@ -348,7 +343,6 @@ RadioButton
 	selected-down-icon: Embed("../assets/botones/radio4.png");
 	disabled-icon: 		Embed("../assets/botones/radio_dis.png");
 	color:				#333333;
-	font-family:		franklin;
 }
 
 
@@ -370,7 +364,6 @@ AccordionHeader
 {
 	header-height:			22;
 	border-style:			solid;
-	font-family:			franklin1;
 	font-weight:			normal;
 	color:					#333333;
 	text-roll-over-color:	#333333;
@@ -416,7 +409,7 @@ Panel
 {
 	border-style:			solid;
 	background-color:		#efefef;
-	font-family: 			franklin;
+	
 	font-weight: 			normal;
 	/*title-background-skin: 	Embed("../assets/general/titleWindow1.png", scaleGridTop="42", scaleGridBottom="138", scaleGridLeft="11", scaleGridRight="118");
 	header-background-skin: Embed("../assets/general/titleWindow1.png", scaleGridTop="42", scaleGridBottom="138", scaleGridLeft="11", scaleGridRight="118");*/
@@ -428,7 +421,7 @@ Panel
 
 .myTitlePanel
 {
-	font-family:	franklin1;
+	
 	font-weight:	normal;
 	font-size:		14;
 	color:			#333333;
@@ -439,7 +432,6 @@ Panel
 TabNavigator
 {
 	horizontal-gap: 				1;
-	font-family:					franklin1;
 	font-size:						12;
 	font-weight:					normal;
 	border-color:					#cbcbcb;
@@ -460,7 +452,6 @@ TabNavigator
 	selected-down-skin:	Embed("../assets/botones/TabNavigator.png", scaleGridTop="5", scaleGridBottom="18", scaleGridLeft="5", scaleGridRight="12");
 	selected-over-skin:	Embed("../assets/botones/TabNavigator.png", scaleGridTop="5", scaleGridBottom="18", scaleGridLeft="5", scaleGridRight="12");
 	font-weight: 		normal;
-	font-family:		franklin1;
 	font-size:			12;
 	color:				#666666;
 	border-color: 		#c0c0c0;
@@ -476,7 +467,6 @@ TabNavigator
 {
 	roll-over-color:	#333333;
 	font-weight: 		normal;
-	font-family:		franklin1;
 	font-size:			12;
 	color:				#333333;
 	padding-top:		3;
@@ -489,7 +479,6 @@ TabBar
 {
 	tab-height:						25;
 	horizontal-gap: 				1;
-	font-family:					franklin1;
 	font-size:						12;
 	font-weight:					normal;
 	border-color:					#cbcbcb;
@@ -510,7 +499,6 @@ TabBar
 	selected-down-skin:	Embed("../assets/botones/TabNavigator.png", scaleGridTop="5", scaleGridBottom="18", scaleGridLeft="5", scaleGridRight="12");
 	selected-over-skin:	Embed("../assets/botones/TabNavigator.png", scaleGridTop="5", scaleGridBottom="18", scaleGridLeft="5", scaleGridRight="12");
 	font-weight: 		normal;
-	font-family:		franklin1;
 	font-size:			12;
 	color:				#666666;
 	border-color: 		#c0c0c0;
@@ -526,8 +514,7 @@ TabBar
 {
 	roll-over-color:	#333333;
 	font-weight: 		normal;
-	font-family:		franklin1;
-	font-size:			11;
+	font-size:			12;
 	color:				#333333;
 	padding-top:		3;
 	padding-left:		6;
@@ -543,7 +530,6 @@ LIST
 
 List
 {
-	font-family:				franklin;
 	font-weight:				normal;
 	font-size:					12;
 	color:						#333333;
@@ -557,7 +543,6 @@ List
 
 DataGrid {
 	headerStyleName: 			"mydataGridHeaderStyle";
-	font-family:				franklin;
 	font-weight:				normal;
 	font-size:					12;
    	color:						#333333;
@@ -572,7 +557,6 @@ DataGrid {
 .mydataGridHeaderStyle {
    textAlign: 				left;
    color:					#333333;
-   font-family:				franklin1;
    font-weight:				normal;
    font-size:				12;
 }
@@ -649,14 +633,12 @@ Alert
 {
 	background-image: 			Embed("../assets/general/alert_fondo1.png", scaleGridTop="1", scaleGridBottom="26", scaleGridLeft="5", scaleGridRight="85");
 	background-size: 			"100%";
-	font-family:				franklin1;
 	font-size:					12;
 	font-weight: 				normal;
 }
 
 .myTitle
 {
-	font-family:				franklin1;
 	font-size:					12;
 	font-weight: 				normal;
 	color:						#ffffff;
@@ -702,7 +684,6 @@ NumericStepper
 	border-style: 				none;
 	disabled-color:				#999999;
 	background-disabled-color:	none;
-	font-family:				franklin;
 }
 
 
@@ -713,12 +694,10 @@ ColorPicker
 	down-skin: 			Embed("../assets/botones/colorPicker_blanco2.png");
 	disabled-skin: 		Embed("../assets/botones/colorPicker_dis.png");
 	focus-thickness: 	0;
-	font-family:		franklin;
 	font-weight:		normal;
 }
 .myText
 {
-	font-family:	franklin;
 	font-weight:	normal;
 	font-size:		11;
 }
@@ -731,7 +710,6 @@ DateField
 	down-skin: 				Embed("../assets/botones/dataIcon2.png");
 	disabled-skin: 			Embed("../assets/botones/dataIcon_dis.png");
 	textInputStyleName:  	textFieldStyle;
-	font-family:			franklin;
 }
 
 
@@ -747,7 +725,6 @@ HRule
 	stroke-color: 	#cccccc;
 	stroke-width:	2;
 	shadow-color:	#ffffff;
-	font-family:	franklin;
 }
 
 
@@ -756,7 +733,6 @@ VRule
 	stroke-color:	#cccccc;
 	stroke-width:	2;
 	shadow-color:	#ffffff;
-	font-family:	franklin;
 }
 
 
@@ -785,7 +761,7 @@ ProgressBar
 	bar-skin:						Embed(source="../assets/botones/progress_barra.png", scaleGridTop="3", scaleGridBottom="4", scaleGridLeft="5", scaleGridRight="6");
 	track-skin:						Embed(source="../assets/botones/progress.png", scaleGridTop="4", scaleGridBottom="5", scaleGridLeft="4", scaleGridRight="6");
 	track-disabled-skin:			Embed(source="../assets/botones/progress_dis.png", scaleGridTop="4", scaleGridBottom="5", scaleGridLeft="4", scaleGridRight="6");
-	font-family: 					franklin1;
+	
 	color: 							#333333;
 	font-weight: 					normal;
 	font-size: 						12;
@@ -810,8 +786,6 @@ TEXT INPUT - AREA
 	disabled-color:				#999999;
 	border-thickness:			0;
 	focus-thickness:			0;
-	font-size:					11;
-	font-family:				franklin;
 	border-style:				none;
 	font-weight:				normal;
 	padding-left:				3;
@@ -827,7 +801,6 @@ TextArea
 	border-thickness:			0;
 	focus-thickness:			0;
 	color:						#333333;
-	font-family:				franklin;
 	font-weight:				normal;
 	font-size:					12;
 }
@@ -843,7 +816,6 @@ TitleWindow
 	border-skin:			Embed("../assets/general/titleWindow.png", scaleGridTop="42", scaleGridBottom="138", scaleGridLeft="11", scaleGridRight="118");
 	background-size:		"100%";
 	border-style:			none;
-	font-family:			franklin1;
 	font-size:				12;
 	font-weight:			normal;
 	color:					#333333;
@@ -861,7 +833,6 @@ TitleWindow
 
 .myWindow
 {
-	font-family:		franklin1;
 	font-size:			12;
 	font-weight:		normal;
 	color:				#333333;
@@ -897,18 +868,18 @@ MenuBar
 	padding-left:			0;
 	padding-right:			0;
 	padding-top:			0;
+	/*
 	font-family:			franklin1;
 	font-size:				12;
+	*/
 	menu-style-name: 		"myMenu";
 }
 
 .myMenu
 {
 	background-color:		#000000;
-	font-family:			franklin;
 	color:					#333333;
 	font-weight:			normal;
-	font-size:				11;
 	border-color:			#333333;
 	horizontal-gap:			0;
 	vertical-gap:			0;
@@ -936,7 +907,6 @@ DateChooser
 	shadowDistance: 			0;
 	header-colors:				#dfdfdf, #dfdfdf;
 	disabled-color:				#999999;
-	font-family:				franklin;
 	headerStyleName: 			"mydateChooserHeaderStyle";
 	week-day-style-name: 		"weekDayChooserStyle";
 	roll-over-indicator-skin:	Embed("../assets/botones/seleccionData.png", scaleGridTop="7", scaleGridBottom="14", scaleGridLeft="7", scaleGridRight="14");
@@ -958,7 +928,6 @@ DateChooser
    color: 					#333333;
    font-weight:				normal;
    font-size:				13px;
-   font-family:				franklin1;
 } 
 
 
@@ -967,7 +936,6 @@ DateChooser
 	color:					#333333;
 	font-weight:			normal;
 	font-size:				13;
-	font-family:			franklin1;
 }
 
 
@@ -978,9 +946,8 @@ ToolTip
 	border-style:			none;
 	border-color:			none;
 	background-size: 		"100%";
-	font-family: 			franklin1;
 	font-weight: 			normal;
-	font-size: 				11;
+	font-size: 				12;
 	drop-shadow-enabled:	false;
 	padding-bottom: 		5;
 	dding-left:				6;

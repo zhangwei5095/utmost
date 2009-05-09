@@ -29,31 +29,33 @@
 //				trace("o.@nodecode:"+o.@nodecode);
 //				trace("o.@module:"+o.@module);
 //				trace("o.@icon:"+o.@icon);
+				var xml:XML;
 				if (o.@nodecode == "Portal")
 				{
-					Application.application.$modulesystreeForChild=new XML(PortalTree.node);
+					xml=new XML(PortalTree.node);
 				}
 				else if (o.@nodecode == "BankRisk")
 				{
-					Application.application.$modulesystreeForChild=new XML(BankRiskTree.node);
+					xml=new XML(BankRiskTree.node);
 				}
 				else if (o.@nodecode == "BankIntendance")
 				{
-					Application.application.$modulesystreeForChild=new XML(BankIntendance.node);
+					xml=new XML(BankIntendance.node);
 				}
 				else if (o.@nodecode == "SysMonitor")
 				{
-					Application.application.$modulesystreeForChild=new XML(SysMonitorTree.node);
+					xml=new XML(SysMonitorTree.node);
 				}
 				else if (o.@nodecode == "Volkswagen")
 				{
-					Application.application.$modulesystreeForChild=new XML(VolkswagenTree.node);
+					xml=new XML(VolkswagenTree.node);
 				}
 				else
 				{
 					Alert.show("无效的节点编码", "提示");
 					return ;
 				}
+				Application.application.$modulesystreeForChild=xml
 				Application.application.$modulecodeForChild=o.@nodecode;
 				Application.application.$modulenameForChild=o.@nodename;
 				Application.application.loadModule(o.@module);
