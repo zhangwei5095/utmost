@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" 
-	layout="vertical" applicationComplete="init()" horizontalScrollPolicy="off" xmlns:kapit="fr.kapit.*" preloader="org.utmost.component.MyPreloader" paddingTop="10">
+	layout="vertical" applicationComplete="init()" horizontalScrollPolicy="off" xmlns:kapit="fr.kapit.*" preloader="org.utmost.component.MyPreloader" paddingTop="10" verticalGap="10">
 	<mx:Style source="skins/style.css"/>
 	<!--mx:Style source="skins/ResizableTitleWindow.css"/-->
 	<!--
@@ -9,11 +9,15 @@
 	<!--
 	<mx:Style source="skins/itunes7/ItunesTheme.css"/>
 	-->
-	<!--<mx:Style source="assets/css/Main.css" />-->
-	<mx:Style source="skins/undefined/css/skinPreview.css"/>
+	
+	<!--<mx:Style source="skins/classic/style.css"/>-->
+	<!--<mx:Style source="skins/aqua/skins/style.css" />-->
+	<!--<mx:Style source="skins/undefined/css/skinPreview.css"/>-->
 	<!--<mx:Style source="skins/kingnare/style.css"/>-->
+	<!--<mx:Style source="skins/brownie/style.css"/>-->
 	<mx:Script>
 		<![CDATA[
+		
 			import component.MainPopUp;
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
@@ -137,6 +141,55 @@
 	    	 	mpu.x=Application.application.width/2-mpu.width/2;
 	    	 	mpu.y=Application.application.height-mpu.height-30;
 	    	 }
+	    	 
+	    	 
+	    	 
+	    	 /**
+	    	 * 主题切换
+	    	 * */
+	    	 private var black:String="skins/undefined/css/skinPreview.swf";
+			 private var vista:String="skins/vista/VistaTheme.swf";
+			 private var itunes7:String="skins/itunes7/ItunesTheme.swf";
+			 private var brownie:String="skins/brownie/style.swf";
+			 private var classic:String=" skins/classic/style.swf";
+			
+	    	 public function theme(name:String):void {
+				if(name=="black") {
+					clearTheme();
+					StyleManager.loadStyleDeclarations(black,true);
+				}
+				if(name=="vista") {
+					clearTheme();
+					StyleManager.loadStyleDeclarations(vista,true);
+				}
+				if(name=="brownie") {
+					clearTheme();
+					StyleManager.loadStyleDeclarations(brownie,true);
+				}
+				if(name=="itunes7") {
+					clearTheme();
+					StyleManager.loadStyleDeclarations(itunes7,true);
+				}
+				if(name=="classic") {
+					clearTheme();
+					StyleManager.loadStyleDeclarations(classic,true);
+				}
+				if(name=="default") {
+					clearTheme();
+				}
+	    	 }
+	    	 public function clearTheme():void {
+	    	 		StyleManager.unloadStyleDeclarations(black,true);
+					StyleManager.clearStyleDeclaration(black,true);
+					StyleManager.unloadStyleDeclarations(vista,true);
+					StyleManager.clearStyleDeclaration(vista,true);
+					StyleManager.unloadStyleDeclarations(brownie,true);
+					StyleManager.clearStyleDeclaration(brownie,true);
+					StyleManager.unloadStyleDeclarations(itunes7,true);
+					StyleManager.clearStyleDeclaration(itunes7,true);
+					StyleManager.unloadStyleDeclarations(classic,true);
+					StyleManager.clearStyleDeclaration(classic,true);
+	    	 }
 		]]>
 	</mx:Script>
 	<mx:ApplicationControlBar id="MACB" dock="false" width="100%" paddingLeft="20" alpha="0.8" paddingTop="6">
@@ -149,7 +202,7 @@
 	<mx:ModuleLoader id="currentModule" width="100%" height="100%" ready="readyModule(event)" horizontalScrollPolicy="off">
 	</mx:ModuleLoader>
 	<!--kapit:KapInspect/-->
-	<!--处理CSS-->
+	<!--处理CSS未引用警告-->
 	<mx:HBox includeInLayout="false" visible="false">
 		<mx:ButtonBar/>
 		<mx:ColorPicker/>

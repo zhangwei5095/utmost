@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="40" horizontalAlign="right" verticalAlign="bottom">
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" horizontalAlign="right" verticalAlign="bottom">
 <mx:Script>
 	<![CDATA[
 		import mx.controls.Alert;
@@ -66,15 +66,15 @@
 		}
 	]]>
 </mx:Script>
-	<mx:Label text="页数:"/>
+	<mx:Label text="Count:"/>
 	<mx:Label id="countPageSize" text="{countPage}"/>
-	<mx:Label text="当前:"/>
+	<mx:Label text="Current:"/>
 	<mx:NumericStepper id="nowPage" value="{pageNo}" maximum="100000" minimum="1" stepSize="1"/>
-	<mx:Button label="跳转" click="goto()"/>
-	<mx:Button label="首页" click="first()"/>
-	<mx:Button label="上一页" click="prev()"/>
-	<mx:Button label="下一页" click="next()"/>
-	<mx:Button label="尾页" click="last()"/>
-	<mx:Label text="限制返回:"/>
+	<mx:Button label="Go" click="goto()"/>
+	<mx:Button label="First" click="first()"/>
+	<mx:Button label="Prev" click="prev()"/>
+	<mx:Button label="Next" click="next()"/>
+	<mx:Button label="Last" click="last()"/>
+	<mx:Label text="Page size:"/>
 	<mx:NumericStepper id="returnSize" maximum="100000" minimum="1"  value="{pageSize}" change="pageSize=returnSize.value;queryCount();"/>
 </mx:HBox>

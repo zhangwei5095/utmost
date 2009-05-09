@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns:comps="module.*"
+	layout="vertical" width="100%" height="100%" verticalGap="8">
+		<mx:Label width="100%"  fontWeight="bold" text="Information of Quotation/Contract Data."/>
+		<mx:HBox horizontalAlign="left" textAlign="left">
+			<mx:Label text="Freight Type"  textAlign="left"/>
+			<mx:RadioButton groupName="freightRadio" id="word1" label="Land"  selected="true"/>
+			<mx:RadioButton groupName="freightRadio" id="word2" label="Sea" />
+			<mx:RadioButton groupName="freightRadio" id="word3" label="Air" />
+			<mx:RadioButton groupName="freightRadio" id="word4" label="Railway" />
+		</mx:HBox>
+		<mx:TabNavigator id="tn" width="100%"  height="90%">
+			<!-- Define each panel using a VBox container. -->
+			<mx:VBox label="Common Module">
+				<mx:Form id="CommonModule" width="100%"  paddingTop="0">
+					<mx:FormItem label="Data Type">
+						<mx:TextInput id="dataType" width="200"/>
+					</mx:FormItem>
+					<mx:FormItem label="Quotation Time">
+						<mx:TextInput id="quotationTime" width="200"/>
+					</mx:FormItem>
+					<mx:FormItem label="Period of validation">
+						<mx:TextInput id="periodValidation" width="200"/>
+					</mx:FormItem>
+					<mx:FormItem label="Source">
+						<mx:TextInput id="source" width="200"/>
+					</mx:FormItem>
+					<mx:FormItem label="Destination">
+						<mx:TextInput id="destination" width="200"/>
+					</mx:FormItem>
+					<mx:FormItem label="Transportation Time">
+						<mx:TextInput id="transportationTime" width="200"/>
+					</mx:FormItem>
+					<mx:FormItem label="Distance">
+						<mx:TextInput id="distance" width="200"/>
+					</mx:FormItem>
+					<mx:FormItem label="Insurance Rate">
+						<mx:TextInput id="insuranceRate" width="200"/>
+					</mx:FormItem>
+					<mx:FormItem label="Ship Type">
+						<mx:TextInput id="shipType" width="200"/>
+					</mx:FormItem>
+					<mx:FormItem label="Container Type">
+						<mx:TextInput id="containerType" width="200"/>
+					</mx:FormItem>
+					<mx:FormItem label="Goods Type">
+						<mx:TextInput id="goodsType" width="200"/>
+					</mx:FormItem>
+				</mx:Form>
+			</mx:VBox>
+			<mx:VBox label="Path Module">
+				<mx:Form id="PathModule" width="100%"  paddingTop="0">
+					<mx:FormItem label="Row Number">
+						<mx:TextInput id="rowNumber" width="200"/>
+					</mx:FormItem>
+					<mx:FormItem label="Path">
+						<mx:TextInput id="path" width="200"/>
+					</mx:FormItem>
+					<mx:FormItem label="Category">
+						<mx:TextInput id="category" width="200"/>
+					</mx:FormItem>
+					<mx:FormItem label="Start Site">
+						<mx:TextInput id="startSite" width="200"/>
+					</mx:FormItem>
+					<mx:FormItem label="End Site">
+						<mx:TextInput id="endSite" width="200"/>
+					</mx:FormItem>
+					<mx:FormItem label="Transport Mode">
+						<mx:TextInput id="transportMode" width="200"/>
+					</mx:FormItem>
+					<mx:FormItem label="Distance">
+						<mx:TextInput id="distance_2" width="200"/>
+					</mx:FormItem>
+					<mx:FormItem label="Transportation Time">
+						<mx:TextInput id="transTime" width="200"/>
+					</mx:FormItem>
+				</mx:Form>
+			</mx:VBox>
+			<mx:VBox label="Price Moudle">
+				<mx:Form id="PriceMoudle" width="100%"  paddingTop="0">
+					<mx:FormItem label="Freight type">
+						<mx:TextInput id="freightType" width="200"/>
+					</mx:FormItem>
+					<mx:FormItem label="Deliver Type">
+						<mx:TextInput id="deliverType" width="200"/>
+					</mx:FormItem>
+					<mx:FormItem label="Currency">
+						<mx:TextInput id="currency" width="200"/>
+					</mx:FormItem>
+					<mx:FormItem label="Eexchange Rate">
+						<mx:TextInput id="exchangeRate" width="200"/>
+					</mx:FormItem>
+					<mx:FormItem label="Transport Charges">
+						<mx:TextInput id="transportCharges" width="200"/>
+					</mx:FormItem>
+					<mx:FormItem label="Harbor Charges">
+						<mx:TextInput id="harborCharges" width="200"/>
+					</mx:FormItem>
+				</mx:Form>
+			</mx:VBox>
+			<mx:VBox label="Remark Module">
+				<mx:Form id="RemarkModule" width="100%"  paddingTop="0">
+					<mx:FormItem label="Product Information">
+						<mx:TextArea id="productTnformation" width="300"/>
+					</mx:FormItem>
+					<mx:FormItem label="Transportation cost of Labor">
+						<mx:TextArea id="transportationCostLabor" width="300"/>
+					</mx:FormItem>
+					<mx:FormItem label="Others">
+						<mx:TextArea id="others" width="300"/>
+					</mx:FormItem>
+				</mx:Form>
+			</mx:VBox>
+			<mx:VBox label="InitialFile Moudle">
+				<mx:Form id="InitialFileMoudle" width="100%"  paddingTop="0">
+					<mx:FormItem label="Quotation Document">
+						<mx:TextArea id="quotationDocument" width="300"/>
+					</mx:FormItem>
+					<mx:FormItem label="Contract Document">
+						<mx:TextArea id="contractDocument" width="300"/>
+					</mx:FormItem>
+				</mx:Form>
+			</mx:VBox>
+			<mx:VBox label="Authorization Moudle">
+				<mx:Form id="AuthorizationMoudle" width="100%"  paddingTop="0">
+					<mx:FormItem>
+						<mx:CheckBox id="VGC" label="VGC"/>
+					</mx:FormItem>
+					<mx:FormItem>
+						<mx:CheckBox id="VCIC" label="VCIC"/>
+					</mx:FormItem>
+					<mx:FormItem>
+						<mx:CheckBox id="VWTS" label="VWTS"/>
+					</mx:FormItem>
+					<mx:FormItem>
+						<mx:CheckBox id="VWPT" label="VWPT"/>
+					</mx:FormItem>
+					<mx:FormItem>
+						<mx:CheckBox id="VWED" label="VWED"/>
+					</mx:FormItem>
+					<mx:FormItem>
+						<mx:CheckBox id="VWPF" label="VWPF"/>
+					</mx:FormItem>
+					<mx:FormItem>
+						<mx:CheckBox id="VWATD" label="VWATD"/>
+					</mx:FormItem>
+					<mx:FormItem>
+						<mx:CheckBox id="SVW" label="SVW"/>
+					</mx:FormItem>
+					<mx:FormItem>
+						<mx:CheckBox id="FAWVW" label="FAW-VW"/>
+					</mx:FormItem>
+				</mx:Form>
+			</mx:VBox>
+		</mx:TabNavigator>
+		<mx:HBox width="100%" verticalAlign="middle" horizontalAlign="center">
+				<mx:Button label="Submit" click="tn.selectedIndex=0"/>
+		</mx:HBox>
+</mx:Module>

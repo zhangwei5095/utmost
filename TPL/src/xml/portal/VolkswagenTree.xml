@@ -1,0 +1,8 @@
+<node nodename="VolkswagenTree">
+	<node nodename="Volkswagen">
+		<node nodename="QCInput" module="module/system/volkswagen/QCInputModule.swf" />
+		<node nodename="QCQuery" module="module/system/volkswagen/QCQueryModule.swf" />
+		<node nodename="QCMainten" module="module/system/volkswagen/RiskInfoModule.swf" />
+		<node nodename="ForwarderMainten" module="module/system/volkswagen/RiskInfoModule.swf" />
+	</node>	
+</node>

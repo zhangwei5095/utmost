@@ -13,7 +13,6 @@
 				//隐藏主窗口
 				ComponentUtil.setVisible(Application.application.MACB, false);
 			}
-
 			//produce programme 
 			private function programme():void
 			{
@@ -46,6 +45,10 @@
 				{
 					Application.application.$modulesystreeForChild=new XML(SysMonitorTree.node);
 				}
+				else if (o.@nodecode == "Volkswagen")
+				{
+					Application.application.$modulesystreeForChild=new XML(VolkswagenTree.node);
+				}
 				else
 				{
 					Alert.show("无效的节点编码", "提示");
@@ -57,33 +60,21 @@
 			}
 		]]>
 	</mx:Script>
+	
 	<mx:XML id="MainTree" source="xml/portal/MainTree.xml"/>
 	<mx:XML id="PortalTree" source="xml/portal/PortalTree.xml"/>
 	<mx:XML id="SysMonitorTree" source="xml/portal/SysMonitorTree.xml"/>
 	<mx:XML id="BankRiskTree" source="xml/portal/BankRiskTree.xml"/>
 	<mx:XML id="BankIntendance" source="xml/portal/BankIntendanceTree.xml"/>
-	<!--mx:ArrayCollection id="portalAC_bak">
-		 <mx:source>
-		 <mx:Array>
-		 <mx:Object name="One"/>
-		 <mx:Object name="Two"/>
-		 <mx:Object name="Three"/>
-		 <mx:Object name="Four"/>
-		 <mx:Object name="Five"/>
-		 <mx:Object name="Six"/>
-		 </mx:Array>
-		 </mx:source>
-		 </mx:ArrayCollection>
-		 <mx:Zoom id="effect_2" zoomHeightTo="1.1" zoomWidthTo="1.1" captureRollEvents="true" />
-		 <mx:Zoom id="effect_1" zoomHeightTo="1.1" zoomWidthTo="1.1" captureRollEvents="true" /-->
-	<mx:VBox width="100%" height="100%" horizontalAlign="center" verticalAlign="middle" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+	<mx:XML id="VolkswagenTree" source="xml/portal/VolkswagenTree.xml"/>
+	
+	<mx:VBox width="100%" height="100%" horizontalAlign="center" verticalAlign="middle" horizontalScrollPolicy="off" verticalScrollPolicy="off" verticalGap="10">
 		<mx:ApplicationControlBar width="100%" height="40">
 			<mx:HBox width="100%" height="100%" horizontalAlign="right" verticalAlign="middle">
-				<mx:Button label="编辑" click="programme()"/>
+				<mx:LinkButton label="编辑" click="programme()" enabled="true" color="#E8E231"/>
 			</mx:HBox>
 		</mx:ApplicationControlBar>
 		<mx:Spacer height="8%"/>
-		
 		<component:MyTileList id="tileList" width="80%" height="80%" itemClick="trasSystem(event)" dataProvider="{MainTree.node}" itemRenderer="component.ImageItemRenderer" columnCount="4" backgroundAlpha="0.0" borderSides="0" dragEnabled="true" focusAlpha="0.0" dragMoveEnabled="true" dropEnabled="true">
 		</component:MyTileList>
 	</mx:VBox>

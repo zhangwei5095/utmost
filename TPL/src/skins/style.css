@@ -10,7 +10,7 @@ Application
 	horizontalScrollPolicy: "off";
 	verticalScrollPolicy:"off";
 	fontFamily:"Arial";
-	backgroundGradientColors: #030303, #030303;
+	/*backgroundGradientColors: #030303, #030303;*/
 	/*background-image:			Embed("undefined/assets/general/fondo3.jpg");*/
 }
 Alert {

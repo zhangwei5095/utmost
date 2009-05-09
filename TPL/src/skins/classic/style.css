@@ -1,0 +1,361 @@
+/* CSS file */
+Application 
+{
+    fontSize: 12;
+    fontFamily:"Arial";
+    color: #000000;
+    themeColor: #0a246a;
+    /*backgroundColor: #3a6ea5;*/
+}
+Button 
+{
+   fontWeight: normal;
+   fontFamily:"Arial";
+   skin: Embed(skinClass="Button_skin");
+}
+ButtonBar 
+{
+   buttonStyleName: "buttonBarButton";
+   firstButtonStyleName: "buttonBarFirstButton";
+   lastButtonStyleName: "buttonBarLastButton";
+}
+.buttonBarButton
+{
+   skin: Embed(skinClass="ButtonBar$button_skin");
+}
+.buttonBarFirstButton
+{
+   skin: Embed(skinClass="ButtonBar$firstButton_skin");
+}
+.buttonBarLastButton
+{
+   skin: Embed(skinClass="ButtonBar$lastButton_skin");
+}
+CheckBox
+{
+   icon: Embed(skinClass="CheckBox_icon");
+}
+ComboBox
+{  
+   rollOverColor: #0a246a;
+   selectionColor: #0a246a;
+   color: #000000;
+   textRollOverColor: #ffffff;
+   textSelectedColor: #ffffff;
+   fontWeight: normal;
+   editableSkin: Embed(skinClass="ComboBox_editableSkin");
+   skin: Embed(skinClass="ComboBox_skin");
+   fontFamily:"Arial";  
+}
+CursorManager
+{
+   busyCursor: Embed(skinClass="CursorManager_busyCursor");
+}
+DataGrid
+{
+   alternatingItemColors: #ffffff, #ffffff;
+   selectionColor: #0a246a;
+   color: #000000;
+   textRollOverColor: #000000;
+   rollOverColor: #ffffff;
+   textSelectedColor: #ffffff;
+   headerStyleName: "dataGridHeaderStyle";
+   columnDropIndicatorSkin: Embed(skinClass="DataGrid_columnDropIndicatorSkin");
+   columnResizeSkin: Embed(skinClass="DataGrid_columnResizeSkin");
+   headerBackgroundSkin: Embed(skinClass="DataGrid_headerBackgroundSkin");
+   headerSeparatorSkin: Embed(skinClass="DataGrid_headerSeparatorSkin");
+   sortArrowSkin: Embed(skinClass="DataGrid_sortArrowSkin");
+   stretchCursor: Embed(skinClass="DataGrid_stretchCursor");
+   borderSkin: Embed(skinClass="DataGrid_borderSkin");
+
+}
+.dataGridHeaderStyle 
+{
+   fontWeight: normal;
+   fontStyle: normal;
+   textDecoration: none;
+}
+DateField
+{
+   skin: Embed(skinClass="DateField_skin");
+}
+DividedBox
+{
+   dividerSkin: Embed(skinClass="DividedBox_dividerSkin");
+   horizontalCursor: Embed(skinClass="DividedBox_horizontalCursor");
+   verticalCursor: Embed(skinClass="DividedBox_verticalCursor");
+}
+
+.fieldsetTitle {
+   color: #000000;
+    fontWeight: normal;
+    fontFamily:"Arial";  
+}
+FormItem
+{
+   indicatorSkin: Embed(skinClass="FormItem_indicatorSkin");
+}
+HScrollBar
+{
+   downArrowSkin: Embed(skinClass="HScrollBar_downArrowSkin");
+   thumbIcon: Embed(skinClass="HScrollBar_thumbIcon");
+   thumbSkin: Embed(skinClass="HScrollBar_thumbSkin");
+   trackSkin: Embed(skinClass="HScrollBar_trackSkin");
+   upArrowSkin: Embed(skinClass="HScrollBar_upArrowSkin");
+}
+HSlider
+{
+   thumbSkin: Embed(skinClass="Slider_thumbSkin");
+   trackHighlightSkin: Embed(skinClass="Slider_trackHighlightSkin");
+   trackSkin: Embed(skinClass="Slider_trackSkin");
+   tickOffset: 21;
+   tickLength: 6;
+}
+List 
+{
+   borderSkin: Embed(skinClass="List_borderSkin");
+}
+
+Menu
+{  
+   borderSkin: Embed(skinClass="MenuItem_skin");
+   branchDisabledIcon: Embed(skinClass="Menu_branchDisabledIcon");
+   branchIcon: Embed(skinClass="Menu_branchIcon");
+   checkDisabledIcon: Embed(skinClass="Menu_checkDisabledIcon");
+   checkIcon: Embed(skinClass="Menu_checkIcon");
+   radioDisabledIcon: Embed(skinClass="Menu_radioDisabledIcon");
+   radioIcon: Embed(skinClass="Menu_radioIcon");
+   separatorSkin: Embed(skinClass="Menu_separatorSkin");
+   
+}
+MenuBar
+{
+    rollOverColor: #0a246a;
+    selectionColor: #0a246a;
+    color: #000000;
+    textRollOverColor: #ffffff;
+    textSelectedColor: #ffffff;
+    backgroundSkin: Embed(skinClass="MenuBar_backgroundSkin");
+    itemSkin: Embed(skinClass="MenuBar_itemSkin");
+}
+
+NumericStepper
+{
+   focusAlpha: 0;
+   downArrowSkin: Embed(skinClass="NumericStepper_downArrowSkin");
+   upArrowSkin: Embed(skinClass="NumericStepper_upArrowSkin");
+}
+
+Panel
+{  
+   backgroundColor: #d4d0c8;
+   titleStyleName: "panelTitle";
+   /*
+   borderSkin: Embed(skinClass="Panel_borderSkin");
+   */
+   closeButtonSkin: Embed(skinClass="Panel_closeButtonSkin");
+   controlBarBackgroundSkin: Embed(skinClass="Panel_controlBarBackgroundSkin");
+}
+
+.panelTitle 
+{
+   color: #ffffff;
+   fontWeight: bold;
+   fontFamily:"Arial";  
+}
+PopUpButton
+{
+   popUpIcon: Embed(skinClass="PopUpButton_popUpIcon");
+   skin: Embed(skinClass="PopUpButton_skin");
+}
+ProgressBar
+{
+   barSkin: Embed(skinClass="ProgressBar_barSkin");
+   indeterminateSkin: Embed(skinClass="ProgressBar_indeterminateSkin");
+   trackSkin: Embed(skinClass="ProgressBar_trackSkin");
+}
+RadioButton
+{
+   icon: Embed(skinClass="RadioButton_icon");
+}
+Slider
+{
+   thumbSkin: Embed(skinClass="Slider_thumbSkin");
+   trackHighlightSkin: Embed(skinClass="Slider_trackHighlightSkin");
+   trackSkin: Embed(skinClass="Slider_trackSkin");
+
+}
+SWFLoader
+{
+   brokenImageSkin: Embed(skinClass="SWFLoader_brokenImageSkin");
+}
+TabBar
+{
+   tabStyleName: "tabBarTab";
+   firstTabStyleName: "tabBarTab";
+   lastTabStyleName: "tabBarTab";
+}
+.tabBarTab
+{
+   skin: Embed(skinClass="TabBar$tab_skin");
+}
+TextArea
+{
+   borderSkin: Embed(skinClass="TextArea_borderSkin");
+   focusSkin: Embed(skinClass="TextArea_focusSkin");
+}
+TextInput
+{
+   borderSkin: Embed(skinClass="TextInput_borderSkin");
+   focusSkin: Embed(skinClass="TextInput_focusSkin");
+}
+ToolTip
+{
+   backgroundnotexported: Embed(skinClass="ToolTip_backgroundnotexported");
+   borderSkin: Embed(skinClass="ToolTip_borderSkin");
+   fontSize: 10;
+   color: #000000;
+   fontFamily:"Arial";
+}
+Tree
+{
+   rollOverColor: #0a246a;
+   selectionColor: #0a246a;
+   color: #000000;
+   textRollOverColor: #ffffff;
+   textSelectedColor: #ffffff;
+   open-duration: 0;
+   borderSkin: Embed(skinClass="Tree_borderSkin");
+   defaultLeafIcon: Embed(skinClass="Tree_defaultLeafIcon");
+   disclosureClosedIcon: Embed(skinClass="Tree_disclosureClosedIcon");
+   disclosureOpenIcon: Embed(skinClass="Tree_disclosureOpenIcon");
+   folderClosedIcon: Embed(skinClass="Tree_folderClosedIcon");
+   folderOpenIcon: Embed(skinClass="Tree_folderOpenIcon");
+}
+VScrollBar
+{
+   downArrowSkin: Embed(skinClass="VScrollBar_downArrowSkin");
+   thumbIcon: Embed(skinClass="VScrollBar_thumbIcon");
+   thumbSkin: Embed(skinClass="VScrollBar_thumbSkin");
+   trackSkin: Embed(skinClass="VScrollBar_trackSkin");
+   upArrowSkin: Embed(skinClass="VScrollBar_upArrowSkin");
+}
+.closeButton {
+    upSkin:        Embed('skins/classic/images/closeUp.png');
+    overSkin:      Embed('skins/classic/images/closeUp.png');
+    downSkin:      Embed('skins/classic/images/closeDown.png');
+    disabledSkin:  Embed('skins/classic/images/closeUp.png');
+}
+.maximizeButton {
+    upSkin:        Embed('skins/classic/images/maximizeUp.png');
+    overSkin:      Embed('skins/classic/images/maximizeUp.png');
+    downSkin:      Embed('skins/classic/images/maximizeDown.png');
+    disabledSkin:  Embed('skins/classic/images/maximizeUp.png');
+}
+
+.restoreButton {
+    upSkin:        Embed('skins/classic/images/restoreUp.png');
+    overSkin:      Embed('skins/classic/images/restoreUp.png');
+    downSkin:      Embed('skins/classic/images/restoreDown.png');
+    disabledSkin:  Embed('skins/classic/images/restoreUp.png');
+}
+
+.minimizeButton {
+    upSkin:        Embed('skins/classic/images/minimizeUp.png');
+    overSkin:      Embed('skins/classic/images/minimizeUp.png');
+    downSkin:      Embed('skins/classic/images/minimizeDown.png');
+    disabledSkin:  Embed('skins/classic/images/minimizeUp.png');
+}
+
+.resize {
+    upSkin:        Embed('skins/classic/images/resize.png');
+    overSkin:      Embed('skins/classic/images/resize.png');
+    downSkin:      Embed('skins/classic/images/resize.png');
+    disabledSkin:  Embed('skins/classic/images/resize.png');
+}
+
+DateChooser {
+   cornerRadius: 0;
+   headerColors: #0a246a, #0a246a;
+   todayColor: #0a246a;
+   rollOverColor: #ffffff;
+   selectionColor: #ffffff;
+   selectionColor: #cccccc;
+   color: #000000;
+   borderColor: #000000;
+   headerStyleName: "mydateChooserHeaderStyle";   
+   weekDayStyleName: "mydateChooserWeekDayStyle";   
+   todayStyleName: "mydateChooserTodayStyle";
+   dropShadowEnabled: false;
+   nextMonthSkin: Embed(skinClass="DateChooser_nextMonthSkin");
+   nextYearSkin: Embed(skinClass="DateChooser_nextYearSkin");
+   prevMonthSkin: Embed(skinClass="DateChooser_prevMonthSkin");
+   prevYearSkin: Embed(skinClass="DateChooser_prevYearSkin");
+   rollOverIndicatorSkin: Embed(skinClass="DateChooser_rollOverIndicatorSkin");
+   selectionIndicatorSkin: Embed(skinClass="DateChooser_selectionIndicatorSkin");
+   todayIndicatorSkin: Embed(skinClass="DateChooser_todayIndicatorSkin");
+}
+.mydateChooserHeaderStyle {
+   color: #ffffff;
+}
+.mydateChooserWeekDayStyle {
+   color: #0a246a;
+}
+.mydateChooserTodayStyle {
+   color: #ffffff;
+}
+
+TabNavigator {
+   tabHeight: 22;
+   backgroundColor: #d4d0c8;
+   borderStyle: solid;
+   borderColor: #ffffff;
+   dropShadowEnabled: false;
+   
+   tabStyleName: "myTabs";
+   firstTabStyleName: "myTabs";
+   lastTabStyleName: "myTabs";
+   selectedTabTextStyleName: "mySelectedTabs";
+   
+}
+
+.myTabs {
+   cornerRadius: 3;
+   fillColors: #d4d0c8, #d4d0c8;
+   backgroundColor: #d4d0c8;
+   borderColor: #ffffff;
+   color: #000000;
+   textRollOverColor: #000000;
+   themeColor: #ffffff;
+
+}
+.mySelectedTabs {
+   fontWeight: normal;
+}
+Alert {
+   messageStyleName: "alertMessage";
+   buttonStyleName: "alertButton";
+   paddingTop: 20;
+   paddingBottom: 15;
+}
+.alertMessage {
+   letterSpacing: 0;
+   fontSize: 12;
+   fontWeight: normal;
+   color: black;
+}
+.alertButton {
+   fontWeight: normal;
+   fontFamily:"Arial";
+   skin: Embed(skinClass="Button_skin");
+}
+LinkButton {
+   cornerRadius: 1;
+   /*
+   rollOverColor: #4c85ee;
+   selectionColor: #4c85ee;
+   color: #FFFFFF;
+   textRollOverColor: #ffffff;
+   textSelectedColor: #FFFFFF;
+   */
+}

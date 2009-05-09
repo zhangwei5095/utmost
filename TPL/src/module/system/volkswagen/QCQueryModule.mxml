@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%" xmlns:controls="com.adobe.flex.extras.controls.*" xmlns:component="component.*" xmlns:code="http://code.google.com/p/flexlib/">
+	<mx:Script>
+		<![CDATA[
+			[Bindable]
+			public var myDP:Array=[{name:"beijin"},{name:"hebei"},{name:"shangdi"},{name:"shanghai"}];
+		]]>
+	</mx:Script>
+	<mx:Array id="ds_shiptype">
+		<mx:Object label="All" value="All" />
+		<mx:Object label="Land" value="Land" />
+		<mx:Object label="Sea" value="Sea" />
+		<mx:Object label="Air" value="Air" />
+		<mx:Object label="Railway" value="Railway" />
+	</mx:Array>
+	<mx:Array id="ds_datatype">
+		<mx:Object label="All" value="All" />
+		<mx:Object label="quotation" value="quotation" />
+		<mx:Object label="contract" value="contract" />
+	</mx:Array>
+	<mx:Array id="ds_containertype">
+		<mx:Object label="All" value="All" />
+		<mx:Object label="20’ GP" value="20’ GP" />
+		<mx:Object label="40’ GP" value="40’ GP" />
+		<mx:Object label="40’ HQ" value="40’ HQ" />
+	</mx:Array>
+	<mx:Array id="ds_inputgroup">
+		<mx:Object label="All" value="All" />
+		<mx:Object label="VGC" value="VGC" />
+		<mx:Object label="SVW" value="SVW" />
+		<mx:Object label="FAW-VW" value="FAW-VW" />
+		<mx:Object label="VWPF" value="VWPF" />
+		<mx:Object label="VWED" value="VWED" />
+		<mx:Object label="VWATD" value="VWATD" />
+		<mx:Object label="VWTS" value="VWTS" />
+		<mx:Object label="VWPT" value="VWPT" />
+	</mx:Array>
+	<mx:TabNavigator width="100%" height="80">
+		<mx:VBox label="Rote Search" width="100%" height="100%">
+			<mx:HBox width="100%" height="100%" horizontalAlign="left" verticalAlign="middle" horizontalGap="20" paddingLeft="20" paddingRight="20">
+				<mx:Label text="Transport"/>
+				<mx:ComboBox id="shiptype" dataProvider="{ds_shiptype}"></mx:ComboBox>
+				<mx:Label text="from"/>
+				<controls:AutoComplete id="fromAC" dataProvider="{myDP}" labelField="name"/>
+				<mx:Label text="to"/>
+				<controls:AutoComplete id="toAC" dataProvider="{myDP}" labelField="name"/>
+				<mx:Spacer width="100%"/>
+				<mx:Button label="Search"/>
+			</mx:HBox>
+		</mx:VBox>
+		<mx:VBox width="100%" height="100%" label="Forwarder Search">
+		</mx:VBox>
+		<mx:VBox width="100%" height="100%" label="Keyword Search">
+		</mx:VBox>
+	</mx:TabNavigator>
+	
+	
+	<mx:VBox width="100%" height="100%" verticalGap="0">
+		<mx:HBox width="100%" horizontalAlign="left" verticalAlign="middle" horizontalGap="20">
+			<mx:ComboBox id="datatype" prompt="Data type" dataProvider="{ds_datatype}"></mx:ComboBox>
+			<code:PromptingTextInput id="forwarder" prompt="please input forwarder name."/>
+			<mx:DateField id="time" yearNavigationEnabled="true"/>
+			<mx:ComboBox id="shiptype2" prompt="Ship type" dataProvider="{ds_shiptype}"></mx:ComboBox>
+			<mx:ComboBox id="containertype" prompt="Container type" dataProvider="{ds_containertype}"></mx:ComboBox>
+			<mx:ComboBox id="inputgroup" prompt="Input Group" dataProvider="{ds_inputgroup}"></mx:ComboBox>
+		</mx:HBox>
+		<mx:VBox width="100%" height="100%" verticalGap="6">
+			<mx:AdvancedDataGrid id="adg" designViewDataType="flat" width="100%" height="100%">
+				<mx:columns>
+					<mx:AdvancedDataGridColumn headerText="No" dataField="col1"/>
+					<mx:AdvancedDataGridColumn headerText="ID" dataField="col2"/>
+					<mx:AdvancedDataGridColumn headerText="Forwarder" dataField="col3"/>
+					<mx:AdvancedDataGridColumn headerText="Time" dataField="col3"/>
+					<mx:AdvancedDataGridColumn headerText="Valid until" dataField="col3"/>
+					<mx:AdvancedDataGridColumn headerText="Transit time" dataField="col3"/>
+					<mx:AdvancedDataGridColumn headerText="Ship type" dataField="col3"/>
+				</mx:columns>
+			</mx:AdvancedDataGrid>
+			<component:DGPagination verticalGap="0" id="dgp" horizontalGap="6" verticalAlign="top" pageSize="30"/>
+			<mx:HBox width="100%" horizontalAlign="center" verticalAlign="middle" horizontalGap="100">
+				<mx:Button label="Export"/>
+				<mx:Button label="Print"/>
+			</mx:HBox>
+		</mx:VBox>
+	</mx:VBox>
+</mx:Module>
