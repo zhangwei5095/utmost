@@ -344,10 +344,12 @@ DateChooser, .dateChooserStyleName
 {
  	font-weight:normal;
 }
+/*
 HorizontalList, TileList
 {
 	border-skin: Embed(source='skins/brownie/images/content_bg.png', scaleGridLeft=10, scaleGridRight=40, scaleGridTop=10,scaleGridBottom=30);
 }
+*/
 Tree, List
 {
 	background-color: #2b2a2a;

@@ -62,8 +62,7 @@
 			}
 		]]>
 	</mx:Script>
-	
-	<mx:XML id="MainTree" source="xml/portal/MainTree.xml"/>
+	<mx:XML id="MainTree" source="xml/portal/MainTree.xml"/>	
 	<mx:XML id="PortalTree" source="xml/portal/PortalTree.xml"/>
 	<mx:XML id="SysMonitorTree" source="xml/portal/SysMonitorTree.xml"/>
 	<mx:XML id="BankRiskTree" source="xml/portal/BankRiskTree.xml"/>

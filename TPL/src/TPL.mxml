@@ -45,6 +45,7 @@
 			private function init():void {
 				//this.loadModule("module/DefaultModule.swf");
 				//this.loadModule("module/PortalModule.swf");
+				theme("vista");
 				ComponentUtil.setVisible(MACB,false);
 				showLogin();
 				memoryMonitor();
