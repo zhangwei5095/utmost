@@ -39,7 +39,7 @@
 		<![CDATA[
 			import mx.collections.ArrayCollection;
 			[Bindable]
-			public var expenses:ArrayCollection=new ArrayCollection([{Date:"1/1/2007", Forwarder:"CTG", Expenses:1500, Price:350},{Date:"6/1/2007", Forwarder:"CTG", Expenses:1500, Price:320},{Date:"1/1/2008", Forwarder:"CTG", Expenses:1500, Price:450}, {Date:"6/1/2008", Forwarder:"CTG", Expenses:200, Price:600}, {Date:"1/1/2009", Forwarder:"CTG", Expenses:500, Price:300}]);
+			public var expenses:ArrayCollection=new ArrayCollection([{Date:"1/1/2007", Forwarder:"CTG", Expenses:1500, Price:350},{Date:"6/1/2007", Forwarder:"CTG", Expenses:1500, Price:300},{Date:"1/1/2008", Forwarder:"CTG", Expenses:1500, Price:450}, {Date:"6/1/2008", Forwarder:"CTG", Expenses:200, Price:600}, {Date:"1/1/2009", Forwarder:"CTG", Expenses:500, Price:330}]);
 		]]>
 	</mx:Script>
 </mx:Module>

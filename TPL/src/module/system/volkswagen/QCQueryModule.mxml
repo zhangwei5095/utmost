@@ -73,10 +73,15 @@
 					<mx:AdvancedDataGridColumn headerText="Transport" dataField="Transport"/>
 					<mx:AdvancedDataGridColumn headerText="Forwarder" dataField="Forwarder"/>
 					<mx:AdvancedDataGridColumn headerText="HarborCharges" dataField="HarborCharges"/>
+					<mx:AdvancedDataGridColumn headerText="TransportCharges" dataField="TransportCharges"/>
 					<mx:AdvancedDataGridColumn headerText="StartSide" dataField="StartSide"/>
 					<mx:AdvancedDataGridColumn headerText="EndSide" dataField="EndSide"/>
 					<mx:AdvancedDataGridColumn headerText="Distance" dataField="Distance"/>
 					<mx:AdvancedDataGridColumn headerText="Group" dataField="Group"/>
+					<mx:AdvancedDataGridColumn headerText="QuotationTime" dataField="QuotationTime"/>
+					<mx:AdvancedDataGridColumn headerText="PeriodOfValidation" dataField="PeriodOfValidation"/>
+					<mx:AdvancedDataGridColumn headerText="DeliverType" dataField="DeliverType"/>
+					
 				</mx:columns>
 			</mx:AdvancedDataGrid>
 			<component:DGPagination verticalGap="0" id="dgp" horizontalGap="6" verticalAlign="top" pageSize="30"/>

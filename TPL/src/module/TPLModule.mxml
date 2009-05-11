@@ -267,7 +267,9 @@
 			private function TemplateServiceAddEventListener():void {
 				TemplateService.ro.processTreeForData.addEventListener(ResultEvent.RESULT,resultDataTreeHandler);
 				TemplateService.ro.processTreeForView.addEventListener(ResultEvent.RESULT,resultViewTreeHandler);
-				TemplateService.ro.deleteByUUID.addEventListener(ResultEvent.RESULT,initDataTree);
+				TemplateService.ro.deleteByUUID.addEventListener(ResultEvent.RESULT,function(e:ResultEvent):void {
+					initDataTree();
+				});
 			}
 		]]>
 	</mx:Script>
