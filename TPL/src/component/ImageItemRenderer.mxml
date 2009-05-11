@@ -18,19 +18,20 @@
 			<![CDATA[
 				import org.utmost.effect.Reflector;
 				import mx.controls.Alert;
+				
 				private function mOut():void
 				{
-					itxt.setStyle("fontSize",18);
+					//itxt.setStyle("fontSize",18);
 				//vbox.setStyle("backgroundColor","");
 				}
 				private function mOver():void
 				{
-					itxt.setStyle("fontSize",23);
+					//itxt.setStyle("fontSize",23);
 					vbox.setStyle("backgroundColor", "#FFFFFF");
 				}
 			]]>
 		</mx:Script>
-		<mx:Image source="{data.@icon}" maintainAspectRatio="true" width="60" height="60" alpha="1.0" scaleContent="true"/>
+		<mx:Image source="{data.@icon}" maintainAspectRatio="true" width="70" height="70" alpha="1.0" scaleContent="true"/>
 		<mx:Label id="itxt" text="{data.@nodename}" fontSize="18" fontWeight="bold" textAlign="center" fontFamily="Georgia" color="#060201" enabled="true"/>
 	</mx:VBox>
 	

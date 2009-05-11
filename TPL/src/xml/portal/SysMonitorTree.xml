@@ -1,7 +1,7 @@
 <node nodename="SysMonitorTree">
 		
 	<node nodename="系统">
-		<node nodename="系统监控" module="module/monitor/system/SystemMonitorModule.swf"></node>
-		<node nodename="系统信息" module="module/monitor/system/SystemInfoModule.swf"></node>
+		<node nodename="系统监控" showInList="true" module="module/monitor/system/SystemMonitorModule.swf"></node>
+		<node nodename="系统信息" showInList="true" module="module/monitor/system/SystemInfoModule.swf"></node>
 	</node>
 </node>

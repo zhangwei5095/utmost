@@ -65,11 +65,11 @@
 </modules>
 <buildCSSFiles>
 <buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/itunes7/ItunesTheme.css"/>
-<buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/style.css"/>
 <buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/undefined/css/skinPreview.css"/>
+<buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/style.css"/>
 <buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/classic/style.css"/>
 <buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/brownie/style.css"/>
-<buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/brownie/Main.css"/>
 <buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/vista/VistaTheme.css"/>
+<buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/brownie/Main.css"/>
 </buildCSSFiles>
 </actionScriptProperties>

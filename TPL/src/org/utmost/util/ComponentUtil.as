@@ -2,6 +2,8 @@ package org.utmost.util
 {
 	import flash.events.MouseEvent;
 	
+	import flexlib.controls.ConvertibleTreeList;
+	
 	import mx.controls.ComboBox;
 	import mx.controls.Tree;
 	import mx.core.UIComponent;
@@ -57,6 +59,9 @@ package org.utmost.util
 		 * */
         public static function ocSelectTree(e:MouseEvent):void {
         	var tree:Tree=e.currentTarget as Tree;
+        	if(tree==null) {
+        		tree=(e.currentTarget as ConvertibleTreeList).tree;//特殊处理
+        	}
 			if(tree!=null&&tree.selectedItem!=null) {
 				if(tree.isItemOpen(tree.selectedItem))
 					tree.expandChildrenOf(tree.selectedItem,false);

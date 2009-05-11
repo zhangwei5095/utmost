@@ -25,10 +25,15 @@
 			private function initTree(_tree:Tree,main:Object,kv:Object):void {
 				var ut:UtmostService=new UtmostService("TreeService",function(e:ResultEvent):void{
 					trace("e.result:"+e.result);
-					if(e.result!=null) {
-						var xml:XML=new XML(e.result);
+					var o:Object=e.result;
+					var xml:XML=null;
+					if(o!=null) {
+						try {
+						xml=new XML(o);
+						}catch(e:Error) {
+							trace(e.message);
+						}
 						_tree.dataProvider=xml;
-						//_tree.selectedIndex=0;
 						callLater(function():void {
 							ComponentUtil.ocAllTree(_tree);
 						});

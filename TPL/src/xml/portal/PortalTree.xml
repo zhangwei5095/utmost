@@ -1,7 +1,7 @@
 <node nodename="SystemTree">
 	<node nodename="门户管理">
 		<node nodename="权限管理">
-			<node nodename="用户管理" module="module/auth/AuthUserModule.swf" />
+			<node nodename="用户管理" icon="icons/full_list.png" showInList="true" module="module/auth/AuthUserModule.swf" />
 			<node nodename="角色管理" module="module/auth/AuthRoleModule.swf" />
 			<node nodename="功能管理" module="module/auth/AuthFunModule.swf" />
 			<node nodename="机构管理" module="module/auth/AuthOrgModule.swf" />
