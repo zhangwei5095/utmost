@@ -2,31 +2,16 @@
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" 
 	layout="vertical" applicationComplete="init()" horizontalScrollPolicy="off" xmlns:kapit="fr.kapit.*" preloader="org.utmost.component.MyPreloader" paddingTop="10" verticalGap="10">
 	<mx:Style source="skins/style.css"/>
-	<!--mx:Style source="skins/ResizableTitleWindow.css"/-->
-	<!--
-	<mx:Style source="skins/vista/VistaTheme.css"/>
-	-->
-	<!--
-	<mx:Style source="skins/itunes7/ItunesTheme.css"/>
-	-->
-	
-	<!--<mx:Style source="skins/classic/style.css"/>-->
-	<!--<mx:Style source="skins/aqua/skins/style.css" />-->
-	<!--<mx:Style source="skins/undefined/css/skinPreview.css"/>-->
-	<!--<mx:Style source="skins/kingnare/style.css"/>-->
 	<!--<mx:Style source="skins/brownie/style.css"/>-->
 	<mx:Script>
-		<![CDATA[
-		
+		<![CDATA[	
 			import component.MainPopUp;
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
 			import org.utmost.service.UtmostService;
 			import org.utmost.service.StaticChannelSet;
 			import mx.events.ResizeEvent;
-		
 			import mx.managers.IHistoryManager; 
-			
 			import ascb.util.NumberFormat;
 			import mx.formatters.NumberFormatter;
 			import flash.utils.setInterval;
@@ -45,7 +30,7 @@
 			private function init():void {
 				//this.loadModule("module/DefaultModule.swf");
 				//this.loadModule("module/PortalModule.swf");
-				theme("vista");
+				theme("brownie");
 				ComponentUtil.setVisible(MACB,false);
 				showLogin();
 				memoryMonitor();
@@ -204,6 +189,11 @@
 	<mx:ModuleLoader id="currentModule" width="100%" height="100%" ready="readyModule(event)" horizontalScrollPolicy="off">
 	</mx:ModuleLoader>
 	<!--kapit:KapInspect/-->
+	
+	
+	
+	
+	
 	<!--处理CSS未引用警告-->
 	<mx:HBox includeInLayout="false" visible="false">
 		<mx:ButtonBar/>

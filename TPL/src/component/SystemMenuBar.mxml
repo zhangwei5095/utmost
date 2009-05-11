@@ -8,10 +8,10 @@
 		</menuitem>
 		<menuitem label="Theme">
 			<menuitem label="Default" data="default"/>
-			<menuitem label="Black" data="black"/>
 			<menuitem label="Vista" data="vista"/>
-			<menuitem label="Classic" data="classic"/>
+			<menuitem label="Black" data="black"/>
 			<menuitem label="Itunes7" data="itunes7"/>
+			<menuitem label="Classic" data="classic"/>
 			<menuitem label="Brownie" data="brownie"/>
 		</menuitem>
 		<menuitem label="Language">

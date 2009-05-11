@@ -7,6 +7,7 @@
 			public var myDP:Array=[{name:"beijin"},{name:"hebei"},{name:"shangdi"},{name:"shanghai"}];
 		]]>
 	</mx:Script>
+	<mx:Script source="Data.as" />
 	<mx:Array id="ds_shiptype">
 		<mx:Object label="All" value="All" />
 		<mx:Object label="Land" value="Land" />
@@ -42,9 +43,9 @@
 				<mx:Label text="Transport"/>
 				<mx:ComboBox id="shiptype" dataProvider="{ds_shiptype}"></mx:ComboBox>
 				<mx:Label text="from"/>
-				<controls:AutoComplete id="fromAC" dataProvider="{myDP}" labelField="name"/>
+				<controls:AutoComplete id="fromAC" styleName="AutoComplete"  dataProvider="{myDP}" labelField="name"/>
 				<mx:Label text="to"/>
-				<controls:AutoComplete id="toAC" dataProvider="{myDP}" labelField="name"/>
+				<controls:AutoComplete id="toAC" styleName="AutoComplete" dataProvider="{myDP}" labelField="name"/>
 				<mx:Spacer width="100%"/>
 				<mx:Button label="Search"/>
 			</mx:HBox>
@@ -65,16 +66,17 @@
 			<mx:ComboBox id="containertype" prompt="Container type" dataProvider="{ds_containertype}"></mx:ComboBox>
 			<mx:ComboBox id="inputgroup" prompt="Input Group" dataProvider="{ds_inputgroup}"></mx:ComboBox>
 		</mx:HBox>
-		<mx:VBox width="100%" height="100%" verticalGap="6">
-			<mx:AdvancedDataGrid id="adg" designViewDataType="flat" width="100%" height="100%">
+		<mx:VBox width="100%" height="100%" verticalGap="6"  horizontalScrollPolicy="off">
+			<mx:AdvancedDataGrid id="adg" dataProvider="{quotation}" horizontalScrollPolicy="on" designViewDataType="flat" width="100%" height="100%">
 				<mx:columns>
-					<mx:AdvancedDataGridColumn headerText="No" dataField="col1"/>
-					<mx:AdvancedDataGridColumn headerText="ID" dataField="col2"/>
-					<mx:AdvancedDataGridColumn headerText="Forwarder" dataField="col3"/>
-					<mx:AdvancedDataGridColumn headerText="Time" dataField="col3"/>
-					<mx:AdvancedDataGridColumn headerText="Valid until" dataField="col3"/>
-					<mx:AdvancedDataGridColumn headerText="Transit time" dataField="col3"/>
-					<mx:AdvancedDataGridColumn headerText="Ship type" dataField="col3"/>
+					<mx:AdvancedDataGridColumn headerText="No" dataField="No"/>
+					<mx:AdvancedDataGridColumn headerText="Transport" dataField="Transport"/>
+					<mx:AdvancedDataGridColumn headerText="Forwarder" dataField="Forwarder"/>
+					<mx:AdvancedDataGridColumn headerText="HarborCharges" dataField="HarborCharges"/>
+					<mx:AdvancedDataGridColumn headerText="StartSide" dataField="StartSide"/>
+					<mx:AdvancedDataGridColumn headerText="EndSide" dataField="EndSide"/>
+					<mx:AdvancedDataGridColumn headerText="Distance" dataField="Distance"/>
+					<mx:AdvancedDataGridColumn headerText="Group" dataField="Group"/>
 				</mx:columns>
 			</mx:AdvancedDataGrid>
 			<component:DGPagination verticalGap="0" id="dgp" horizontalGap="6" verticalAlign="top" pageSize="30"/>

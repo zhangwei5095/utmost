@@ -197,7 +197,7 @@ ToggleButtonBar, ButtonBar
     selectedUpSkin: Embed(source='skins/brownie/images/tab_selected.png', scaleGridLeft=10, scaleGridRight=96, scaleGridTop=15,scaleGridBottom=16);
     selectedOverSkin:Embed(source='skins/brownie/images/tab_selected.png', scaleGridLeft=10, scaleGridRight=96, scaleGridTop=15,scaleGridBottom=16);
     color:#444444;
-    font-size: 11;
+    font-size: 12;
 }
 Button
 {
@@ -206,7 +206,7 @@ Button
 	overSkin:Embed(source='skins/brownie/images/button_over.png', scaleGridLeft=10, scaleGridRight=96, scaleGridTop=15,scaleGridBottom=16);
 	disabledSkin: Embed(source='skins/brownie/images/button_disabled.png', scaleGridLeft=10, scaleGridRight=96, scaleGridTop=15,scaleGridBottom=16);
 	color:#444444;
-	font-size: 11;
+	font-size: 12;
 }
 LinkButton
 {
@@ -254,6 +254,16 @@ ComboBox, PopUpButton
 	color:#444444;
 	dropdownStyleName: dropdownStyleName;
 }
+.AutoComplete
+{
+	upSkin:Embed(source='skins/brownie/images/comboBox_up.png', scaleGridLeft=10, scaleGridRight=82, scaleGridTop=19, scaleGridBottom=20);
+	downSkin:Embed(source='skins/brownie/images/comboBox_up.png', scaleGridLeft=10, scaleGridRight=82, scaleGridTop=19,scaleGridBottom=20);
+	overSkin:Embed(source='skins/brownie/images/comboBox_over.png', scaleGridLeft=10, scaleGridRight=82, scaleGridTop=19,scaleGridBottom=20);
+	disabledSkin: Embed(source='skins/brownie/images/comboBox_disabled.png', scaleGridLeft=10, scaleGridRight=82, scaleGridTop=19,scaleGridBottom=20);
+	padding-left: 10;
+	color:#ffffff;
+	dropdownStyleName: dropdownStyleName;
+}
 PopUpButton{
 	padding-right: 10;
 	popUpDownSkin: Embed(source='skins/brownie/images/comboBox_up.png', scaleGridLeft=10, scaleGridRight=82, scaleGridTop=19,scaleGridBottom=20);
@@ -276,8 +286,9 @@ TextInput, TextArea
 	border-skin: Embed(source='skins/brownie/images/input_bg.png', scaleGridLeft=8, scaleGridRight=20, scaleGridTop=8,scaleGridBottom=9);
 	padding-top:2;
 	padding-left:2;
-	font-size:11;
+	font-size:12;
 }
+
 .editable
 {
 	font-weight:normal;
@@ -299,7 +310,7 @@ ProgressBar
 	bar-skin: Embed(source='skins/brownie/images/progressbar_bar.png', scaleGridLeft=6, scaleGridRight=30, scaleGridTop=4,scaleGridBottom=5);
 	/*indeterminate-skin: ClassReference("skins.brownie.skins.ProgressIndeterminateSkin");*/
 	barColor: #22201e;
-	font-size: 10;
+	font-size: 12;
 	font-thickness: -200;
 }
 HSlider, VSlider
@@ -369,6 +380,19 @@ DataGrid
 	rollOverColor:#444444;
 	textRollOverColor:#ffffff;
 	selectionColor: #212121;
+	textSelectedColor:#ffffff;
+}
+AdvancedDataGrid
+{
+	headerColors: #D19A48, #D17C01; 
+	alternatingItemColors: #2b2a2a, #2b2a2a;
+	border-color: #555555;
+	verticalGridLineColor: #555555;
+	color: #dddddd;
+	headerStyleName: dataGridHeader;
+	rollOverColor:#444444;
+	textRollOverColor:#ffffff;
+	selectionColor: #D17C01;
 	textSelectedColor:#ffffff;
 }
 Tree {
