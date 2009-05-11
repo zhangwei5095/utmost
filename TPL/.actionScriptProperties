@@ -61,14 +61,15 @@
 <module application="src/TPL.mxml" destPath="module/auth/AuthVisualizerForFunModule.swf" optimize="true" sourcePath="src/module/auth/AuthVisualizerForFunModule.mxml"/>
 <module application="src/TPL.mxml" destPath="module/etl/DataSourceModule.swf" optimize="true" sourcePath="src/module/etl/DataSourceModule.mxml"/>
 <module application="src/TPL.mxml" destPath="module/tpl/ReferenceModule.swf" optimize="true" sourcePath="src/module/tpl/ReferenceModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/system/volkswagen/QCAlert.swf" optimize="true" sourcePath="src/module/system/volkswagen/QCAlert.mxml"/>
 </modules>
 <buildCSSFiles>
 <buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/itunes7/ItunesTheme.css"/>
-<buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/undefined/css/skinPreview.css"/>
 <buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/style.css"/>
+<buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/undefined/css/skinPreview.css"/>
 <buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/classic/style.css"/>
 <buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/brownie/style.css"/>
-<buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/vista/VistaTheme.css"/>
 <buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/brownie/Main.css"/>
+<buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/vista/VistaTheme.css"/>
 </buildCSSFiles>
 </actionScriptProperties>

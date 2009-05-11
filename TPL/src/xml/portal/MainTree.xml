@@ -1,5 +1,5 @@
 <node nodename="MainTree">
-		<node nodename="Volkswagen" nodecode="Volkswagen" icon="" module="module/SystemModule.swf" />
+		<node nodename="Volkswagen" nodecode="Volkswagen" icon="img/system/vicon.jpg" module="module/SystemModule.swf" />
 		<node nodename="系统监控" nodecode="SysMonitor" icon="" module="module/SystemModule.swf" />
 		<node nodename="Portal管理"  nodecode="Portal" icon="" module="module/SystemModule.swf" />
 </node>

@@ -1,160 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" 
 	xmlns:comps="module.*"
-	layout="vertical" width="100%" height="100%" verticalGap="8">
-		<mx:Label width="100%"  fontWeight="bold" text="Information of Quotation/Contract Data."/>
-		<mx:HBox horizontalAlign="left" textAlign="left">
-			<mx:Label text="Freight Type"  textAlign="left"/>
-			<mx:RadioButton groupName="freightRadio" id="word1" label="Land"  selected="true"/>
-			<mx:RadioButton groupName="freightRadio" id="word2" label="Sea" />
-			<mx:RadioButton groupName="freightRadio" id="word3" label="Air" />
-			<mx:RadioButton groupName="freightRadio" id="word4" label="Railway" />
-		</mx:HBox>
-		<mx:TabNavigator id="tn" width="100%"  height="90%">
-			<!-- Define each panel using a VBox container. -->
-			<mx:VBox label="Common Module">
-				<mx:Form id="CommonModule" width="100%"  paddingTop="0">
-					<mx:FormItem label="Data Type">
-						<mx:TextInput id="dataType" width="200"/>
+	layout="vertical" width="100%" height="100%">
+			<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			// 先定义 1 个 FileReference
+			private var file:FileReference=new FileReference();
+
+			// 上传状态指示, 和下面的文本框绑定
+			[Bindable]
+			private var stateText:String="";
+			[Bindable]
+			public var dataTypes:ArrayCollection=new ArrayCollection([{label:"Quatation", data:1}, {label:"Contract", data:2}]);
+			[Bindable]
+			public var boatTypes:ArrayCollection=new ArrayCollection([{label:"Container Ship", data:1}, {label:"RoRo Ship", data:2}]);
+			[Bindable]
+			public var containerTypes:ArrayCollection=new ArrayCollection([{label:"20'DC", data:1}, {label:"40'DC", data:2}, {label:"40'HC", data:3}]);
+			[Bindable]
+			public var prices:ArrayCollection=new ArrayCollection([{col1:"1", col2:"A01", col3:"L", col4:"SHANGHAI", col5:"BEIJING", col6:"L", col7:"1800", col8:"1", col9:"LFT", col10:"1", col11:"1", col12:"1", col13:"1"},{col1:"2", col2:"A02", col3:"L", col4:"SHANGHAI", col5:"HERBIN", col6:"L", col7:"2600", col8:"2", col9:"LFT", col10:"2", col11:"2", col12:"2", col13:"2"},{col1:"3", col2:"A03", col3:"L", col4:"SHANGHAI", col5:"LANZHOU", col6:"L", col7:"4800", col8:"3", col9:"LFT", col10:"3", col11:"3", col12:"3", col13:"3"}]);
+
+			private function displayAnswer(txt:String):void
+			{
+				if (txt == "Land")
+				{
+					seaField.visible=false;
+					railwayField.visible=false;
+				}
+				else if (txt == "Sea")
+				{
+					seaField.visible=true;
+					railwayField.visible=false;
+				}
+				else if (txt == "Air")
+				{
+					railwayField.visible=true;
+					seaField.visible=false;
+				}
+				else if (txt == "Railway")
+				{
+					railwayField.visible=true;
+					seaField.visible=false;
+				}
+
+			}
+
+
+			// createChildren 比 creationComplete 事件更早发生, 省的注册事件侦听, 直接在这里写了
+			protected override function createChildren():void
+			{
+				super.createChildren();
+				file.addEventListener(Event.SELECT, file_select);
+				file.addEventListener(Event.COMPLETE, file_complete);
+				file.addEventListener(ProgressEvent.PROGRESS, file_progress);
+			}
+
+			// 选择 1 个文件的事件
+			private function file_select(e:Event):void
+			{
+				stateText=file.name;
+			}
+
+			// 上传完毕后的事件
+			private function file_complete(e:Event):void
+			{
+				stateText="Upload end";
+			}
+
+			private function file_progress(e:ProgressEvent):void
+			{
+				stateText="Upload process " + Math.round(100 * e.bytesLoaded / e.bytesTotal) + "%";
+			}
+
+			// 先判断一下文件大小, 再上传, FileService.aspx 就是上传地址
+			private function upload():void
+			{
+				if (file.size > 0)
+				{
+					stateText="Uploading... " + file.name;
+					var request:URLRequest=new URLRequest("#");
+					file.upload(request);
+				}
+			}
+		]]>
+	</mx:Script>
+	<mx:VBox label="Information of Quotation/Contract Data" width="100%" height="100%">
+		<mx:Label width="100%" fontWeight="bold" text="Information of Quotation/Contract Data."/>
+		<mx:Form id="CommonModule" width="100%" paddingTop="0" height="40%">
+			<mx:HDividedBox width="100%" height="100%" horizontalAlign="center">
+				<mx:VBox label="Canvas 1" width="40%" height="100%">
+					<mx:FormItem label="Forwarder" horizontalAlign="right">
+						<mx:TextInput id="Forwarder" width="200"/>
 					</mx:FormItem>
-					<mx:FormItem label="Quotation Time">
-						<mx:TextInput id="quotationTime" width="200"/>
+					<mx:FormItem label="Data Type" horizontalAlign="right" required="true">
+						<mx:ComboBox id="dataType" dataProvider="{dataTypes}"/>
 					</mx:FormItem>
-					<mx:FormItem label="Period of validation">
-						<mx:TextInput id="periodValidation" width="200"/>
+					<mx:FormItem label="Freight Type" horizontalAlign="right" >
+							<mx:HBox textAlign="right" paddingLeft="0" paddingRight="0">
+								<mx:RadioButton groupName="survey" id="word1" label="Land" click="displayAnswer(word1.label);" selected="true"/>
+								<mx:RadioButton groupName="survey" id="word2" label="Sea" click="displayAnswer(word2.label);"/>
+								<mx:RadioButton groupName="survey" id="word3" label="Air" click="displayAnswer(word3.label);"/>
+								<mx:RadioButton groupName="survey" id="word4" label="Railway" click="displayAnswer(word4.label);"/>
+							</mx:HBox>
 					</mx:FormItem>
-					<mx:FormItem label="Source">
-						<mx:TextInput id="source" width="200"/>
-					</mx:FormItem>
-					<mx:FormItem label="Destination">
-						<mx:TextInput id="destination" width="200"/>
-					</mx:FormItem>
-					<mx:FormItem label="Transportation Time">
-						<mx:TextInput id="transportationTime" width="200"/>
-					</mx:FormItem>
-					<mx:FormItem label="Distance">
-						<mx:TextInput id="distance" width="200"/>
-					</mx:FormItem>
-					<mx:FormItem label="Insurance Rate">
-						<mx:TextInput id="insuranceRate" width="200"/>
-					</mx:FormItem>
-					<mx:FormItem label="Ship Type">
-						<mx:TextInput id="shipType" width="200"/>
-					</mx:FormItem>
-					<mx:FormItem label="Container Type">
-						<mx:TextInput id="containerType" width="200"/>
-					</mx:FormItem>
-					<mx:FormItem label="Goods Type">
+						<mx:FormItem label="Quotation Time" width="50%" horizontalAlign="right">
+							<mx:DateField id="quotationTime" yearNavigationEnabled="true"/>
+						</mx:FormItem>
+						<mx:FormItem label="Period of validation" width="50%"  horizontalAlign="right">
+							<mx:DateField id="periodValidation" yearNavigationEnabled="true"/>
+						</mx:FormItem>
+					<mx:HBox id="seaField" visible="false" includeInLayout="false" horizontalAlign="right" >
+						<mx:FormItem label="Boat Type" width="50%">
+							<mx:ComboBox id="boatType" dataProvider="{boatTypes}"/>
+						</mx:FormItem>
+						<mx:FormItem label="Container Type" width="50%">
+							<mx:ComboBox id="containerType" dataProvider="{containerTypes}"/>
+						</mx:FormItem>
+					</mx:HBox>
+					<mx:FormItem id="railwayField" visible="false" includeInLayout="false" label="Goods Type">
 						<mx:TextInput id="goodsType" width="200"/>
 					</mx:FormItem>
-				</mx:Form>
-			</mx:VBox>
-			<mx:VBox label="Path Module">
-				<mx:Form id="PathModule" width="100%"  paddingTop="0">
-					<mx:FormItem label="Row Number">
-						<mx:TextInput id="rowNumber" width="200"/>
+				</mx:VBox>
+				<mx:VBox label="Canvas 2" width="60%" height="100%" horizontalAlign="left">
+					<mx:FormItem label="  Product Information"  horizontalAlign="right">
+						<mx:TextInput id="productTnformation"/>
 					</mx:FormItem>
-					<mx:FormItem label="Path">
-						<mx:TextInput id="path" width="200"/>
+					<mx:FormItem label="　　　 Cost of Labor"  horizontalAlign="right">
+						<mx:TextInput id="transportationCostLabor"/>
 					</mx:FormItem>
-					<mx:FormItem label="Category">
-						<mx:TextInput id="category" width="200"/>
+					<mx:FormItem label="Quotation Document"  horizontalAlign="right">
+						<mx:HBox  paddingRight="0" paddingLeft="0" horizontalAlign="right">
+							<mx:TextInput id="quotationDocument" text="{stateText}"  editable="false"/>
+							<mx:Button label="browse" click="file.browse();"/>
+							<mx:Button label="upload" click="upload();"/>
+						</mx:HBox>
 					</mx:FormItem>
-					<mx:FormItem label="Start Site">
-						<mx:TextInput id="startSite" width="200"/>
+					<mx:FormItem label="  Contract Document" horizontalAlign="right">
+						<mx:HBox paddingRight="0" paddingLeft="0" horizontalAlign="right">
+							<mx:TextInput id="contractDocument" text="{stateText}"  editable="false"/>
+							<mx:Button label="browse" click="file.browse();"/>
+							<mx:Button label="upload" click="upload();"/>
+						</mx:HBox>
 					</mx:FormItem>
-					<mx:FormItem label="End Site">
-						<mx:TextInput id="endSite" width="200"/>
-					</mx:FormItem>
-					<mx:FormItem label="Transport Mode">
-						<mx:TextInput id="transportMode" width="200"/>
-					</mx:FormItem>
-					<mx:FormItem label="Distance">
-						<mx:TextInput id="distance_2" width="200"/>
-					</mx:FormItem>
-					<mx:FormItem label="Transportation Time">
-						<mx:TextInput id="transTime" width="200"/>
-					</mx:FormItem>
-				</mx:Form>
-			</mx:VBox>
-			<mx:VBox label="Price Moudle">
-				<mx:Form id="PriceMoudle" width="100%"  paddingTop="0">
-					<mx:FormItem label="Freight type">
-						<mx:TextInput id="freightType" width="200"/>
-					</mx:FormItem>
-					<mx:FormItem label="Deliver Type">
-						<mx:TextInput id="deliverType" width="200"/>
-					</mx:FormItem>
-					<mx:FormItem label="Currency">
-						<mx:TextInput id="currency" width="200"/>
-					</mx:FormItem>
-					<mx:FormItem label="Eexchange Rate">
-						<mx:TextInput id="exchangeRate" width="200"/>
-					</mx:FormItem>
-					<mx:FormItem label="Transport Charges">
-						<mx:TextInput id="transportCharges" width="200"/>
-					</mx:FormItem>
-					<mx:FormItem label="Harbor Charges">
-						<mx:TextInput id="harborCharges" width="200"/>
-					</mx:FormItem>
-				</mx:Form>
-			</mx:VBox>
-			<mx:VBox label="Remark Module">
-				<mx:Form id="RemarkModule" width="100%"  paddingTop="0">
-					<mx:FormItem label="Product Information">
-						<mx:TextArea id="productTnformation" width="300"/>
-					</mx:FormItem>
-					<mx:FormItem label="Transportation cost of Labor">
-						<mx:TextArea id="transportationCostLabor" width="300"/>
-					</mx:FormItem>
-					<mx:FormItem label="Others">
-						<mx:TextArea id="others" width="300"/>
-					</mx:FormItem>
-				</mx:Form>
-			</mx:VBox>
-			<mx:VBox label="InitialFile Moudle">
-				<mx:Form id="InitialFileMoudle" width="100%"  paddingTop="0">
-					<mx:FormItem label="Quotation Document">
-						<mx:TextArea id="quotationDocument" width="300"/>
-					</mx:FormItem>
-					<mx:FormItem label="Contract Document">
-						<mx:TextArea id="contractDocument" width="300"/>
-					</mx:FormItem>
-				</mx:Form>
-			</mx:VBox>
-			<mx:VBox label="Authorization Moudle">
-				<mx:Form id="AuthorizationMoudle" width="100%"  paddingTop="0">
-					<mx:FormItem>
+				</mx:VBox>
+			</mx:HDividedBox>
+			</mx:Form>
+			<mx:HBox horizontalAlign="left">
+					<mx:HBox horizontalAlign="left" textAlign="left" verticalAlign="middle">
+						<mx:Label text="Share "/>
 						<mx:CheckBox id="VGC" label="VGC"/>
-					</mx:FormItem>
-					<mx:FormItem>
 						<mx:CheckBox id="VCIC" label="VCIC"/>
-					</mx:FormItem>
-					<mx:FormItem>
 						<mx:CheckBox id="VWTS" label="VWTS"/>
-					</mx:FormItem>
-					<mx:FormItem>
 						<mx:CheckBox id="VWPT" label="VWPT"/>
-					</mx:FormItem>
-					<mx:FormItem>
 						<mx:CheckBox id="VWED" label="VWED"/>
-					</mx:FormItem>
-					<mx:FormItem>
 						<mx:CheckBox id="VWPF" label="VWPF"/>
-					</mx:FormItem>
-					<mx:FormItem>
 						<mx:CheckBox id="VWATD" label="VWATD"/>
-					</mx:FormItem>
-					<mx:FormItem>
 						<mx:CheckBox id="SVW" label="SVW"/>
-					</mx:FormItem>
-					<mx:FormItem>
 						<mx:CheckBox id="FAWVW" label="FAW-VW"/>
-					</mx:FormItem>
-				</mx:Form>
-			</mx:VBox>
-		</mx:TabNavigator>
-		<mx:HBox width="100%" verticalAlign="middle" horizontalAlign="center">
-				<mx:Button label="Submit" click="tn.selectedIndex=0"/>
-		</mx:HBox>
+					</mx:HBox>
+			</mx:HBox>
+			<mx:HBox horizontalAlign="left" width="100%" height="80%">
+					<mx:DataGrid width="100%" dataProvider="{prices}" editable="true" horizontalScrollPolicy="on" height="100%">
+						<mx:columns>
+							<mx:DataGridColumn headerText="RowNumber" dataField="col1"/>
+							<mx:DataGridColumn headerText="Path" dataField="col2"/>
+							<mx:DataGridColumn headerText="Category" dataField="col3"/>
+							<mx:DataGridColumn headerText="Start Site" dataField="col4"/>
+							<mx:DataGridColumn headerText="End Site" dataField="col5"/>
+							<mx:DataGridColumn headerText="Transport Mode" dataField="col6"/>
+							<mx:DataGridColumn headerText="Distance" dataField="col7"/>
+							<mx:DataGridColumn headerText="Transportation Time" dataField="col8"/>
+							<mx:DataGridColumn headerText="Deliver Type" dataField="col9"/>
+							<mx:DataGridColumn headerText="Currency" dataField="col10"/>
+							<mx:DataGridColumn headerText="Exchange rate" dataField="col11"/>
+							<mx:DataGridColumn headerText="Transport Charges" dataField="col12"/>
+							<mx:DataGridColumn headerText="Harbor Charges" dataField="col13"/>
+						</mx:columns>
+					</mx:DataGrid>
+			</mx:HBox>
+			<mx:HBox horizontalAlign="center" width="100%" verticalAlign="middle">
+				<mx:Button label="Submit" textAlign="center"/>
+			</mx:HBox>
+	</mx:VBox>
 </mx:Module>

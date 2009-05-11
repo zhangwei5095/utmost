@@ -2,9 +2,43 @@
 <mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%" xmlns:controls="com.adobe.flex.extras.controls.*" xmlns:component="component.*" xmlns:code="http://code.google.com/p/flexlib/">
 	<mx:Script>
 		<![CDATA[
+			import mx.controls.Alert;
+			import mx.rpc.events.ResultEvent;
+			import org.utmost.service.AutoService;
 			import org.utmost.component.macpopup.controls.CocoaAlert;
 			[Bindable]
-			public var myDP:Array=[{name:"beijin"},{name:"hebei"},{name:"shangdi"},{name:"shanghai"}];
+			public var myDP:Array=[{name:"beijing"},{name:"changchun"},{name:"dongjing"},{name:"shanghai"},{name:"newyork"}];
+			
+			
+			private function initData():void {
+				trace("ddd");
+				AutoService.getInstance().saveAll("QUOTATION",quotation,function(e:ResultEvent):void {
+					Alert.show("OK");
+				},null);
+			}  
+			
+			private function search(): void {
+				var hql:String="from QUOTATION where 1=1 ";
+				if(fromAC.text!="") {
+					hql+=" and startside='"+fromAC.text+"' ";
+				}
+				if(toAC.text!="") {
+					hql+=" and endside='"+toAC.text+"' ";
+				}
+				if(forwarder.text!="") {
+					hql+=" and forwarder like '%"+forwarder.text+"%' ";
+				}
+				
+				trace("hql:"+hql);
+				AutoService.getInstance().findByHql(hql,function(e:ResultEvent):void{
+					if(e.result!=null) {
+						var aac:ArrayCollection=e.result as ArrayCollection;
+						trace("aac:"+aac);
+						adg.dataProvider=aac;
+						//adg.dataProvide=aac;
+					}
+				},null);
+			}
 		]]>
 	</mx:Script>
 	<mx:Script source="Data.as" />
@@ -47,7 +81,7 @@
 				<mx:Label text="to"/>
 				<controls:AutoComplete id="toAC" styleName="AutoComplete" dataProvider="{myDP}" labelField="name"/>
 				<mx:Spacer width="100%"/>
-				<mx:Button label="Search"/>
+				<mx:Button label="Search" click="search()"/>
 			</mx:HBox>
 		</mx:VBox>
 		<mx:VBox width="100%" height="100%" label="Forwarder Search">
@@ -67,27 +101,30 @@
 			<mx:ComboBox id="inputgroup" prompt="Input Group" dataProvider="{ds_inputgroup}"></mx:ComboBox>
 		</mx:HBox>
 		<mx:VBox width="100%" height="100%" verticalGap="6"  horizontalScrollPolicy="off">
-			<mx:AdvancedDataGrid id="adg" dataProvider="{quotation}" horizontalScrollPolicy="on" designViewDataType="flat" width="100%" height="100%">
+			<mx:AdvancedDataGrid id="adg"  horizontalScrollPolicy="on" designViewDataType="flat" width="100%" height="100%">
 				<mx:columns>
-					<mx:AdvancedDataGridColumn headerText="No" dataField="No"/>
-					<mx:AdvancedDataGridColumn headerText="Transport" dataField="Transport"/>
-					<mx:AdvancedDataGridColumn headerText="Forwarder" dataField="Forwarder"/>
-					<mx:AdvancedDataGridColumn headerText="HarborCharges" dataField="HarborCharges"/>
-					<mx:AdvancedDataGridColumn headerText="TransportCharges" dataField="TransportCharges"/>
-					<mx:AdvancedDataGridColumn headerText="StartSide" dataField="StartSide"/>
-					<mx:AdvancedDataGridColumn headerText="EndSide" dataField="EndSide"/>
-					<mx:AdvancedDataGridColumn headerText="Distance" dataField="Distance"/>
-					<mx:AdvancedDataGridColumn headerText="Group" dataField="Group"/>
-					<mx:AdvancedDataGridColumn headerText="QuotationTime" dataField="QuotationTime"/>
-					<mx:AdvancedDataGridColumn headerText="PeriodOfValidation" dataField="PeriodOfValidation"/>
-					<mx:AdvancedDataGridColumn headerText="DeliverType" dataField="DeliverType"/>
+					<mx:AdvancedDataGridColumn headerText="No" dataField="no"/>
+					<mx:AdvancedDataGridColumn headerText="Transport" dataField="transport"/>
+					<mx:AdvancedDataGridColumn headerText="Forwarder" dataField="forwarder"/>
+					<mx:AdvancedDataGridColumn headerText="DataType" dataField="datatype"/>
+					<mx:AdvancedDataGridColumn headerText="HarborCharges" dataField="harborcharges"/>
+					<mx:AdvancedDataGridColumn headerText="TransportCharges" dataField="transportcharges"/>
+					<mx:AdvancedDataGridColumn headerText="StartSide" dataField="startside"/>
+					<mx:AdvancedDataGridColumn headerText="EndSide" dataField="endside"/>
+					<mx:AdvancedDataGridColumn headerText="Distance" dataField="distance"/>
+					<mx:AdvancedDataGridColumn headerText="Group" dataField="vgroup"/>
 					
+					
+					<mx:AdvancedDataGridColumn headerText="QuotationTime" dataField="quotationtime"/>
+					<mx:AdvancedDataGridColumn headerText="PeriodOfValidation" dataField="periodofvalidation"/>
+					<mx:AdvancedDataGridColumn headerText="DeliverType" dataField="delivertype"/>
 				</mx:columns>
 			</mx:AdvancedDataGrid>
 			<component:DGPagination verticalGap="0" id="dgp" horizontalGap="6" verticalAlign="top" pageSize="30"/>
 			<mx:HBox width="100%" horizontalAlign="center" verticalAlign="middle" horizontalGap="100">
 				<mx:Button label="Export" />
 				<mx:Button label="Print"/>
+				<!--mx:Button label="InitData"  click="initData()"/-->
 			</mx:HBox>
 		</mx:VBox>
 	</mx:VBox>

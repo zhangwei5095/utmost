@@ -21,10 +21,21 @@
 		-->
 		<mx:Label text="Forwarder"/>
 		<mx:TextInput width="100"/>
-		<mx:Button label="ViewPriceTrend"/>
+		<mx:Button label="ViewPriceTrend" click="ccT()"/>
 	</mx:HBox>
 	<mx:HBox width="100%" height="100%">
 		<mx:LineChart id="myChart" dataProvider="{expenses}" showDataTips="true" width="100%" height="100%">
+			<mx:horizontalAxis>
+				<mx:CategoryAxis dataProvider="{expenses}" categoryField="Date"/>
+			</mx:horizontalAxis>
+			<mx:series>
+				<mx:LineSeries yField="Price" displayName="Price"/>
+				<mx:LineSeries yField="Price2" displayName="Price"/>
+				<mx:LineSeries yField="Price3" displayName="Price"/>
+				<!--<mx:LineSeries yField="Forwarder" displayName="Forwarder"/>-->
+			</mx:series>
+		</mx:LineChart>
+		<mx:LineChart id="myChart1" dataProvider="{expenses}" showDataTips="true" width="100%" height="100%" includeInLayout="false" visible="false">
 			<mx:horizontalAxis>
 				<mx:CategoryAxis dataProvider="{expenses}" categoryField="Date"/>
 			</mx:horizontalAxis>
@@ -37,9 +48,19 @@
 	</mx:HBox>
 	<mx:Script>
 		<![CDATA[
+			import org.utmost.util.ComponentUtil;
 			import mx.collections.ArrayCollection;
 			[Bindable]
-			public var expenses:ArrayCollection=new ArrayCollection([{Date:"1/1/2007", Forwarder:"CTG", Expenses:1500, Price:350},{Date:"6/1/2007", Forwarder:"CTG", Expenses:1500, Price:300},{Date:"1/1/2008", Forwarder:"CTG", Expenses:1500, Price:450}, {Date:"6/1/2008", Forwarder:"CTG", Expenses:200, Price:600}, {Date:"1/1/2009", Forwarder:"CTG", Expenses:500, Price:330}]);
+			public var expenses:ArrayCollection=new ArrayCollection([{Date:"1/1/2007", Forwarder:"CTG",Price:350,Price2:200,Price3:400},{Date:"6/1/2007", Forwarder:"CTG", Price:300,Price2:230,Price3:360},{Date:"1/1/2008", Forwarder:"CTG", Price:450,Price2:270,Price3:390}, {Date:"6/1/2008", Forwarder:"CTG", Price:600,Price2:330,Price3:420}, {Date:"1/1/2009", Forwarder:"CTG", Price:330,Price2:230,Price3:380}]);
+			private function ccT():void {
+				if(myChart.visible==true) {
+				ComponentUtil.setVisible(myChart,false);
+				ComponentUtil.setVisible(myChart1,true);
+				}else {
+					ComponentUtil.setVisible(myChart,true);
+				ComponentUtil.setVisible(myChart1,false);
+				}
+			}
 		]]>
 	</mx:Script>
 </mx:Module>

@@ -2,7 +2,7 @@
 	<node nodename="Volkswagen">
 		<node nodename="QCInput" module="module/system/volkswagen/QCInputModule.swf" />
 		<node nodename="QCQuery" module="module/system/volkswagen/QCQueryModule.swf" />
-		<node nodename="QCAlert" module="module/system/volkswagen/QCAlert.swf" />
+		<node nodename="QCAlarm" module="module/system/volkswagen/QCAlert.swf" />
 		<node nodename="PriceTrend" module="module/system/volkswagen/PriceTrendModule.swf" />
 		<node nodename="QCMainten" module="module/system/volkswagen/RiskInfoModule.swf" />
 		<node nodename="ForwarderMainten" module="module/system/volkswagen/RiskInfoModule.swf" />

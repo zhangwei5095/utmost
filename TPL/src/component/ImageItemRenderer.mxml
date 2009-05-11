@@ -30,7 +30,7 @@
 				}
 			]]>
 		</mx:Script>
-		<mx:Image source="{data.@icon}"/>
+		<mx:Image source="{data.@icon}" maintainAspectRatio="true" width="60" height="60" alpha="1.0" scaleContent="true"/>
 		<mx:Label id="itxt" text="{data.@nodename}" fontSize="18" fontWeight="bold" textAlign="center" fontFamily="Georgia" color="#060201" enabled="true"/>
 	</mx:VBox>
 	
