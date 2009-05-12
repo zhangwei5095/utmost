@@ -33,6 +33,7 @@
 				ComponentUtil.ocAllTree(systree.getTree());
 				//systree.clickTree=treeItemClick;//特殊
 				//根据$modulecode组装树systree
+				setQuickKey();
 			}
 
 			//produce programme 
@@ -77,11 +78,33 @@
 					Application.application.theme(data);
 				}
 			}
+			
+			private function setQuickKey():void {
+				this.setFocus();
+				//设置快捷键
+				this.addEventListener(KeyboardEvent.KEY_DOWN,function(e:KeyboardEvent):void {
+					trace(e.ctrlKey+"--"+e.altKey+"--"+e.keyCode);	
+					if(e.shiftKey&&e.keyCode==192) {
+						//布局切换
+						setLayout();
+					}
+				});
+			}
+			
+			private function setLayout():void {
+				if(menubar.visible==true) {
+					ComponentUtil.setVisible(menubar,false);
+					ComponentUtil.setVisible(systree,false);
+				}else {
+					ComponentUtil.setVisible(systree,true);
+					ComponentUtil.setVisible(menubar,true);
+				}
+			}
 		]]>
 	</mx:Script>
 	<!--mx:XML id="SystemTree" source="xml/portal/SystemTree.xml"/-->
 	<mx:VBox width="100%" height="100%" horizontalAlign="center" verticalAlign="middle" verticalGap="12">
-		<component:SystemMenuBar height="35"/>
+		<component:SystemMenuBar id="menubar" height="35"/>
 		<mx:HDividedBox id="hdbox" width="100%" height="100%">
 			<!--mx:Panel width="220" height="100%" layout="horizontal">
 				<mx:Tree id="systree" width="100%" height="100%" dataProvider="{$treeXML}" showRoot="true" labelField="@nodename" borderStyle="none" click="treeItemClick(systree)" doubleClickEnabled="true" doubleClick="ComponentUtil.ocSelectTree(event)">

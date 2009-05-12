@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="120"  verticalGap="5">
+<mx:Script>
+	<![CDATA[
+		[Bindable]
+		private var _title:String;
+		public function set title(title:String):void {
+			_title=title;
+		}
+	]]>
+</mx:Script>
+	<mx:HBox width="100%" height="100%" verticalAlign="bottom" horizontalAlign="center">
+		<mx:VBox verticalAlign="bottom" horizontalAlign="left">
+		<mx:Label text="{_title}"/>
+		<mx:Form width="30%" paddingBottom="0" paddingLeft="0" paddingRight="0" paddingTop="0">
+			<mx:FormItem label="Description" paddingBottom="0" paddingLeft="0">
+				<mx:Label text="Transport charge"/>
+			</mx:FormItem>
+			<mx:FormItem label="Price">
+				<mx:TextInput/>
+			</mx:FormItem>
+			<mx:FormItem label="Unit">
+				<mx:ComboBox></mx:ComboBox>
+			</mx:FormItem>
+		</mx:Form>
+		</mx:VBox>
+		<mx:VBox width="100%" height="100%">
+			<mx:HBox width="100%" horizontalAlign="left" verticalAlign="middle">
+				<mx:Label text="from"/>
+				<mx:TextInput width="100"/>
+				<mx:Label text="to"/>
+				<mx:TextInput width="100"/>
+				<mx:Label text="Transit time (hours)"/>
+				<mx:TextInput width="100"/>
+				<mx:Label text="Distance"/>
+				<mx:TextInput width="100"/>
+				<mx:Label text="Currency in"/>
+				<mx:ComboBox width="100"></mx:ComboBox>
+			</mx:HBox>
+			<mx:AdvancedDataGrid id="adgLand" designViewDataType="flat" height="100%" width="100%" sortExpertMode="false">
+				<mx:columns>
+					<mx:AdvancedDataGridColumn headerText="DOC" dataField="col1"/>
+					<mx:AdvancedDataGridColumn headerText="THC" dataField="col2"/>
+					<mx:AdvancedDataGridColumn headerText="Customs" dataField="col3"/>
+					<mx:AdvancedDataGridColumn headerText="Customs inspection" dataField="col3"/>
+					<mx:AdvancedDataGridColumn headerText="ORC" dataField="col3"/>
+				</mx:columns>
+			</mx:AdvancedDataGrid>
+		</mx:VBox>
+	</mx:HBox>
+</mx:VBox>

@@ -2,6 +2,7 @@
 <mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%" xmlns:controls="com.adobe.flex.extras.controls.*" xmlns:component="component.*" xmlns:code="http://code.google.com/p/flexlib/">
 	<mx:Script>
 		<![CDATA[
+			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
 			import mx.rpc.events.ResultEvent;
 			import org.utmost.service.AutoService;
@@ -34,11 +35,14 @@
 					if(e.result!=null) {
 						var aac:ArrayCollection=e.result as ArrayCollection;
 						trace("aac:"+aac);
-						adg.dataProvider=aac;
-						//adg.dataProvide=aac;
+						//adg.dataProvider=aac;
+						dpHierarchy=aac;
+						gc.refresh();
 					}
 				},null);
 			}
+			[Bindable]
+			private var dpHierarchy:ArrayCollection;
 		]]>
 	</mx:Script>
 	<mx:Script source="Data.as" />
@@ -101,7 +105,15 @@
 			<mx:ComboBox id="inputgroup" prompt="Input Group" dataProvider="{ds_inputgroup}"></mx:ComboBox>
 		</mx:HBox>
 		<mx:VBox width="100%" height="100%" verticalGap="6"  horizontalScrollPolicy="off">
-			<mx:AdvancedDataGrid id="adg"  horizontalScrollPolicy="on" designViewDataType="flat" width="100%" height="100%">
+			<mx:AdvancedDataGrid id="adg"  horizontalScrollPolicy="on" width="100%" height="100%" displayItemsExpanded="true">
+			<mx:dataProvider>
+		       <!--mx:HierarchicalData source="{dpHierarchy}"/-->
+		       <mx:GroupingCollection  id="gc" source="{dpHierarchy}">
+                        <mx:Grouping>
+                            <mx:GroupingField name="forwarder"/>
+                        </mx:Grouping>
+                </mx:GroupingCollection>
+		    </mx:dataProvider>
 				<mx:columns>
 					<mx:AdvancedDataGridColumn headerText="No" dataField="no"/>
 					<mx:AdvancedDataGridColumn headerText="Transport" dataField="transport"/>
@@ -113,8 +125,6 @@
 					<mx:AdvancedDataGridColumn headerText="EndSide" dataField="endside"/>
 					<mx:AdvancedDataGridColumn headerText="Distance" dataField="distance"/>
 					<mx:AdvancedDataGridColumn headerText="Group" dataField="vgroup"/>
-					
-					
 					<mx:AdvancedDataGridColumn headerText="QuotationTime" dataField="quotationtime"/>
 					<mx:AdvancedDataGridColumn headerText="PeriodOfValidation" dataField="periodofvalidation"/>
 					<mx:AdvancedDataGridColumn headerText="DeliverType" dataField="delivertype"/>

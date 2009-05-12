@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:com="*"
 	layout="vertical" width="100%" minWidth="400" height="100%" minHeight="200"
-	title="文件上传" creationComplete="initCom()" showCloseButton="false" close="closeWindow()" paddingBottom="50" paddingLeft="20" paddingRight="20" paddingTop="40">
+	title="文件上传" creationComplete="initCom()" showCloseButton="false" close="closeWindow()" paddingBottom="0" paddingLeft="0" paddingRight="0" paddingTop="0">
 	
 	<mx:Metadata>
 		[Event(name="uploadComplete", type="flash.events.Event")]

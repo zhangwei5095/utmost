@@ -1,6 +1,7 @@
 <node nodename="VolkswagenTree">
 	<node nodename="Volkswagen">
 		<node nodename="QCInput" showInList="true" module="module/system/volkswagen/QCInputModule.swf" />
+		<node nodename="QCFreightInput" showInList="true" module="module/system/volkswagen/QCFreightInputModule.swf" />
 		<node nodename="QCQuery" showInList="true" module="module/system/volkswagen/QCQueryModule.swf" />
 		<node nodename="QCAlarm" showInList="true" module="module/system/volkswagen/QCAlert.swf" />
 		<node nodename="PriceTrend" showInList="true" module="module/system/volkswagen/PriceTrendModule.swf" />
