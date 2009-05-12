@@ -47,6 +47,7 @@ public class AutoService extends CommService {
 				logger.info("could not resolve property: " + key + " of "
 						+ entityName);
 			}
+			key=key.toLowerCase();
 			System.out.println(key + "->" + value + "-->" + type);
 			if (type.equals("long")) {
 				newentity.put(key, Long.parseLong(value));

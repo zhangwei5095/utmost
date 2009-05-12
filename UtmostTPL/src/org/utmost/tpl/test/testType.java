@@ -6,5 +6,6 @@ public class testType {
 	public static void main(String[] args) {
 		Object t = (String) null;
 		System.out.println("t:" + t);
+		
 	}
 }
