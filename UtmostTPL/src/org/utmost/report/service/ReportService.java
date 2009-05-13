@@ -306,6 +306,46 @@ public class ReportService {
 		return uuid + ".html";
 	}
 
+	/**
+	 * 入口方式
+	 * 
+	 * @param reportcode
+	 * @param hql
+	 * @param filename
+	 * @throws ColumnBuilderException
+	 * @throws ClassNotFoundException
+	 * @throws JRException
+	 */
+	public String buildFileByHql(String reportcode, String hql, String type)
+			throws ColumnBuilderException, ClassNotFoundException, JRException {
+		List reportData = this.buildReportDataByHql(hql);
+		HashMap reportInfo = this.buildReportInfo(reportcode);
+		JasperPrint jp = this.buildJasperPrint(reportInfo, reportData);
+
+		String path = PathUtil.getWebPath();
+		path += "REPORT/";
+		String uuid = java.util.UUID.randomUUID().toString();
+		String filename = path + uuid;
+		System.out.println("export-->filename:" + filename);
+		if (type.equals("html")) {
+			this.exportReportToHtmlFile(jp, filename + ".html");
+			System.out.println("exportReportToHtmlFile-->end");
+		}
+		if (type.equals("xls")) {
+			this.exportReportToXlsFile(jp, filename + ".xls");
+			System.out.println("exportReportToXlsFile-->end");
+		}
+		if (type.equals("rtf")) {
+			this.exportReportToRtfFile(jp, filename + ".rtf");
+			System.out.println("exportReportToRtfFile-->end");
+		}
+		if (type.equals("pdf")) {
+			this.exportReportToPdfFile(jp, filename + ".pdf");
+			System.out.println("exportReportToPdfFile-->end");
+		}
+		return uuid + "." + type;
+	}
+
 	// 测试方法
 	public static void main(String[] args) throws ColumnBuilderException,
 			ClassNotFoundException, JRException {
