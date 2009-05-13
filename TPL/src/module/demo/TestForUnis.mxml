@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%">
+	<mx:HBox width="100%" height="85" horizontalAlign="center" verticalAlign="middle">
+		<mx:CheckBox id="cb1" label="Checkbox1"/>
+		<mx:CheckBox id="cb2" label="Checkbox2"/>
+		<mx:CheckBox id="cb3" label="Checkbox3"/>
+		<mx:Button label="SendToServer" click="HelloUnis()"/>
+		<mx:Button label="QueryTest" click="QueryTest()"/>
+	</mx:HBox>
+	<mx:AdvancedDataGrid id="adg" designViewDataType="flat" width="100%" height="100%">
+		<mx:columns>
+			<mx:AdvancedDataGridColumn headerText="Column 1" dataField="uuid"/>
+			<mx:AdvancedDataGridColumn headerText="Column 2" dataField="no"/>
+			<mx:AdvancedDataGridColumn headerText="Column 3" dataField="baf"/>
+		</mx:columns>
+	</mx:AdvancedDataGrid>
+	<mx:Script>
+		<![CDATA[
+			import mx.rpc.events.FaultEvent;
+			import mx.collections.ArrayCollection;
+			import org.utmost.service.AutoService;
+			import mx.controls.Alert;
+			import mx.rpc.events.ResultEvent;
+			import org.utmost.service.UtmostService;
+			
+			private function HelloUnis():void {
+				var service:UtmostService=new UtmostService("TestForUnis",function(e:ResultEvent):void {
+					Alert.show(e.result.toString());
+				},function(e:FaultEvent):void {
+				
+				});
+				service.ro.helloUnis(cb1.selected.toString());
+			}
+			private function QueryTest():void {
+				var hql:String="from QUOTATION";
+				
+				AutoService.getInstance().findByHql(hql,function(e:ResultEvent):void {
+					trace(e.result.toString());
+					adg.dataProvider=e.result as ArrayCollection;
+				},null);
+			}
+
+		]]>
+	</mx:Script>
+</mx:Module>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" 
-	width="100%" height="100%" xmlns:KapLab="com.kapit.visualizer.*" creationComplete="init()">
+	width="100%" height="100%" xmlns:KapLab="com.kapit.visualizer.*" creationComplete="init()" horizontalGap="0">
 	<mx:Script>
 		<![CDATA[
 			import mx.rpc.events.ResultEvent;
@@ -20,7 +20,7 @@
 					trace(xml.toXMLString());
 					myDataProvider=xml;
 					callLater(function():void {
-						integration.zoomContent(1.4);
+						integration.zoomContent(1.2);
 					});
 				});
 				ut.ro.getTree(main,kv);
@@ -58,14 +58,14 @@
 	</mx:XML>
 	-->
 	<mx:Array id="cb_arr">
-		<mx:Object label="HIERARCHICAL_TREE_LAYOUT" value="{LayoutConstants.HIERARCHICAL_TREE_LAYOUT}" />
-		<mx:Object label="BALLOON_LAYOUT" value="{LayoutConstants.BALLOON_LAYOUT}" />
-		<mx:Object label="CIRCULAR_LAYOUT" value="{LayoutConstants.CIRCULAR_LAYOUT}" />
-		<mx:Object label="STATIC_ORGANIC_LAYOUT" value="{LayoutConstants.STATIC_ORGANIC_LAYOUT}" />
-		<mx:Object label="ORTHOGONAL_LAYOUT" value="{LayoutConstants.ORTHOGONAL_LAYOUT}" />
+		<mx:Object label="HIERARCHICAL" value="{LayoutConstants.HIERARCHICAL_TREE_LAYOUT}" />
+		<mx:Object label="BALLOON" value="{LayoutConstants.BALLOON_LAYOUT}" />
+		<mx:Object label="CIRCULAR" value="{LayoutConstants.CIRCULAR_LAYOUT}" />
+		<mx:Object label="STATIC_ORGANIC" value="{LayoutConstants.STATIC_ORGANIC_LAYOUT}" />
+		<mx:Object label="ORTHOGONAL" value="{LayoutConstants.ORTHOGONAL_LAYOUT}" />
 	</mx:Array>
 	<mx:HBox width="100%" height="100%" horizontalAlign="center" verticalAlign="middle">
-		<KapLab:Visualizer width="80%" height="100%"
+		<KapLab:Visualizer width="90%" height="100%"
 			backgroundColor="0xFFFFFF" 
 			id="integration"
 			dataProvider="{ myDataProvider}" 
@@ -77,8 +77,8 @@
 			defaultNodeWidth="100"
 			expandOnDoubleClick="true"
 		/>
-		<mx:HBox width="20%" height="100%" horizontalAlign="center" verticalAlign="top">
-			<mx:Form width="80%" height="80%">
+		<mx:HBox width="10%" height="100%" horizontalAlign="center" verticalAlign="top">
+			<mx:Form>
 				<mx:FormItem label="样式">
 					<mx:ComboBox id="cb" dataProvider="{cb_arr}" change="integration.layout=cb.selectedItem.value"></mx:ComboBox>
 				</mx:FormItem>

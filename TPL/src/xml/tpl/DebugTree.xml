@@ -6,7 +6,8 @@
 	<node nodename="命名查询测试" module="module/tpl/template/TestNamedQuery.swf" />
 	<node nodename="HQL/SQL查询" module="module/tpl/template/QueryModule.swf" />
 	<node nodename="demo">
-		<node nodename="文件上传" module="module/demo/FileUploadDemoModule.swf" />	
+		<node nodename="文件上传" module="module/demo/FileUploadDemoModule.swf" />
+		<node nodename="TestForUnis" module="module/demo/TestForUnis.swf" />	
 	</node>
 	<node nodename="JBPM3">
 		<node nodename="流程发布" module="module/jbpm3/ProcessModule.swf" />	

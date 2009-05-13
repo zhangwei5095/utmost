@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow title="Quotation Order" xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%" creationComplete="init()" showCloseButton="true" close="PopUpManager.removePopUp(this)">
+	<mx:Script>
+		<![CDATA[
+			import mx.managers.PopUpManager;
+			
+			public function init():void {
+				ml.loadModule("module/system/volkswagen/QCFreightInputModule.swf");
+			}
+		]]>
+	</mx:Script>
+	<mx:ModuleLoader id="ml" width="100%" height="100%">
+	</mx:ModuleLoader>
+	<mx:ControlBar height="40">
+		<mx:HBox width="100%" horizontalAlign="center" verticalAlign="middle">
+			<mx:Button label="Close" click="PopUpManager.removePopUp(this)"/>
+		</mx:HBox>
+	</mx:ControlBar>
+</mx:TitleWindow>
