@@ -73,7 +73,13 @@ public class ReportService {
 		drb.setSubtitle(subtitle + " " + new Date());
 		// 设置样式
 		Style titleStyle = new Style();
-		titleStyle.setFont(new Font(18, Font._FONT_VERDANA, true));
+		titleStyle.setFont(new Font(18, Font._FONT_ARIAL, true));
+		// titleStyle.setFont(new Font(18,
+		// Font.PDF_ENCODING_UniGB_UCS2_H_Chinese_Simplified, true));
+		// titleStyle.setFont(new Font(18,
+		// Font._FONT_ARIAL,
+		// "STSong-Light", "UniGB-UCS2-H",
+		// false));
 		drb.setTitleStyle(titleStyle);
 		drb.setDetailHeight(10).setMargins(30, 20, 30, 15);
 		drb.setColumnsPerPage(1);
@@ -120,6 +126,12 @@ public class ReportService {
 			// 设置列样式
 			Style headerStyle = new Style();
 			headerStyle.setFont(Font.ARIAL_BIG_BOLD);
+			// headerStyle.setFont(new Font(18,
+			// Font.PDF_ENCODING_UniGB_UCS2_H_Chinese_Simplified, true));
+			// titleStyle.setFont(new Font(18,
+			// Font._FONT_ARIAL,
+			// "STSong-Light", "UniGB-UCS2-H",
+			// false));
 			headerStyle.setBorderBottom(Border.PEN_2_POINT);
 			headerStyle.setBorder(Border.THIN);//
 			headerStyle.setHorizontalAlign(HorizontalAlign.CENTER);
@@ -173,6 +185,20 @@ public class ReportService {
 	public String exportReportToHtmlFile(JasperPrint jp, String filename)
 			throws JRException {
 		JasperExportManager.exportReportToHtmlFile(jp, filename);
+		return filename;
+	}
+
+	/**
+	 * 导出PDF文件
+	 * 
+	 * @param jp
+	 * @param filename
+	 * @return
+	 * @throws JRException
+	 */
+	public String exportReportToPdfFile(JasperPrint jp, String filename)
+			throws JRException {
+		JasperExportManager.exportReportToPdfFile(jp, filename);
 		return filename;
 	}
 
@@ -267,10 +293,16 @@ public class ReportService {
 		String path = PathUtil.getWebPath();
 		path += "REPORT/";
 		String uuid = java.util.UUID.randomUUID().toString();
-		String filename = path + uuid + ".html";
-		System.out.println("buildHtmlByHql-->filename:" + filename);
-		this.exportReportToHtmlFile(jp, filename);
-		System.out.println("buildHtmlByHql-->end");
+		String filename = path + uuid;
+		System.out.println("export-->filename:" + filename);
+		this.exportReportToHtmlFile(jp, filename + ".html");
+		System.out.println("exportReportToHtmlFile-->end");
+		this.exportReportToXlsFile(jp, filename + ".xls");
+		System.out.println("exportReportToXlsFile-->end");
+		this.exportReportToRtfFile(jp, filename + ".rtf");
+		System.out.println("exportReportToRtfFile-->end");
+		this.exportReportToPdfFile(jp, filename + ".pdf");
+		System.out.println("exportReportToPdfFile-->end");
 		return uuid + ".html";
 	}
 
