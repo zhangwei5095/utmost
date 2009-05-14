@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:reflector="org.utmost.effect.*"  verticalScrollPolicy="off" horizontalScrollPolicy="off" width="280" height="320" paddingBottom="15" horizontalAlign="center" verticalAlign="middle" paddingLeft="15" paddingRight="15" paddingTop="15">
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:reflector="org.utmost.effect.*"  verticalScrollPolicy="off" horizontalScrollPolicy="off" width="280" height="100%" paddingBottom="15" horizontalAlign="center" verticalAlign="middle" paddingLeft="15" paddingRight="15" paddingTop="15">
 	<mx:Parallel id="expand">
 		<mx:Glow id="glowImage" alphaFrom="1.0" alphaTo="0.0" blurXFrom="0.0" blurXTo="100.0" blurYFrom="0.0" blurYTo="100.0" color="0x3380DD"/>
 		<mx:Sequence>
@@ -31,7 +31,7 @@
 				}
 			]]>
 		</mx:Script>
-		<mx:Image source="{data.@icon}" maintainAspectRatio="true" width="70" height="70" alpha="1.0" scaleContent="true"/>
+		<mx:Image source="{data.@icon}" maintainAspectRatio="true" width="70" height="70" scaleContent="true" alpha="1"/>
 		<mx:Label id="itxt" text="{data.@nodename}" fontSize="18" fontWeight="bold" textAlign="center" fontFamily="Georgia" color="#060201" enabled="true"/>
 	</mx:VBox>
 	

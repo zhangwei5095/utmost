@@ -1,5 +1,5 @@
 <node nodename="MainTree">
-		<node nodename="Volkswagen" nodecode="Volkswagen" icon="img/system/vicon.jpg" module="module/SystemModule.swf" />
-		<node nodename="Monitor" nodecode="SysMonitor" icon="" module="module/SystemModule.swf" />
-		<node nodename="PortalManager"  nodecode="Portal" icon="" module="module/SystemModule.swf" />
+		<node nodename="Volkswagen" nodecode="Volkswagen" icon="img/system/tpl_v.jpg" module="module/SystemModule.swf" />
+		<node nodename="Monitor" nodecode="SysMonitor" icon="img/system/ActivityMonitor.png" module="module/SystemModule.swf" />
+		<node nodename="PortalManager"  nodecode="Portal" icon="img/system/tpl_portal.jpg" module="module/SystemModule.swf" />
 </node>

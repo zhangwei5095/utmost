@@ -140,6 +140,7 @@
 			 private var classic:String=" skins/classic/style.swf";
 			
 	    	 public function theme(name:String):void {
+	    	 	try {
 				if(name=="black") {
 					clearTheme();
 					StyleManager.loadStyleDeclarations(black,true);
@@ -163,6 +164,9 @@
 				if(name=="default") {
 					clearTheme();
 				}
+	    	 	}catch(e:Error) {
+	    	 		trace("Error:"+e.message.toString());
+	    	 	}
 	    	 }
 	    	 public function clearTheme():void {
 	    	 		StyleManager.unloadStyleDeclarations(black,true);

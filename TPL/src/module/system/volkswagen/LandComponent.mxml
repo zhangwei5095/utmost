@@ -9,6 +9,19 @@
 		}
 	]]>
 </mx:Script>
+	<mx:Array id="ds_unit">
+		<mx:Object label="Container" value="java.lang.String" />
+		<mx:Object label="Bill" value="java.lang.String" />
+		<mx:Object label="m3" value="java.lang.Long" />
+		<mx:Object label="kg" value="java.lang.Double" />
+		<mx:Object label="Part" value="java.lang.Double" />
+		<mx:Object label="Car" value="java.lang.Double" />
+	</mx:Array>
+	<mx:Array id="ds_cnd">
+		<mx:Object label="USD" value="java.lang.String" />
+		<mx:Object label="EUR" value="java.lang.Long" />
+		<mx:Object label="RMB" value="java.lang.Double" />
+	</mx:Array>
 	<mx:HBox width="100%" height="100%" verticalAlign="bottom" horizontalAlign="center">
 		<mx:VBox verticalAlign="bottom" horizontalAlign="left">
 		<mx:Label text="{_title}"/>
@@ -17,15 +30,15 @@
 				<mx:Label text="Transport charge"/>
 			</mx:FormItem>
 			<mx:FormItem label="Price">
-				<mx:TextInput/>
+				<mx:TextInput width="100"/>
 			</mx:FormItem>
 			<mx:FormItem label="Unit">
-				<mx:ComboBox></mx:ComboBox>
+				<mx:ComboBox width="100" dataProvider="{ds_unit}"></mx:ComboBox>
 			</mx:FormItem>
 		</mx:Form>
 		</mx:VBox>
-		<mx:VBox width="100%" height="100%">
-			<mx:HBox width="100%" horizontalAlign="left" verticalAlign="middle">
+		<mx:VBox width="100%" height="100%" horizontalGap="3">
+			<mx:HBox width="100%" horizontalAlign="left" verticalAlign="middle" horizontalGap="5">
 				<mx:Label text="from"/>
 				<mx:TextInput width="100"/>
 				<mx:Label text="to"/>
@@ -35,7 +48,7 @@
 				<mx:Label text="Distance"/>
 				<mx:TextInput width="100"/>
 				<mx:Label text="Currency in"/>
-				<mx:ComboBox width="100"></mx:ComboBox>
+				<mx:ComboBox width="100" dataProvider="{ds_cnd}"></mx:ComboBox>
 			</mx:HBox>
 			<mx:AdvancedDataGrid id="adgLand" designViewDataType="flat" height="100%" width="100%" sortExpertMode="false">
 				<mx:columns>

@@ -2,6 +2,8 @@
 <mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%" xmlns:controls="com.adobe.flex.extras.controls.*" xmlns:component="component.*" xmlns:code="http://code.google.com/p/flexlib/">
 	<mx:Script>
 		<![CDATA[
+			import org.utmost.service.StaticChannelSet;
+			import org.utmost.service.UtmostService;
 			import mx.core.IFlexDisplayObject;
 			import mx.managers.PopUpManager;
 			import mx.collections.ArrayCollection;
@@ -23,9 +25,9 @@
 					Alert.show("OK");
 				},null);
 			}  
-			
+			public var hql:String="";
 			private function search(): void {
-				var hql:String="from QUOTATION where 1=1 ";
+				hql="from QUOTATION where 1=1 ";
 				if(fromAC.text!="") {
 					hql+=" and startside='"+fromAC.text+"' ";
 				}
@@ -45,10 +47,15 @@
 						var aac:ArrayCollection=e.result as ArrayCollection;
 						trace("aac:"+aac);
 						//adg.dataProvider=aac;
+						if(aac.length<=0) {
+							Alert.show("not found records!");
+						}
 						dpHierarchy=aac;
 						gc.refresh();
 					}
 				},null);
+				
+				//exportExcel();
 			}
 			[Bindable]
 			private var dpHierarchy:ArrayCollection;
@@ -61,6 +68,62 @@
 				(obj as DisplayObject).height=this.parentApplication.height;
 				PopUpManager.centerPopUp(obj as IFlexDisplayObject);
 			}
+			
+			private var Download_URL:String=null;
+			public function exportExcel():void {
+				var ut:UtmostService=new UtmostService("ReportService",function(e:ResultEvent):void {
+					trace("e.result:"+e.result.toString());
+					var uri:String="http://"+StaticChannelSet.getAddress()+"/UtmostTPL/REPORT/"+e.result.toString();
+					trace("uri:"+uri);
+					Download_URL=uri;
+					//ExternalInterface.call("window.open ('"+Download_URL+"', '报表', ', , top=0,left=0, toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, status=no') ");
+					ExternalInterface.call("window.open ('"+Download_URL+"', '报表') ");
+				});
+				ut.ro.buildFileByHql("quotation",hql,"xls");
+			}
+			public function exportPDF():void {
+				var ut:UtmostService=new UtmostService("ReportService",function(e:ResultEvent):void {
+					trace("e.result:"+e.result.toString());
+					var uri:String="http://"+StaticChannelSet.getAddress()+"/UtmostTPL/REPORT/"+e.result.toString();
+					trace("uri:"+uri);
+					Download_URL=uri;
+					//ExternalInterface.call("window.open ('"+Download_URL+"', '报表', ', , top=0,left=0, toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, status=no') ");
+					ExternalInterface.call("window.open ('"+Download_URL+"', '报表') ");
+				});
+				ut.ro.buildFileByHql("quotation",hql,"pdf");
+			}
+			public function exportRTF():void {
+				var ut:UtmostService=new UtmostService("ReportService",function(e:ResultEvent):void {
+					trace("e.result:"+e.result.toString());
+					var uri:String="http://"+StaticChannelSet.getAddress()+"/UtmostTPL/REPORT/"+e.result.toString();
+					trace("uri:"+uri);
+					Download_URL=uri;
+					//ExternalInterface.call("window.open ('"+Download_URL+"', '报表', ', , top=0,left=0, toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, status=no') ");
+					ExternalInterface.call("window.open ('"+Download_URL+"', '报表') ");
+				});
+				ut.ro.buildFileByHql("quotation",hql,"rtf");
+			}
+			public function exportHTML():void {
+				var ut:UtmostService=new UtmostService("ReportService",function(e:ResultEvent):void {
+					trace("e.result:"+e.result.toString());
+					var uri:String="http://"+StaticChannelSet.getAddress()+"/UtmostTPL/REPORT/"+e.result.toString();
+					trace("uri:"+uri);
+					Download_URL=uri;
+					//ExternalInterface.call("window.open ('"+Download_URL+"', '报表', ', , top=0,left=0, toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, status=no') ");
+					ExternalInterface.call("window.open ('"+Download_URL+"', '报表') ");
+				});
+				ut.ro.buildFileByHql("quotation",hql,"html");
+			}
+			private var filer:FileReference;
+			public function startDownload():void
+			{
+				
+				filer=new FileReference();
+				var request:URLRequest = new URLRequest();
+				request.url = Download_URL;
+				filer.download(request);
+		
+			};
 		]]>
 	</mx:Script>
 	<mx:Script source="Data.as" />
@@ -157,7 +220,10 @@
 			</mx:AdvancedDataGrid>
 			<component:DGPagination verticalGap="0" id="dgp" horizontalGap="6" verticalAlign="top" pageSize="30"/>
 			<mx:HBox width="100%" horizontalAlign="center" verticalAlign="middle" horizontalGap="100">
-				<mx:Button label="Export" />
+				<mx:Button label="ExportExcel" click="exportExcel()" />
+				<mx:Button label="ExportPDF" click="exportPDF()" />
+				<mx:Button label="ExportRTF" click="exportRTF()" />
+				<mx:Button label="ViewHtml" click="exportHTML()" />
 				<mx:Button label="Print"/>
 				<!--<mx:Button label="InitData"  click="initData()"/-->
 			</mx:HBox>
