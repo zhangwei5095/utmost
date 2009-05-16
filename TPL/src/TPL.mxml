@@ -141,29 +141,29 @@
 			
 	    	 public function theme(name:String):void {
 	    	 	try {
-				if(name=="black") {
-					clearTheme();
-					StyleManager.loadStyleDeclarations(black,true);
-				}
-				if(name=="vista") {
-					clearTheme();
-					StyleManager.loadStyleDeclarations(vista,true);
-				}
-				if(name=="brownie") {
-					clearTheme();
-					StyleManager.loadStyleDeclarations(brownie,true);
-				}
-				if(name=="itunes7") {
-					clearTheme();
-					StyleManager.loadStyleDeclarations(itunes7,true);
-				}
-				if(name=="classic") {
-					clearTheme();
-					StyleManager.loadStyleDeclarations(classic,true);
-				}
-				if(name=="default") {
-					clearTheme();
-				}
+					if(name=="black") {
+						clearTheme();
+						StyleManager.loadStyleDeclarations(black,true);
+					}
+					if(name=="vista") {
+						clearTheme();
+						StyleManager.loadStyleDeclarations(vista,true);
+					}
+					if(name=="brownie") {
+						clearTheme();
+						StyleManager.loadStyleDeclarations(brownie,true);
+					}
+					if(name=="itunes7") {
+						clearTheme();
+						StyleManager.loadStyleDeclarations(itunes7,true);
+					}
+					if(name=="classic") {
+						clearTheme();
+						StyleManager.loadStyleDeclarations(classic,true);
+					}
+					if(name=="default") {
+						clearTheme();
+					}
 	    	 	}catch(e:Error) {
 	    	 		trace("Error:"+e.message.toString());
 	    	 	}

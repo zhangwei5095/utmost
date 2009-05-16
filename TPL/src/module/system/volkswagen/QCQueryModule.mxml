@@ -19,6 +19,7 @@
 				{name:"newyork"}];
 			
 			
+			
 			private function initData():void {
 				trace("ddd");
 				AutoService.getInstance().saveAll("QUOTATION",quotationSea,function(e:ResultEvent):void {
@@ -157,7 +158,7 @@
 		<mx:Object label="VWPT" value="VWPT" />
 	</mx:Array>
 	<mx:TabNavigator width="100%" height="80">
-		<mx:VBox label="Rote Search" width="100%" height="100%">
+		<mx:VBox label="Route Search" width="100%" height="100%">
 			<mx:HBox width="100%" height="100%" horizontalAlign="left" verticalAlign="middle" horizontalGap="20" paddingLeft="20" paddingRight="20">
 				<mx:Label text="Transport"/>
 				<mx:ComboBox id="shiptype" dataProvider="{ds_shiptype}"></mx:ComboBox>
