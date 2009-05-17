@@ -9,12 +9,14 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jbpm.JbpmConfiguration;
 import org.jbpm.JbpmContext;
 import org.jbpm.db.GraphSession;
+import org.jbpm.graph.def.Node;
 import org.jbpm.graph.def.ProcessDefinition;
 import org.jbpm.graph.exe.Comment;
 import org.jbpm.graph.exe.ProcessInstance;
@@ -254,6 +256,54 @@ public class JBPMService  {
 			ti.end();
     		jbpmContext.save(processInstance);
 			return ""+processInstance.getId();
+		}catch(Exception e){
+			e.printStackTrace();
+			
+		} finally {
+			if (jbpmContext != null)
+				jbpmContext.close();
+		}
+		return null;
+	}
+	
+	/**
+	 * 根据流程定义ID号，获取该定义
+	 * @param proceInstanceID
+	 */
+	public List<HashMap<String,Object>> findTaskNodename(String procdefName){
+JbpmConfiguration jbpmConfiguration =(JbpmConfiguration) SpringContext.getBean("jbpmConfiguration");
+		
+		JbpmContext jbpmContext = jbpmConfiguration.createJbpmContext();
+		try{
+			
+			String comment = "新提交"; //审批意见
+			String actorid = ""; //处理人
+			
+			
+			//获取名称为procDefName工作流定义
+			ProcessDefinition processDefinition = jbpmContext.getGraphSession()
+			.findLatestProcessDefinition(procdefName);
+			Map<String,Node> tasknodeMap = processDefinition.getNodesMap();
+			
+			Set tasknodesketSet = tasknodeMap.keySet();
+			Node tasknode = null;
+			List<HashMap<String,Object>> retTaskNodeList = new ArrayList<HashMap<String,Object>>();
+			HashMap<String,Object> tempMap =null;
+			for(Iterator it = tasknodesketSet.iterator(); it.hasNext();){
+				Object key = it.next();
+				
+				tasknode = tasknodeMap.get(key);
+				System.out.println(key);
+				System.out.println(tasknode.getId());
+				tempMap = new HashMap<String,Object>();
+				tempMap.put("taskId", tasknode.getId());
+				tempMap.put("taskName", tasknode.getName());
+				tempMap.put("taskDescription",tasknode.getDescription());
+				retTaskNodeList.add(tempMap);
+			}
+				
+			return retTaskNodeList;
+			
 		}catch(Exception e){
 			e.printStackTrace();
 			
