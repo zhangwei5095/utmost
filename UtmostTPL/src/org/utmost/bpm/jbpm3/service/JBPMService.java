@@ -20,20 +20,18 @@ import org.jbpm.graph.def.Node;
 import org.jbpm.graph.def.ProcessDefinition;
 import org.jbpm.graph.exe.Comment;
 import org.jbpm.graph.exe.ProcessInstance;
+import org.jbpm.taskmgmt.exe.PooledActor;
 import org.jbpm.taskmgmt.exe.TaskInstance;
 import org.springframework.stereotype.Component;
 import org.utmost.common.SpringContext;
-
-import org.utmost.portal.service.AutoService;
+import org.utmost.util.ParamContext;
 
 
 
 @Component("JBPMService")
 public class JBPMService  {
 	private static Log logger = LogFactory.getLog(JBPMService.class);
-	public static String TASK_CURRENT_CHECKOUT = "TASK_CURRENT_CHECKOUT";// 当前任务检出人
-	public static String TASK_curr_RoleName = "currRoleName";// 当前(未完成)任务处理人
-	public static String Request_User = "request_user";
+	
 	
 	public boolean deployAll(){
 		DeployJbpmProcessServiceImpl djpsi = new DeployJbpmProcessServiceImpl();
@@ -169,19 +167,26 @@ public class JBPMService  {
 				}
 				if(processInstance.getEnd()==null){//流程未结束
 					tempMap.put("status", "进行中");
-					if(processInstance.getContextInstance().getVariable(TASK_CURRENT_CHECKOUT)!=null){
-						tempMap.put("checkOutActor", processInstance.getContextInstance().getVariable(TASK_CURRENT_CHECKOUT).toString()+"已检出");
+					if(processInstance.getContextInstance().getVariable(ParamContext.TASK_CURRENT_CHECKOUT)!=null){
+						tempMap.put("checkOutActor", processInstance.getContextInstance().getVariable(ParamContext.TASK_CURRENT_CHECKOUT).toString()+"已检出");
 					}else{
 						tempMap.put("checkOutActor","未检出");
-						if(processInstance.getContextInstance().getVariable(TASK_curr_RoleName)!=null){
+						if(processInstance.getContextInstance().getVariable(ParamContext.TASK_curr_RoleName)!=null){
 							//从流程变更中获取当前任务（未完成）处理角色
-							tempMap.put("currRoleName",processInstance.getContextInstance().getVariable(TASK_curr_RoleName).toString());
+							tempMap.put("currRoleName",processInstance.getContextInstance().getVariable(ParamContext.TASK_curr_RoleName).toString());
 						}
 					}
 					Collection taskcoll=processInstance.getTaskMgmtInstance().getTaskInstances();
 					for(Iterator it = taskcoll.iterator(); it.hasNext();){
 						TaskInstance ti = (TaskInstance)it.next();
 						if(ti.getEnd()==null){//获取流程实例的当前任务信息；
+							Set paset = ti.getPooledActors();
+							String actorids = "";
+							for(Object obj:paset){
+								PooledActor pa = (PooledActor)obj;
+								actorids = actorids+pa.getActorId()+";";
+							}
+							tempMap.put("currActorIDs",actorids);
 							tempMap.put("taskname",ti.getName());
 							break;
 						}
@@ -234,15 +239,13 @@ public class JBPMService  {
 				actorid = busiHM.get("regteller").toString();
 			
 			//将任务的发起者保存到任务实例变量中
-			processInstance.getContextInstance().setVariable(Request_User, actorid);
+			processInstance.getContextInstance().setVariable(ParamContext.Request_User, actorid);
 			
 			//生成一个任务实例
 			TaskInstance ti=processInstance.getTaskMgmtInstance().createStartTaskInstance();
 			
-		
 			if(busiHM!=null && busiHM.get("comment")!=null)
 				comment = busiHM.get("comment").toString();
-			
 			
 			
 			
@@ -271,7 +274,7 @@ public class JBPMService  {
 	 * @param proceInstanceID
 	 */
 	public List<HashMap<String,Object>> findTaskNodename(String procdefName){
-JbpmConfiguration jbpmConfiguration =(JbpmConfiguration) SpringContext.getBean("jbpmConfiguration");
+		JbpmConfiguration jbpmConfiguration =(JbpmConfiguration) SpringContext.getBean("jbpmConfiguration");
 		
 		JbpmContext jbpmContext = jbpmConfiguration.createJbpmContext();
 		try{
@@ -378,11 +381,11 @@ JbpmConfiguration jbpmConfiguration =(JbpmConfiguration) SpringContext.getBean("
 				bm.put("description",ti.getDescription());//任务描述
 				bm.put("startDate", ti.getCreate());//任务创建时间
 				//从流程实例中获取TASK_curr_RoleName值，
-				if(ti.getContextInstance().getVariable(TASK_curr_RoleName)!=null){
-					bm.put(TASK_curr_RoleName,ti.getContextInstance().getVariable(TASK_curr_RoleName));
+				if(ti.getContextInstance().getVariable(ParamContext.TASK_curr_RoleName)!=null){
+					bm.put(ParamContext.TASK_curr_RoleName,ti.getContextInstance().getVariable(ParamContext.TASK_curr_RoleName));
 				}
-				if(ti.getContextInstance().getVariable(TASK_CURRENT_CHECKOUT)!=null){
-					checkOutActor = ti.getContextInstance().getVariable(TASK_CURRENT_CHECKOUT).toString()+"已检出";
+				if(ti.getContextInstance().getVariable(ParamContext.TASK_CURRENT_CHECKOUT)!=null){
+					checkOutActor = ti.getContextInstance().getVariable(ParamContext.TASK_CURRENT_CHECKOUT).toString()+"已检出";
 					
 				}else{
 					checkOutActor = "未检出";
@@ -515,10 +518,10 @@ JbpmConfiguration jbpmConfiguration =(JbpmConfiguration) SpringContext.getBean("
 			else{
 				taskInstance.addComment("取消");
 			}
-
+			//taskInstance.end();
 			taskInstance.end(route);
-			if(taskInstance.getContextInstance().getVariable(TASK_CURRENT_CHECKOUT)!=null)
-				taskInstance.getContextInstance().deleteVariable(TASK_CURRENT_CHECKOUT);
+			if(taskInstance.getContextInstance().getVariable(ParamContext.TASK_CURRENT_CHECKOUT)!=null)
+				taskInstance.getContextInstance().deleteVariable(ParamContext.TASK_CURRENT_CHECKOUT);
 			jbpmContext.save(taskInstance);
 			
 			
@@ -569,12 +572,12 @@ JbpmConfiguration jbpmConfiguration =(JbpmConfiguration) SpringContext.getBean("
 			TaskInstance taskInstance = jbpmContext.getTaskInstance(taskInstanceID);
 			String currentActor = "";
 			
-			if( taskInstance.getContextInstance().getVariable(TASK_CURRENT_CHECKOUT)!=null){
-				currentActor = taskInstance.getContextInstance().getVariable(TASK_CURRENT_CHECKOUT).toString();
+			if( taskInstance.getContextInstance().getVariable(ParamContext.TASK_CURRENT_CHECKOUT)!=null){
+				currentActor = taskInstance.getContextInstance().getVariable(ParamContext.TASK_CURRENT_CHECKOUT).toString();
 			
 			}
 			if(currentActor.equals("")){
-				taskInstance.getContextInstance().setVariable(TASK_CURRENT_CHECKOUT,userCode);
+				taskInstance.getContextInstance().setVariable(ParamContext.TASK_CURRENT_CHECKOUT,userCode);
 			
 			}else{
 				throw new Exception("任务已经被"+ currentActor+ "检出,不允许再次检出!");
@@ -600,8 +603,8 @@ JbpmConfiguration jbpmConfiguration =(JbpmConfiguration) SpringContext.getBean("
 		TaskInstance taskInstance = jbpmContext.getTaskInstance(taskInstanceID);
 		String currentActor = "";
 		try{
-			if( taskInstance.getContextInstance().getVariable(TASK_CURRENT_CHECKOUT)!=null){
-				currentActor = taskInstance.getContextInstance().getVariable(TASK_CURRENT_CHECKOUT).toString();
+			if( taskInstance.getContextInstance().getVariable(ParamContext.TASK_CURRENT_CHECKOUT)!=null){
+				currentActor = taskInstance.getContextInstance().getVariable(ParamContext.TASK_CURRENT_CHECKOUT).toString();
 				
 			}
 			if(currentActor.equals("")){
@@ -609,7 +612,7 @@ JbpmConfiguration jbpmConfiguration =(JbpmConfiguration) SpringContext.getBean("
 			}else if(!currentActor.equals(userCode)){ 
 				throw new Exception("无权限检入，请检查是否为当前检出人");
 			}else{
-				 taskInstance.getContextInstance().deleteVariable(TASK_CURRENT_CHECKOUT);
+				 taskInstance.getContextInstance().deleteVariable(ParamContext.TASK_CURRENT_CHECKOUT);
 			}	
 		}	finally {
 			if (jbpmContext != null)
