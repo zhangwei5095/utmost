@@ -9,6 +9,9 @@ import java.util.Map.Entry;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.aspectj.internal.lang.annotation.ajcPrivileged;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
 import org.hibernate.metadata.ClassMetadata;
 import org.springframework.stereotype.Service;
 import org.utmost.common.CommService;
@@ -19,6 +22,7 @@ import org.utmost.common.CommService;
  * @author wanglm
  * 
  */
+//@Aspect
 @Service("AutoService")
 public class AutoService extends CommService {
 	private static Log logger = LogFactory.getLog(AutoService.class);
@@ -47,7 +51,7 @@ public class AutoService extends CommService {
 				logger.info("could not resolve property: " + key + " of "
 						+ entityName);
 			}
-			key=key.toLowerCase();
+			key = key.toLowerCase();
 			System.out.println(key + "->" + value + "-->" + type);
 			if (type.equals("long")) {
 				newentity.put(key, Long.parseLong(value));
@@ -215,6 +219,7 @@ public class AutoService extends CommService {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
+	//@Around("org.utmost.common.LogService.Performance()")
 	public List findByHql(String hql) {
 		return getDb().findByHql(hql);
 	}
