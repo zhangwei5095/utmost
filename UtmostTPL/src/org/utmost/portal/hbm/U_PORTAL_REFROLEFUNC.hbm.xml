@@ -6,6 +6,11 @@
 		<id name="uuid" column="UUID" length="36" type="java.lang.String">
 			<generator class="uuid" />
 		</id>
+		<property name="roleuuid" type="java.lang.String">
+			<column length="36" name="ROLEUUID">
+				<comment>角色UUID</comment>
+			</column>
+		</property>
 		<property name="rolecode" type="java.lang.String">
 			<column length="36" name="ROLECODE">
 				<comment>角色编码</comment>
@@ -14,6 +19,13 @@
 		<property name="rolename" type="java.lang.String">
 			<column length="128" name="ROLENAME">
 				<comment>角色名称</comment>
+			</column>
+		</property>
+		
+		
+		<property name="funcuuid" type="java.lang.String">
+			<column length="36" name="FUNCUUID">
+				<comment>功能UUID</comment>
 			</column>
 		</property>
 		<property name="funccode" type="java.lang.String">

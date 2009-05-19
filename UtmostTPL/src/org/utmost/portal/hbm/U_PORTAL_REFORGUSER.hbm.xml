@@ -2,26 +2,25 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                                    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class entity-name="U_PORTAL_REFROLEUSER" table="U_PORTAL_REFROLEUSER">
+	<class entity-name="U_PORTAL_REFORGUSER" table="U_PORTAL_REFORGUSER">
 		<id name="uuid" column="UUID" length="36" type="java.lang.String">
 			<generator class="uuid" />
 		</id>
-		<property name="roleuuid" type="java.lang.String">
-			<column length="36" name="ROLEUUID">
-				<comment>角色UUID</comment>
+		<property name="orguuid" type="java.lang.String">
+			<column length="36" name="ORGUUID">
+				<comment>机构UUID</comment>
 			</column>
 		</property>
-		<property name="rolecode" type="java.lang.String">
-			<column length="36" name="ROLECODE">
-				<comment>角色编码</comment>
+		<property name="orgcode" type="java.lang.String">
+			<column length="36" name="ORGCODE">
+				<comment>机构编码</comment>
 			</column>
 		</property>
-		<property name="rolename" type="java.lang.String">
-			<column length="128" name="ROLENAME">
-				<comment>角色名称</comment>
+		<property name="orgname" type="java.lang.String">
+			<column length="128" name="ORGNAME">
+				<comment>机构名称</comment>
 			</column>
 		</property>
-		
 		
 		<property name="useruuid" type="java.lang.String">
 			<column length="36" name="USERUUID">
@@ -29,12 +28,12 @@
 			</column>
 		</property>
 		<property name="usercode" type="java.lang.String">
-			<column length="36" name="USERCODE">
+			<column length="128" name="USERCODE">
 				<comment>用户编码</comment>
 			</column>
 		</property>
 		<property name="username" type="java.lang.String">
-			<column length="36" name="USERNAME">
+			<column length="256" name="USERNAME">
 				<comment>用户名称</comment>
 			</column>
 		</property>

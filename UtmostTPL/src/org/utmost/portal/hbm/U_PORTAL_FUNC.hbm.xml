@@ -8,7 +8,7 @@
 		</id>
 		<property name="pid" type="java.lang.String">
 			<column length="36" name="PID">
-				<comment>父节点编码</comment>
+				<comment>父节点UUID</comment>
 			</column>
 		</property>
 		<property name="funccode" type="java.lang.String" 

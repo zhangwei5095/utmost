@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                                    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class entity-name="U_PORTAL_ROLE" table="U_PORTAL_ROLE">
+	<class entity-name="U_PORTAL_ORG" table="U_PORTAL_ORG">
 		<id name="uuid" column="UUID" length="36" type="java.lang.String">
 			<generator class="uuid" />
 		</id>
@@ -11,20 +11,20 @@
 				<comment>父节点UUID</comment>
 			</column>
 		</property>
-		<property name="rolecode" type="java.lang.String"
+		<property name="orgcode" type="java.lang.String"
 			index="_INDEX_ROLECODE" not-null="true" unique="true">
-			<column length="36" name="ROLECODE">
-				<comment>角色编码</comment>
+			<column length="36" name="ORGCODE">
+				<comment>机构编码</comment>
 			</column>
 		</property>
-		<property name="rolename" type="java.lang.String">
-			<column length="128" name="ROLENAME">
-				<comment>角色名称</comment>
+		<property name="orgname" type="java.lang.String">
+			<column length="128" name="ORGNAME">
+				<comment>机构名称</comment>
 			</column>
 		</property>
-		<property name="roledesc" type="java.lang.String">
-			<column length="256" name="ROLEDESC">
-				<comment>角色描述</comment>
+		<property name="orgdesc" type="java.lang.String">
+			<column length="256" name="ORGDESC">
+				<comment>机构描述</comment>
 			</column>
 		</property>
 		<property name="state" type="java.lang.String">
