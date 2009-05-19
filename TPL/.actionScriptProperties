@@ -64,6 +64,13 @@
 <module application="src/TPL.mxml" destPath="module/auth/AuthUserAddComponent.swf" optimize="true" sourcePath="src/module/auth/AuthUserAddComponent.mxml"/>
 <module application="src/TPL.mxml" destPath="module/auth/AuthParamModule.swf" optimize="true" sourcePath="src/module/auth/AuthParamModule.mxml"/>
 <module application="src/TPL.mxml" destPath="module/demo/TestForUnis.swf" optimize="true" sourcePath="src/module/demo/TestForUnis.mxml"/>
+<module application="src/TPL.mxml" destPath="module/portal/auth/AuthUserModule.swf" optimize="true" sourcePath="src/module/portal/auth/AuthUserModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/portal/auth/AuthRoleModule.swf" optimize="true" sourcePath="src/module/portal/auth/AuthRoleModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/portal/auth/AuthOrgModule.swf" optimize="true" sourcePath="src/module/portal/auth/AuthOrgModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/portal/auth/AuthFuncModule.swf" optimize="true" sourcePath="src/module/portal/auth/AuthFuncModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/portal/auth/AuthREFRoleUserModule.swf" optimize="true" sourcePath="src/module/portal/auth/AuthREFRoleUserModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/portal/auth/AuthREFRoleFuncModule.swf" optimize="true" sourcePath="src/module/portal/auth/AuthREFRoleFuncModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/portal/auth/AuthREFOrgUserModule.swf" optimize="true" sourcePath="src/module/portal/auth/AuthREFOrgUserModule.mxml"/>
 </modules>
 <buildCSSFiles>
 <buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/itunes7/ItunesTheme.css"/>
