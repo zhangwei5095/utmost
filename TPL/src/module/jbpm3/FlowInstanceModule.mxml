@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%"
+	 creationComplete="init()">
+	 <mx:Script>
+	 	<![CDATA[
+	 		import mx.events.CloseEvent;
+	 		import mx.collections.ArrayCollection;
+	 		import mx.rpc.events.ResultEvent;
+	 		import org.utmost.service.AutoService;
+	 		import mx.core.IFlexDisplayObject;
+	 		import mx.managers.PopUpManager;
+	 		import mx.controls.Alert;
+	 		import org.utmost.tpl.PopType;
+	 		import org.utmost.img.BindImg;
+	 		import mx.rpc.events.FaultEvent;
+	 		import org.utmost.service.StaticChannelSet;
+			import org.utmost.component.upload.FileUpload;
+			import org.utmost.service.UtmostService;
+			import mx.collections.SortField;
+            import mx.collections.Sort;
+
+			import mx.events.ListEvent;
+	 		private var tablename:String="";
+	 		private function init():void {
+	 			//dataInit();
+	 		}
+	 		
+	 		public function dataInit():void {
+	 			
+	 			
+	 			var procdefid:String = combo_prodef.selectedItem.id;//流程定义名称
+	 			if(procdefid!=null || procdefid!="")
+	       			findProcessInstanList(procdefid);
+	 		}
+	 		
+	 		
+	 		
+			/**
+			 * 为每一个任务节点分配审批人员
+			 * 
+			 * */
+			private function taskDistr():void {
+				
+				var obj:Object;
+				obj=PopUpManager.createPopUp(this.parentApplication as DisplayObject, taskDistributeComponent, true);
+				obj.$adg=adg;
+				PopUpManager.centerPopUp(obj as IFlexDisplayObject);
+			}
+			
+			private function faultHandler(event:FaultEvent):void {
+				trace(event.fault);
+     	     }
+     	     
+	      
+	      
+	       /**
+	       * 获取所有的流程定义
+	       */
+	       public function  findProcessDef():void{
+	       		var us:UtmostService=new UtmostService("JBPMService",function(e:ResultEvent):void {
+        			if(e.result!=null){
+        				combo_prodef.dataProvider = e.result as ArrayCollection;
+        				findProcessInstanList(combo_prodef.selectedItem.id);
+        			}	
+        		});
+        		us.ro.findProcessDefinition();
+	       }
+	       public function changeCombo_prodef( event:ListEvent):void{
+	       		var procdefid:String = event.currentTarget.selectedItem.id;//流程定义ID
+	       		findProcessInstanList(procdefid);
+	       		
+	       //	event.currentTarget.selectedItem.@value;
+	       }
+	       /**
+	       * 查找所有没有结束的流程实例
+	       */ 
+	       public function findProcessInstanList(procdefid:String):void{
+	       		var us:UtmostService=new UtmostService("JBPMService",function(e:ResultEvent):void {
+        			if(e.result!=null){
+    
+						
+						adg.dataProvider = e.result as ArrayCollection;
+        			}	
+        		});
+        		if(procdefid!="")
+        			us.ro.findProcessInstanList(procdefid,false);
+	       }
+	       //安数值大小排序
+   			public function sortcompare(obj1:Object,obj2:Object):int{
+   		        var num1:Number=Number(obj1.taskId.toString());
+                trace(num1);
+                var num2:Number=Number(obj2.taskId.toString());
+                trace(num2);
+                if(num1>num2){
+                      return 1;
+                 }else if(num1<num2){
+                      return -1;
+                 }else{
+                      return 0;
+                 }
+            }
+           
+          private function formatStart(item:Object,column:AdvancedDataGridColumn):String{
+	      	
+            return df.format(item.startDate);// df是一个DateFormatter，这里格式化item数据中的startDate字段
+    	 }
+	     private function formatEnd(item:Object,column:AdvancedDataGridColumn):String{
+	      	
+           return df.format(item.endDate);// df是一个DateFormatter，这里格式化item数据中的startDate字段
+    	}
+
+	 	]]>
+	 </mx:Script>
+	 <mx:DateFormatter id="df" formatString="YYYY-MM-DD HH:NN:SS"/>
+	 
+	<mx:VBox width="100%" height="100%" horizontalAlign="center" verticalAlign="middle" verticalGap="0">
+		<mx:HBox width="100%" height="22" verticalAlign="middle" horizontalAlign="left">
+			<mx:ComboBox id="combo_prodef" labelField="name" creationComplete="findProcessDef();"
+		 		change="changeCombo_prodef(event);" rowCount="15">
+			</mx:ComboBox>
+			
+		</mx:HBox>
+		
+		
+		<mx:HBox width="100%" height="16" verticalAlign="middle" horizontalAlign="right" >
+	           <mx:Image width="16" height="16" source="{BindImg.page_new}" toolTip="任务权限分配" click="taskDistr()" />
+	           
+     	</mx:HBox>
+		<mx:AdvancedDataGrid id="adg" 
+			designViewDataType="flat" width="100%" height="100%"  >
+			<mx:columns>
+				<mx:AdvancedDataGridColumn headerText="流程实例ID"  dataField="processInstanceID" />
+				<mx:AdvancedDataGridColumn headerText="当前任务"  dataField="taskname" />
+				<mx:AdvancedDataGridColumn headerText="开始时间"  dataField="startDate" labelFunction="formatStart"/>
+				<mx:AdvancedDataGridColumn headerText="结束时间"  dataField="endDate" labelFunction="formatEnd"/>
+				<mx:AdvancedDataGridColumn headerText="状态"  dataField="status"/>
+				<mx:AdvancedDataGridColumn headerText="检出状态"  dataField="checkOutActor"/>
+				<mx:AdvancedDataGridColumn headerText="当前处理角色"  dataField="currRoleName"/>
+				<mx:AdvancedDataGridColumn headerText="当前处理人"  dataField="currActorIDs"/>
+			</mx:columns>
+		</mx:AdvancedDataGrid>
+	</mx:VBox>
+</mx:Module>
+
