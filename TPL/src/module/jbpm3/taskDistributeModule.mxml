@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%"
+	 creationComplete="init()">
+	 <mx:Script>
+	 	<![CDATA[
+	 		import mx.events.CloseEvent;
+	 		import mx.collections.ArrayCollection;
+	 		import mx.rpc.events.ResultEvent;
+	 		import org.utmost.service.AutoService;
+	 		import mx.core.IFlexDisplayObject;
+	 		import mx.managers.PopUpManager;
+	 		import mx.controls.Alert;
+	 		import org.utmost.tpl.PopType;
+	 		import org.utmost.img.BindImg;
+	 		import mx.rpc.events.FaultEvent;
+	 		import org.utmost.service.StaticChannelSet;
+			import org.utmost.component.upload.FileUpload;
+			import org.utmost.service.UtmostService;
+			import mx.collections.SortField;
+            import mx.collections.Sort;
+
+			import mx.events.ListEvent;
+	 		private var tablename:String="";
+	 		private function init():void {
+	 			//dataInit();
+	 		}
+	 		
+	 		public function dataInit():void {
+	 			
+	 			
+	 			var procdefName:String = combo_prodef.selectedItem.name;//流程定义名称
+	 			if(procdefName!=null || procdefName!="")
+	       			getProdefTask(procdefName);
+	 		}
+	 		/**
+	       * 根据流程定义ID删除流程定义
+	       */
+	 		public function deleteData():void {
+	 			
+				if(adg.selectedIndex<0) {
+					Alert.show("请选择你要删除的数据","提示");
+					return;
+				}
+				
+				var alert:Alert = Alert.show('是否要删除选择的流程定义!', '信息提示', Alert.YES | Alert.NO); 
+				alert.addEventListener(CloseEvent.CLOSE,function (e:CloseEvent):void {
+					switch(e.detail) {
+						case Alert.YES:
+							var ProcessDefID:String = adg.selectedItem.id;
+							JBPMService.removeProceDef(ProcessDefID);
+						break;
+							case Alert.NO:
+						break;	
+					}
+				}); 
+	 		}
+	 		
+	 		
+			/**
+			 * 为每一个任务节点分配审批人员
+			 * 
+			 * */
+			private function taskDistr():void {
+				
+				var obj:Object;
+				obj=PopUpManager.createPopUp(this.parentApplication as DisplayObject, taskDistributeComponent, true);
+				obj.$adg=adg;
+				PopUpManager.centerPopUp(obj as IFlexDisplayObject);
+			}
+			
+			private function faultHandler(event:FaultEvent):void {
+				trace(event.fault);
+     	     }
+     	     
+	       /*
+	       * 
+	       *获取所有工作流流程定义
+	       */
+	       public function resultReturnfindProcessDefinition(e:ResultEvent):void{
+	       		var ac:ArrayCollection=new ArrayCollection();
+	       		if(e.result!=null){
+	       			ac=e.result as ArrayCollection;
+	       			adg.dataProvider = ac;
+	       		}
+	       }
+	       /**
+	       * 根据流程定义ID删除流程定义
+	       */
+	       public function resultReturnRemoveProceDef(e:ResultEvent):void{
+				
+	       		Alert.show("流程定义删除成功","提示");
+				dataInit();
+	       }
+	       /**
+	       * 获取所有的流程定义
+	       */
+	       public function  findProcessDef():void{
+	       		var us:UtmostService=new UtmostService("JBPMService",function(e:ResultEvent):void {
+        			if(e.result!=null){
+        				combo_prodef.dataProvider = e.result as ArrayCollection;
+        				getProdefTask(combo_prodef.selectedItem.name);
+        			}	
+        		});
+        		us.ro.findProcessDefinition();
+	       }
+	       public function changeCombo_prodef( event:ListEvent):void{
+	       		var procdefName:String = event.currentTarget.selectedItem.name;//流程定义ID
+	       		getProdefTask(procdefName);
+	       		
+	       //	event.currentTarget.selectedItem.@value;
+	       }
+	       public function getProdefTask(procdefName:String):void{
+	       		var us:UtmostService=new UtmostService("JBPMService",function(e:ResultEvent):void {
+        			if(e.result!=null){
+        				
+						//设定Sort对象
+						var m_sort:Sort = new Sort();
+						m_sort.fields =  [new SortField("taskId")];
+						var ac:ArrayCollection =  e.result as ArrayCollection;
+						ac.sort = m_sort;
+						ac.refresh();
+						adg.dataProvider = ac;
+        			}	
+        		});
+        		if(procdefName!="")
+        			us.ro.findTaskNodename(procdefName);
+	       }
+	       //安数值大小排序
+   			public function sortcompare(obj1:Object,obj2:Object):int{
+   		        var num1:Number=Number(obj1.taskId.toString());
+                trace(num1);
+                var num2:Number=Number(obj2.taskId.toString());
+                trace(num2);
+                if(num1>num2){
+                      return 1;
+                 }else if(num1<num2){
+                      return -1;
+                 }else{
+                      return 0;
+                 }
+            }
+            public function startProcess():void{
+            	var us:UtmostService=new UtmostService("JBPMService",function(e:ResultEvent):void {
+        			if(e.result!=null){
+        				
+						trace(e.result);
+        			}	
+        		});
+        		var procdefName:String = combo_prodef.selectedItem.name;//流程定义ID
+        		if(procdefName!=""){
+        			var ac:ArrayCollection = new ArrayCollection();
+        			var obj :Object = new Object();
+        			obj.comment = "测试";
+        			obj.regteller = "guo";
+        			us.ro.startProcessInstance(obj,procdefName);
+        		}	
+            }
+            public function nextProcess():void{
+            	var us:UtmostService=new UtmostService("JBPMService",function(e:ResultEvent):void {
+        			if(e.result!=null){
+        				
+						trace(e.result);
+        			}	
+        		});
+        		var procdefName:String = combo_prodef.selectedItem.name;//流程定义ID
+        		if(procdefName!=""){
+        			var ac:ArrayCollection = new ArrayCollection();
+        			var obj :Object = new Object();
+        			obj.comment = "还是测试111";
+        			obj.taskid = taskid.text;
+        			obj.route = "next";
+        			obj.actorid = "guo112211";
+        			us.ro.toNextProce(obj);
+        		}	
+            }
+            
+
+	 	]]>
+	 </mx:Script>
+	 <mx:RemoteObject id="JBPMService" destination="JBPMService" fault="faultHandler(event)">       
+        <mx:method name="findProcessDefinition" result="resultReturnfindProcessDefinition(event)" fault="faultHandler(event)"/>
+        <mx:method name="removeProceDef" result="resultReturnRemoveProceDef(event)" fault="faultHandler(event)"/>
+        
+    </mx:RemoteObject>
+	<mx:VBox width="100%" height="100%" horizontalAlign="center" verticalAlign="middle" verticalGap="0">
+		<mx:HBox width="100%" height="22" verticalAlign="middle" horizontalAlign="left">
+			<mx:ComboBox id="combo_prodef" labelField="name" creationComplete="findProcessDef();"
+		 		change="changeCombo_prodef(event);" rowCount="15">
+			</mx:ComboBox>
+			<mx:Button label="启动一个工作流" click="startProcess();"/>
+			<mx:TextInput text="" id="taskid"/>
+			<mx:Button label="下一步工作流" click="nextProcess();"/>
+		</mx:HBox>
+		
+		
+		<mx:HBox width="100%" height="16" verticalAlign="middle" horizontalAlign="right" >
+	           <mx:Image width="16" height="16" source="{BindImg.page_new}" toolTip="任务权限分配" click="taskDistr()" />
+	           
+     	</mx:HBox>
+		<mx:AdvancedDataGrid id="adg" 
+			designViewDataType="flat" width="100%" height="100%"  >
+			<mx:columns>
+				<mx:AdvancedDataGridColumn headerText="任务ID"  dataField="taskId" sortCompareFunction="sortcompare"/>
+				<mx:AdvancedDataGridColumn headerText="任务名称"  dataField="taskName"/>
+				<mx:AdvancedDataGridColumn headerText="任务描述"  dataField="taskDescription"/>
+			</mx:columns>
+		</mx:AdvancedDataGrid>
+	</mx:VBox>
+</mx:Module>
+
