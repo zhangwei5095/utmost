@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="600" height="400" showCloseButton="true" xmlns:controls="com.sephiroth.controls.*" 
+	close="PopUpManager.removePopUp(this)" creationComplete="init();" horizontalAlign="center" verticalAlign="middle">
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import org.utmost.tpl.ViewUtil;
+			import mx.events.ChildExistenceChangedEvent;
+			import mx.rpc.events.ResultEvent;
+			import org.utmost.util.AutoUtil;
+			import org.utmost.service.AutoService;
+			import mx.containers.Form;
+			import mx.controls.AdvancedDataGrid;
+			import mx.managers.PopUpManager;
+			import mx.collections.XMLListCollection;
+			import org.utmost.util.TreeUtil;
+			import org.utmost.service.UtmostService;
+			import org.utmost.util.ComponentUtil;
+			import mx.events.ListEvent;
+			public var $adg:AdvancedDataGrid;
+			public var $form:Form;
+			public var $tablename:String;
+			
+			//主页数据初始化
+			public var $dataInit:Function;
+			
+			public function init():void {
+				initTree(roleTree,TreeUtil.getRoleMainByTree(),TreeUtil.getRoleKvByTree());
+				//initTree(userTree,TreeUtil.getUserMainByTree(),TreeUtil.getUserKvByTree());
+				findUserTree();
+				
+				//设置回车提交
+				this.setFocus();
+				this.addEventListener(KeyboardEvent.KEY_DOWN,function(e:KeyboardEvent):void {
+					if(e.charCode==13) {
+						editSubmit();
+					}
+				});
+			}
+			public function editSubmit():void {
+				var service:AutoService=new AutoService();
+				service.autoUpdate($tablename,$form,function(e:ResultEvent):void {
+					$dataInit.call();
+					close();
+				});
+			}
+			private function close():void {
+				PopUpManager.removePopUp(this);
+			}
+			private function findUserTree():void {
+				/*AutoService.getInstance().findByHql("from U_USER",function(e:ResultEvent):void {
+					var con:ArrayCollection=e.result as ArrayCollection;
+					var xml:String="<node nodename=\"用户\" nodecode=\"root\" parentid=\"0\" >\n";
+					for(var i:int=0;i<con.length;i++) {
+						var obj:Object=con.getItemAt(i);
+						xml+="<node "+"nodename=\""+obj.username+"\" "+"nodecode=\""+obj.usercode+"\" "+"uuid=\""+obj.uuid+"\" >\n";
+						xml+="</node>\n";
+					}
+					xml+="</node>\n";
+					trace("xml:"+xml);
+					userTree.dataProvider=new XML(xml);
+					callLater(function():void {
+						ComponentUtil.ocAllTree(userTree);
+					});
+				});
+			*/
+			}
+			private function initTree(_tree:Tree,main:Object,kv:Object):void {
+				var xmlstr :String = "<node nodename=\"角色\" nodecode=\"root\" parentid=\"0\">" +
+				                         "<node nodename=\"角色1\" nodecode=\"role1\" />"+
+				                          "<node nodename=\"角色2\" nodecode=\"role2\" />"+
+				                           "<node nodename=\"角色3\" nodecode=\"role3\" />"+
+				                        "</node>";   
+				var xml:XML=new XML(xmlstr);
+				_tree.dataProvider=xml;
+				
+				/*var ut:UtmostService=new UtmostService("TreeService",function(e:ResultEvent):void{
+					trace("e.result:"+e.result);
+					var xml:XML=new XML(e.result);
+					_tree.dataProvider=xml;
+					//_tree.selectedIndex=0;
+					callLater(function():void {
+						ComponentUtil.ocAllTree(_tree);
+					});
+				});
+				ut.ro.getTree(main,kv);
+				*/
+			}
+			private function treeClick(e:ListEvent):void {
+				/*var o:XML=e.itemRenderer.data as XML;
+				if(o.elements().length()==0) {
+					flashData(e.currentTarget as Tree);
+				}else {
+					clearXML(getDataProvider(userTree));
+				}*/
+			}
+			//保存使用
+			private var saveAC:ArrayCollection;
+			private function getDataProvider(_tree:Tree):XMLList {
+				var o:XMLListCollection=_tree.dataProvider as XMLListCollection;
+				var xmllist:XMLList=o.source as XMLList;
+				return xmllist;
+			}
+			private function submit():void {
+				/*saveAC=new ArrayCollection();
+				findXML(getDataProvider(userTree));
+				var nodecode:String=roleTree.selectedItem.@nodecode.toString();//* roleTree
+				var hql:String="from "+tableName+" v where v."+redCode+"='"+nodecode+"'";
+				AutoService.getInstance().deleteByHql(hql,function(e:ResultEvent):void {
+					save(saveAC);			
+				});*/
+			}
+			private function findXML(xmllist:XMLList):void {
+				/*for each(var element:XML in xmllist) {
+					if(element.@checked.toString()!=""&&element.@checked.toString()!="0") {
+						trace(element.@nodename+"--"+element.@nodecode+"--"+element.@checked);
+						//element.@checked=1;
+						var o:Object=new Object();
+						o[redName]=roleTree.selectedItem.@nodename.toString();
+						o[redCode]=roleTree.selectedItem.@nodecode.toString();
+						o[blueName]=element.@nodename.toString();
+						o[blueCode]=element.@nodecode.toString();
+						saveAC.addItem(o);
+					}
+					if(element.elements()!=null)
+						findXML(element.elements());
+				}*/
+			}
+		]]>
+	</mx:Script>
+	<mx:HBox width="100%" height="100%" verticalAlign="middle" horizontalAlign="center" horizontalGap="60">
+		<mx:Tree id="roleTree" width="260" height="85%" labelField="@nodename" itemClick="treeClick(event)">
+		</mx:Tree>
+		<controls:TreeCheckBox id="userTree"  labelField="@nodename" itemCheck="userTree.onItemCheck( event )"
+			 width="260" height="85%"  checkField="@checked" />
+	</mx:HBox>
+	<mx:ControlBar horizontalAlign="center" verticalAlign="middle">
+		<mx:Button label="确定" click="submit()"/>
+		<mx:Button label="取消" click="PopUpManager.removePopUp(this)"/>
+	</mx:ControlBar>
+</mx:TitleWindow>
