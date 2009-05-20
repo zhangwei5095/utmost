@@ -1,4 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%">
-	
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%" creationComplete="init()">
+	<mx:Script>
+		<![CDATA[
+			import org.utmost.util.TypeUtil;
+			import mx.core.Application;
+			import mx.core.IFlexDisplayObject;
+			import mx.managers.PopUpManager;
+			import mx.collections.ArrayCollection;
+			import mx.rpc.events.ResultEvent;
+			import org.utmost.service.AutoService;
+			
+			private function init():void {
+				queryUserList();
+			}
+			
+			private function queryUserList():void {
+				var hql:String="from U_PORTAL_USER";
+				AutoService.getInstance().findByHql(hql,function(e:ResultEvent):void {
+					adg.dataProvider=e.result as ArrayCollection;
+				});
+			}
+			
+			private function blurQueryUserList():void {
+				var hql:String="from U_PORTAL_USER v where 1=1 ";
+				if(blur.text!="") {
+					hql+="and  (v.usercode like '%"+blur.text+"%' ";
+					hql+="or v.username like '%"+blur.text+"%' ";
+					hql+="or v.loginname like '%"+blur.text+"%') ";
+				}
+				AutoService.getInstance().findByHql(hql,function(e:ResultEvent):void {
+					adg.dataProvider=e.result as ArrayCollection;
+				});
+			}
+			private function updateUser():void {
+				var obj:Object=PopUpManager.createPopUp(Application.application as DisplayObject,AuthUserUpdateComponent,true);
+				obj.$queryUserList=queryUserList;
+				obj.$formData=adg.selectedItem;
+				PopUpManager.centerPopUp(obj as IFlexDisplayObject);
+			}
+			
+			private function createUser():void {
+				var obj:Object=PopUpManager.createPopUp(Application.application as DisplayObject,AuthUserCreateComponent,true);
+				obj.$queryUserList=queryUserList;
+				PopUpManager.centerPopUp(obj as IFlexDisplayObject);
+			}
+			
+			private function delUsers():void {
+				var array:Array=adg.selectedItems;
+				AutoService.getInstance().deleteByAllUUID("U_PORTAL_USER",TypeUtil.ArrayToArrayCollectionByUUID(array),function(e:ResultEvent):void {
+					queryUserList();
+				});
+			}
+		]]>
+	</mx:Script>
+	<mx:TabNavigator width="100%" height="100%">
+		<mx:VBox label="列表" width="100%" height="100%">
+			<mx:HBox width="100%" paddingLeft="60" verticalAlign="middle">
+				<mx:Label text="模糊查询"/>
+				<mx:TextInput id="blur"/>
+				<mx:Button label="查询" click="blurQueryUserList()"/>
+				<mx:Button label="清空" click="blur.text=''"/>
+				<mx:Spacer width="100%"/>
+				<mx:Button label="新建" width="60" click="createUser()"/>
+				<!--mx:Button label="修改" width="60"/-->
+				<mx:Button label="删除" width="60" click="delUsers()"/>
+			</mx:HBox>
+			<mx:AdvancedDataGrid id="adg" designViewDataType="flat" width="100%" height="100%" doubleClickEnabled="true" itemDoubleClick="updateUser()" selectionMode="multipleRows" >
+				<mx:columns>
+					<mx:AdvancedDataGridColumn headerText="用户编码" dataField="usercode"/>
+					<mx:AdvancedDataGridColumn headerText="用户名称" dataField="username"/>
+					<mx:AdvancedDataGridColumn headerText="登录名称" dataField="loginname"/>
+					<!--mx:AdvancedDataGridColumn headerText="用户状态" dataField="state"/-->
+					<mx:AdvancedDataGridColumn sortable="false" width="48"
+							itemRenderer="component.DGbox">
+						</mx:AdvancedDataGridColumn>
+				</mx:columns>
+			</mx:AdvancedDataGrid>
+		</mx:VBox>
+		<mx:VBox label="详细" width="100%" height="100%">
+		</mx:VBox>
+	</mx:TabNavigator>
+	<mx:XMLList id="DGboxXMLList">
+		<menuitem label="操作">
+			<menuitem label="详细" labelCode="details" icon="icon_details"  click="popMen"/>
+			<menuitem label="修改" labelCode="details" icon="icon_details"  click="popMen"/>
+			<menuitem label="删除" labelCode="details" icon="icon_details"  click="popMen"/>
+			<menuitem label="重置密码" labelCode="details" icon="icon_details"  click="popMen"/>									             
+		</menuitem>
+	</mx:XMLList>
 </mx:Module>

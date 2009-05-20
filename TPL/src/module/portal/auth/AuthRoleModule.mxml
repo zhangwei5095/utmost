@@ -1,4 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%">
-	
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="horizontal" width="100%" height="100%">
+	<mx:VBox width="60%" height="100%" paddingBottom="30" paddingTop="30" horizontalAlign="right">
+		<mx:HBox horizontalAlign="right" verticalAlign="middle" width="100%">
+			<mx:Button label="创建" width="60"/>
+			<mx:Button label="更新" width="60"/>
+			<mx:Button label="删除" width="60"/>
+		</mx:HBox>
+		<mx:Tree width="70%" height="100%"></mx:Tree>
+	</mx:VBox>
+	<mx:VBox width="40%" height="100%" paddingTop="60">
+		<mx:Form>
+			<mx:FormItem label="Label">
+				<mx:TextInput/>
+			</mx:FormItem>
+			<mx:FormItem label="Label">
+				<mx:TextInput/>
+			</mx:FormItem>
+			<mx:FormItem label="Label">
+				<mx:TextInput/>
+			</mx:FormItem>
+		</mx:Form>
+	</mx:VBox>
 </mx:Module>

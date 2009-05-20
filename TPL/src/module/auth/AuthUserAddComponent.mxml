@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" showCloseButton="true" close="close()"
-	xmlns:fc="http://www.adobe.com/2006/fc" title="添加用户" layout="vertical" width="100%" height="100%">
+	xmlns:fc="http://www.adobe.com/2006/fc" title="添加用户" layout="vertical" width="100%" height="100%" paddingBottom="0" paddingLeft="0" paddingRight="0" paddingTop="0">
 	<mx:XML xmlns="" id="ComboBoxXML" source="xml/ComboBox.xml"/>
 	<mx:Script>
 		<![CDATA[
@@ -226,7 +226,7 @@
 
 
 				<mx:VBox x="0" y="0" width="100%" height="100%" horizontalAlign="center" verticalAlign="top">
-					<mx:Form id="addform" paddingTop="60">
+					<mx:Form id="addform" paddingTop="20">
 					        <mx:FormItem label="用户状态" includeInLayout="false" visible="false" >
 									<mx:ComboBox id="state" width="100%" dataProvider="{UserStatus}"
 										 textAlign="center" fontFamily="Arial" >
@@ -261,18 +261,12 @@
 									<mx:TextInput id="password" text="123456" displayAsPassword="true"/>
 							</mx:FormItem>
 					</mx:Form>
-					<mx:Grid paddingTop="20" width="300" textAlign="center">
-							<mx:GridRow width="100%" height="100%">
-									<mx:GridItem width="100%" height="100%" textAlign="center" verticalAlign="middle" horizontalAlign="center" autoLayout="true">
-											<mx:Button label="添加" click="validateForAdd();" id="add"/>
-											<mx:Button label="清空" click="removeAddParam();"/>
-											<mx:Button label="返回" click="close();"/>
-									</mx:GridItem>
-							</mx:GridRow>
-					</mx:Grid>
 				</mx:VBox>
 				<mx:ControlBar>
+								<mx:HBox width="100%" horizontalAlign="center" verticalAlign="middle" horizontalGap="30">
+								<mx:Button label="添加" click="validateForAdd();" id="add"/>
+								<mx:Button label="清空" click="removeAddParam();"/>
+								<mx:Button label="返回" click="close();"/>
+								</mx:HBox>
 				</mx:ControlBar>
-				
-			
 </mx:TitleWindow>

@@ -3,7 +3,7 @@
 	horizontalAlign="center" verticalAlign="middle" verticalScrollPolicy="off" paddingLeft="-10" paddingTop="-3"
 	horizontalScrollPolicy="off" creationComplete="init();">
 	<mx:MenuBar width="100%" height="100%" iconField="@icon" labelField="@label"
-		textAlign="center" dataProvider="{xmlMenu}" itemClick="popMen(event)">
+		 dataProvider="{xmlMenu}" itemClick="popMen(event)">
 	</mx:MenuBar>
 	<mx:Script>
 		<![CDATA[
@@ -12,8 +12,12 @@
 			[Bindable]
 			private var xmlMenu:XMLList;
 			public function init():void {
-				xmlMenu=this.parentDocument.DGboxXMLList;
-				if(xmlMenu==null) {
+				if(parentDocument.hasOwnProperty("DGboxXMLList")) {
+					xmlMenu=this.parentDocument.DGboxXMLList;
+					if(xmlMenu==null) {
+						trace("缺少DGboxXMLList对象或对象为空");
+					}
+				}else {
 					trace("缺少DGboxXMLList对象或对象为空");
 				}
 			}

@@ -435,7 +435,7 @@ CursorManager
 //  DataGrid
 //------------------------------
 */
-/*
+
 DataGrid
 {
 
@@ -453,13 +453,13 @@ DataGrid
 	alternatingItemColors: #ffffff, #eeeeee;
 	
 }
-*/
+
 /*
 //------------------------------
 //  DataGridHeader
 //------------------------------
 */
-/*
+
 .dataGridHeader
 {
 
@@ -467,12 +467,27 @@ DataGrid
 	
 
 }
-*/
+
 /*
 //------------------------------
 //  DateChooser
 //------------------------------
 */
+AdvancedDataGrid
+{
+	columnDropIndicatorSkin: Embed(source="wmp11.swf", symbol="DataGrid_columnDropIndicatorSkin");
+	columnResizeSkin: Embed(source="wmp11.swf", symbol="DataGrid_columnResizeSkin");
+	headerSeparatorSkin: Embed(source="wmp11.swf", symbol="DataGrid_headerSeparatorSkin");
+	sortArrowSkin: Embed(source="wmp11.swf", symbol="DataGrid_sortArrowSkin");
+	stretchCursor: Embed(source="wmp11.swf",symbol="DataGrid_stretchCursor");
+	headerStyleName: "dataGridHeader";
+	headerColors: #eeeeee, #bbbbbb;
+	rollOverColor: #EEF2FB;
+	selectionColor: #EEF2FB;
+	disabledColor: #999999;
+	selectiondDisabledColor: #999999;
+	alternatingItemColors: #ffffff, #eeeeee;
+}
 DateChooser
 {
 	headerColors: #dddddd, #dddddd;
