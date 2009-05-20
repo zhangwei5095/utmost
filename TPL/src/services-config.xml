@@ -12,7 +12,7 @@
             <destination id="ReportService"/>
             
             <destination id="TemplateService"/>
-            
+            <destination id="JBPMService"/>
             <destination id="ETLService"/>
             <destination id="TreeService"/>
             <destination id="CodecUtil"/>
