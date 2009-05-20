@@ -22,7 +22,7 @@ import org.utmost.common.CommService;
  * @author wanglm
  * 
  */
-//@Aspect
+// @Aspect
 @Service("AutoService")
 public class AutoService extends CommService {
 	private static Log logger = LogFactory.getLog(AutoService.class);
@@ -219,7 +219,7 @@ public class AutoService extends CommService {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	//@Around("org.utmost.common.LogService.Performance()")
+	// @Around("org.utmost.common.LogService.Performance()")
 	public List findByHql(String hql) {
 		return getDb().findByHql(hql);
 	}

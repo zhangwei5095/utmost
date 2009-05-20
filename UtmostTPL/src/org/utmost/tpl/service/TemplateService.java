@@ -47,7 +47,7 @@ public class TemplateService extends CommService {
 		this.findAll();
 		ProcessTree p = new ProcessTree(this.findAll(), "data");
 		String xml = p.toTree();
-		System.out.println(xml);
+		//System.out.println(xml);
 		return xml;
 	}
 
@@ -55,7 +55,7 @@ public class TemplateService extends CommService {
 		this.findAll();
 		ProcessTree p = new ProcessTree(this.findAll(), "view");
 		String xml = p.toTree();
-		System.out.println(xml);
+		//System.out.println(xml);
 		return xml;
 	}
 
