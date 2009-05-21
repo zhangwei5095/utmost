@@ -104,6 +104,7 @@
 						case Alert.YES:
 						var ut:UtmostService=new UtmostService("TreeService",function(event:ResultEvent):void {
 							trace("成功");	
+							TreeInit(tree);
 						});
 						var obj:Object=new Object();
 						obj.tableName=tableName;//*
@@ -111,7 +112,7 @@
 						obj.pidField="parentid";//*
 						obj.idValue=tree.selectedItem.@uuid.toString();//*
 						ut.ro.deleteTree(obj);
-						TreeInit(tree);
+						//TreeInit(tree);
 						break;
 						case Alert.NO:
 						break;	
