@@ -35,24 +35,18 @@
 				showLogin();
 				memoryMonitor();
 				//this.loadModule("module/TPLModule.swf");
-				
-				
 			}
 			
 			
 			//登陆页面
 			public function showLogin():void {
-				var obj:IFlexDisplayObject=PopUpManager.createPopUp(this, LoginComponent, false);
+				var obj:IFlexDisplayObject=PopUpManager.createPopUp(this, LoginComponent, true);
 				obj.addEventListener("LoginComponent_portal",function(e:Event):void {
-					//trace("LoginComponent_portal");
 					Application.application.loadModule("module/PortalModule.swf");
-					//ComponentUtil.setVisible(MACB,true);
 				});
 				obj.addEventListener("LoginComponent_programme",function(e:Event):void {
-					//trace("LoginComponent_programme");
 					Application.application.loadModule("module/TPLModule.swf");
 					ComponentUtil.setVisible(MACB,true);
-					//createMainPopUp();//尝试
 				});
 				PopUpManager.centerPopUp(obj);
 				this.addEventListener(ResizeEvent.RESIZE,function(e:Event):void{

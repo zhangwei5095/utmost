@@ -3,7 +3,7 @@
 	<mx:MenuBar labelField="@label" height="100%" itemClick="menuItemClick(event)" width="100%">
 	<mx:XMLList>
 		<menuitem label="File">
-			<menuitem label="Relogin"/>
+			<menuitem label="Relogin" data="relogin"/>
 			<menuitem label="Exit"/>
 		</menuitem>
 		<menuitem label="Theme">
@@ -52,6 +52,10 @@
 				//主题
 				if(data=="vista"||data=="black"||data=="itunes7"||data=="brownie"||data=="classic"||data=="default") {
 					Application.application.theme(data);
+				}
+				
+				if(data=="relogin") {
+					Application.application.showLogin();
 				}
 			}
 		]]>

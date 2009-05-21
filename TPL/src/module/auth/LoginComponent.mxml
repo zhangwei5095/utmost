@@ -23,6 +23,10 @@
 			<mx:Button label="登录开发" click="loginProgramme()"/>
 		</mx:HBox>
 	</mx:ControlBar>
+	<mx:Sequence id="shake" target="{this}" duration="100" repeatCount="2" effectEnd="close()">
+        <mx:Move xBy="30"/>
+        <mx:Move xBy="-30"/>
+    </mx:Sequence>
 	<mx:Script>
 		<![CDATA[
 			import org.utmost.service.StaticChannelSet;
@@ -76,6 +80,9 @@
 					AuthUserBean.password=password.text;
 				}
 				this.dispatchEvent(new Event("LoginComponent_portal"));
+				shake.play();
+			}
+			private function close():void {
 				PopUpManager.removePopUp(this);
 			}
 			private function setUri():void {

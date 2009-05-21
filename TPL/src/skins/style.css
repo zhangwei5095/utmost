@@ -48,8 +48,13 @@ HorizontalList
 	font-size:13;
 }
 
-ToolTip{
-	font-size:12;
+
+ToolTip {
+  fontFamily: "Arial";
+  fontSize: 12;
+  fontStyle: "italic";
+  color: #000000;
+  backgroundColor: #FCEA1E;
 }
 
 .errorTip{
