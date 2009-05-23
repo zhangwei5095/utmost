@@ -69,7 +69,9 @@ public class TPLTaskJob implements Job {
 		RuleService rs = (RuleService) SpringContext.getBean("RuleService");
 		for (String uuid : taskuuid) {
 			String[] id = uuid.split("=");
-			List<HashMap> list = as.findByUUID(tablename, id[0]);
+			// List<HashMap> list = as.findByUUID(tablename, id[0]);
+			List<HashMap> list = as.findByHql("from " + tablename
+					+ " v where v.uuid='" + id[0] + "'");
 			for (HashMap hm : list) {
 				String exp = (String) hm.get(expression);
 				try {
