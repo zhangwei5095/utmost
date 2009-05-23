@@ -1,24 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="horizontal" width="100%" height="100%">
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="horizontal" width="100%" height="100%" creationComplete="init()">
+	<mx:Script>
+		<![CDATA[
+			import mx.events.CloseEvent;
+			import mx.controls.Alert;
+			import org.utmost.util.ComponentUtil;
+			import org.utmost.util.AutoUtil;
+			import org.utmost.tpl.ViewUtil;
+			import org.utmost.service.AutoService;
+			import org.utmost.variable.TreeVar;
+			import mx.rpc.events.ResultEvent;
+			import org.utmost.service.UtmostService;
+			
+			private function init():void {
+				initTree();
+				//不通用
+				codeTextInput=rolecode;
+			}
+			//不通用
+			private var tableName:String="U_PORTAL_ROLE";
+			[Bindable]
+			private var codeTextInput:TextInput;
+			private var defaultSelectedIndex:int;
+			[Bindable]
+			private var treeXML:XML;
+			
+			private function initTree():void {
+				var ut:UtmostService=new UtmostService("TreeService",function(e:ResultEvent):void{
+					treeXML=new XML(e.result);
+					trace("treeXML:"+treeXML.toXMLString());
+					
+					callLater(function():void {
+						ComponentUtil.ocAllTree(tree);
+						tree.selectedIndex=defaultSelectedIndex;//设置Tree到上次选择状态
+						AutoUtil.clearValue(form);
+					});
+				});
+				//不通用
+				ut.ro.getTree(TreeVar.getRoleMainByTree(),TreeVar.getCommKvByTree());
+			}
+			private function setTreeIndex():void {
+				defaultSelectedIndex=tree.selectedIndex;
+			}
+			private function create():void {
+				setTreeIndex();
+				AutoUtil.clearValue(form);
+				btn_del.enabled=false;
+				btn_save.enabled=true;
+				//trace("-->"+tree.selectedItem.@uuid);
+
+				if(tree.selectedItem!=null&&tree.selectedItem.@uuid!=undefined) {
+					pid.text=tree.selectedItem.@uuid;
+					codeTextInput.enabled=true;
+					//trace("-->-");
+				}else {
+					codeTextInput.text="root";
+					codeTextInput.enabled=false;
+					//trace("-->--");
+				}
+			}
+//			private function update():void {
+//				setTreeIndex();
+//			}
+			private function save():void {
+				btn_save.enabled=false;
+				AutoService.getInstance().autoSaveOrUpdate(tableName,form,function(e:ResultEvent):void {
+					trace(e.result);
+					initTree();
+				});
+			}
+			private function del():void {
+				defaultSelectedIndex=tree.selectedIndex-1;
+				btn_save.enabled=false;
+				btn_del.enabled=false;
+				var alert:Alert = Alert.show('确定删除节点以及子节点!', '信息提示', Alert.YES | Alert.NO,null,function(e:CloseEvent):void {
+					switch(e.detail) {
+						case Alert.YES:
+						var ut:UtmostService=new UtmostService("TreeService",function(event:ResultEvent):void {	
+							initTree();
+						});
+						ut.ro.deleteTree(TreeVar.getDelObject(tableName,tree.selectedItem.@uuid.toString()));
+						break;
+						case Alert.NO:
+						break;	
+					}
+				});
+			}
+			private function changeState():void {
+				if(tree.selectedItem.@uuid!=undefined) {
+					btn_save.enabled=true;
+				}else {
+					btn_save.enabled=false;
+				}
+			}
+			private function treeItemClick():void {
+				if(tree.selectedItem.@nodecode=="root") {
+					codeTextInput.enabled=false;
+				}else {
+					codeTextInput.enabled=true;
+				}
+				changeState();
+				btn_del.enabled=true;
+				setTreeIndex();
+				var uuid:String=tree.selectedItem.@uuid;
+				if(uuid!=null) {
+					AutoService.getInstance().findByUUID(tableName,uuid,function(e:ResultEvent):void {
+						if(e.result!=null) {
+							AutoUtil.fillValue(form,e.result as Object);
+						}
+					});
+				}
+			}
+			private function treeLabelFunction(item:XML):String {
+				return item.@nodename+" ("+item.@nodecode+")";
+			}
+		]]>
+	</mx:Script>
 	<mx:VBox width="60%" height="100%" paddingBottom="30" paddingTop="30" horizontalAlign="right">
-		<mx:HBox horizontalAlign="right" verticalAlign="middle" width="100%">
-			<mx:Button label="创建" width="60"/>
-			<mx:Button label="更新" width="60"/>
-			<mx:Button label="删除" width="60"/>
-		</mx:HBox>
-		<mx:Tree width="70%" height="100%"></mx:Tree>
+		<mx:Tree id="tree" dataProvider="{treeXML}"  labelFunction="treeLabelFunction" width="70%" height="100%" itemClick="treeItemClick()" doubleClickEnabled="true" doubleClick="ComponentUtil.ocSelectTree(event)">
+		</mx:Tree>
 	</mx:VBox>
 	<mx:VBox width="40%" height="100%" paddingTop="60">
-		<mx:Form>
-			<mx:FormItem label="Label">
-				<mx:TextInput/>
-			</mx:FormItem>
-			<mx:FormItem label="Label">
-				<mx:TextInput/>
-			</mx:FormItem>
-			<mx:FormItem label="Label">
-				<mx:TextInput/>
-			</mx:FormItem>
-		</mx:Form>
+		<mx:Button label="创建" click="create()" width="60"/>
+		<mx:VBox id="vbox">
+			<mx:Form id="form">
+				<mx:FormItem label="uuid" includeInLayout="false" visible="false">
+					<mx:TextInput id="uuid"/>
+				</mx:FormItem>
+				<mx:FormItem label="pid" includeInLayout="false" visible="false">
+					<mx:TextInput id="pid"/>
+				</mx:FormItem>
+				<mx:FormItem required="true" label="角色编码">
+					<mx:TextInput id="rolecode"/>
+				</mx:FormItem>
+				<mx:FormItem required="true" label="角色名称">
+					<mx:TextInput id="rolename"/>
+				</mx:FormItem>
+				<mx:FormItem label="角色描述">
+					<mx:TextArea id="roledesc"/>
+				</mx:FormItem>
+				<mx:FormItem label="状态">
+					<mx:ComboBox id="state"/>
+				</mx:FormItem>
+			</mx:Form>
+			<mx:HBox width="100%" horizontalAlign="center" verticalAlign="middle" horizontalGap="30">
+				<mx:Spacer width="20%"/>
+				<mx:Button id="btn_save" label="保存" click="save()" enabled="false" width="60"/>
+				<mx:Button id="btn_del" label="删除" click="del()" enabled="false" width="60"/>
+			</mx:HBox>
+		</mx:VBox>
 	</mx:VBox>
 </mx:Module>

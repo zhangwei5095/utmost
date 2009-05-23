@@ -65,6 +65,7 @@
 					_tree.selectedIndex=0;
 					callLater(function():void {
 						ComponentUtil.ocAllTree(_tree);
+						tree.selectedIndex=nowTreeSelectIndex;//设置Tree到上次选择状态
 					});
 				});
 				ut.ro.getTree(TreeUtil.getRoleMainByTree(),TreeUtil.getRoleKvByTree());
@@ -85,13 +86,16 @@
 					saveOrUpdate();
 				}
 			}
+			private var nowTreeSelectIndex:int;
 			private function saveOrUpdate():void {
+				nowTreeSelectIndex=tree.selectedIndex;
 				var service:AutoService=new AutoService();
 				service.autoSaveOrUpdate(tableName,vbox,function(e:ResultEvent):void{
 						trace("success");
 						TreeInit(tree);
 						hideState();
 					});
+				
 			}
 			private function delNode():void {
 				if(tree.selectedItem==null) {
