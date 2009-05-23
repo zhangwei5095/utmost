@@ -1,4 +1,207 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%">
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="horizontal" width="100%" height="100%" creationComplete="init()">
+	<mx:Script>
+		<![CDATA[
+		
+			/**
+			 * 目前不支持修改编码 如以后需要开放 请修改校验逻辑 判断编码输入框是否被修改过
+			 * 如果修改过 则进行唯一性校验 数据库层最好添加唯一性校验(编码) 否则编码一旦重复将导致死循环
+			 * */
+			import org.utmost.variable.OperState;
+			import mx.rpc.events.FaultEvent;
+			import mx.events.CloseEvent;
+			import mx.controls.Alert;
+			import org.utmost.util.ComponentUtil;
+			import org.utmost.util.AutoUtil;
+			import org.utmost.tpl.ViewUtil;
+			import org.utmost.service.AutoService;
+			import org.utmost.variable.TreeVar;
+			import mx.rpc.events.ResultEvent;
+			import org.utmost.service.UtmostService;
+			
+			private function init():void {
+				initTree();
+				//不通用
+				codeTextInput=funccode;
+			}
+			//不通用
+			private var tableName:String="U_PORTAL_FUNC";
+			private var nowState:String;
+			
+			[Bindable]
+			private var codeTextInput:TextInput;
+			private var defaultSelectedIndex:int;
+			[Bindable]
+			private var treeXML:XML;
+			
+			private function initTree():void {
+				var ut:UtmostService=new UtmostService("TreeService",function(e:ResultEvent):void{
+					treeXML=new XML(e.result);
+					trace("treeXML:"+treeXML.toXMLString());
+					
+					callLater(function():void {
+						ComponentUtil.ocAllTree(tree);
+						tree.selectedIndex=defaultSelectedIndex;//设置Tree到上次选择状态
+						AutoUtil.clearValue(form);
+					});
+				});
+				//不通用
+				ut.ro.getTree(TreeVar.getFuncMainByTree(),TreeVar.getFuncKvByTree());
+			}
+			private function setTreeIndex():void {
+				defaultSelectedIndex=tree.selectedIndex;
+			}
+			private function create():void {
+				nowState=OperState.Create;
+				setTreeIndex();
+				AutoUtil.clearValue(form);
+				btn_del.enabled=false;
+				btn_save.enabled=true;
+				//trace("-->"+tree.selectedItem.@uuid);
+
+				if(tree.selectedItem!=null&&tree.selectedItem.@uuid!=undefined) {
+					pid.text=tree.selectedItem.@uuid;
+					codeTextInput.enabled=true;
+					//trace("-->-");
+				}else {
+					codeTextInput.text="root";
+					codeTextInput.enabled=false;
+					//trace("-->--");
+				}
+			}
+//			private function update():void {
+//				setTreeIndex();
+//			}
+			private function save():void {
+				if(codeTextInput.length<4) {
+					Alert.show("编码长度不满4位","信息提示");
+					return;
+				}
+				btn_save.enabled=false;
+				if(nowState==OperState.Create) {
+					//不通用
+					AutoService.unique(tableName,"funccode",codeTextInput.text,function():void{
+						AutoService.getInstance().autoSaveOrUpdate(tableName,form,function(e:ResultEvent):void {
+							trace(e.result);
+							initTree();
+						});
+					},function():void{
+						Alert.show("编码不允许重复!","信息提示");
+					});
+				}else if(nowState==OperState.Update) {
+					AutoService.getInstance().autoSaveOrUpdate(tableName,form,function(e:ResultEvent):void {
+						trace(e.result);
+						initTree();
+					});
+				}else {
+					trace("error!!!");
+				}
+			}
+			
+			private function del():void {
+				defaultSelectedIndex=tree.selectedIndex-1;
+				btn_save.enabled=false;
+				btn_del.enabled=false;
+				var alert:Alert = Alert.show('确定删除节点以及子节点!', '信息提示', Alert.YES | Alert.NO,null,function(e:CloseEvent):void {
+					switch(e.detail) {
+						case Alert.YES:
+						var ut:UtmostService=new UtmostService("TreeService",function(event:ResultEvent):void {	
+							initTree();
+						});
+						ut.ro.deleteTree(TreeVar.getDelObject(tableName,tree.selectedItem.@uuid.toString()));
+						break;
+						case Alert.NO:
+						break;	
+					}
+				});
+			}
+			private function changeState():void {
+				if(tree.selectedItem.@uuid!=undefined) {
+					btn_save.enabled=true;
+				}else {
+					btn_save.enabled=false;
+				}
+			}
+			private function treeItemClick():void {
+				nowState=OperState.Update;
+//				if(tree.selectedItem.@nodecode=="root") {
+					codeTextInput.enabled=false;
+//				}else {
+//					codeTextInput.enabled=true;
+//				}
+				changeState();
+				btn_del.enabled=true;
+				setTreeIndex();
+				var uuid:String=tree.selectedItem.@uuid;
+				if(uuid!=null) {
+					AutoService.getInstance().findByUUID(tableName,uuid,function(e:ResultEvent):void {
+						if(e.result!=null) {
+							AutoUtil.fillValue(form,e.result as Object);
+						}
+					});
+				}
+			}
+			private function treeLabelFunction(item:XML):String {
+				var char:String="null";
+				if(item.@state=="true") {
+					char="";
+				}else if(item.@state=="false"){
+					char="*";
+				}
+				return item.@nodename+" ("+item.@nodecode+")"+" "+char;
+			}
+		]]>
+	</mx:Script>
+	<mx:Array id="ds_state">
+		<mx:Object label="正常" value="true" />
+		<mx:Object label="禁用" value="false" />
+	</mx:Array>
+	<mx:Array id="ds_ismain">
+		<mx:Object label="是" value="false" />
+		<mx:Object label="否" value="true" />
+	</mx:Array>
 	
+	<mx:VBox width="60%" height="100%" paddingBottom="30" paddingTop="30" horizontalAlign="right">
+		<mx:Tree id="tree" dataProvider="{treeXML}"  labelFunction="treeLabelFunction" width="70%" height="100%" itemClick="treeItemClick()" doubleClickEnabled="true" doubleClick="ComponentUtil.ocSelectTree(event)">
+		</mx:Tree>
+	</mx:VBox>
+	<mx:VBox width="40%" height="100%" paddingTop="60">
+		<mx:Button label="创建" click="create()" width="60"/>
+		<mx:VBox id="vbox">
+			<mx:Form id="form">
+				<mx:FormItem label="uuid" includeInLayout="false" visible="false">
+					<mx:TextInput id="uuid"/>
+				</mx:FormItem>
+				<mx:FormItem label="pid" includeInLayout="false" visible="false">
+					<mx:TextInput id="pid"/>
+				</mx:FormItem>
+				<mx:FormItem required="true" label="功能编码">
+					<mx:TextInput id="funccode" restrict="0-9/a-z/A-Z"/>
+				</mx:FormItem>
+				<mx:FormItem required="true" label="功能名称">
+					<mx:TextInput id="funcname"/>
+				</mx:FormItem>
+				<mx:FormItem label="链接路径">
+					<mx:TextInput id="funcpath"/>
+				</mx:FormItem>
+				<mx:FormItem label="功能图标">
+					<mx:TextInput id="funcicon"/>
+				</mx:FormItem>
+				<mx:FormItem label="功能描述">
+					<mx:TextArea id="funcdesc"/>
+				</mx:FormItem>
+				<mx:FormItem label="主模块">
+					<mx:ComboBox id="ismain" dataProvider="{ds_ismain}"/>
+				</mx:FormItem>
+				<mx:FormItem label="状态">
+					<mx:ComboBox id="state" dataProvider="{ds_state}"/>
+				</mx:FormItem>
+			</mx:Form>
+			<mx:HBox width="100%" horizontalAlign="center" verticalAlign="middle" horizontalGap="30">
+				<mx:Spacer width="20%"/>
+				<mx:Button id="btn_save" label="保存" click="save()" enabled="false" width="60"/>
+				<mx:Button id="btn_del" label="删除" click="del()" enabled="false" width="60"/>
+			</mx:HBox>
+		</mx:VBox>
+	</mx:VBox>
 </mx:Module>

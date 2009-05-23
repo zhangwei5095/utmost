@@ -14,15 +14,6 @@ package org.utmost.variable
 			obj.idValue=uuid;//*
 			return obj;
 		}
-		//常用KVTree对象
-		public static function getCommKvByTree():Object {
-			var kv:Object=new Object();
-			kv.uuid="uuid";//*
-			kv.rolecode="nodecode";//*
-			kv.pid="pid";//*
-			kv.rolename="nodename";//*
-			return kv;
-		}
 		//角色树参数
 		public static function getRoleMainByTree():Object {
 			var main:Object=new Object();
@@ -39,45 +30,62 @@ package org.utmost.variable
 			kv.rolecode="nodecode";//*
 			kv.pid="pid";//*
 			kv.rolename="nodename";//*
+			kv.state="state";//*
 			return kv;
 		}
 		//功能树参数
-		public static function getFunMainByTree():Object {
+		public static function getFuncMainByTree():Object {
 			var main:Object=new Object();
-			main.tableName="U_FUN";//*
-			main.rootField="funcode";//*
+			main.tableName="U_PORTAL_FUNC";//*
+			main.rootField="funccode";//*
 			main.rootValue="root";//格外注意
 			main.idField="uuid";//*
-			main.pidField="parentid";//*
+			main.pidField="pid";//*
 			return main;
 		}
-		public static function getFunKvByTree():Object {
+		public static function getFuncKvByTree():Object {
 			var kv:Object=new Object();
 			kv.uuid="uuid";//*
-			kv.funcode="nodecode";//*
-			kv.parentid="parentid";//*
-			kv.funname="nodename";//*
+			kv.funccode="nodecode";//*
+			kv.pid="pid";//*
+			kv.funcname="nodename";//*
+			kv.state="state";//*
 			return kv;
 		}
+		
 		
 		//机构树参数
 		public static function getOrgMainByTree():Object {
 			var main:Object=new Object();
-			main.tableName="U_ORG";//*
+			main.tableName="U_PORTAL_ORG";//*
 			main.rootField="orgcode";//*
 			main.rootValue="root";//格外注意
 			main.idField="uuid";//*
-			main.pidField="parentid";//*
+			main.pidField="pid";//*
 			return main;
 		}
 		public static function getOrgKvByTree():Object {
 			var kv:Object=new Object();
 			kv.uuid="uuid";//*
 			kv.orgcode="nodecode";//*
-			kv.parentid="parentid";//*
+			kv.pid="pid";//*
 			kv.orgname="nodename";//*
+			kv.state="state";//*
 			return kv;
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		//差错种类树参数
 		public static function getErrorTypeMainByTree():Object {

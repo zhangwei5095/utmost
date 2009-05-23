@@ -46,7 +46,7 @@
 					});
 				});
 				//不通用
-				ut.ro.getTree(TreeVar.getRoleMainByTree(),TreeVar.getCommKvByTree());
+				ut.ro.getTree(TreeVar.getRoleMainByTree(),TreeVar.getRoleKvByTree());
 			}
 			private function setTreeIndex():void {
 				defaultSelectedIndex=tree.selectedIndex;
@@ -73,6 +73,10 @@
 //				setTreeIndex();
 //			}
 			private function save():void {
+				if(codeTextInput.length<4) {
+					Alert.show("编码长度不满4位","信息提示");
+					return;
+				}
 				btn_save.enabled=false;
 				if(nowState==OperState.Create) {
 					//不通用
@@ -138,10 +142,20 @@
 				}
 			}
 			private function treeLabelFunction(item:XML):String {
-				return item.@nodename+" ("+item.@nodecode+")";
+				var char:String="null";
+				if(item.@state=="true") {
+					char="";
+				}else if(item.@state=="false"){
+					char="*";
+				}
+				return item.@nodename+" ("+item.@nodecode+")"+" "+char;
 			}
 		]]>
 	</mx:Script>
+	<mx:Array id="ds_state">
+		<mx:Object label="正常" value="true" />
+		<mx:Object label="禁用" value="false" />
+	</mx:Array>
 	<mx:VBox width="60%" height="100%" paddingBottom="30" paddingTop="30" horizontalAlign="right">
 		<mx:Tree id="tree" dataProvider="{treeXML}"  labelFunction="treeLabelFunction" width="70%" height="100%" itemClick="treeItemClick()" doubleClickEnabled="true" doubleClick="ComponentUtil.ocSelectTree(event)">
 		</mx:Tree>
@@ -157,7 +171,7 @@
 					<mx:TextInput id="pid"/>
 				</mx:FormItem>
 				<mx:FormItem required="true" label="角色编码">
-					<mx:TextInput id="rolecode"/>
+					<mx:TextInput id="rolecode" restrict="0-9/a-z/A-Z"/>
 				</mx:FormItem>
 				<mx:FormItem required="true" label="角色名称">
 					<mx:TextInput id="rolename"/>
@@ -166,7 +180,7 @@
 					<mx:TextArea id="roledesc"/>
 				</mx:FormItem>
 				<mx:FormItem label="状态">
-					<mx:ComboBox id="state"/>
+					<mx:ComboBox id="state" dataProvider="{ds_state}"/>
 				</mx:FormItem>
 			</mx:Form>
 			<mx:HBox width="100%" horizontalAlign="center" verticalAlign="middle" horizontalGap="30">
