@@ -37,6 +37,11 @@
 				<comment>功能图标</comment>
 			</column>
 		</property>
+		<property name="ismain" type="java.lang.String">
+			<column length="36" name="ISMAIN">
+				<comment>是否为主模块</comment>
+			</column>
+		</property>
 		<property name="state" type="java.lang.String">
 			<column length="36" name="STATE">
 				<comment>状态</comment>
