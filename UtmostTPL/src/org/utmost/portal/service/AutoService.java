@@ -170,10 +170,7 @@ public class AutoService extends CommService {
 	 */
 	@SuppressWarnings("unchecked")
 	public void deleteByUUID(String tableName, String uuid) {
-		List list = this.findByUUID(tableName, uuid);
-		for (Object o : list) {
-			getDb().delete(o);
-		}
+		getDb().delete(this.findByUUID(tableName, uuid));
 	}
 
 	/**
@@ -194,9 +191,13 @@ public class AutoService extends CommService {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public List findByUUID(String tableName, String uuid) {
-		return getDb().findByHql(
+	public Object findByUUID(String tableName, String uuid) {
+		List list = getDb().findByHql(
 				"from " + tableName + " v where v.uuid='" + uuid + "'");
+		if (list.size() == 1)
+			return list.get(0);
+		else
+			return null;
 	}
 
 	/**
