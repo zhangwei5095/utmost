@@ -177,13 +177,15 @@ package org.utmost.service
 		}
 
 		//唯一性校验  successHandler 为校验通过执行的函数
-		public static function unique(tableName:String,field:String,value:String,successHandler:Function,errorHandler:Function=null):void {
+		public static function unique(tableName:String,field:String,value:String,successHandler:Function=null,errorHandler:Function=null):void {
 			var service:AutoService=new AutoService();
 			var hql:String="from "+tableName +" v where v."+field+"='"+value+"'";
 			service.findByHql(hql,function(e:ResultEvent):void {
 				var ac:ArrayCollection=e.result as ArrayCollection;
 				if(ac.length<=0) {
-					successHandler.call();
+					if(successHandler!=null) {
+						successHandler.call();
+					}
 				}else {
 					if(errorHandler!=null) {
 						errorHandler.call();
