@@ -73,37 +73,5 @@ package org.utmost.variable
 			kv.state="state";//*
 			return kv;
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		//差错种类树参数
-		public static function getErrorTypeMainByTree():Object {
-			var main:Object=new Object();
-			main.tableName="QAM_ERRORTYPE";//*
-			main.rootField="errortypecode";//*
-			main.rootValue="root";//格外注意
-			main.idField="uuid";//*
-			main.pidField="parentid";//*
-			return main;
-		}
-		public static function getErrorTypeKvByTree():Object {
-			var kv:Object=new Object();
-			kv.uuid="uuid";//*
-			kv.errortypecode="nodecode";//*
-			kv.parentid="parentid";//*
-			kv.errortypename="nodename";//*
-			return kv;
-		}
 	}
 }

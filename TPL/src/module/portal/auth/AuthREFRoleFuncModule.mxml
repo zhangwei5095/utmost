@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%">
-	
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%" xmlns:controls="com.sephiroth.controls.*">
+	<mx:HBox width="100%" height="100%" verticalAlign="middle" horizontalAlign="center" horizontalGap="60">
+		<mx:Tree id="tree" width="300" height="85%" labelField="@nodename">
+		</mx:Tree>
+		<controls:TreeCheckBox id="cbtree" labelField="@nodename" itemCheck="cbtree.onItemCheck( event )" width="300" height="85%" checkField="@checked"/>
+	</mx:HBox>
+	<mx:HBox width="100%" height="50" verticalAlign="top" horizontalAlign="center" horizontalGap="40">
+		<mx:Button label="保存"/>
+		<mx:Button label="取消"/>
+	</mx:HBox>
 </mx:Module>
