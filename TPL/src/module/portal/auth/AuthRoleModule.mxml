@@ -2,6 +2,13 @@
 <mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="horizontal" width="100%" height="100%" creationComplete="init()">
 	<mx:Script>
 		<![CDATA[
+		
+			/**
+			 * 目前不支持修改编码 如以后需要开放 请修改校验逻辑 判断编码输入框是否被修改过
+			 * 如果修改过 则进行唯一性校验 数据库层最好添加唯一性校验(编码) 否则编码一旦重复将导致死循环
+			 * */
+			import org.utmost.variable.OperState;
+			import mx.rpc.events.FaultEvent;
 			import mx.events.CloseEvent;
 			import mx.controls.Alert;
 			import org.utmost.util.ComponentUtil;
@@ -19,6 +26,8 @@
 			}
 			//不通用
 			private var tableName:String="U_PORTAL_ROLE";
+			private var nowState:String;
+			
 			[Bindable]
 			private var codeTextInput:TextInput;
 			private var defaultSelectedIndex:int;
@@ -43,6 +52,7 @@
 				defaultSelectedIndex=tree.selectedIndex;
 			}
 			private function create():void {
+				nowState=OperState.Create;
 				setTreeIndex();
 				AutoUtil.clearValue(form);
 				btn_del.enabled=false;
@@ -64,11 +74,26 @@
 //			}
 			private function save():void {
 				btn_save.enabled=false;
-				AutoService.getInstance().autoSaveOrUpdate(tableName,form,function(e:ResultEvent):void {
-					trace(e.result);
-					initTree();
-				});
+				if(nowState==OperState.Create) {
+					//不通用
+					AutoService.unique(tableName,"rolecode",codeTextInput.text,function():void{
+						AutoService.getInstance().autoSaveOrUpdate(tableName,form,function(e:ResultEvent):void {
+							trace(e.result);
+							initTree();
+						});
+					},function():void{
+						Alert.show("编码不允许重复!","信息提示");
+					});
+				}else if(nowState==OperState.Update) {
+					AutoService.getInstance().autoSaveOrUpdate(tableName,form,function(e:ResultEvent):void {
+						trace(e.result);
+						initTree();
+					});
+				}else {
+					trace("error!!!");
+				}
 			}
+			
 			private function del():void {
 				defaultSelectedIndex=tree.selectedIndex-1;
 				btn_save.enabled=false;
@@ -94,11 +119,12 @@
 				}
 			}
 			private function treeItemClick():void {
-				if(tree.selectedItem.@nodecode=="root") {
+				nowState=OperState.Update;
+//				if(tree.selectedItem.@nodecode=="root") {
 					codeTextInput.enabled=false;
-				}else {
-					codeTextInput.enabled=true;
-				}
+//				}else {
+//					codeTextInput.enabled=true;
+//				}
 				changeState();
 				btn_del.enabled=true;
 				setTreeIndex();
