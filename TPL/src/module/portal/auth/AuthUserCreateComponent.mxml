@@ -28,7 +28,7 @@
 	</mx:Script>
 	<mx:Form height="100%" id="formID">
 		<mx:FormItem label="用户编码" includeInLayout="false" visible="false">
-			<mx:TextInput id="usercode"/>
+			<mx:TextInput id="usercode" restrict="0-9/a-z/A-Z/@/./_/\-"/>
 		</mx:FormItem>
 		<mx:FormItem label="用户状态" includeInLayout="false" visible="false">
 			<mx:TextInput id="state" text="01"/>
@@ -37,7 +37,7 @@
 			<mx:TextInput id="username"/>
 		</mx:FormItem>
 		<mx:FormItem required="true" label="登录名称">
-			<mx:TextInput id="loginname"/>
+			<mx:TextInput id="loginname" restrict="0-9/a-z/A-Z/@/./_/\-"/>
 		</mx:FormItem>
 		<mx:FormItem required="true" label="密码">
 			<mx:TextInput id="password" text="123456" displayAsPassword="true"/>
