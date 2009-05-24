@@ -2,6 +2,7 @@
 <mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="400" height="300" horizontalAlign="center" verticalAlign="top" showCloseButton="true" close="close()" creationComplete="init()">
 	<mx:Script>
 		<![CDATA[
+			import com.adobe.crypto.MD5;
 			import org.utmost.effect.PopUpEffect;
 			import org.utmost.util.ShortcutKeyUtil;
 			import mx.controls.Alert;
@@ -28,6 +29,7 @@
 					return;
 				}
 				usercode.text=loginname.text;//用户编码默认为登录名称
+				password.text=MD5.hash(password.text);
 				AutoService.getInstance().autoSave("U_PORTAL_USER",formID,function():void {
 					$queryUserList.call();
 					close();
@@ -49,10 +51,10 @@
 			<mx:TextInput id="loginname" restrict="0-9/a-z/A-Z/@/./_/\-"/>
 		</mx:FormItem>
 		<mx:FormItem required="true" label="密码">
-			<mx:TextInput id="password" text="123456" displayAsPassword="true"/>
+			<mx:TextInput id="password" text="123456" />
 		</mx:FormItem>
 		<mx:FormItem required="true" label="密码确认">
-			<mx:TextInput id="password2" text="123456" displayAsPassword="true"/>
+			<mx:TextInput id="password2" text="123456" />
 		</mx:FormItem>
 	</mx:Form>
 	<mx:ControlBar horizontalAlign="center">
