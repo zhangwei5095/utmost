@@ -9,6 +9,6 @@ public class CodecUtil {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(CodecUtil.md5Hex("wlm"));
+		System.out.println(CodecUtil.md5Hex("123456"));
 	}
 }
