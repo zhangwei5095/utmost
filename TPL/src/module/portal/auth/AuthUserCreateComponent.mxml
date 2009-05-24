@@ -52,7 +52,10 @@
 			<mx:TextInput id="loginname" restrict="0-9/a-z/A-Z/@/./_/\-"/>
 		</mx:FormItem>
 		<mx:FormItem required="true" label="密码">
-			<mx:TextInput id="password" text="123456" displayAsPassword="true" />
+			<mx:HBox paddingLeft="0" paddingRight="0" paddingBottom="0" paddingTop="0">
+				<mx:TextInput id="password" text="123456" displayAsPassword="true" />	
+				<mx:Label text="默认为123456"/>
+			</mx:HBox>
 		</mx:FormItem>
 		<mx:FormItem required="true" label="密码确认">
 			<mx:TextInput id="password2" text="123456" displayAsPassword="true" />

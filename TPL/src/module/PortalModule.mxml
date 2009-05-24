@@ -2,6 +2,9 @@
 <mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%" creationComplete="init()" xmlns:component="component.*" horizontalScrollPolicy="off" verticalScrollPolicy="off">
 	<mx:Script>
 		<![CDATA[
+			import mx.utils.ObjectProxy;
+			import mx.rpc.events.ResultEvent;
+			import org.utmost.service.UtmostService;
 			import mx.controls.Alert;
 			import mx.events.ListEvent;
 			import mx.collections.ArrayCollection;
@@ -25,35 +28,46 @@
 			private function trasSystem(event:ListEvent):void
 			{
 				var o:Object=event.itemRenderer.data;
-//				trace("o.@nodename:"+o.@nodename);
-//				trace("o.@nodecode:"+o.@nodecode);
-//				trace("o.@module:"+o.@module);
-//				trace("o.@icon:"+o.@icon);
 				var xml:XML;
-				if (o.@nodecode == "Portal")
-				{
-					xml=new XML(PortalTree.node);
-				}
-				else if (o.@nodecode == "BankRisk")
-				{
-					xml=new XML(BankRiskTree.node);
-				}
-				else if (o.@nodecode == "BankIntendance")
-				{
-					xml=new XML(BankIntendance.node);
-				}
-				else if (o.@nodecode == "SysMonitor")
-				{
-					xml=new XML(SysMonitorTree.node);
-				}
-				else if (o.@nodecode == "Volkswagen")
-				{
-					xml=new XML(VolkswagenTree.node);
-				}
-				else
-				{
-					Alert.show("无效的节点编码", "提示");
-					return ;
+				if(o.@mode!="dynamic") {
+					if (o.@nodecode == "Portal")
+					{
+						xml=new XML(PortalTree.node);
+					}
+					else if (o.@nodecode == "BankRisk")
+					{
+						xml=new XML(BankRiskTree.node);
+					}
+					else if (o.@nodecode == "BankIntendance")
+					{
+						xml=new XML(BankIntendance.node);
+					}
+					else if (o.@nodecode == "SysMonitor")
+					{
+						xml=new XML(SysMonitorTree.node);
+					}
+					else if (o.@nodecode == "Volkswagen")
+					{
+						xml=new XML(VolkswagenTree.node);
+					}
+					else
+					{
+						Alert.show("无效的节点编码", "提示");
+						return ;
+					}
+				}else {
+					//动态权限
+					var service:UtmostService=new UtmostService("AuthService",function(e:ResultEvent):void {
+						//trace(e.result.toString());
+						xml=new XML(e.result);
+						//trace("xml:"+xml.toXMLString());
+						//待重构
+						Application.application.$modulesystreeForChild=xml
+						Application.application.$modulecodeForChild=o.@nodecode;
+						Application.application.$modulenameForChild=o.@nodename;
+						Application.application.loadModule(o.@module);
+					});
+					service.ro.findFuncTreeByRole("boss","Volkswagen");
 				}
 				Application.application.$modulesystreeForChild=xml
 				Application.application.$modulecodeForChild=o.@nodecode;
@@ -62,6 +76,7 @@
 			}
 		]]>
 	</mx:Script>
+	
 	<mx:XML id="MainTree" source="xml/portal/MainTree.xml"/>	
 	<mx:XML id="PortalTree" source="xml/portal/PortalTree.xml"/>
 	<mx:XML id="SysMonitorTree" source="xml/portal/SysMonitorTree.xml"/>
@@ -69,10 +84,11 @@
 	<mx:XML id="BankIntendance" source="xml/portal/BankIntendanceTree.xml"/>
 	<mx:XML id="VolkswagenTree" source="xml/portal/VolkswagenTree.xml"/>
 	
-	<mx:VBox width="100%" height="100%" horizontalAlign="center" verticalAlign="middle" horizontalScrollPolicy="off" verticalScrollPolicy="off" verticalGap="10">
+	<mx:VBox width="100%" height="100%" horizontalAlign="center" verticalAlign="middle" horizontalScrollPolicy="off" verticalScrollPolicy="off" verticalGap="0">
 		<component:SystemMenuBar height="35"/>
-		<mx:Spacer height="8%"/>
-		<component:MyTileList id="tileList" width="80%" height="80%" itemClick="trasSystem(event)" dataProvider="{MainTree.node}" itemRenderer="component.ImageItemRenderer" columnCount="4" backgroundAlpha="0.0" borderSides="0" dragEnabled="true" focusAlpha="0.0" dragMoveEnabled="true" dropEnabled="true">
+		<mx:Spacer height="6%"/>
+		<component:MyTileList id="tileList" width="80%" height="90%" itemClick="trasSystem(event)" dataProvider="{MainTree.node}" 
+			itemRenderer="component.ImageItemRenderer" columnCount="3" backgroundAlpha="0.0" borderSides="0" dragEnabled="true" focusAlpha="0.0" dragMoveEnabled="true"  dropEnabled="true">
 		</component:MyTileList>
 	</mx:VBox>
 </mx:Module>

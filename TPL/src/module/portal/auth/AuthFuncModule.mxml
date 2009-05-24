@@ -55,6 +55,7 @@
 				nowState=OperState.Create;
 				setTreeIndex();
 				AutoUtil.clearValue(form);
+				funcpath.text="module/system/*.swf";
 				btn_del.enabled=false;
 				btn_save.enabled=true;
 				//trace("-->"+tree.selectedItem.@uuid);
@@ -157,8 +158,8 @@
 		<mx:Object label="禁用" value="false" />
 	</mx:Array>
 	<mx:Array id="ds_ismain">
-		<mx:Object label="是" value="false" />
 		<mx:Object label="否" value="true" />
+		<mx:Object label="是" value="false" />
 	</mx:Array>
 	
 	<mx:VBox width="60%" height="100%" paddingBottom="30" paddingTop="30" horizontalAlign="right">
