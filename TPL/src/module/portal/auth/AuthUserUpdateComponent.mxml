@@ -2,6 +2,8 @@
 <mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="400" height="300" horizontalAlign="center" verticalAlign="top" showCloseButton="true" close="close()" creationComplete="init()">
 	<mx:Script>
 		<![CDATA[
+			import org.utmost.effect.PopUpEffect;
+			import org.utmost.util.ShortcutKeyUtil;
 			import org.utmost.util.AutoUtil;
 			import mx.controls.Alert;
 			import org.utmost.service.AutoService;
@@ -10,11 +12,15 @@
 			public var $queryUserList:Function;
 			public var $formData:Object;
 			private function close():void {
-				PopUpManager.removePopUp(this);
+				//PopUpManager.removePopUp(this);
+				PopUpEffect.remove(this);
 			}
 			
 			private function init():void {
 				AutoUtil.fillValue(formID,$formData);
+				
+				ShortcutKeyUtil.setFocusAndSubmit(this,update);
+				ShortcutKeyUtil.setFocusAndCancel(this,close);
 			}
 			private function update():void {
 				usercode.text=loginname.text;//用户编码默认为登录名称
