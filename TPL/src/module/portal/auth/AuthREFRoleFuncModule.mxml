@@ -23,6 +23,7 @@
 			private function init():void {
 				initTree(redTree,TreeVar.getRoleMainByTree(),TreeVar.getRoleKvByTree());
 				initTree(blueTree,TreeVar.getFuncMainByTree(),TreeVar.getFuncKvByTree());
+				blueTree.visible=false;
 			}
 			private function initTree(_tree:Tree,main:Object,kv:Object):void {
 				var ut:UtmostService=new UtmostService("TreeService",function(e:ResultEvent):void{
@@ -81,7 +82,8 @@
 			
 			private function save(ac:ArrayCollection):void {
 				AutoService.getInstance().saveAll(tableName,ac,function(e:ResultEvent):void {
-					Alert.show("保存成功","提示");
+					//Alert.show("保存成功","提示");
+					shake.play();
 				});
 			}
 			private function treeClick(_tree:Tree):void {
@@ -138,7 +140,11 @@
 			}
 		]]>
 	</mx:Script>
-	<mx:HBox width="100%" height="100%" verticalAlign="middle" horizontalAlign="center" horizontalGap="60">
+	<mx:Sequence id="shake" target="{hbox}" duration="100" repeatCount="2">
+        <mx:Move xBy="15"/>
+        <mx:Move xBy="-15"/>
+    </mx:Sequence>
+	<mx:HBox  id="hbox" width="100%" height="100%" verticalAlign="middle" horizontalAlign="center" horizontalGap="60">
 		<mx:Tree id="redTree" width="260" height="85%" labelField="@nodename" itemClick="treeClick(redTree)" keyDown="treeClick(redTree)">
 		</mx:Tree>
 		<controls:TreeCheckBox id="blueTree"  labelField="@nodename" itemCheck="blueTree.onItemCheck( event )"

@@ -4,6 +4,7 @@
 	 creationComplete="init()">
 	<mx:Script>
 		<![CDATA[
+			import org.utmost.util.ShortcutKeyUtil;
 			import org.utmost.effect.PopUpEffect;
 			import mx.collections.ArrayCollection;
 			import mx.charts.chartClasses.DataDescription;
@@ -30,12 +31,13 @@
 				stateChange();
 				
 				//设置回车提交
-				this.setFocus();
-				this.addEventListener(KeyboardEvent.KEY_DOWN,function(e:KeyboardEvent):void {
-					if(e.charCode==13) {
-						submit();
-					}
-				});
+				ShortcutKeyUtil.setFocusAndSubmit(this,submit);
+//				this.setFocus();
+//				this.addEventListener(KeyboardEvent.KEY_DOWN,function(e:KeyboardEvent):void {
+//					if(e.charCode==13) {
+//						submit();
+//					}
+//				});
 			}
 			private function stateChange():void {
 				cid.text=_treeitem.@uuid;//设置父ID
