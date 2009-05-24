@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" 
-	layout="vertical" applicationComplete="init()" horizontalScrollPolicy="off" xmlns:kapit="fr.kapit.*" preloader="org.utmost.component.MyPreloader" paddingTop="10" verticalGap="10">
+	layout="vertical" applicationComplete="init()" horizontalScrollPolicy="off" xmlns:kapit="fr.kapit.*" preloader="org.utmost.component.MyPreloader" paddingTop="10" verticalGap="10" xmlns:skins="skins.brownie.skins.*">
 	<mx:Style source="skins/style.css"/>
 	<!--<mx:Style source="skins/brownie/style.css"/>-->
 	<mx:Script>

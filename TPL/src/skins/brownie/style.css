@@ -44,6 +44,10 @@ Panel, Alert, TitleWindow
 	dropShadowEnabled: false;
 	title-style-name: headerStyle;
 /*	headerSkin: ClassReference("skins.brownie.skins.HeaderSkin");*/
+	closeButtonDisabledSkin: Embed(source="skins/vista/wmp11.swf",symbol="Panel_closeButtonDisabledSkin");
+	closeButtonDownSkin: Embed(source="skins/vista/wmp11.swf",symbol="Panel_closeButtonDownSkin");
+	closeButtonOverSkin: Embed(source="skins/vista/wmp11.swf",symbol="Panel_closeButtonOverSkin");
+	closeButtonUpSkin: Embed(source="skins/vista/wmp11.swf",symbol="Panel_closeButtonUpSkin");
 }
 .panelDropShadow
 {
