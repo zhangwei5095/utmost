@@ -86,7 +86,27 @@
 					<mx:AdvancedDataGridColumn headerText="用户编码" dataField="usercode"/>
 					<mx:AdvancedDataGridColumn headerText="用户名称" dataField="username"/>
 					<mx:AdvancedDataGridColumn headerText="登录名称" dataField="loginname"/>
-					<!--mx:AdvancedDataGridColumn headerText="用户状态" dataField="state"/-->
+					<mx:AdvancedDataGridColumn headerText="用户状态" dataField="state"/>
+					<mx:AdvancedDataGridColumn headerText="用户状态">
+						<mx:itemRenderer>
+							<mx:Component>
+								<mx:Label text="{getState(data)}">
+									<mx:Script>
+										<![CDATA[
+											private function getState(obj:Object):String {
+												if(obj.state=="true") {
+													return "正常";
+												}else {
+													return "禁用";
+												}
+											}
+										]]>
+									</mx:Script>
+								</mx:Label>
+							</mx:Component>
+						</mx:itemRenderer>
+					</mx:AdvancedDataGridColumn>
+					
 					<mx:AdvancedDataGridColumn sortable="false" width="48"
 							itemRenderer="component.DGbox">
 						</mx:AdvancedDataGridColumn>
