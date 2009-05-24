@@ -6,6 +6,7 @@
             class="flex.messaging.services.RemotingService"
             messageTypes="flex.messaging.messages.RemotingMessage">
             <destination id="AutoService"/>
+            <destination id="AuthService"/>
             <destination id="RuleService"/>
             <destination id="ConsoleSimulator"/>
             <destination id="SpringContext"/>
