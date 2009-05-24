@@ -1,4 +1,13 @@
-<node label="视图测试">
-	<node label="表单测试" module="module/tpl/template/TestForm.swf" />
-	<node label="增删查改" module="module/tpl/template/SimpleCRUD.swf" />
+<?xml version="1.0" encoding="UTF-8"?>
+<node state="true" nodecode="Volkswagen" pid="4028808c217086c7012171baf44b0064" uuid="4028808c217086c7012171bb61ab0065" nodename="?????????" module="module/system/*.swf">
+<node state="true" nodecode="QCFreightInput" pid="4028808c217086c7012171bb61ab0065" uuid="4028808c217086c7012171bbd0ff0066" nodename="???" module="module/system/volkswagen/QCFreightInputModule.swf">
+</node>
+<node state="true" nodecode="QCQuery" pid="4028808c217086c7012171bb61ab0065" uuid="4028808c217086c7012171bc07900067" nodename="???" module="module/system/volkswagen/QCQueryModule.swf">
+</node>
+<node state="true" nodecode="PriceTrend" pid="4028808c217086c7012171bb61ab0065" uuid="4028808c217086c7012171bc59690068" nodename="????????" module="module/system/*.swf">
+</node>
+<node state="true" nodecode="QCAlarm" pid="4028808c217086c7012171bb61ab0065" uuid="4028808c217086c7012171bc98950069" nodename="???" module="module/system/*.swf">
+</node>
+<node state="true" nodecode="ForwarderMainten" pid="4028808c217086c7012171bb61ab0065" uuid="4028808c217086c7012171bcc6f8006a" nodename="?????????" module="module/system/*.swf">
+</node>
 </node>

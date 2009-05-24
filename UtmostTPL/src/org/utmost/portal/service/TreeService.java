@@ -42,7 +42,7 @@ public class TreeService extends CommService {
 			// sb.append("<node> </node>");
 			sb.append("<node nodename=\"" + "null" + "\"> </node>");
 		}
-		System.out.println("sb.toString():" + sb.toString());
+		// System.out.println("sb.toString():" + sb.toString());
 		return sb.toString();
 	}
 
