@@ -21,7 +21,8 @@ import org.utmost.common.SpringContext;
 @Service("TreeService")
 public class TreeService extends CommService {
 	private static Log logger = LogFactory.getLog(TreeService.class);
-	private StringBuffer sb = new StringBuffer();
+
+	// private StringBuffer sb =null;
 
 	/**
 	 * 
@@ -30,13 +31,13 @@ public class TreeService extends CommService {
 	 * @return
 	 */
 	public String getTree(HashMap main, HashMap kv) {
-		sb = new StringBuffer();
+		StringBuffer sb = new StringBuffer();
 		String tableName = (String) main.get("tableName");// 数据表名
 
 		AutoService as = (AutoService) SpringContext.getBean("AutoService");
 		List tableList = as.findByHql("from " + tableName);
 		if (tableList.size() > 0) {
-			processXML(tableList, main, kv);
+			processXML(tableList, main, kv, sb);
 		} else {
 			// sb.append("<node> </node>");
 			sb.append("<node nodename=\"" + "null" + "\"> </node>");
@@ -45,7 +46,8 @@ public class TreeService extends CommService {
 		return sb.toString();
 	}
 
-	private String processXML(List tableList, HashMap main, HashMap kv) {
+	private String processXML(List tableList, HashMap main, HashMap kv,
+			StringBuffer sb) {
 		String rootCode = (String) main.get("rootField");// 根节点编码字段
 		String rootValue = (String) main.get("rootValue");// 根节点编码Value
 		String idField = (String) main.get("idField");// id字段名(UUID)
@@ -77,7 +79,7 @@ public class TreeService extends CommService {
 					if (cPid.equalsIgnoreCase(nodeid)) {// 迭代打印子节点
 						HashMap cMain = new HashMap(main);
 						cMain.put("rootValue", (String) childM.get(rootCode));
-						processXML(tableList, cMain, kv);
+						processXML(tableList, cMain, kv, sb);
 					}
 				}
 				sb.append("</node>" + "\n");
