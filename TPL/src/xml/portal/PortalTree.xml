@@ -1,6 +1,6 @@
 <node nodename="SystemTree">
 	<node nodename="门户管理">
-		<node nodename="权限管理">
+		<!--node nodename="权限管理">
 			<node nodename="用户管理" icon="icons/full_list.png" showInList="true" module="module/auth/AuthUserModule.swf" />
 			<node nodename="角色管理" showInList="true" module="module/auth/AuthRoleModule.swf" />
 			<node nodename="功能管理" showInList="true" module="module/auth/AuthFunModule.swf" />
@@ -15,16 +15,16 @@
 		
 		<node nodename="系统维护" >
 			<node nodename="参数维护" showInList="true" module="module/auth/AuthParamModule.swf" />
-		</node>
+		</node-->
 		
-		<node nodename="新权限管理">
+		<node nodename="权限管理">
 			<node nodename="用户管理" icon="icons/full_list.png" showInList="true" module="module/portal/auth/AuthUserModule.swf" />
 			<node nodename="角色管理" showInList="true" module="module/portal/auth/AuthRoleModule.swf" />
 			<node nodename="功能管理" showInList="true" module="module/portal/auth/AuthFuncModule.swf" />
 			<node nodename="机构管理" showInList="true" module="module/portal/auth/AuthOrgModule.swf" />
 			<node nodename="用户角色权限" showInList="true" module="module/portal/auth/AuthREFRoleUserModule.swf" />
 			<node nodename="功能角色权限" showInList="true" module="module/portal/auth/AuthREFRoleFuncModule.swf" />
-			<node nodename="用户机构权限" showInList="true" module="module/portal/auth/AuthREFRoleUserModule.swf" />
+			<node nodename="用户机构权限" showInList="true" module="module/portal/auth/AuthREFOrgUserModule.swf" />
 			<node nodename="角色拓扑图" showInList="true" module="module/portal/auth/AuthVisualizerForRoleModule.swf" />
 			<node nodename="机构拓扑图" showInList="true" module="module/portal/auth/AuthVisualizerForOrgModule.swf" />
 			<node nodename="功能拓扑图" showInList="true" module="module/portal/auth/AuthVisualizerForFuncModule.swf" />
