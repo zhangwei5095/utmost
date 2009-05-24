@@ -71,14 +71,20 @@
 <module application="src/TPL.mxml" destPath="module/portal/auth/AuthREFRoleUserModule.swf" optimize="true" sourcePath="src/module/portal/auth/AuthREFRoleUserModule.mxml"/>
 <module application="src/TPL.mxml" destPath="module/portal/auth/AuthREFRoleFuncModule.swf" optimize="true" sourcePath="src/module/portal/auth/AuthREFRoleFuncModule.mxml"/>
 <module application="src/TPL.mxml" destPath="module/portal/auth/AuthREFOrgUserModule.swf" optimize="true" sourcePath="src/module/portal/auth/AuthREFOrgUserModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/jbpm3/FlowInstanceModule.swf" optimize="true" sourcePath="src/module/jbpm3/FlowInstanceModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/jbpm3/ProcessVerModule.swf" optimize="true" sourcePath="src/module/jbpm3/ProcessVerModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/jbpm3/taskDistributeModule.swf" optimize="true" sourcePath="src/module/jbpm3/taskDistributeModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/portal/auth/AuthVisualizerForFuncModule.swf" optimize="true" sourcePath="src/module/portal/auth/AuthVisualizerForFuncModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/portal/auth/AuthVisualizerForOrgModule.swf" optimize="true" sourcePath="src/module/portal/auth/AuthVisualizerForOrgModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/portal/auth/AuthVisualizerForRoleModule.swf" optimize="true" sourcePath="src/module/portal/auth/AuthVisualizerForRoleModule.mxml"/>
 </modules>
 <buildCSSFiles>
 <buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/itunes7/ItunesTheme.css"/>
-<buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/style.css"/>
 <buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/undefined/css/skinPreview.css"/>
+<buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/style.css"/>
 <buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/classic/style.css"/>
 <buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/brownie/style.css"/>
-<buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/brownie/Main.css"/>
 <buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/vista/VistaTheme.css"/>
+<buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/brownie/Main.css"/>
 </buildCSSFiles>
 </actionScriptProperties>

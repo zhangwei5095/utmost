@@ -24,8 +24,10 @@
 				ShortcutKeyUtil.setFocusAndCancel(this,close);
 			}
 			private function update():void {
-				usercode.text=loginname.text;//用户编码默认为登录名称
-				
+				if(loginname.text.length<2||username.text.length<2) {
+					Alert.show("登录名称或用户名输入错误, 请重新输入!","信息提示");
+					return;
+				}
 				if(pwdChanged) {
 					trace("pwdChanged:"+pwdChanged);
 					if(password.text!=password2.text) {
@@ -34,6 +36,7 @@
 						return;
 					}
 				}
+				usercode.text=loginname.text;//用户编码默认为登录名称
 				AutoService.getInstance().autoUpdate("U_PORTAL_USER",formID,function():void {
 					$queryUserList.call();
 					close();
