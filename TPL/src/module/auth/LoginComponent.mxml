@@ -29,6 +29,7 @@
     </mx:Sequence>
 	<mx:Script>
 		<![CDATA[
+			import org.utmost.util.ShortcutKeyUtil;
 			import org.utmost.service.StaticChannelSet;
 			import org.utmost.util.UtmostLSOBean;
 			import org.utmost.util.UtmostLSO;
@@ -37,6 +38,7 @@
 			private function init():void
 			{
 				initLSO();
+				ShortcutKeyUtil.setFocusAndSubmit(this,loginPortal);
 			}
 
 			private function initLSO():void
