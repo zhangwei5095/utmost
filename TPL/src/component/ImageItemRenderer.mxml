@@ -34,7 +34,5 @@
 		<mx:Image source="{data.@icon}" maintainAspectRatio="true" width="70" height="70" scaleContent="true" alpha="1"/>
 		<mx:Label id="itxt" text="{data.@nodename}" fontSize="18" fontWeight="bold" textAlign="center" fontFamily="Georgia" color="#060201" enabled="true"/>
 	</mx:VBox>
-	
 	<reflector:Reflector  id="myReflector" target="{vbox}" alpha="0.15" falloff="0.4" blurAmount="0.8"/>
-	
 </mx:VBox>
