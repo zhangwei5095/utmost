@@ -19,7 +19,6 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commons-beanutils-1.7.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/commontemplate-0.8.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/concurrent-1.3.4.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/csvjdbc.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/db2-all.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/dom4j-1.6.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/ehcache-1.2.4.jar"/>
@@ -33,7 +32,6 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/hibernate-search-3.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/hibernate-validator-3.1.0.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/hibernate3.3.1.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/i18njdbc.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/iTextAndAsian-2.1.5.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/janino-2.5.10.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/javassist-3.4.GA.jar"/>
@@ -44,15 +42,12 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jdom-1.0.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jdt-compiler-3.1.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jfreechart-1.0.12.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/js.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jta-1.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/junit.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jwebap_0.6.0.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jython-2.2.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/lucene-core-2.4.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/mail.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/mysql-connector-java-5.0.7-bin.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/octopus.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/png-encoder-1.5.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/poi-3.2.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/quartz-all-1.6.1.jar"/>
@@ -65,9 +60,6 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring-2.5.6.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring-modules-0.9-all.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring-webmvc.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/tracer.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/xmljdbc.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/xmlutil.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/xpp3_min-1.1.4c.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/DynamicJasper-3.0.6.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jasperreports-3.5.1.jar"/>
