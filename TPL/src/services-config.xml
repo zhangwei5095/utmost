@@ -14,12 +14,8 @@
             
             <destination id="TemplateService"/>
             <destination id="JBPMService"/>
-            <destination id="ETLService"/>
             <destination id="TreeService"/>
-            <destination id="CodecUtil"/>
-            <destination id="SystemMonitorService"/>    
-            
-            <destination id="TestForUnis"/>  
+            <destination id="SystemMonitorService"/>
            <default-channels>
                 <channel ref="spring-amf"/>
             </default-channels>

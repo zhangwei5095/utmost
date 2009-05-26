@@ -283,7 +283,7 @@
 	 	<mx:method name="deleteByUUID" result="initDataTree()" />
     </mx:RemoteObject-->
 	<mx:HDividedBox id="hdbox" width="100%" height="100%">
-		<mx:Panel width="220" height="100%" layout="horizontal" id="leftPanel">
+		<mx:Panel width="220" height="100%" layout="horizontal" id="leftPanel" resizeEffect="Resize">
 			<mx:Accordion width="100%" height="100%" headerStyleName="AccordionHeader">
 			
 				<mx:HBox id="dataBox" label="应用集合配置" width="100%" height="100%" horizontalGap="0" 
@@ -406,7 +406,7 @@
 			<mx:Spacer height="10"/>
 			<mx:Image id="SH" source="{BindImg.page_prev}" width="16" height="16" click="showOrHide()" />	
 		</mx:VBox-->
-		<mx:VBox width="80%" height="100%" id="rightVbox">
+		<mx:VBox width="80%" height="100%" id="rightVbox" resizeEffect="Resize">
 			<mx:Panel title="{paneltitle}" width="100%" height="100%" layout="vertical">
 					<mx:ModuleLoader id="currentModule" width="100%" height="100%" ready="currentModuleReady()" progress="progressEventHandler(event)">
 					</mx:ModuleLoader>

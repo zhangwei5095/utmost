@@ -112,10 +112,10 @@
 				<mx:ControlBar>
 				</mx:ControlBar>
 			</mx:Panel-->
-			<component:PanelTree id="systree"  dataProvider="{$treeXML}" clickTree="treeItemClick"  width="220" height="100%" />
+			<component:PanelTree id="systree"  dataProvider="{$treeXML}" clickTree="treeItemClick"  width="220" height="100%"  resizeEffect="Resize"/>
 			<mx:Panel id="sysPanel" width="100%" height="100%" layout="vertical">
 				<!--mx:ProgressBar source="currentModule" visible="true" includeInLayout="false"/-->
-				<mx:ModuleLoader id="currentModule" width="100%" height="100%" paddingBottom="3" paddingLeft="3" paddingRight="3" paddingTop="3">
+				<mx:ModuleLoader id="currentModule" width="100%" height="100%" paddingBottom="3" paddingLeft="3" paddingRight="3" paddingTop="3" resizeEffect="Resize">
 				</mx:ModuleLoader>
 				<mx:ControlBar>
 				</mx:ControlBar>
