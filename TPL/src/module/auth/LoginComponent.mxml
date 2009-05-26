@@ -78,8 +78,8 @@
 				{
 					trace("UtmostAdmin 登陆!");
 					saveLSO();
-					AuthUserBean.loginname=loginname.text;
-					AuthUserBean.password=password.text;
+//					AuthUserBean.loginname=loginname.text;
+//					AuthUserBean.password=password.text;
 				}
 				this.dispatchEvent(new Event("LoginComponent_portal"));
 				shake.play();
