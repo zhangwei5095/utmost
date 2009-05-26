@@ -2,8 +2,6 @@ package org.utmost.common;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Service;
 
 @Service("LogService")
@@ -12,12 +10,15 @@ public class LogService {
 		long st = System.currentTimeMillis();
 		Object retVal = pjp.proceed();
 		long et = System.currentTimeMillis();
-		System.out.println("Performance->"
-				+ pjp.getSignature().getDeclaringTypeName() + "--"
-				+ pjp.getSignature().getName() + " ms:" + (et - st));
-		Object obj[] = pjp.getArgs();
-		for (Object s : obj) {
-			System.out.println("	->arg:" + s);
+		// 时间超过10ms则打印详细
+		if ((et - st) > 10) {
+			System.out.println("Performance->"
+					+ pjp.getSignature().getDeclaringTypeName() + "--"
+					+ pjp.getSignature().getName() + " ms:" + (et - st));
+			Object obj[] = pjp.getArgs();
+			for (Object s : obj) {
+				System.out.println("	->arg:" + s);
+			}
 		}
 		return retVal;
 	}

@@ -3,6 +3,7 @@
                                    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class entity-name="U_PORTAL_REFROLEFUNC" table="U_PORTAL_REFROLEFUNC">
+	<cache usage="read-write"/>
 		<id name="uuid" column="UUID" length="36" type="java.lang.String">
 			<generator class="uuid" />
 		</id>
