@@ -3,6 +3,7 @@
                                    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 	<class entity-name="U_PORTAL_USER" table="U_PORTAL_USER">
+	<cache usage="read-write"/>
 		<id length="36" name="uuid" column="UUID" type="java.lang.String">
 			<generator class="uuid" />
 		</id>
