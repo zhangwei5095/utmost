@@ -23,13 +23,10 @@
 			<list>
 				<value>classpath:/org/utmost/tpl/hbm/
 				</value>
-				<value>classpath:/org/utmost/etl/hbm/
-				</value>
 				<value>classpath:/org/utmost/portal/hbm/
 				</value>
 				<value>classpath:/org/utmost/report/hbm/
 				</value>
-				<!-- <value>classpath:/org/utmost/bank/hbm/</value> -->
 				<value>classpath:/org/utmost/hbm/</value>
 			</list>
 		</property>
