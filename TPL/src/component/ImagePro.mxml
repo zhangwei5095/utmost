@@ -14,10 +14,10 @@
 			[Bindable]
 			public var $photoImage:Image;
 			
-			[Embed(source="component/magnify.pbj", mimeType="application/octet-stream")]
-			private var shaderObj:Class;
-			private var shader:Shader;
-			private var shaderFilter:ShaderFilter;
+//			[Embed(source="component/magnify.pbj", mimeType="application/octet-stream")]
+//			private var shaderObj:Class;
+//			private var shader:Shader;
+//			private var shaderFilter:ShaderFilter;
 			
 			private function review():void {
 //				photoImage.width=hbox.width*0.7;
@@ -150,39 +150,39 @@
 				colorArray[18] = 1;
 				photoImage.filters = [new ColorMatrixFilter(colorArray)];
             }
-            private function lvjing():void
-			{
-				shader = new Shader( new shaderObj() );
-				shader.data.center.value = [photoImage.width/2, photoImage.height/2];
-				
-				setShader();
-				
-				stage.addEventListener( Event.ENTER_FRAME, onEnterFrame, false, 0, true );
-			}
-			private function onEnterFrame( event:Event ):void
-			{
-				setShader();
-			}
+//            private function lvjing():void
+//			{
+//				shader = new Shader( new shaderObj() );
+//				shader.data.center.value = [photoImage.width/2, photoImage.height/2];
+//				
+//				setShader();
+//				
+//				stage.addEventListener( Event.ENTER_FRAME, onEnterFrame, false, 0, true );
+//			}
+//			private function onEnterFrame( event:Event ):void
+//			{
+//				setShader();
+//			}
 			
-			private function setShader():void
-			{
-				var centerX:Number = photoImage.mouseX;
-				var centerY:Number = photoImage.mouseY;
-				if( centerX < 0 || centerY < 0 || centerX > photoImage.width || centerY > photoImage.height )
-				{
-					var currentX:Number = shader.data.center.value[0];
-					var currentY:Number = shader.data.center.value[1]
-					centerX = currentX + ((photoImage.width / 2)-currentX) / 2;
-					centerY = currentY + ((photoImage.height / 2)-currentY) / 2;
-				}
-
-				shader.data.center.value = [centerX, centerY];
-				shader.data.innerRadius.value = [innerRadiusSlider.value];
-				shader.data.outerRadius.value = [outerRadiusSlider.value];
-				shader.data.magnification.value = [magnificationSlider.value];
-				shaderFilter = new ShaderFilter( shader );
-				photoImage.filters = [shaderFilter];
-			}
+//			private function setShader():void
+//			{
+//				var centerX:Number = photoImage.mouseX;
+//				var centerY:Number = photoImage.mouseY;
+//				if( centerX < 0 || centerY < 0 || centerX > photoImage.width || centerY > photoImage.height )
+//				{
+//					var currentX:Number = shader.data.center.value[0];
+//					var currentY:Number = shader.data.center.value[1]
+//					centerX = currentX + ((photoImage.width / 2)-currentX) / 2;
+//					centerY = currentY + ((photoImage.height / 2)-currentY) / 2;
+//				}
+//
+//				shader.data.center.value = [centerX, centerY];
+//				shader.data.innerRadius.value = [innerRadiusSlider.value];
+//				shader.data.outerRadius.value = [outerRadiusSlider.value];
+//				shader.data.magnification.value = [magnificationSlider.value];
+//				shaderFilter = new ShaderFilter( shader );
+//				photoImage.filters = [shaderFilter];
+//			}
             [Bindable]
 			[Embed(source="img/imgPro/image61.png")]
 			public var icon_zoomIn:Class;
