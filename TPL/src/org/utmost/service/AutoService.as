@@ -193,6 +193,14 @@ package org.utmost.service
 				}
 			});
 		}
+		
+		public function callfunc(serviceName:String, methodName:String, hm:Object, resultHandler:Function, faultHandler:Function=null):void {
+			if (resultHandler != null)
+				ro.callfunc.addEventListener(ResultEvent.RESULT, resultHandler);
+			if (faultHandler != null)
+				ro.callfunc.addEventListener(FaultEvent.FAULT, faultHandler);
+			ro.callfunc(serviceName,methodName,hm);
+		}
 		private function resultHandler(event:ResultEvent):void
 		{
 			trace("AutoService->resultHandler->" + event.result);
