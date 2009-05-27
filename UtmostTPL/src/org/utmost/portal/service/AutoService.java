@@ -15,6 +15,8 @@ import org.aspectj.lang.annotation.Aspect;
 import org.hibernate.metadata.ClassMetadata;
 import org.springframework.stereotype.Service;
 import org.utmost.common.CommService;
+import org.utmost.common.SpringContext;
+import org.utmost.util.ClassUtil;
 
 /**
  * 数据访问核心服务类 所有CURD及其它数据库操作都经由此类提供服务
@@ -256,5 +258,21 @@ public class AutoService extends CommService {
 	 */
 	public List pagination(int pageNo, int pageSize, String hql) {
 		return getDb().pagination(pageNo, pageSize, hql);
+	}
+
+	/**
+	 * 远程调用服务方法并返回
+	 * 
+	 * @param serviceName
+	 * @param functionName
+	 * @param hm
+	 * @return
+	 * @throws Exception
+	 */
+	public Object callfunc(String serviceName, String methodName, HashMap hm)
+			throws Exception {
+		Object obj = SpringContext.getBean(serviceName);
+		Object robj = ClassUtil.invokeMethod(obj, methodName, hm);
+		return robj;
 	}
 }
