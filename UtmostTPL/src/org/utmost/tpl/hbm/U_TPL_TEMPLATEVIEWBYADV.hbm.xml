@@ -23,7 +23,7 @@
 			</column>
 		</property>
 		<property name="view" type="java.lang.String">
-			<column length="256" name="VIEW">
+			<column length="256" name="VIEW_">
 				<comment>模式视图(cid+view 确定唯一视图集合 默认为default)</comment>
 			</column>
 		</property>
