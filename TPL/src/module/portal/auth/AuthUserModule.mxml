@@ -86,7 +86,6 @@
 					<mx:AdvancedDataGridColumn headerText="用户编码" dataField="usercode"/>
 					<mx:AdvancedDataGridColumn headerText="用户名称" dataField="username"/>
 					<mx:AdvancedDataGridColumn headerText="登录名称" dataField="loginname"/>
-					<mx:AdvancedDataGridColumn headerText="用户状态" dataField="state"/>
 					<mx:AdvancedDataGridColumn headerText="用户状态">
 						<mx:itemRenderer>
 							<mx:Component>

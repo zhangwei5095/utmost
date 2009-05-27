@@ -60,7 +60,6 @@
 <module application="src/TPL.mxml" destPath="module/tpl/RuleModule.swf" optimize="true" sourcePath="src/module/tpl/RuleModule.mxml"/>
 <module application="src/TPL.mxml" destPath="module/portal/auth/AuthREFRoleUserModule.swf" optimize="true" sourcePath="src/module/portal/auth/AuthREFRoleUserModule.mxml"/>
 <module application="src/TPL.mxml" destPath="module/tpl/ViewModule.swf" optimize="true" sourcePath="src/module/tpl/ViewModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/auth/AuthUserOrgModule.swf" optimize="true" sourcePath="src/module/auth/AuthUserOrgModule.mxml"/>
 <module application="src/TPL.mxml" destPath="module/jbpm3/taskDistributeModule.swf" optimize="true" sourcePath="src/module/jbpm3/taskDistributeModule.mxml"/>
 <module application="src/TPL.mxml" destPath="module/tpl/DataModule.swf" optimize="true" sourcePath="src/module/tpl/DataModule.mxml"/>
 <module application="src/TPL.mxml" destPath="module/tpl/ReferenceModule.swf" optimize="true" sourcePath="src/module/tpl/ReferenceModule.mxml"/>
@@ -72,11 +71,11 @@
 </modules>
 <buildCSSFiles>
 <buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/itunes7/ItunesTheme.css"/>
-<buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/undefined/css/skinPreview.css"/>
 <buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/style.css"/>
+<buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/undefined/css/skinPreview.css"/>
 <buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/classic/style.css"/>
 <buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/brownie/style.css"/>
-<buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/vista/VistaTheme.css"/>
 <buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/brownie/Main.css"/>
+<buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/vista/VistaTheme.css"/>
 </buildCSSFiles>
 </actionScriptProperties>
