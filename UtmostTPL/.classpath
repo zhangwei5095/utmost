@@ -63,6 +63,7 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/sigar.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring-2.5.6.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring-modules-0.9-all.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/derby.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/spring-webmvc.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>
