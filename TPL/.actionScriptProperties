@@ -12,70 +12,64 @@
 <application path="TPL.mxml"/>
 </applications>
 <modules>
-<module application="src/TPL.mxml" destPath="module/etl/DataSourceModule.swf" optimize="true" sourcePath="src/module/etl/DataSourceModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/jbpm3/ProcessModule.swf" optimize="true" sourcePath="src/module/jbpm3/ProcessModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/tpl/template/SimpleReportModule.swf" optimize="true" sourcePath="src/module/tpl/template/SimpleReportModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/portal/auth/AuthRoleModule.swf" optimize="true" sourcePath="src/module/portal/auth/AuthRoleModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/jbpm3/ProcessVerModule.swf" optimize="true" sourcePath="src/module/jbpm3/ProcessVerModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/tpl/TaskScheduleModule.swf" optimize="true" sourcePath="src/module/tpl/TaskScheduleModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/tpl/BackupAndRestoreModule.swf" optimize="true" sourcePath="src/module/tpl/BackupAndRestoreModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/auth/AuthVisualizerForRoleModule.swf" optimize="true" sourcePath="src/module/auth/AuthVisualizerForRoleModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/etl/ETLTaskModule.swf" optimize="true" sourcePath="src/module/etl/ETLTaskModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/portal/auth/AuthVisualizerForOrgModule.swf" optimize="true" sourcePath="src/module/portal/auth/AuthVisualizerForOrgModule.mxml"/>
 <module application="src/TPL.mxml" destPath="module/system/volkswagen/QCAlert.swf" optimize="true" sourcePath="src/module/system/volkswagen/QCAlert.mxml"/>
-<module application="src/TPL.mxml" destPath="module/auth/AuthErrorTypeModule.swf" optimize="true" sourcePath="src/module/auth/AuthErrorTypeModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/auth/AuthParamModule.swf" optimize="true" sourcePath="src/module/auth/AuthParamModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/demo/TestForUnis.swf" optimize="true" sourcePath="src/module/demo/TestForUnis.mxml"/>
-<module application="src/TPL.mxml" destPath="module/auth/AuthBusiTypeModule.swf" optimize="true" sourcePath="src/module/auth/AuthBusiTypeModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/portal/auth/AuthREFOrgUserModule.swf" optimize="true" sourcePath="src/module/portal/auth/AuthREFOrgUserModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/portal/auth/AuthVisualizerForFuncModule.swf" optimize="true" sourcePath="src/module/portal/auth/AuthVisualizerForFuncModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/portal/auth/AuthUserModule.swf" optimize="true" sourcePath="src/module/portal/auth/AuthUserModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/DefaultModule.swf" optimize="true" sourcePath="src/module/DefaultModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/monitor/system/SystemMonitorModule.swf" optimize="true" sourcePath="src/module/monitor/system/SystemMonitorModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/tpl/ValidatorModule.swf" optimize="true" sourcePath="src/module/tpl/ValidatorModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/tpl/DefaultModule.swf" optimize="true" sourcePath="src/module/tpl/DefaultModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/system/volkswagen/InputModule.swf" optimize="true" sourcePath="src/module/system/volkswagen/InputModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/portal/auth/AuthOrgModule.swf" optimize="true" sourcePath="src/module/portal/auth/AuthOrgModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/monitor/system/SystemInfoModule.swf" optimize="true" sourcePath="src/module/monitor/system/SystemInfoModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/auth/AuthErrorTypeModule.swf" optimize="true" sourcePath="src/module/auth/AuthErrorTypeModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/portal/auth/AuthVisualizerForRoleModule.swf" optimize="true" sourcePath="src/module/portal/auth/AuthVisualizerForRoleModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/tpl/template/TestForm.swf" optimize="true" sourcePath="src/module/tpl/template/TestForm.mxml"/>
-<module application="src/TPL.mxml" destPath="module/tpl/AdvViewModule.swf" optimize="true" sourcePath="src/module/tpl/AdvViewModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/tpl/template/TestAdvForm.swf" optimize="true" sourcePath="src/module/tpl/template/TestAdvForm.mxml"/>
-<module application="src/TPL.mxml" destPath="module/auth/AuthParamModule.swf" optimize="true" sourcePath="src/module/auth/AuthParamModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/SystemModule.swf" optimize="true" sourcePath="src/module/SystemModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/system/volkswagen/PriceTrendModule.swf" optimize="true" sourcePath="src/module/system/volkswagen/PriceTrendModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/tpl/template/SimpleCRUD.swf" optimize="true" sourcePath="src/module/tpl/template/SimpleCRUD.mxml"/>
-<module application="src/TPL.mxml" destPath="module/auth/AuthVisualizerForFunModule.swf" optimize="true" sourcePath="src/module/auth/AuthVisualizerForFunModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/demo/FileUploadDemoModule.swf" optimize="true" sourcePath="src/module/demo/FileUploadDemoModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/PortalModule.swf" optimize="true" sourcePath="src/module/PortalModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/TPLModule.swf" optimize="true" sourcePath="src/module/TPLModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/auth/AuthVisualizerForOrgModule.swf" optimize="true" sourcePath="src/module/auth/AuthVisualizerForOrgModule.mxml"/>
 <module application="src/TPL.mxml" destPath="module/portal/auth/AuthFuncModule.swf" optimize="true" sourcePath="src/module/portal/auth/AuthFuncModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/auth/AuthBusiTypeModule.swf" optimize="true" sourcePath="src/module/auth/AuthBusiTypeModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/tpl/template/QueryModule.swf" optimize="true" sourcePath="src/module/tpl/template/QueryModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/jbpm3/FlowInstanceModule.swf" optimize="true" sourcePath="src/module/jbpm3/FlowInstanceModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/system/volkswagen/QCQueryModule.swf" optimize="true" sourcePath="src/module/system/volkswagen/QCQueryModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/tpl/RuleTemplateModule.swf" optimize="true" sourcePath="src/module/tpl/RuleTemplateModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/tpl/RuleModule.swf" optimize="true" sourcePath="src/module/tpl/RuleModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/portal/auth/AuthREFRoleUserModule.swf" optimize="true" sourcePath="src/module/portal/auth/AuthREFRoleUserModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/tpl/ViewModule.swf" optimize="true" sourcePath="src/module/tpl/ViewModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/jbpm3/taskDistributeModule.swf" optimize="true" sourcePath="src/module/jbpm3/taskDistributeModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/tpl/DefaultModule.swf" optimize="true" sourcePath="src/module/tpl/DefaultModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/portal/auth/AuthUserModule.swf" optimize="true" sourcePath="src/module/portal/auth/AuthUserModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/tpl/AdvViewModule.swf" optimize="true" sourcePath="src/module/tpl/AdvViewModule.mxml"/>
 <module application="src/TPL.mxml" destPath="module/tpl/DataModule.swf" optimize="true" sourcePath="src/module/tpl/DataModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/tpl/ReferenceModule.swf" optimize="true" sourcePath="src/module/tpl/ReferenceModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/jbpm3/ProcessVerModule.swf" optimize="true" sourcePath="src/module/jbpm3/ProcessVerModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/system/volkswagen/QCQueryModule.swf" optimize="true" sourcePath="src/module/system/volkswagen/QCQueryModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/tpl/template/SimpleReportModule.swf" optimize="true" sourcePath="src/module/tpl/template/SimpleReportModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/tpl/ViewModule.swf" optimize="true" sourcePath="src/module/tpl/ViewModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/portal/auth/AuthVisualizerForRoleModule.swf" optimize="true" sourcePath="src/module/portal/auth/AuthVisualizerForRoleModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/tpl/RuleModule.swf" optimize="true" sourcePath="src/module/tpl/RuleModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/monitor/system/SystemInfoModule.swf" optimize="true" sourcePath="src/module/monitor/system/SystemInfoModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/etl/ETLTaskModule.swf" optimize="true" sourcePath="src/module/etl/ETLTaskModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/jbpm3/taskDistributeModule.swf" optimize="true" sourcePath="src/module/jbpm3/taskDistributeModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/TPLModule.swf" optimize="true" sourcePath="src/module/TPLModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/jbpm3/ProcessModule.swf" optimize="true" sourcePath="src/module/jbpm3/ProcessModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/tpl/template/TestForm.swf" optimize="true" sourcePath="src/module/tpl/template/TestForm.mxml"/>
+<module application="src/TPL.mxml" destPath="module/portal/auth/AuthRoleModule.swf" optimize="true" sourcePath="src/module/portal/auth/AuthRoleModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/portal/auth/AuthVisualizerForOrgModule.swf" optimize="true" sourcePath="src/module/portal/auth/AuthVisualizerForOrgModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/auth/AuthParamModule.swf" optimize="true" sourcePath="src/module/auth/AuthParamModule.mxml"/>
 <module application="src/TPL.mxml" destPath="module/portal/auth/AuthREFRoleFuncModule.swf" optimize="true" sourcePath="src/module/portal/auth/AuthREFRoleFuncModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/system/volkswagen/QCFreightInputModule.swf" optimize="true" sourcePath="src/module/system/volkswagen/QCFreightInputModule.mxml"/>
-<module application="src/TPL.mxml" destPath="module/tpl/template/TestNamedQuery.swf" optimize="true" sourcePath="src/module/tpl/template/TestNamedQuery.mxml"/>
-<module application="src/TPL.mxml" destPath="module/system/volkswagen/QCInputModule.swf" optimize="true" sourcePath="src/module/system/volkswagen/QCInputModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/tpl/template/TestAdvForm.swf" optimize="true" sourcePath="src/module/tpl/template/TestAdvForm.mxml"/>
+<module application="src/TPL.mxml" destPath="module/system/volkswagen/PriceTrendModule.swf" optimize="true" sourcePath="src/module/system/volkswagen/PriceTrendModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/DefaultModule.swf" optimize="true" sourcePath="src/module/DefaultModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/auth/AuthBusiTypeModule.swf" optimize="true" sourcePath="src/module/auth/AuthBusiTypeModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/PortalModule.swf" optimize="true" sourcePath="src/module/PortalModule.mxml"/>
 <module application="src/TPL.mxml" destPath="module/report/SimpleReportModule.swf" optimize="true" sourcePath="src/module/report/SimpleReportModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/etl/DataSourceModule.swf" optimize="true" sourcePath="src/module/etl/DataSourceModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/tpl/template/QueryModule.swf" optimize="true" sourcePath="src/module/tpl/template/QueryModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/system/volkswagen/QCInputModule.swf" optimize="true" sourcePath="src/module/system/volkswagen/QCInputModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/tpl/RuleTemplateModule.swf" optimize="true" sourcePath="src/module/tpl/RuleTemplateModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/portal/auth/AuthREFOrgUserModule.swf" optimize="true" sourcePath="src/module/portal/auth/AuthREFOrgUserModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/auth/AuthErrorTypeModule.swf" optimize="true" sourcePath="src/module/auth/AuthErrorTypeModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/SystemModule.swf" optimize="true" sourcePath="src/module/SystemModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/system/volkswagen/InputModule.swf" optimize="true" sourcePath="src/module/system/volkswagen/InputModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/tpl/TaskScheduleModule.swf" optimize="true" sourcePath="src/module/tpl/TaskScheduleModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/tpl/template/TestNamedQuery.swf" optimize="true" sourcePath="src/module/tpl/template/TestNamedQuery.mxml"/>
+<module application="src/TPL.mxml" destPath="module/demo/TestForUnis.swf" optimize="true" sourcePath="src/module/demo/TestForUnis.mxml"/>
+<module application="src/TPL.mxml" destPath="module/portal/auth/AuthVisualizerForFuncModule.swf" optimize="true" sourcePath="src/module/portal/auth/AuthVisualizerForFuncModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/jbpm3/FlowInstanceModule.swf" optimize="true" sourcePath="src/module/jbpm3/FlowInstanceModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/demo/FileUploadDemoModule.swf" optimize="true" sourcePath="src/module/demo/FileUploadDemoModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/monitor/system/SystemMonitorModule.swf" optimize="true" sourcePath="src/module/monitor/system/SystemMonitorModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/tpl/BackupAndRestoreModule.swf" optimize="true" sourcePath="src/module/tpl/BackupAndRestoreModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/portal/auth/AuthREFRoleUserModule.swf" optimize="true" sourcePath="src/module/portal/auth/AuthREFRoleUserModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/portal/auth/AuthOrgModule.swf" optimize="true" sourcePath="src/module/portal/auth/AuthOrgModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/system/volkswagen/QCFreightInputModule.swf" optimize="true" sourcePath="src/module/system/volkswagen/QCFreightInputModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/tpl/ValidatorModule.swf" optimize="true" sourcePath="src/module/tpl/ValidatorModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/tpl/template/SimpleCRUD.swf" optimize="true" sourcePath="src/module/tpl/template/SimpleCRUD.mxml"/>
+<module application="src/TPL.mxml" destPath="module/tpl/ReferenceModule.swf" optimize="true" sourcePath="src/module/tpl/ReferenceModule.mxml"/>
 </modules>
 <buildCSSFiles>
 <buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/itunes7/ItunesTheme.css"/>
-<buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/style.css"/>
 <buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/undefined/css/skinPreview.css"/>
+<buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/style.css"/>
 <buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/classic/style.css"/>
 <buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/brownie/style.css"/>
-<buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/brownie/Main.css"/>
 <buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/vista/VistaTheme.css"/>
+<buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/brownie/Main.css"/>
 </buildCSSFiles>
 </actionScriptProperties>

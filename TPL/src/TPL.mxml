@@ -4,7 +4,8 @@
 	<mx:Style source="skins/style.css"/>
 	<!--<mx:Style source="skins/brownie/style.css"/>-->
 	<mx:Script>
-		<![CDATA[	
+		<![CDATA[
+			import module.portal.LoginComponent;	
 			import component.MainPopUp;
 			import mx.rpc.events.FaultEvent;
 			import mx.rpc.events.ResultEvent;
@@ -16,7 +17,6 @@
 			import mx.formatters.NumberFormatter;
 			import flash.utils.setInterval;
 			import org.utmost.util.ComponentUtil;
-			import module.auth.LoginComponent;
 			import mx.controls.Alert;
 			import mx.core.IFlexDisplayObject;
 			import module.ModuleInterface;
