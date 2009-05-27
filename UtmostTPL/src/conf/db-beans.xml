@@ -16,9 +16,9 @@
 			</value>
 		</property>
 
-		<property name="mappingJarLocations" ref="jbpm3hbmlist">
-		</property>
-
+		<!--
+			<property name="mappingJarLocations" ref="jbpm3hbmlist"> </property>
+		-->
 		<property name="mappingDirectoryLocations">
 			<list>
 				<value>classpath:/org/utmost/tpl/hbm/

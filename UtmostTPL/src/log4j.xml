@@ -37,7 +37,9 @@
 	<logger name="com.exadel.flamingo">
 		<level value="info" />
 	</logger>
-
+	<logger name="org.hibernate.tool.hbm2ddl">
+		<level value="error" />
+	</logger>
 	<!--
 		Ignore activity warning due to no database found <logger
 		name="es.git.openkm.core"> <level value="fatal" /> </logger>
