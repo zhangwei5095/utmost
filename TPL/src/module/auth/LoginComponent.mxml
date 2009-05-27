@@ -2,6 +2,7 @@
 <mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="400" height="260" title="登录" horizontalAlign="center" verticalAlign="middle" verticalScrollPolicy="off" creationComplete="init()">
 	<mx:Form>
 		<mx:FormItem label="服务器">
+			
 			<mx:TextInput id="uritxt" text="localhost:8080"/>
 		</mx:FormItem>
 		<mx:FormItem label="帐号">
