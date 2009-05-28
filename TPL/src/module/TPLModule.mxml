@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%" remove="PopUpManager.removePopUp(mpu)"
-	implements="module.ModuleInterface" creationComplete="init()">
+	implements="module.ModuleInterface" creationComplete="init()" xmlns:component="component.*">
 	<mx:XML id="DebugTree" source="xml/tpl/DebugTree.xml"/>
 	<mx:XML id="ConfigTree" source="xml/tpl/ConfigTree.xml"/>
 	<mx:XML id="ReportTree" source="xml/tpl/ReportTree.xml"/>
@@ -9,6 +9,7 @@
 	<mx:XML id="JBPMTree" source="xml/tpl/JBPMTree.xml"/>
 	<mx:Script>
 		<![CDATA[
+			import component.TConsole;
 			import org.utmost.effect.PopUpEffect;
 			import component.MainPopUp;
 			import mx.events.ResizeEvent;
@@ -44,13 +45,14 @@
 				//
 				setQuickKey();
 				createMainPopUp();
+//				createConsole();
 			}
 			
 			private function setQuickKey():void {
 				this.setFocus();
 				//设置快捷键
 				this.addEventListener(KeyboardEvent.KEY_DOWN,function(e:KeyboardEvent):void {
-					//trace(e.ctrlKey+"--"+e.altKey+"--"+e.keyCode);	
+					trace(e.ctrlKey+"------->"+e.keyCode);
 					if(e.ctrlKey&&e.keyCode==192) {//Ctrl+~  快捷菜单
 							if(mpu==null||mpu.isShow==false) {
 								createMainPopUp();
@@ -64,6 +66,11 @@
 						//布局切换
 						setLayout();
 					}
+					
+					if(e.shiftKey&&e.keyCode==49) {
+						//控制台
+						createConsole();
+					}
 				});
 			}
 			private function setLayout():void {
@@ -75,8 +82,33 @@
 					ComponentUtil.setVisible(Application.application.MACB,true);
 				}
 			}
+			//控制台
+			private var console:TConsole;
+			private function createConsole():void {
+				if(!console) {
+					console=new TConsole();
+					//console.width=800;
+					console.height=300;
+					//console.setStyle("backgroundAlpha",0.8);
+					resizeTConsole();
+					this.addEventListener(ResizeEvent.RESIZE,function():void {
+	    	 			resizeTConsole();
+	    	 		});
+					PopUpManager.addPopUp(console,parentApplication as DisplayObject,false);
+				}else {
+					console=null;
+					PopUpManager.removePopUp(console);
+				}
+			}
+			private function resizeTConsole():void {
+	    	 	if(console!=null) {
+	    	 		console.width=parentApplication.width-200;
+		    	 	console.x=Application.application.width/2-console.width/2;
+		    	 	console.y=Application.application.height-console.height;
+	    	 	}
+	    	 }
 			/**
-	    	 * 尝试PopUpManager
+	    	 * PopUpManager 菜单栏
 	    	 * */
 	    	 private var mpu:MainPopUp;
 	    	 private function createMainPopUp():void {
@@ -283,7 +315,7 @@
 	 	<mx:method name="deleteByUUID" result="initDataTree()" />
     </mx:RemoteObject-->
 	<mx:HDividedBox id="hdbox" width="100%" height="100%">
-		<mx:Panel width="220" height="100%" layout="horizontal" id="leftPanel" resizeEffect="Resize">
+		<mx:Panel width="220" height="100%" layout="horizontal" id="leftPanel">
 			<mx:Accordion width="100%" height="100%" headerStyleName="AccordionHeader">
 			
 				<mx:HBox id="dataBox" label="应用集合配置" width="100%" height="100%" horizontalGap="0" 
@@ -406,7 +438,7 @@
 			<mx:Spacer height="10"/>
 			<mx:Image id="SH" source="{BindImg.page_prev}" width="16" height="16" click="showOrHide()" />	
 		</mx:VBox-->
-		<mx:VBox width="80%" height="100%" id="rightVbox" resizeEffect="Resize">
+		<mx:VBox width="70%" height="100%" id="rightVbox">
 			<mx:Panel title="{paneltitle}" width="100%" height="100%" layout="vertical">
 					<mx:ModuleLoader id="currentModule" width="100%" height="100%" ready="currentModuleReady()" progress="progressEventHandler(event)">
 					</mx:ModuleLoader>
@@ -416,6 +448,11 @@
 										 source="currentModule" fontSize="10" indeterminate="true" enabled="true"/>
 							</mx:HBox>
 					</mx:ControlBar>
+			</mx:Panel>
+		</mx:VBox>
+		<mx:VBox width="10%" height="100%" id="consoleVbox">
+			<mx:Panel title="Console" width="100%" height="100%" layout="vertical">
+					<component:Console width="100%" height="100%"/>
 			</mx:Panel>
 		</mx:VBox>
 	</mx:HDividedBox>

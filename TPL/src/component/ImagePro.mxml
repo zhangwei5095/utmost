@@ -230,6 +230,7 @@
 				</mx:TitleWindow>
 			</mx:popUp>
 		</mx:PopUpButton>
+		<!--
 		<mx:PopUpButton id="pub_lvjing" label="滤" toolTip="滤镜" openAlways="true" height="32" width="42" click="lvjing()">
 			<mx:popUp>
 				<mx:TitleWindow  showCloseButton="true"  click="pub_lvjing.close()">
@@ -239,6 +240,7 @@
 				</mx:TitleWindow>
 			</mx:popUp>
 		</mx:PopUpButton>
+		-->
 	</mx:Tile>
 	
 	<mx:VBox id="vbox" width="100%" height="100%" verticalAlign="middle" horizontalAlign="center" horizontalScrollPolicy="off" verticalScrollPolicy="off" horizontalGap="0" verticalGap="0">
