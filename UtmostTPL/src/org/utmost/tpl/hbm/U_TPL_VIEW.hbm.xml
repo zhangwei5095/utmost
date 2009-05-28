@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class entity-name="U_TPL_VIEW" table="U_TPL_VIEW">
+	<cache usage="read-write"/>
+		<id column="UUID" length="36" name="uuid" type="java.lang.String">
+			<generator class="uuid" />
+		</id>
+		<property name="cid" type="java.lang.String">
+			<column length="36" name="CID" index="_INDEX_CID">
+				<!-- <comment>U_TPL_TEMPLATE.UUID</comment> -->
+			</column>
+		</property>
+		<property name="cpid" type="java.lang.String">
+			<column length="36" name="CPID" index="_INDEX_CPID">
+				<!-- <comment>U_TPL_TEMPLATEDATA.UUID</comment> -->
+			</column>
+		</property>
+		<property name="fieldname" type="java.lang.String">
+			<column length="128" name="FIELDNAME">
+				<!-- <comment>字段名称</comment>-->
+			</column>
+		</property>
+		<property name="fieldcode" type="java.lang.String">
+			<column length="128" name="FIELDCODE">
+			<!-- 	<comment>字段编码</comment>-->
+			</column>
+		</property>
+		<property name="required" type="java.lang.String">
+			<column length="256" name="REQUIRED">
+				<!-- <comment>是否必填</comment>-->
+			</column>
+		</property>
+		<property name="restrict" type="java.lang.String">
+			<column length="256" name="URESTRICT">
+				<!-- <comment>限制约束</comment>-->
+			</column>
+		</property>
+		<property name="fieldtype" type="java.lang.String">
+			<column length="128" name="FIELDTYPE">
+				<!-- <comment>字段类型 TextInput TextArea ComboBox NumericStepper </comment> -->
+			</column>
+		</property>
+		<property name="fieldorder" type="java.lang.String">
+			<column length="128" name="FIELDORDER">
+				<!-- <comment>次序</comment>-->
+			</column>
+		</property>
+		<property name="defaultvalue" type="java.lang.String">
+			<column length="256" name="DEFAULTVALUE">
+				<!-- <comment>默认值</comment>-->
+			</column>
+		</property>
+		<property name="reference" type="java.lang.String">
+			<column length="128" name="REFERENCE">
+				<!-- <comment>引用UUID</comment> -->
+			</column>
+		</property>
+		<property name="validator" type="java.lang.String">
+			<column length="256" name="VALIDATOR">
+				<!-- <comment>校验规则</comment>-->
+			</column>
+		</property>
+		<property name="fieldlength" type="java.lang.String">
+			<column length="32" name="FIELDLENGTH">
+				<!-- <comment>字段长度</comment>-->
+			</column>
+		</property>
+		<property name="fielddesc" type="java.lang.String">
+			<column length="512" name="FIELDDESC">
+				<!-- <comment>字段描述</comment>-->
+			</column>
+		</property>
+		<property name="state" type="java.lang.String">
+			<column length="32" name="STATE">
+				<!-- <comment>状态 01 显示 02 隐藏  03 禁用 04 不可编辑 </comment>-->
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>
