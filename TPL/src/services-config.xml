@@ -8,7 +8,6 @@
             <destination id="AutoService"/>
             <destination id="AuthService"/>
             <destination id="RuleService"/>
-            <destination id="ConsoleSimulator"/>
             <destination id="SpringContext"/>
             <destination id="ReportService"/>
             

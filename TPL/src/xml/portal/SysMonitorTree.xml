@@ -3,5 +3,6 @@
 	<node nodename="系统">
 		<node nodename="系统监控" showInList="true" module="module/monitor/system/SystemMonitorModule.swf"></node>
 		<node nodename="系统信息" showInList="true" module="module/monitor/system/SystemInfoModule.swf"></node>
+		<node nodename="控制台" showInList="true" module="module/monitor/system/SystemConsole.swf"></node>
 	</node>
 </node>
