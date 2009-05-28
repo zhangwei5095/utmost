@@ -699,7 +699,7 @@ Panel
 	headerHeight: 24;
 	titleStyleName: "title";
 	backgroundColor: #ffffff;
-	backgroundAlpa:.5;
+	backgroundAlpa:.3;
 }
 
 .title {

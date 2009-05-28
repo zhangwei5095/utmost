@@ -33,7 +33,7 @@
 		]]>
 	</mx:Script>
 	<mx:HBox width="100%" horizontalAlign="right" verticalAlign="middle">
-		<mx:Button label="Clear" click="clear()"/>
+		<mx:Button label="Clear" click="clear()" width="60"/>
 	</mx:HBox>
 	<mx:TextArea id="console" width="100%" height="100%" editable="false" wordWrap="true"/>
 </mx:VBox>
