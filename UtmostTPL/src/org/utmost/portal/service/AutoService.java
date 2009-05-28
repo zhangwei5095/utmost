@@ -269,11 +269,15 @@ public class AutoService extends CommService {
 	 * @return
 	 * @throws Exception
 	 */
-	public Object callfunc(String serviceName, String methodName, HashMap hm)
-			throws Exception {
-		logger.info("callfunc:" + serviceName + "->" + methodName + "->>" + hm);
+	public Object callfunc(String serviceName, String methodName, HashMap hm) {
+		//logger.info("callfunc:" + serviceName + "->" + methodName + "->>" + hm);
 		Object obj = SpringContext.getBean(serviceName);
-		Object robj = ClassUtil.invokeMethod(obj, methodName, hm);
+		Object robj = null;
+		try {
+			robj = ClassUtil.invokeMethod(obj, methodName, hm);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return robj;
 	}
 }
