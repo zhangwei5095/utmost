@@ -17,16 +17,24 @@ package org.utmost.service
 		private var faultFun:Function;
 		private var ro:RemoteObject=new RemoteObject();
 		
-		public static function  getInstance():AutoService {
-			return new AutoService();
+		public static function  getInstance(bool:Boolean=true):AutoService {
+			return new AutoService(bool);
 		}
 
 		//private var ro:HessianService=new HessianService();
-		public function AutoService()
+//		public function AutoService()
+//		{
+//			ro.channelSet=StaticChannelSet.getChannelSet();//特别注意
+//			ro.destination="AutoService";
+//			ro.showBusyCursor=true;
+//			ro.addEventListener(FaultEvent.FAULT, faultHandler);
+//			ro.addEventListener(ResultEvent.RESULT, resultHandler);
+//		}
+		public function AutoService(bool:Boolean=true)
 		{
 			ro.channelSet=StaticChannelSet.getChannelSet();//特别注意
 			ro.destination="AutoService";
-			ro.showBusyCursor=true;
+			ro.showBusyCursor=bool;
 			ro.addEventListener(FaultEvent.FAULT, faultHandler);
 			ro.addEventListener(ResultEvent.RESULT, resultHandler);
 		}

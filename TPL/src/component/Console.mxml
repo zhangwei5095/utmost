@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" creationComplete="init()" verticalGap="0">
+	<mx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			import mx.rpc.events.ResultEvent;
+			import org.utmost.service.AutoService;
+			public var timer:Timer=new Timer(1000, 0);
+
+			public function init():void
+			{
+				timer.addEventListener(TimerEvent.TIMER, process);
+				timer.start();
+				console.addEventListener(FlexEvent.VALUE_COMMIT, onValueCommit);
+			}
+
+			public function process(e:TimerEvent):void
+			{
+				AutoService.getInstance(false).callfunc("ConsoleService", "getConsoleInfo", new Object(), function(e:ResultEvent):void
+					{
+						console.text=e.result.toString();
+				});
+			}
+
+			private function onValueCommit(event:FlexEvent):void
+			{
+				this.console.verticalScrollPosition=this.console.maxVerticalScrollPosition;
+			}
+			
+			private function clear():void {
+				AutoService.getInstance().callfunc("ConsoleService", "clear", new Object(),null);
+			}
+		]]>
+	</mx:Script>
+	<mx:HBox width="100%" horizontalAlign="right" verticalAlign="middle">
+		<mx:Button label="Clear" click="clear()"/>
+	</mx:HBox>
+	<mx:TextArea id="console" width="100%" height="100%" editable="false" wordWrap="true"/>
+</mx:VBox>

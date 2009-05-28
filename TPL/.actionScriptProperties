@@ -60,14 +60,15 @@
 <module application="src/TPL.mxml" destPath="module/auth/AuthBusiTypeModule.swf" optimize="true" sourcePath="src/module/auth/AuthBusiTypeModule.mxml"/>
 <module application="src/TPL.mxml" destPath="module/tpl/template/QueryModule.swf" optimize="true" sourcePath="src/module/tpl/template/QueryModule.mxml"/>
 <module application="src/TPL.mxml" destPath="module/portal/auth/AuthFuncModule.swf" optimize="true" sourcePath="src/module/portal/auth/AuthFuncModule.mxml"/>
+<module application="src/TPL.mxml" destPath="module/monitor/system/SystemConsole.swf" optimize="true" sourcePath="src/module/monitor/system/SystemConsole.mxml"/>
 </modules>
 <buildCSSFiles>
 <buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/itunes7/ItunesTheme.css"/>
-<buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/style.css"/>
 <buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/undefined/css/skinPreview.css"/>
+<buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/style.css"/>
 <buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/classic/style.css"/>
 <buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/brownie/style.css"/>
-<buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/brownie/Main.css"/>
 <buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/vista/VistaTheme.css"/>
+<buildCSSFileEntry destPath="bin-debug" sourcePath="src/skins/brownie/Main.css"/>
 </buildCSSFiles>
 </actionScriptProperties>
