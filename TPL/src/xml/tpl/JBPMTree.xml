@@ -1,6 +1,6 @@
 	<node nodename="工作流管理">             
 		<node nodename="流程版本管理" module="module/jbpm3/ProcessVerModule.swf" />
-		<node nodename="代办任务" module="module/jbpm3/TaskModule.swf" />
+		<node nodename="待办任务" module="module/jbpm3/TaskModule.swf" />
 		<node nodename="流程实例管理" module="module/jbpm3/FlowInstanceModule.swf" />
 		<node nodename="审批历史查阅" module="module/jbpm3/HisProcModule.swf" />
 		<node nodename="流程任务分配" module="module/jbpm3/taskDistributeModule.swf" />
