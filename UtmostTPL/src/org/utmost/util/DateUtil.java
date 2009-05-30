@@ -11,4 +11,9 @@ public class DateUtil {
 	public static String getNowDate() {
 		return DateUtil.getDateFormat("yyyyMMdd HH:ss:mm").format(new Date());
 	}
+	public static String formatDate(Date date,String formateStr){
+		SimpleDateFormat sdf = new SimpleDateFormat(formateStr);
+		
+		return sdf.format(date);
+	}
 }
