@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="600" height="400" showCloseButton="true" xmlns:controls="com.sephiroth.controls.*" 
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="700" height="600" showCloseButton="true" xmlns:controls="com.sephiroth.controls.*" 
 	close="PopUpManager.removePopUp(this)" creationComplete="init();" horizontalAlign="center" verticalAlign="middle">
 	<mx:Script>
 		<![CDATA[
@@ -10,6 +10,7 @@
 			import org.utmost.util.AutoUtil;
 			import org.utmost.service.AutoService;
 			import mx.containers.Form;
+			import mx.controls.Alert;
 			import mx.controls.AdvancedDataGrid;
 			import mx.managers.PopUpManager;
 			import mx.collections.XMLListCollection;
@@ -17,14 +18,23 @@
 			import org.utmost.service.UtmostService;
 			import org.utmost.util.ComponentUtil;
 			import mx.events.ListEvent;
+			import mx.collections.SortField;
+            import mx.collections.Sort;
+            
 			public var $adg:AdvancedDataGrid;
 			public var $form:Form;
 			public var $tablename:String;
+			public var $procdefName:String;//流程定义名称
+			public var $procdefId:String;//流程定义Id
+			
+			public var tablename :String = "TASKROLE";
+			public var selectUserIDs:String;//选中的用户ID
 			
 			//主页数据初始化
 			public var $dataInit:Function;
 			
 			public function init():void {
+				getProdefTask();
 				initTree(roleTree,TreeUtil.getRoleMainByTree(),TreeUtil.getRoleKvByTree());
 				//initTree(userTree,TreeUtil.getUserMainByTree(),TreeUtil.getUserKvByTree());
 				findUserTree();
@@ -37,6 +47,23 @@
 					}
 				});
 			}
+			//获取流程定义节点信息
+			public function getProdefTask():void{
+	       		var us:UtmostService=new UtmostService("JBPMService",function(e:ResultEvent):void {
+        			if(e.result!=null){
+        				
+						//设定Sort对象
+						var m_sort:Sort = new Sort();
+						m_sort.fields =  [new SortField("taskId")];
+						var ac:ArrayCollection =  e.result as ArrayCollection;
+						ac.sort = m_sort;
+						ac.refresh();
+						adg.dataProvider = ac;
+        			}	
+        		});
+        		if($procdefName!="")
+        			us.ro.findTaskNodename($procdefName);
+	       }
 			public function editSubmit():void {
 				var service:AutoService=new AutoService();
 				service.autoUpdate($tablename,$form,function(e:ResultEvent):void {
@@ -45,6 +72,7 @@
 				});
 			}
 			private function close():void {
+				$dataInit.call();
 				PopUpManager.removePopUp(this);
 			}
 			private function findUserTree():void {
@@ -64,6 +92,13 @@
 					});
 				});
 			*/
+			var xmlstr :String = "<node nodename=\"用户\" nodecode=\"root\" parentid=\"0\">" +
+				                         "<node nodename=\"用户1\" nodecode=\"user1\" />"+
+				                          "<node nodename=\"用户2\" nodecode=\"user2\" />"+
+				                           "<node nodename=\"用户3\" nodecode=\"user3\" />"+
+				                        "</node>";   
+				var xml:XML=new XML(xmlstr);
+				userTree.dataProvider=xml;
 			}
 			private function initTree(_tree:Tree,main:Object,kv:Object):void {
 				var xmlstr :String = "<node nodename=\"角色\" nodecode=\"root\" parentid=\"0\">" +
@@ -94,6 +129,12 @@
 					clearXML(getDataProvider(userTree));
 				}*/
 			}
+			private function save(ac:ArrayCollection):void {
+				AutoService.getInstance().saveAll(tablename,ac,function(e:ResultEvent):void {
+					Alert.show("保存成功","提示");
+					//shake.play();
+				});
+			}
 			//保存使用
 			private var saveAC:ArrayCollection;
 			private function getDataProvider(_tree:Tree):XMLList {
@@ -102,32 +143,52 @@
 				return xmllist;
 			}
 			private function submit():void {
-				/*saveAC=new ArrayCollection();
+				
+				var rolecode:String=roleTree.selectedItem.@nodecode.toString();//* roleTree
+				var taskid = adg.selectedItem.taskId;
+				saveAC=new ArrayCollection();
+				selectUserIDs = "";
 				findXML(getDataProvider(userTree));
-				var nodecode:String=roleTree.selectedItem.@nodecode.toString();//* roleTree
-				var hql:String="from "+tableName+" v where v."+redCode+"='"+nodecode+"'";
+				var o:Object=new Object(); 
+				o.taskid = taskid;
+				o.taskname = adg.selectedItem.taskName;
+				o.rolecode = rolecode;
+				o.rolename = roleTree.selectedItem.@nodename.toString();
+				o.usercode = selectUserIDs;
+				o.processname = $procdefName;
+				o.processid = $procdefId;
+				saveAC.addItem(o);
+				
+				
+				var hql:String="from "+tablename+" v where v.taskid='"+taskid+"'";
 				AutoService.getInstance().deleteByHql(hql,function(e:ResultEvent):void {
 					save(saveAC);			
-				});*/
+				});
 			}
+			/**
+			 * 获取TreeCheckBox 选中的用户信息
+			 */ 
 			private function findXML(xmllist:XMLList):void {
-				/*for each(var element:XML in xmllist) {
+				for each(var element:XML in xmllist) {
 					if(element.@checked.toString()!=""&&element.@checked.toString()!="0") {
-						trace(element.@nodename+"--"+element.@nodecode+"--"+element.@checked);
-						//element.@checked=1;
-						var o:Object=new Object();
-						o[redName]=roleTree.selectedItem.@nodename.toString();
-						o[redCode]=roleTree.selectedItem.@nodecode.toString();
-						o[blueName]=element.@nodename.toString();
-						o[blueCode]=element.@nodecode.toString();
-						saveAC.addItem(o);
+						
+						if(element.@nodecode.toString()!=="root")
+							selectUserIDs = selectUserIDs+element.@nodecode.toString()+";";
 					}
 					if(element.elements()!=null)
 						findXML(element.elements());
-				}*/
+				}
 			}
 		]]>
 	</mx:Script>
+	<mx:AdvancedDataGrid id="adg" 
+			designViewDataType="flat" width="100%" height="100%"  >
+			<mx:columns>
+				<mx:AdvancedDataGridColumn headerText="任务ID"  dataField="taskId" />
+				<mx:AdvancedDataGridColumn headerText="任务名称"  dataField="taskName"/>
+				<mx:AdvancedDataGridColumn headerText="任务描述"  dataField="taskDescription"/>
+			</mx:columns>
+		</mx:AdvancedDataGrid>
 	<mx:HBox width="100%" height="100%" verticalAlign="middle" horizontalAlign="center" horizontalGap="60">
 		<mx:Tree id="roleTree" width="260" height="85%" labelField="@nodename" itemClick="treeClick(event)">
 		</mx:Tree>
@@ -137,5 +198,6 @@
 	<mx:ControlBar horizontalAlign="center" verticalAlign="middle">
 		<mx:Button label="确定" click="submit()"/>
 		<mx:Button label="取消" click="PopUpManager.removePopUp(this)"/>
+		<mx:Button label="完成" click="close()"/>
 	</mx:ControlBar>
 </mx:TitleWindow>
