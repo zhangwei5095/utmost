@@ -47,17 +47,16 @@ public class JBPMActorsHandle  implements AssignmentHandler {
 		String taskid = String.valueOf(context.getNode().getId());
 		String taskname = context.getNode().getName();
 		
-		taskid = "83";
+		
 		AutoService as = new AutoService();
 		List listv = as.findByHql("from TASKROLE v where v.taskid='"+taskid+"'");
 		HashMap roleMap = (HashMap)listv.get(0);
+		
 		String users = roleMap.get("usercode").toString();
 		roleName = roleMap.get("rolename").toString();
-		System.out.println(users+roleName);
-		System.out.println((HashMap)listv.get(0));
+		
 		
 		String actorIDs[] =  users.split(",");
-		System.out.println(actorIDs.length);
 		
 		
 		context.setVariable(ParamContext.TASK_curr_RoleName, roleName);
