@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.List;
@@ -24,6 +25,7 @@ import org.jbpm.taskmgmt.exe.PooledActor;
 import org.jbpm.taskmgmt.exe.TaskInstance;
 import org.springframework.stereotype.Component;
 import org.utmost.common.SpringContext;
+import org.utmost.util.DateUtil;
 import org.utmost.util.ParamContext;
 
 
@@ -31,7 +33,7 @@ import org.utmost.util.ParamContext;
 @Component("JBPMService")
 public class JBPMService  {
 	private static Log logger = LogFactory.getLog(JBPMService.class);
-	
+	private String dateformatstr = "yyyy-MM-dd HH:mm:ss";
 	
 	public boolean deployAll(){
 		DeployJbpmProcessServiceImpl djpsi = new DeployJbpmProcessServiceImpl();
@@ -123,8 +125,67 @@ public class JBPMService  {
 	
 		
 	}
+	/**
+	 * 提前终止当前任务节点的流程实例
+	 * @param taskInstanceID 任务节点ID
+	 */
+	public String endProcessInstan(String taskInstanceID){
+		JbpmConfiguration jbpmConfiguration =(JbpmConfiguration) SpringContext.getBean("jbpmConfiguration");
+		
+		JbpmContext jbpmContext = jbpmConfiguration.createJbpmContext();
+		try{
+			
+	
+			TaskInstance taskInstance = jbpmContext.getTaskInstance(Long.parseLong(taskInstanceID));
+		    taskInstance.getProcessInstance().end();//结束流程实例的同时，还要结束当前任务节点
+		    taskInstance.end();
+	
+			return "1";
+		}catch(Exception e){
+			e.printStackTrace();
+			return "0";
+		} finally {
+			if (jbpmContext != null)
+				jbpmContext.close();
+		}
 	
 	
+		
+	}
+	/**
+	 * 更改指定任务节点的处理人
+	 * @param taskInstanceID 任务节点ID
+	 * @param newActorIDS 新处理人 若为多个时，用‘；’分隔
+	 */
+	public String updateActorIDs(String taskInstanceID,String newActorIDS){
+		JbpmConfiguration jbpmConfiguration =(JbpmConfiguration) SpringContext.getBean("jbpmConfiguration");
+		
+		JbpmContext jbpmContext = jbpmConfiguration.createJbpmContext();
+		try{
+			String newActorsArray[] = newActorIDS.split(";");
+			
+			Set<PooledActor>  actorSet = new HashSet <PooledActor>();  
+			for(String actorId:newActorsArray){
+				PooledActor objPooledActor = new PooledActor(); 
+				objPooledActor.setActorId(actorId);
+				actorSet.add(objPooledActor);
+				
+			}
+			TaskInstance taskInstance = jbpmContext.getTaskInstance(Long.parseLong(taskInstanceID));
+			taskInstance.setPooledActors(actorSet);
+			
+			return "1";
+		}catch(Exception e){
+			e.printStackTrace();
+			return "0";
+		} finally {
+			if (jbpmContext != null)
+				jbpmContext.close();
+		}
+	
+	
+		
+	}
 	/**
 	 *  查找指定流程定义的流程实例，用于系统管理员对流程实例的处理
 	 * @param procDefName 工作流定义ID
@@ -155,18 +216,22 @@ public class JBPMService  {
 				
 				tempMap = new HashMap<String,Object>();
 				
-				tempMap.put("processInstanceID", processInstance.getId());//流程实例ID
-				tempMap.put("startDate", processInstance.getStart());//流程开始时间	
+				
 				if(isEnd){//查找结果包含已结束流程
 					if(processInstance.getEnd()!=null){//流程已结束
-						tempMap.put("endDate", processInstance.getEnd());//流程结束时间	
-						tempMap.put("status", "已结束");
+						tempMap.put("processInstanceID", processInstance.getId());//流程实例ID
+						tempMap.put("startDate", DateUtil.formatDate(processInstance.getStart(),dateformatstr));//流程开始时间	
+						tempMap.put("endDate", DateUtil.formatDate(processInstance.getEnd(),dateformatstr));//流程结束时间	
+						tempMap.put("pro_status", "已结束");
 						tempMap.put("checkOutActor", "已结束");
 					}
 					
 				}
 				if(processInstance.getEnd()==null){//流程未结束
-					tempMap.put("status", "进行中");
+					
+					tempMap.put("processInstanceID", processInstance.getId());//流程实例ID
+					tempMap.put("startDate", DateUtil.formatDate(processInstance.getStart(),dateformatstr));//流程开始时间	
+					tempMap.put("pro_status", "进行中");
 					if(processInstance.getContextInstance().getVariable(ParamContext.TASK_CURRENT_CHECKOUT)!=null){
 						tempMap.put("checkOutActor", processInstance.getContextInstance().getVariable(ParamContext.TASK_CURRENT_CHECKOUT).toString()+"已检出");
 					}else{
@@ -188,13 +253,15 @@ public class JBPMService  {
 							}
 							tempMap.put("currActorIDs",actorids);
 							tempMap.put("taskname",ti.getName());
+							tempMap.put("taskID",ti.getId());
+							tempMap.putAll(ti.getVariables());
 							break;
 						}
 					}
+				
 				}	
-				TaskInstance ti = (TaskInstance)processInstance.getTaskMgmtInstance().getTaskInstances().iterator().next();
-				tempMap.putAll(ti.getVariables());
-				list0.add(tempMap);
+				if(tempMap.size()>0)
+					list0.add(tempMap);
 				
 			}	
 			return list0;
@@ -483,7 +550,7 @@ public class JBPMService  {
 				new Exception("工作流参数传递出错");
 			}
 		    TaskInstance taskInstance = jbpmContext.getTaskInstance(Long.parseLong(taskInstanceID));
-			
+		    
 		    String comment = "驳回去了"; //审批意见
 			String actorid = "abcd"; //处理人
 			String errid = "0001";//差错号
