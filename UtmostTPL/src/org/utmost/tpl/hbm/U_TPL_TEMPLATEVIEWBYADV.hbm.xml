@@ -9,82 +9,82 @@
 		</id>
 		<property name="cid" type="java.lang.String">
 			<column length="36" name="CID" index="_INDEX_CID">
-				<comment>关联表UUID(U_TPL_TEMPLATE.UUID)</comment>
+				<!--<comment>关联表UUID(U_TPL_TEMPLATE.UUID)</comment>-->
 			</column>
 		</property>
 		<property name="vpid" type="java.lang.String">
 			<column length="36" name="VPID" index="_INDEX_VPID">
-				<comment>关联表UUID(U_TPL_TEMPLATEVIEW.UUID)</comment>
+				<!--<comment>关联表UUID(U_TPL_TEMPLATEVIEW.UUID)</comment>-->
 			</column>
 		</property>
 		<property name="cpid" type="java.lang.String">
 			<column length="36" name="CPID" index="_INDEX_CPID">
-				<comment>关联表UUID(U_TPL_TEMPLATEDATA.UUID)</comment>
+				<!--<comment>关联表UUID(U_TPL_TEMPLATEDATA.UUID)</comment>-->
 			</column>
 		</property>
 		<property name="view" type="java.lang.String">
 			<column length="256" name="VIEW_">
-				<comment>模式视图(cid+view 确定唯一视图集合 默认为default)</comment>
+				<!--<comment>模式视图(cid+view 确定唯一视图集合 默认为default)</comment>-->
 			</column>
 		</property>
 		<property name="required" type="java.lang.String">
 			<column length="256" name="REQUIRED">
-				<comment>是否必填</comment>
+				<!--<comment>是否必填</comment>-->
 			</column>
 		</property>
 		<property name="restrict" type="java.lang.String">
 			<column length="256" name="URESTRICT">
-				<comment>限制 约束 数据库字段待修改</comment>
+				<!--<comment>限制 约束 数据库字段待修改</comment>-->
 			</column>
 		</property>
 		<property name="fieldname" type="java.lang.String">
 			<column length="128" name="FIELDNAME">
-				<comment>字段名称</comment>
+				<!--<comment>字段名称</comment>-->
 			</column>
 		</property>
 		<property name="fieldcode" type="java.lang.String">
 			<column length="128" name="FIELDCODE">
-				<comment>字段编码</comment>
+				<!--<comment>字段编码</comment>-->
 			</column>
 		</property>
 		<property name="fieldtype" type="java.lang.String">
 			<column length="128" name="FIELDTYPE">
-				<comment>字段类型(TextInput,TextArea,ComboBox,NumericStepper)</comment>
+				<!--<comment>字段类型(TextInput,TextArea,ComboBox,NumericStepper)</comment>-->
 			</column>
 		</property>
 		<property name="fieldorder" type="java.lang.String">
 			<column length="128" name="FIELDORDER">
-				<comment>次序</comment>
+				<!--<comment>次序</comment>-->
 			</column>
 		</property>
 		<property name="defaultvalue" type="java.lang.String">
 			<column length="256" name="DEFAULTVALUE">
-				<comment>默认值</comment>
+				<!--<comment>默认值</comment>-->
 			</column>
 		</property>
 		<property name="reference" type="java.lang.String">
 			<column length="128" name="REFERENCE">
-				<comment>引用UUID</comment>
+				<!--<comment>引用UUID</comment>-->
 			</column>
 		</property>
 		<property name="validator" type="java.lang.String">
 			<column length="256" name="VALIDATOR">
-				<comment>校验规则</comment>
+				<!--<comment>校验规则</comment>-->
 			</column>
 		</property>
 		<property name="fieldlength" type="java.lang.String">
 			<column length="32" name="FIELDLENGTH">
-				<comment>字段长度</comment>
+				<!--<comment>字段长度</comment>-->
 			</column>
 		</property>
 		<property name="fielddesc" type="java.lang.String">
 			<column length="512" name="FIELDDESC">
-				<comment>字段描述</comment>
+				<!--<comment>字段描述</comment>-->
 			</column>
 		</property>
 		<property name="state" type="java.lang.String">
 			<column length="32" name="STATE">
-				<comment>状态(01 显示 02 隐藏  03 禁用 04 不可编辑)</comment>
+				<!--<comment>状态(01 显示 02 隐藏  03 禁用 04 不可编辑)</comment>-->
 			</column>
 		</property>
 	</class>

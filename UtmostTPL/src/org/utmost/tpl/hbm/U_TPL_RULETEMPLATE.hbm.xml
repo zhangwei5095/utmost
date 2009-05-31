@@ -8,27 +8,27 @@
 		</id>
 		<property name="ruletplcode" type="java.lang.String">
 			<column length="20" name="RULETPLCODE">
-				<comment>规则模板编码</comment>
+				<!--<comment>规则模板编码</comment>-->
 			</column>
 		</property>
 		<property name="ruletplname" type="java.lang.String">
 			<column length="200" name="RULETPLNAME">
-				<comment>规则模板名称</comment>
+				<!--<comment>规则模板名称</comment>-->
 			</column>
 		</property>
 		<property name="ruleexpression" type="java.lang.String">
 			<column length="2048" name="RULEEXPRESSION">
-				<comment>规则模板表达式</comment>
+				<!--<comment>规则模板表达式</comment>-->
 			</column>
 		</property>
 		<property name="ruletpldesc" type="java.lang.String">
 			<column length="200" name="RULETPLDESC">
-				<comment>规则模板描述</comment>
+				<!--<comment>规则模板描述</comment>-->
 			</column>
 		</property>
 		<property name="ruletplparam" type="java.lang.String">
 			<column length="256" name="RULETPLPARAM">
-				<comment>规则模板参数表达式</comment>
+				<!--<comment>规则模板参数表达式</comment>-->
 			</column>
 		</property>
 	</class>

@@ -9,6 +9,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
+import org.utmost.portal.service.ConsoleService;
 import org.utmost.tpl.service.TemplateService;
 
 /**
@@ -37,7 +38,7 @@ public class SpringContext implements ApplicationContextAware {
 			ApplicationContext ctx = new ClassPathXmlApplicationContext(
 					"/conf/applicationContext.xml");
 			applicationContext = ctx;
-			
+
 		}
 		return applicationContext;
 	}
@@ -56,6 +57,9 @@ public class SpringContext implements ApplicationContextAware {
 	 * 重新加载Spring服务并重新生成hbm映射文件
 	 */
 	public static void reloadSpring() {
+		ConsoleService cs = (ConsoleService) SpringContext
+				.getBean("ConsoleService");
+		cs.stopConsole();
 		// 重新生成Hibernate配置文件
 		TemplateService ts = (TemplateService) SpringContext
 				.getBean("TemplateService");

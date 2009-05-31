@@ -85,7 +85,7 @@ public class AuthService {
 					flag = true;
 				}
 			}
-			if (!flag)
+			if (!flag && element.getParent() != null)
 				element.getParent().remove(element);//
 			List list = element.elements();
 			if (list.size() != 0 && list != null)

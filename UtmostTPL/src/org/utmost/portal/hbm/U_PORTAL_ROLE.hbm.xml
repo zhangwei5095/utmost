@@ -9,28 +9,28 @@
 		</id>
 		<property name="pid" type="java.lang.String">
 			<column length="36" name="PID">
-				<comment>父节点UUID</comment>
+				<!--<comment>父节点UUID</comment>-->
 			</column>
 		</property>
 		<property name="rolecode" type="java.lang.String"
 			index="_INDEX_ROLECODE" not-null="true" unique="true">
 			<column length="36" name="ROLECODE">
-				<comment>角色编码</comment>
+				<!--<comment>角色编码</comment>-->
 			</column>
 		</property>
 		<property name="rolename" type="java.lang.String">
 			<column length="128" name="ROLENAME">
-				<comment>角色名称</comment>
+				<!--<comment>角色名称</comment>-->
 			</column>
 		</property>
 		<property name="roledesc" type="java.lang.String">
 			<column length="256" name="ROLEDESC">
-				<comment>角色描述</comment>
+				<!--<comment>角色描述</comment>-->
 			</column>
 		</property>
 		<property name="state" type="java.lang.String">
 			<column length="36" name="STATE">
-				<comment>状态</comment>
+				<!--<comment>状态</comment>-->
 			</column>
 		</property>
 	</class>

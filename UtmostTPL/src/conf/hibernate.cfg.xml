@@ -38,8 +38,8 @@
 		<property name="cache.use_second_level_cache">true</property>
 		<property name="cache.use_query_cache">true</property>
 		<!--
-			property
-			name="cache.provider_class">org.hibernate.cache.EhCacheProvider</property
+			<property
+			name="cache.provider_class">org.hibernate.cache.EhCacheProvider</property>
 		-->
 
 		<property name="hibernate.cache.provider_class">org.hibernate.cache.HashtableCacheProvider</property>

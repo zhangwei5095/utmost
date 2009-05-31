@@ -9,34 +9,34 @@
 		</id>
 		<property name="roleuuid" type="java.lang.String">
 			<column length="36" name="ROLEUUID">
-				<comment>角色UUID</comment>
+				<!-- <comment>角色UUID</comment> -->
 			</column>
 		</property>
 		<property name="rolecode" type="java.lang.String">
 			<column length="36" name="ROLECODE">
-				<comment>角色编码</comment>
+				<!--<comment>角色编码</comment> -->
 			</column>
 		</property>
 		<property name="rolename" type="java.lang.String">
 			<column length="128" name="ROLENAME">
-				<comment>角色名称</comment>
+				<!--<comment>角色名称</comment> -->
 			</column>
 		</property>
 		
 		
 		<property name="funcuuid" type="java.lang.String">
 			<column length="36" name="FUNCUUID">
-				<comment>功能UUID</comment>
+				<!--<comment>功能UUID</comment> -->
 			</column>
 		</property>
 		<property name="funccode" type="java.lang.String">
 			<column length="128" name="FUNCCODE">
-				<comment>功能编码</comment>
+				<!--<comment>功能编码</comment> -->
 			</column>
 		</property>
 		<property name="funcname" type="java.lang.String">
 			<column length="256" name="FUNCNAME">
-				<comment>功能名称</comment>
+				<!--<comment>功能名称</comment> -->
 			</column>
 		</property>
 	</class>

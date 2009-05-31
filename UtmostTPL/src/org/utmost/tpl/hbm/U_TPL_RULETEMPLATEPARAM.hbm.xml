@@ -8,32 +8,32 @@
 		</id>
 		<property name="ruletplcode" type="java.lang.String">
 			<column length="20" name="RULETPLCODE">
-				<comment>规则编码</comment>
+				<!--<comment>规则编码</comment>-->
 			</column>
 		</property>
 		<property name="param_name" type="java.lang.String">
 			<column length="128" name="PARAM_NAME">
-				<comment>参数名</comment>
+				<!--<comment>参数名</comment>-->
 			</column>
 		</property>
 		<property name="param_code" type="java.lang.String">
 			<column length="20" name="PARAM_CODE">
-				<comment>参数编码</comment>
+				<!--<comment>参数编码</comment>-->
 			</column>
 		</property>
 		<property name="param_value" type="java.lang.String">
 			<column length="30" name="PARAM_VALUE">
-				<comment>参数值</comment>
+				<!--<comment>参数值</comment>-->
 			</column>
 		</property>
 		<property name="param_desc" type="java.lang.String">
 			<column length="128" name="PARAM_DESC">
-				<comment>参数描述</comment>
+				<!--<comment>参数描述</comment>-->
 			</column>
 		</property>
 		<property name="param_type" type="java.lang.String">
 			<column length="1" name="PARAM_TYPE">
-				<comment>参数类型:1为规则模板参数,0为预警风险参数</comment>
+				<!--<comment>参数类型:1为规则模板参数,0为预警风险参数</comment>-->
 			</column>
 		</property>
 	</class>

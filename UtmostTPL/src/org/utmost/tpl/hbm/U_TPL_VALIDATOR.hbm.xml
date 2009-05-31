@@ -9,37 +9,37 @@
 		</id>
 		<property name="validname" type="java.lang.String">
 			<column length="128" name="VALIDNAME">
-				<comment>校验名称</comment>
+				<!--<comment>校验名称</comment>-->
 			</column>
 		</property>
 		<property name="validcode" type="java.lang.String">
 			<column length="128" name="VALIDCODE">
-				<comment>校验编码</comment>
+				<!--<comment>校验编码</comment>-->
 			</column>
 		</property>
 		<property name="validtype" type="java.lang.String">
 			<column length="128" name="VALIDTYPE">
-				<comment>校验类型(regex,hql)</comment>
+				<!--<comment>校验类型(regex,hql)</comment>-->
 			</column>
 		</property>
 		<property name="expression" type="java.lang.String">
 			<column length="128" name="EXPRESSION">
-				<comment>校验表达式(正则表达式,HQL)</comment>
+				<!--<comment>校验表达式(正则表达式,HQL)</comment>-->
 			</column>
 		</property>
 		<property name="successmsg" type="java.lang.String">
 			<column length="128" name="SUCCESSMSG">
-				<comment>校验成功提示</comment>
+				<!--<comment>校验成功提示</comment>-->
 			</column>
 		</property>
 		<property name="errormsg" type="java.lang.String">
 			<column length="128" name="ERRORMSG">
-				<comment>校验失败提示</comment>
+				<!--<comment>校验失败提示</comment>-->
 			</column>
 		</property>
 		<property name="validdesc" type="java.lang.String">
 			<column length="256" name="VALIDDESC">
-				<comment>校验描述</comment>
+				<!--<comment>校验描述</comment>-->
 			</column>
 		</property>
 	</class>

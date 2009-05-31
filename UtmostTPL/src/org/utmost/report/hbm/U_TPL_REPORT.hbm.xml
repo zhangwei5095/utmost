@@ -8,43 +8,43 @@
 		</id>
 		<property name="pid" type="java.lang.String">
 			<column length="36" name="PID">
-				<comment>父ID 含有子报表时使用</comment>
+				<!--<comment>父ID 含有子报表时使用</comment>-->
 			</column>
 		</property>
 		<property name="reportname" type="java.lang.String">
 			<column length="128" name="REPORTNAME">
-				<comment>报表名称</comment>
+				<!--<comment>报表名称</comment>-->
 			</column>
 		</property>
 		<property name="reportcode" type="java.lang.String">
 			<column length="128" name="REPORTCODE">
-				<comment>报表编码</comment>
+				<!--<comment>报表编码</comment>-->
 			</column>
 		</property>
 		<property name="reporttitle" type="java.lang.String">
 			<column length="128" name="REPORTTITLE">
-				<comment>报表标题</comment>
+				<!--<comment>报表标题</comment>-->
 			</column>
 		</property>
 		<property name="reportsubtitle" type="java.lang.String">
 			<column length="128" name="REPORTSUBTITLE">
-				<comment>报表子标题</comment>
+				<!--<comment>报表子标题</comment>-->
 			</column>
 		</property>
 		<!-- 新增 -->
 		<property name="grouplayout" type="java.lang.String">
 			<column length="128" name="GROUPLAYOUT">
-				<comment>组类型</comment>
+				<!--<comment>组类型</comment>-->
 			</column>
 		</property>
 		<property name="sourcehql" type="java.lang.String">
 			<column length="512" name="SOURCEHQL">
-				<comment>源HQL</comment>
+				<!--<comment>源HQL</comment>-->
 			</column>
 		</property>
 		<property name="reportdesc" type="java.lang.String">
 			<column length="256" name="REPORTDESC">
-				<comment>报表描述</comment>
+				<!--<comment>报表描述</comment>-->
 			</column>
 		</property>
 	</class>

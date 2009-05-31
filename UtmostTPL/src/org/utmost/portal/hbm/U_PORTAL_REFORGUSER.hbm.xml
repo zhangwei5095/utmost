@@ -9,33 +9,33 @@
 		</id>
 		<property name="orguuid" type="java.lang.String">
 			<column length="36" name="ORGUUID">
-				<comment>机构UUID</comment>
+				<!-- <comment>机构UUID</comment> -->
 			</column>
 		</property>
 		<property name="orgcode" type="java.lang.String">
 			<column length="36" name="ORGCODE">
-				<comment>机构编码</comment>
+				<!-- <comment>机构编码</comment> -->
 			</column>
 		</property>
 		<property name="orgname" type="java.lang.String">
 			<column length="128" name="ORGNAME">
-				<comment>机构名称</comment>
+				<!-- <comment>机构名称</comment> -->
 			</column>
 		</property>
 		
 		<property name="useruuid" type="java.lang.String">
 			<column length="36" name="USERUUID">
-				<comment>用户UUID</comment>
+				<!-- <comment>用户UUID</comment> -->
 			</column>
 		</property>
 		<property name="usercode" type="java.lang.String">
 			<column length="128" name="USERCODE">
-				<comment>用户编码</comment>
+				<!-- <comment>用户编码</comment> -->
 			</column>
 		</property>
 		<property name="username" type="java.lang.String">
 			<column length="256" name="USERNAME">
-				<comment>用户名称</comment>
+				<!-- <comment>用户名称</comment> -->
 			</column>
 		</property>
 	</class>

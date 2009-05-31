@@ -17,22 +17,45 @@ public class ConsoleService {
 			startConsoleReaderThread(inStreams[i]);
 	} // ConsoleTextArea()
 
-	public ConsoleService() throws IOException {
-		final LoopedStreams ls = new LoopedStreams();
-		// 重定向System.out和System.err
-		PrintStream ps = new PrintStream(ls.getOutputStream());
-		System.setOut(ps);
-		System.setErr(ps);
-		startConsoleReaderThread(ls.getInputStream());
+	public ConsoleService() {
+		old = System.out;// 源
+		olderr = System.err;// 源
 	} // ConsoleTextArea()
+
+	public void startConsole() throws IOException {
+		if (!istrue) {
+			istrue = true;
+			final LoopedStreams ls = new LoopedStreams();
+			// 重定向System.out和System.err
+			PrintStream ps = new PrintStream(ls.getOutputStream());
+			System.setOut(ps);
+			System.setErr(ps);
+			startConsoleReaderThread(ls.getInputStream());
+		}
+	}
 
 	private static StringBuffer rs = new StringBuffer();
 
-	public String getConsoleInfo(HashMap map) {
-		return rs.toString();
+	public void stopConsole() {
+		if (istrue) {
+			istrue = false;
+			System.setOut(old);
+			System.setErr(olderr);
+		}
 	}
 
-	public void clear(HashMap map) {
+	private static Boolean istrue = false;//
+	private static PrintStream old = null;
+	private static PrintStream olderr = null;
+
+	public String getConsoleInfo() {
+		if (istrue)
+			return rs.toString();
+		else
+			return "Console is closed!";
+	}
+
+	public void clear() {
 		rs = new StringBuffer();
 	}
 
@@ -57,18 +80,7 @@ public class ConsoleService {
 	// 该类剩余部分的功能是进行测试
 	public static void main(String[] args) {
 		ConsoleService consoleService = null;
-		try {
-			consoleService = new ConsoleService();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		// 启动几个写操作线程向
-		// System.out和System.err输出
-		// startWriterTestThread("写操作线程 #1", System.err, 20, 50);
-		// startWriterTestThread("写操作线程 #2", System.out, 500, 50);
-		// startWriterTestThread("写操作线程 #3", System.out, 200, 50);
-		// startWriterTestThread("写操作线程 #4", System.out, 100, 50);
-		// startWriterTestThread("写操作线程 #5", System.err, 50, 50);
+		consoleService = new ConsoleService();
 	} // main()
 
 	// private static void startWriterTestThread(final String name,

@@ -9,62 +9,62 @@
 		</id>
 		<property name="cid" type="java.lang.String">
 			<column length="36" name="CID" index="_INDEX_CID">
-				<comment>关联表UUID(U_TPL_TEMPLATE.UUID)</comment>
+				<!--<comment>关联表UUID(U_TPL_TEMPLATE.UUID)</comment>-->
 			</column>
 		</property>
 		<property name="dataname" type="java.lang.String">
 			<column length="128" name="DATANAME">
-				<comment>数据名称</comment>
+				<!--<comment>数据名称</comment>-->
 			</column>
 		</property>
 		<property name="datacode" type="java.lang.String">
 			<column length="128" name="DATADCODE">
-				<comment>数据编码</comment>
+				<!--<comment>数据编码</comment>-->
 			</column>
 		</property>
 		<property name="datatype" type="java.lang.String">
 			<column length="128" name="DATATYPE">
-				<comment>数据类型</comment>
+				<!--<comment>数据类型</comment>-->
 			</column>
 		</property>
 		<property name="datalength" type="java.lang.String">
 			<column length="32" name="DATALENGTH">
-				<comment>数据长度</comment>
+				<!--<comment>数据长度</comment>-->
 			</column>
 		</property>
 		<property name="isindex" type="java.lang.String">
 			<column length="16" name="ISINDEX">
-				<comment>是否为索引</comment>
+				<!--<comment>是否为索引</comment>-->
 			</column>
 		</property>
 		<property name="isnotnull" type="java.lang.String">
 			<column length="16" name="ISNOTNULL">
-				<comment>非空</comment>
+				<!--<comment>非空</comment>-->
 			</column>
 		</property>
 		<property name="isunique" type="java.lang.String">
 			<column length="16" name="ISUNIQUE">
-				<comment>是否唯一</comment>
+				<!--<comment>是否唯一</comment>-->
 			</column>
 		</property>
 		<property name="ispk" type="java.lang.String">
 			<column length="16" name="ISPK">
-				<comment>是否主键</comment>
+				<!--<comment>是否主键</comment>-->
 			</column>
 		</property>
 		<property name="generator" type="java.lang.String">
 			<column length="128" name="GENERATOR">
-				<comment>主键策略</comment>
+				<!--<comment>主键策略</comment>-->
 			</column>
 		</property>
 		<property name="nodedesc" type="java.lang.String">
 			<column length="512" name="NODEDESC">
-				<comment>描述</comment>
+				<!--<comment>描述</comment>-->
 			</column>
 		</property>
 		<property name="state" type="java.lang.String">
 			<column length="32" name="STATE">
-				<comment>状态</comment>
+				<!--<comment>状态</comment>-->
 			</column>
 		</property>
 	</class>

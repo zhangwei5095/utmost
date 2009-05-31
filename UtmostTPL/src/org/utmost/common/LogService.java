@@ -10,8 +10,8 @@ public class LogService {
 		long st = System.currentTimeMillis();
 		Object retVal = pjp.proceed();
 		long et = System.currentTimeMillis();
-		// 时间超过10ms则打印详细
-		if ((et - st) > 10) {
+		// 时间超过1ms则打印详细
+		if ((et - st) > 1) {
 			System.out.println("Performance->"
 					+ pjp.getSignature().getDeclaringTypeName() + "--"
 					+ pjp.getSignature().getName() + " ms:" + (et - st));

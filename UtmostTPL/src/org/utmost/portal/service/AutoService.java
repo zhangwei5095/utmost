@@ -270,13 +270,18 @@ public class AutoService extends CommService {
 	 * @throws Exception
 	 */
 	public Object callfunc(String serviceName, String methodName, HashMap hm) {
-		//logger.info("callfunc:" + serviceName + "->" + methodName + "->>" + hm);
+		// logger.info("callfunc:" + serviceName + "->" + methodName + "->>" +
+		// hm);
 		Object obj = SpringContext.getBean(serviceName);
 		Object robj = null;
-		try {
-			robj = ClassUtil.invokeMethod(obj, methodName, hm);
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (obj != null) {
+			try {
+				robj = ClassUtil.invokeMethod(obj, methodName, hm);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			System.out.println(serviceName + " 尚未实例化");
 		}
 		return robj;
 	}
