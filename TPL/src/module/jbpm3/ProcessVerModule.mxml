@@ -3,6 +3,7 @@
 	 creationComplete="init()">
 	 <mx:Script>
 	 	<![CDATA[
+	 		import org.utmost.service.UtmostService;
 	 		import mx.events.CloseEvent;
 	 		import mx.collections.ArrayCollection;
 	 		import mx.rpc.events.ResultEvent;
@@ -24,8 +25,8 @@
 	 			//JBPMService.channelSet = StaticChannelSet.getChannelSet();
 	 			//JBPMService.findProcessDefinition();
 	 			var us:UtmostService=new UtmostService("JBPMService",function(e:ResultEvent):void {
-        			if(e.result!=null){
-        				combo_prodef.dataProvider = e.result as ArrayCollection;
+        			//if(e.result!=null)
+        				//combo_prodef.dataProvider = e.result as ArrayCollection;
         		});
         		us.ro.findProcessDefinition();
 	 		}
