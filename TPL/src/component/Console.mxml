@@ -2,6 +2,8 @@
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" creationComplete="init()" verticalGap="0">
 	<mx:Script>
 		<![CDATA[
+			import mx.controls.Alert;
+			import mx.rpc.events.FaultEvent;
 			import mx.events.FlexEvent;
 			import mx.rpc.events.ResultEvent;
 			import org.utmost.service.AutoService;
@@ -16,9 +18,12 @@
 
 			public function process(e:TimerEvent):void
 			{
-				AutoService.getInstance(false).callfunc("ConsoleService", "getConsoleInfo", new Object(), function(e:ResultEvent):void
+				AutoService.getInstance(false).callfunc("ConsoleService", "getConsoleInfo", null, function(e:ResultEvent):void
 					{
 						console.text=e.result.toString();
+				},function(e:FaultEvent):void {
+					//Alert.show("连接已断开!");
+					timer.stop();
 				});
 			}
 
@@ -28,11 +33,19 @@
 			}
 			
 			private function clear():void {
-				AutoService.getInstance().callfunc("ConsoleService", "clear", new Object(),null);
+				AutoService.getInstance().callfunc("ConsoleService", "clear", null,null,null);
+			}
+			private function start():void {
+				AutoService.getInstance().callfunc("ConsoleService", "startConsole", null,null,null);
+			}
+			private function stop():void {
+				AutoService.getInstance().callfunc("ConsoleService", "stopConsole", null,null,null);
 			}
 		]]>
 	</mx:Script>
 	<mx:HBox width="100%" horizontalAlign="right" verticalAlign="middle">
+		<mx:Button label="Start" width="60" click="start()"/>
+		<mx:Button label="Stop" width="60" click="stop()"/>
 		<mx:Button label="Clear" click="clear()" width="60"/>
 	</mx:HBox>
 	<mx:TextArea id="console" width="100%" height="100%" editable="false" wordWrap="true"/>

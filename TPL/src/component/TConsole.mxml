@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%" xmlns:ns1="component.*" paddingBottom="0" paddingLeft="0" paddingRight="0" paddingTop="0" showCloseButton="true" close="PopUpManager.removePopUp(this)">
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%" xmlns:ns1="component.*" paddingBottom="0" paddingLeft="0" paddingRight="0" paddingTop="0" showCloseButton="true" close="close()">
 	<mx:Script>
 		<![CDATA[
+			import org.utmost.service.AutoService;
 			import mx.managers.PopUpManager;
+			private function close():void {
+				stop();
+				PopUpManager.removePopUp(this);
+			}
+			private function stop():void {
+				AutoService.getInstance().callfunc("ConsoleService", "stopConsole", null,null,null);
+			}
 		]]>
 	</mx:Script>
 	<ns1:Console>
