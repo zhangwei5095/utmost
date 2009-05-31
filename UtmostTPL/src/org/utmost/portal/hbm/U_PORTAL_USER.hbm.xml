@@ -10,28 +10,28 @@
 		<property name="usercode" type="java.lang.String" 
 			index="_INDEX_USERCODE" not-null="true" unique="true">
 			<column length="36" name="USERCODE">
-				<comment>用户编码</comment>
+				<!--<comment>用户编码</comment>-->
 			</column>
 		</property>
 		<property name="username" type="java.lang.String">
 			<column length="36" name="USERNAME">
-				<comment>用户名称</comment>
+				<!--<comment>用户名称</comment>-->
 			</column>
 		</property>
 		<property name="loginname" type="java.lang.String"
 			index="_INDEX_LOGINNAME" not-null="true" unique="true">
 			<column length="36" name="LOGINNAME">
-				<comment>登录名称</comment>
+				<!--<comment>登录名称</comment>-->
 			</column>
 		</property>
 		<property name="password" type="java.lang.String">
 			<column length="36" name="PASSWORD">
-				<comment>密码</comment>
+				<!--<comment>密码</comment>-->
 			</column>
 		</property>
 		<property name="state" type="java.lang.String">
 			<column length="36" name="STATE">
-				<comment>状态</comment>
+				<!--<comment>状态</comment>-->
 			</column>
 		</property>
 	</class>

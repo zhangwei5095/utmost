@@ -11,7 +11,7 @@ public class ClassUtil {
 	 */
 	public static void main(String[] args) throws Exception {
 		HashMap hm = new HashMap();
-		hm.put("dd","asdf");
+		hm.put("dd", "asdf");
 		ClassUtil cu = new ClassUtil();
 		ClassUtil.invokeMethod(cu, "testThis", hm);
 	}
@@ -32,8 +32,14 @@ public class ClassUtil {
 	public static Object invokeMethod(Object methodObject, String methodName,
 			HashMap hm) throws Exception {
 		Class ownerClass = methodObject.getClass();
-		Method method = ownerClass.getMethod(methodName, hm.getClass());
-		return method.invoke(methodObject, hm);
+		Method method = null;
+		if (hm != null) {
+			method = ownerClass.getMethod(methodName, hm.getClass());
+			return method.invoke(methodObject, hm);
+		} else {
+			method = ownerClass.getMethod(methodName);
+			return method.invoke(methodObject);
+		}
 	}
 
 }

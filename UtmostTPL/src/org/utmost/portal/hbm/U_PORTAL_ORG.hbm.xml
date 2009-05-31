@@ -9,28 +9,28 @@
 		</id>
 		<property name="pid" type="java.lang.String">
 			<column length="36" name="PID">
-				<comment>父节点UUID</comment>
+				<!-- <comment>父节点UUID</comment> -->
 			</column>
 		</property>
 		<property name="orgcode" type="java.lang.String"
 			index="_INDEX_ROLECODE" not-null="true" unique="true">
 			<column length="36" name="ORGCODE">
-				<comment>机构编码</comment>
+				<!--<comment>机构编码</comment> -->
 			</column>
 		</property>
 		<property name="orgname" type="java.lang.String">
 			<column length="128" name="ORGNAME">
-				<comment>机构名称</comment>
+				<!--<comment>机构名称</comment> -->
 			</column>
 		</property>
 		<property name="orgdesc" type="java.lang.String">
 			<column length="256" name="ORGDESC">
-				<comment>机构描述</comment>
+				<!--<comment>机构描述</comment>-->
 			</column>
 		</property>
 		<property name="state" type="java.lang.String">
 			<column length="36" name="STATE">
-				<comment>状态</comment>
+				<!--<comment>状态</comment> -->
 			</column>
 		</property>
 	</class>

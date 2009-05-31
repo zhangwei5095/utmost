@@ -9,47 +9,47 @@
 		</id>
 		<property name="pid" type="java.lang.String">
 			<column length="36" name="PID">
-				<comment>父节点编码</comment>
+				<!--<comment>父节点编码</comment>-->
 			</column>
 		</property>
 		<property name="nodename" type="java.lang.String">
 			<column length="128" name="NODENAME">
-				<comment>节点名称</comment>
+				<!--<comment>节点名称</comment>-->
 			</column>
 		</property>
 		<property name="nodecode" type="java.lang.String">
 			<column length="128" name="NODECODE" unique="true">
-				<comment>节点编码</comment>
+				<!--<comment>节点编码</comment>-->
 			</column>
 		</property>
 		<property name="tablename" type="java.lang.String">
 			<column length="128" name="TABLENAME">
-				<comment>表名称</comment>
+				<!--<comment>表名称</comment>-->
 			</column>
 		</property>
 		<property name="allowview" type="java.lang.String">
 			<column length="128" name="ALLOWVIEW">
-				<comment>视图</comment>
+				<!--<comment>视图</comment>-->
 			</column>
 		</property>
 		<property name="nodedesc" type="java.lang.String">
 			<column length="512" name="NODEDESC">
-				<comment>描述</comment>
+				<!--<comment>描述</comment>-->
 			</column>
 		</property>
 		<property name="nodetype" type="java.lang.String">
 			<column length="128" name="NODETYPE">
-				<comment>节点类型(Module->Collection!->Module)</comment>
+				<!--<comment>节点类型(Module->Collection!->Module)</comment>-->
 			</column>
 		</property>
 		<property name="nodelevel" type="java.lang.String">
 			<column length="32" name="NODELEVEL">
-				<comment>节点层级</comment>
+				<!--<comment>节点层级</comment>-->
 			</column>
 		</property>
 		<property name="state" type="java.lang.String">
 			<column length="32" name="STATE">
-				<comment>状态</comment>
+				<!--<comment>状态</comment>-->
 			</column>
 		</property>
 	</class>

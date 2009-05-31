@@ -8,37 +8,37 @@
 		</id>
 		<property name="cid" type="java.lang.String">
 			<column length="36" name="CID">
-				<comment>关联表 U_TPL_REPORT.UUID</comment>
+				<!--<comment>关联表 U_TPL_REPORT.UUID</comment>-->
 			</column>
 		</property>
 		<property name="columntitle" type="java.lang.String">
 			<column length="128" name="COLUMNTITLE">
-				<comment>列标题</comment>
+				<!--<comment>列标题</comment>-->
 			</column>
 		</property>
 		<property name="columnproperty" type="java.lang.String">
 			<column length="128" name="COLUMNPROPERTY">
-				<comment>列属性</comment>
+				<!--<comment>列属性</comment>-->
 			</column>
 		</property>
 		<property name="columntype" type="java.lang.String">
 			<column length="128" name="COLUMNTYPE">
-				<comment>数据类型(String.class.getName()..)</comment>
+				<!--<comment>数据类型(String.class.getName()..)</comment>-->
 			</column>
 		</property>
 		<property name="fieldorder" type="java.lang.Long">
 			<column length="128" name="FIELDORDER">
-				<comment>次序</comment>
+				<!--<comment>次序</comment>-->
 			</column>
 		</property>
 		<property name="isgroup" type="java.lang.String">
 			<column length="128" name="ISGROUP">
-				<comment>是否分组 true or false</comment>
+				<!--<comment>是否分组 true or false</comment>-->
 			</column>
 		</property>
 		<property name="columndesc" type="java.lang.String">
 			<column length="256" name="COLUMNDESC">
-				<comment>列描述</comment>
+				<!--<comment>列描述</comment>-->
 			</column>
 		</property>
 	</class>

@@ -9,27 +9,27 @@
 		</id>
 		<property name="rulename" type="java.lang.String">
 			<column length="128" name="RULENAME">
-				<comment>规则名称</comment>
+				<!--<comment>规则名称</comment>-->
 			</column>
 		</property>
 		<property name="rulecode" type="java.lang.String">
 			<column length="128" name="RULECODE">
-				<comment>规则编码</comment>
+				<!--<comment>规则编码</comment>-->
 			</column>
 		</property>
 		<property name="expression" type="java.lang.String">
 			<column length="2048" name="EXPRESSION">
-				<comment>规则表达式(jython)</comment>
+				<!--<comment>规则表达式(jython)</comment>-->
 			</column>
 		</property>
 		<property name="ruledesc" type="java.lang.String">
 			<column length="256" name="RULEDESC">
-				<comment>规则描述</comment>
+				<!--<comment>规则描述</comment>-->
 			</column>
 		</property>
 		<property name="state" type="java.lang.String">
 			<column length="32" name="STATE">
-				<comment>状态(0禁用 1正常)</comment>
+				<!--<comment>状态(0禁用 1正常)</comment>-->
 			</column>
 		</property>
 	</class>
