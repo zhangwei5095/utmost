@@ -12,12 +12,13 @@ public class LogService {
 		long et = System.currentTimeMillis();
 		// 时间超过1ms则打印详细
 		if ((et - st) > 1) {
-			System.out.println("Performance->"
+			System.out.println("LogService.p*->"
 					+ pjp.getSignature().getDeclaringTypeName() + "--"
 					+ pjp.getSignature().getName() + " ms:" + (et - st));
 			Object obj[] = pjp.getArgs();
+			int count = 0;
 			for (Object s : obj) {
-				System.out.println("	->arg:" + s);
+				System.out.println("		->arg" + (count++) + ":" + s);
 			}
 		}
 		return retVal;
