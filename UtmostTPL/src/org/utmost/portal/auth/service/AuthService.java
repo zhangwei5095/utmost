@@ -65,33 +65,37 @@ public class AuthService {
 	private String filterTreeByRole(String funcTreeAll, List<HashMap> rolelist,
 			List childlist) throws DocumentException {
 		List childNodes;
-		if (childlist == null) {
+		if (childlist == null && (!funcTreeAll.equals(""))) {
 			Document document = DocumentHelper.parseText(funcTreeAll);
 			childNodes = document.selectNodes("/node");
 		} else {
 			childNodes = childlist;
 		}
 		Element element = null;
-		for (Object obj : childNodes) {
-			element = (Element) obj;
-			String funcuuid = element.attributeValue("uuid");
-			boolean flag = false;// 判断是否存在
-			for (HashMap map : rolelist) {
-				if (map.get("funcuuid").toString().equals(funcuuid)) {
-					// System.out
-					// .println("-" + element.attributeValue("nodecode")
-					// + "---->" + funcuuid + "--->"
-					// + map.get("funcuuid"));
-					flag = true;
+		if (childNodes != null)
+			for (Object obj : childNodes) {
+				element = (Element) obj;
+				String funcuuid = element.attributeValue("uuid");
+				boolean flag = false;// 判断是否存在
+				for (HashMap map : rolelist) {
+					if (map.get("funcuuid").toString().equals(funcuuid)) {
+						// System.out
+						// .println("-" + element.attributeValue("nodecode")
+						// + "---->" + funcuuid + "--->"
+						// + map.get("funcuuid"));
+						flag = true;
+					}
 				}
+				if (!flag && element.getParent() != null)
+					element.getParent().remove(element);//
+				List list = element.elements();
+				if (list.size() != 0 && list != null)
+					filterTreeByRole(funcTreeAll, rolelist, list);
 			}
-			if (!flag && element.getParent() != null)
-				element.getParent().remove(element);//
-			List list = element.elements();
-			if (list.size() != 0 && list != null)
-				filterTreeByRole(funcTreeAll, rolelist, list);
-		}
-		return element.asXML();
+		if (element != null)
+			return element.asXML();
+		else
+			return null;
 	}
 
 	/**
