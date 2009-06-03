@@ -30,12 +30,12 @@ public class ClassUtil {
 	 *            方法名参数
 	 */
 	public static Object invokeMethod(Object methodObject, String methodName,
-			HashMap hm) throws Exception {
+			Object obj) throws Exception {
 		Class ownerClass = methodObject.getClass();
 		Method method = null;
-		if (hm != null) {
-			method = ownerClass.getMethod(methodName, hm.getClass());
-			return method.invoke(methodObject, hm);
+		if (obj != null) {
+			method = ownerClass.getMethod(methodName, obj.getClass());
+			return method.invoke(methodObject, obj);
 		} else {
 			method = ownerClass.getMethod(methodName);
 			return method.invoke(methodObject);
