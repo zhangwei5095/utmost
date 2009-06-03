@@ -11,7 +11,6 @@ public class JettyServer {
 	 * @param args
 	 */
 	public static void main(String[] args) throws Exception {
-		
 		Server server = new Server();
 		Connector conn = new SelectChannelConnector();
 		conn.setPort(8080);
