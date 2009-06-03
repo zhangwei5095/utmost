@@ -9,7 +9,7 @@
 		<property name="connection.useUnicode">true</property>
 		<property name="connection.characterEncoding">UTF-8</property>
 
-		<property name="connection.url">jdbc:derby:../UDB;create=false</property>
+		<property name="connection.url">jdbc:derby:./UDB;create=false</property>
 		<property name="dialect">org.hibernate.dialect.DerbyDialect</property>
 		<property name="connection.driver_class">org.apache.derby.jdbc.EmbeddedDriver</property>
 		<property name="connection.username">UDB</property>
