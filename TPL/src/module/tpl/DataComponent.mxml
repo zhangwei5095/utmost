@@ -169,7 +169,7 @@
 		<mx:FormItem label="uuid" id="_uuid" visible="false" includeInLayout="false" >
 			<mx:TextInput id="uuid" editable="false"/>
 		</mx:FormItem>
-		<mx:FormItem label="cid" id="_cid" visible="true" includeInLayout="true">
+		<mx:FormItem label="cid" id="_cid" visible="false" includeInLayout="false">
 			<mx:TextInput id="cid" editable="false"/>
 		</mx:FormItem>
 		<mx:FormItem label="名称" id="_dataname">
