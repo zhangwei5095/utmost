@@ -47,5 +47,7 @@ public class PathUtil {
 	public static void main(String[] args) {
 		System.out.println(PathUtil.getClassFilePath());
 		System.out.println(PathUtil.getClassPath());
+		System.out.println(PathUtil.getRootPath());
+//		System.out.println(PathUtil.getUploadPath());
 	}
 }

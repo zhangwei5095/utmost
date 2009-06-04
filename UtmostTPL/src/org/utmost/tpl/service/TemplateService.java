@@ -12,6 +12,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
 import org.utmost.common.CommService;
 import org.utmost.common.SpringContext;
+import org.utmost.util.PathUtil;
 
 /**
  * TPL 数据配置核心类 待优化
@@ -47,7 +48,7 @@ public class TemplateService extends CommService {
 		this.findAll();
 		ProcessTree p = new ProcessTree(this.findAll(), "data");
 		String xml = p.toTree();
-		//System.out.println(xml);
+		// System.out.println(xml);
 		return xml;
 	}
 
@@ -55,7 +56,7 @@ public class TemplateService extends CommService {
 		this.findAll();
 		ProcessTree p = new ProcessTree(this.findAll(), "view");
 		String xml = p.toTree();
-		//System.out.println(xml);
+		// System.out.println(xml);
 		return xml;
 	}
 
@@ -132,17 +133,15 @@ public class TemplateService extends CommService {
 			String xml = o.process(list, tablename.toUpperCase());
 			// 写文件
 			try {
-				String file = new File("../temp/").getCanonicalPath() + "/";
+				File dir = new File("../tmphbm/");
+				if (!dir.exists())
+					dir.mkdirs();
+				String file = dir.getCanonicalPath() + "/";
 				String filename = file + tablename + ".hbm.xml";
 				System.out.println("filename:" + filename);
-				// FileWriter fw = new FileWriter(filename, false);
-				// fw.write(xml);
-				// fw.close();
-
 				FileOutputStream fos = new FileOutputStream(filename);
 				fos.write(xml.getBytes("UTF-8"));
 				fos.close();
-
 				String system = System.getProperty("os.name");
 				System.out.println("os.name:" + system);
 				if (system.indexOf("Windows") >= 0) {
