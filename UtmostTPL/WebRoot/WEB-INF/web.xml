@@ -33,7 +33,7 @@
 		</listener-class>
 	</listener>
 	 
-	<!--  字符编码转换
+	<!--  字符编码转换-->
 	<filter>
 		<display-name>encodingFilter</display-name>
 		<filter-name>encodingFilter</filter-name>
@@ -46,7 +46,7 @@
 	<filter-mapping>
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>*</url-pattern>
-	</filter-mapping> -->
+	</filter-mapping>
 	
 	<!-- servlet>
 		<servlet-name>Exadel Flamingo Hessian2Spring Remote Servlet</servlet-name>
