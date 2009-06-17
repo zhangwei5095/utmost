@@ -75,7 +75,7 @@
 		<property name="hibernate.c3p0.max_statements">100</property>
 		<property name="hibernate.c3p0.min_size">2</property>
 		<property name="hibernate.c3p0.timeout">90</property>
-
+	
 		<!--
 			<property
 			name="hibernate.search.default.directory_provider">org.hibernate.search.store.FSDirectoryProvider</property>

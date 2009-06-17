@@ -2,7 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/amf-serializer-1.8.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/antlr-2.7.7.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/aopalliance-1.0.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/asm-2.2.3-all.jar"/>
@@ -18,8 +17,6 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/dom4j-1.6.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/ehcache-1.2.4.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/ejb3-persistence.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/flamingo-service-1.8.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/flamingo-service-spring-1.8.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/groovy-all-1.6.0.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/hessian-3.2.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/hibernate-annotations-3.4.0.jar"/>
@@ -56,6 +53,9 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/javaee.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/core-3.1.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/mysql-5.0.7.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/amf-serializer-1.8.1.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/flamingo-service-1.8.1.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/flamingo-service-spring-1.8.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/servlet-api.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>
