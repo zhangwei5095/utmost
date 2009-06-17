@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" 
+	creationComplete="init()">
+	<mx:Script>
+		<![CDATA[
+			import mx.events.ResizeEvent;
+			import mx.controls.Label;
+			
+			private const leftText:String = "月份";
+			private const rightText:String = "户型";
+			
+			private var leftLabel:Label;
+			private var rightLabel:Label;
+			
+			private function init():void{
+				addLabel();
+				drawLine();				
+				this.addEventListener(ResizeEvent.RESIZE, onResize);
+			}
+			
+			private function onResize(e:ResizeEvent):void{
+				resetLabel();
+				drawLine();
+			}
+			
+			private function drawLine():void{
+				var g:Graphics = this.graphics;
+				g.clear();
+				g.lineStyle(0.5, 0xB7BABC);
+				g.moveTo(0, 0);
+				g.lineTo(this.width, this.height);
+			}
+			
+			private function addLabel():void{
+				leftLabel = new Label();
+				leftLabel.text = leftText;
+				addChild(leftLabel);
+				
+				rightLabel = new Label();
+				rightLabel.text = rightText;
+				addChild(rightLabel);
+				
+				callLater(resetLabel);
+			}
+			
+			private function resetLabel():void{
+				leftLabel.x = 5;
+				leftLabel.y = this.height - leftLabel.height - 5;
+				rightLabel.x = this.width - rightLabel.width;
+				rightLabel.y = 10;
+			}
+		]]>
+	</mx:Script>	
+</mx:Canvas>

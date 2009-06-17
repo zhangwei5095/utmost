@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" 
+	layout="vertical" verticalAlign="top"
+    horizontalAlign="center"  paddingTop="0">
+    <mx:Style>
+    	Application {
+    		fontSize: 12;
+    	}
+    </mx:Style>
+    
+    <mx:Script>
+        <![CDATA[
+            import mx.collections.ArrayCollection;
+                  
+            [Bindable]
+            private var dpFlat:ArrayCollection = new ArrayCollection([
+              {yf:"1", qczhs:25000, 
+                  qyqc:4000, qybyzj:38865, qybyjs:40000,qyqmhs:3000,gtqc:150,gtbyzj:111,
+                  gtbyjs:30,gtqmhs:3000,qzdx:16,qzds:1500,qmzs:4000}, 
+              {yf:"2", qczhs:25000, 
+                  qyqc:4000, qybyzj:38865, qybyjs:40000,qyqmhs:3000,gtqc:150,gtbyzj:111,
+                  gtbyjs:30,gtqmhs:3000,qzdx:16,qzds:1500,qmzs:4000},
+                  {yf:"3", qczhs:25000, 
+                  qyqc:4000, qybyzj:38865, qybyjs:40000,qyqmhs:3000,gtqc:150,gtbyzj:111,
+                  gtbyjs:30,gtqmhs:3000,qzdx:16,qzds:1500,qmzs:4000},
+                  {yf:"4", qczhs:25000, 
+                  qyqc:4000, qybyzj:38865, qybyjs:40000,qyqmhs:3000,gtqc:150,gtbyzj:111,
+                  gtbyjs:30,gtqmhs:3000,qzdx:16,qzds:1500,qmzs:4000},
+                  {yf:"5", qczhs:25000, 
+                  qyqc:4000, qybyzj:38865, qybyjs:40000,qyqmhs:3000,gtqc:150,gtbyzj:111,
+                  gtbyjs:30,gtqmhs:3000,qzdx:16,qzds:1500,qmzs:4000},
+                  {yf:"6", qczhs:25000, 
+                  qyqc:4000, qybyzj:38865, qybyjs:40000,qyqmhs:3000,gtqc:150,gtbyzj:111,
+                  gtbyjs:30,gtqmhs:3000,qzdx:16,qzds:1500,qmzs:4000},
+                  {yf:"7", qczhs:25000, 
+                  qyqc:4000, qybyzj:38865, qybyjs:40000,qyqmhs:3000,gtqc:150,gtbyzj:111,
+                  gtbyjs:30,gtqmhs:3000,qzdx:16,qzds:1500,qmzs:4000},
+                  {yf:"8", qczhs:25000, 
+                  qyqc:4000, qybyzj:38865, qybyjs:40000,qyqmhs:3000,gtqc:150,gtbyzj:111,
+                  gtbyjs:30,gtqmhs:3000,qzdx:16,qzds:1500,qmzs:4000},
+                  {yf:"9", qczhs:25000, 
+                  qyqc:4000, qybyzj:38865, qybyjs:40000,qyqmhs:3000,gtqc:150,gtbyzj:111,
+                  gtbyjs:30,gtqmhs:3000,qzdx:16,qzds:1500,qmzs:4000},
+                  {yf:"10", qczhs:25000, 
+                  qyqc:4000, qybyzj:38865, qybyjs:40000,qyqmhs:3000,gtqc:150,gtbyzj:111,
+                  gtbyjs:30,gtqmhs:3000,qzdx:16,qzds:1500,qmzs:4000},
+                  {yf:"11", qczhs:25000, 
+                  qyqc:4000, qybyzj:38865, qybyjs:40000,qyqmhs:3000,gtqc:150,gtbyzj:111,
+                  gtbyjs:30,gtqmhs:3000,qzdx:16,qzds:1500,qmzs:4000},
+                  {yf:"12", qczhs:25000, 
+                  qyqc:4000, qybyzj:38865, qybyjs:40000,qyqmhs:3000,gtqc:150,gtbyzj:111,
+                  gtbyjs:30,gtqmhs:3000,qzdx:16,qzds:1500,qmzs:4000}
+            ]);
+        ]]>
+    </mx:Script>
+    <mx:Panel title="AdvancedDataGrid Control" layout="vertical" color="0xffffff" borderAlpha="0.15" width="100%" 
+         paddingTop="5" height="100%" paddingRight="10" paddingBottom="10" paddingLeft="10" horizontalAlign="center">
+         
+         <mx:AdvancedDataGrid id="myADG" designViewDataType="flat" 
+         	width="100%" height="100%" color="0x323232"
+         	 minWidth="640" minHeight="480" 
+         	 dataProvider="{dpFlat}" sortableColumns="false" sortExpertMode="true">
+            <mx:groupedColumns>
+				<mx:AdvancedDataGridColumn dataField="yf" headerText="月份" headerWordWrap="true"
+					headerRenderer="MyRenderer"/>
+				<mx:AdvancedDataGridColumn dataField="qczhs" headerText="期初总户数" headerWordWrap="true"/>
+				<mx:AdvancedDataGridColumnGroup headerText="企业" headerWordWrap="true">
+					<mx:AdvancedDataGridColumn dataField="qyqc" headerText="期初户数" headerWordWrap="true"/>
+					<mx:AdvancedDataGridColumn dataField="qybyzj" headerText="本月增加户" headerWordWrap="true"/>
+					<mx:AdvancedDataGridColumn dataField="qybyjs" headerText="本月减少户" headerWordWrap="true"/>
+					<mx:AdvancedDataGridColumn dataField="qyqmhs" headerText="期末户数" headerWordWrap="true"/>
+				</mx:AdvancedDataGridColumnGroup>
+				<mx:AdvancedDataGridColumnGroup headerText="个　体　工　商　户" headerWordWrap="true">
+					<mx:AdvancedDataGridColumn dataField="gtqc" headerText="期初户数" headerWordWrap="true"/>
+					<mx:AdvancedDataGridColumn dataField="gtbyzj" headerText="本月增加户" headerWordWrap="true"/>
+					<mx:AdvancedDataGridColumn dataField="gtbyjs" headerText="本月减少户" headerWordWrap="true"/>
+					<mx:AdvancedDataGridColumn dataField="gtqmhs" headerText="期末户数" headerWordWrap="true"/>
+					<mx:AdvancedDataGridColumnGroup headerText="其中" headerWordWrap="true">
+						<mx:AdvancedDataGridColumn dataField="qzdx" headerText="起征点以上户" headerWordWrap="true"/>
+						<mx:AdvancedDataGridColumn dataField="qzds" headerText="起征点以下户" headerWordWrap="true"/>
+					</mx:AdvancedDataGridColumnGroup>
+				</mx:AdvancedDataGridColumnGroup>
+				<mx:AdvancedDataGridColumn dataField="qmzs" headerText="期末总户数" headerWordWrap="true"/>
+			</mx:groupedColumns>
+       </mx:AdvancedDataGrid>
+
+    </mx:Panel>
+</mx:Application>
