@@ -9,7 +9,7 @@
 	<bean id="PythonPlugin" class="org.utmost.plugins.scripts.PythonPlugin"
 		init-method="setPythonPath" lazy-init="true" />
 	<bean id="PythonInterpreter" class="org.python.util.PythonInterpreter"
-		depends-on="PythonPlugin" lazy-init="true" />
+		depends-on="PythonPlugin" lazy-init="true" scope="prototype"/>
 		
 	<!-- groovy -->
 	
