@@ -61,7 +61,7 @@
 					datalength.enabled=false;
 					state.enabled=false;
 					datatype.enabled=false;
-					dataname.enabled=false;
+					dataname.enabled=true;//
 					datacode.enabled=false;
 				}else if(value=="false") {
 					ComponentUtil.setVisible(_generator,false);

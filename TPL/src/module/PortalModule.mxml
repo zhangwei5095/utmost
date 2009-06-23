@@ -78,6 +78,40 @@
 				Application.application.$modulenameForChild=o.@nodename;
 				Application.application.loadModule(o.@module);
 			}
+			
+			
+			
+			//粒子效果测试
+			import com.roguedevelopment.pulse.emitter.*;
+			import com.roguedevelopment.pulse.PulseEngine;
+			import com.roguedevelopment.pulse.simple.SimpleParticles;
+			import mx.core.FlexSprite;
+			[Embed(source="img/pulse/Star.png")] 
+			protected var star:Class;		
+			[Embed(source="img/pulse/spark.png")] 
+			protected var spark:Class;		
+			public function ShowIt(e:Event):void
+			{
+				var bg:FlexSprite=new FlexSprite();
+				vbox.rawChildren.addChild(bg);
+				//canvas.addChild(new Button());
+				PulseEngine.instance.root = bg;
+				/*
+				SimpleParticles.createEmitter( {pps:10,x:22, y:25, 
+											width:1, height:1,size:1, 
+											color:0xff0000, movement:true, 
+											speed:[100,300], 
+											angle:[0,360], 											
+											bound:[0,0,500,350], limit:100,
+											pointSwarm:[250,17]											
+											} );
+											*/
+				//SimpleParticles.createEmitter( {pps:24,x:153, y:204, width:20, height:20,image:spark, movement:true, speed:[380.6,197.9] , angle:[360,0] , randomFrame:true, startScale:[0.8,0.4] , gravity:3.3, fade:4580, lifespan:7290} );
+				//var emit:GenericEmitter =new GenericEmitter (19);
+				//SimpleParticles.configureEmitter(emit, "{pps:24,x:153, y:204, width:20, height:20,image:spark, movement:true, speed:[380.6,197.9] , angle:[360,0] , randomFrame:true, startScale:[0.8,0.4] , gravity:3.3, fade:4580, lifespan:7290}");
+				//emit.start();		
+										
+			}
 		]]>
 	</mx:Script>
 	
@@ -89,7 +123,7 @@
 	<mx:XML id="VolkswagenTree" source="xml/portal/VolkswagenTree.xml"/>
 	<mx:XML id="VWTree" source="xml/portal/VWTree.xml"/>
 	
-	<mx:VBox width="100%" height="100%" horizontalAlign="center" verticalAlign="middle" horizontalScrollPolicy="off" verticalScrollPolicy="off" verticalGap="0">
+	<mx:VBox id="vbox" width="100%" height="100%" horizontalAlign="center" verticalAlign="middle" horizontalScrollPolicy="off" verticalScrollPolicy="off" verticalGap="0" creationComplete="ShowIt(event)" >
 		<component:SystemMenuBar height="35"/>
 		<mx:Spacer height="6%"/>
 		<component:MyTileList id="tileList" width="80%" height="90%" itemClick="trasSystem(event)" dataProvider="{MainTree.node}" 
