@@ -23,8 +23,21 @@
 			private var form:Form;
 			private var tablename:String;
 			
+			public var $key:String;
 			private function init():void {
-			
+				trace("CRUDModule--->$key:"+$key);
+				//tablename=$key;
+				var hql:String="from U_TPL_TEMPLATE v where v.nodecode='"+$key+"' ";
+				AutoService.getInstance().findByHql(hql,function(e:ResultEvent):void {
+					var ac:ArrayCollection=e.result as ArrayCollection;
+					//trace("ac.length:"+ac.length);
+					if(ac.length>0) {
+						var uuid:String=ac.getItemAt(0).uuid;
+						trace("uuid:"+uuid);	
+						viewInit(uuid);
+						tablename=ac.getItemAt(0).tablename;
+					}
+				});	
 			}
 			public function dataInit():void {
 				var service:AutoService=new AutoService();
@@ -49,21 +62,21 @@
 					//设置Form
 					form=ViewUtil.buildForm(ac);
 					//设置TableName
-					tablename=_tablename.selectedLabel;
+					//tablename=_tablename.selectedLabel;
 					//赋值到表格
 					dataInit();
 				});
 
 			}
 			
-			private function findTables():void {
-				var service:AutoService=new AutoService();
-				service.findByHql("from U_TPL_TEMPLATE v where v.nodetype='Collection'",function(e:ResultEvent):void {
-					var ac:ArrayCollection=e.result as ArrayCollection;
-					_tablename.dataProvider=ac;
-					viewInit((String)(_tablename.selectedItem.uuid));
-				});
-			}
+//			private function findTables():void {
+//				var service:AutoService=new AutoService();
+//				service.findByHql("from U_TPL_TEMPLATE v where v.nodetype='Collection'",function(e:ResultEvent):void {
+//					var ac:ArrayCollection=e.result as ArrayCollection;
+//					_tablename.dataProvider=ac;
+//					viewInit((String)(_tablename.selectedItem.uuid));
+//				});
+//			}
 			
 			private function openWindow(win:String):void {
 				var obj:Object;
@@ -106,15 +119,19 @@
 					}
 				}); 
 			}
+			
 		]]>
 	</mx:Script>
-	<mx:ComboBox id="_tablename" labelField="tablename" creationComplete="findTables();"
+	<!--mx:ComboBox id="_tablename" labelField="tablename" creationComplete="findTables();"
 		 change="viewInit((String)(_tablename.selectedItem.uuid));tablename=_tablename.selectedLabel" rowCount="15">
-	</mx:ComboBox>
-	<mx:HBox width="100%" height="16" verticalAlign="middle" horizontalAlign="right" >
-	           <mx:Image width="16" height="16" source="{BindImg.page_new}" toolTip="添加" click="openWindow('AddComponent')" />
+	</mx:ComboBox-->
+	<mx:HBox width="100%" verticalAlign="middle" horizontalAlign="right" >
+			<mx:Button label="add" click="openWindow('AddComponent')" width="100" />
+			<mx:Button label="edit" click="openWindow('EditComponent')" width="100" />
+			<mx:Button label="del" click="deleteByUUID()" width="100" />
+	           <!--mx:Image width="16" height="16" source="{BindImg.page_new}" toolTip="添加" click="openWindow('AddComponent')" />
 	           <mx:Image width="16" height="16" source="{BindImg.page_edit}" toolTip="修改" click="openWindow('EditComponent')" />
-	           <mx:Image width="16" height="16" source="{BindImg.page_delete}" toolTip="删除" click="deleteByUUID()"/>
+	           <mx:Image width="16" height="16" source="{BindImg.page_delete}" toolTip="删除" click="deleteByUUID()"/-->
      </mx:HBox>
 	<mx:VBox id="vbox" width="100%" height="100%" horizontalAlign="center" verticalAlign="middle">
 	</mx:VBox>

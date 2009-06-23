@@ -5,11 +5,13 @@
 		<node nodename="AirFreightInput" showInList="true" module="module/system/vw/AirFreightInputModule.swf" />
 		<node nodename="RailwayFreightInput" showInList="true" module="module/system/vw/RailwayFreightInputModule.swf" />
 		<node nodename="QCQuery" showInList="true" module="module/system/vw/QCQueryModule.swf" />
+		<node nodename="Alert" showInList="true" module="module/system/vw/AlertModule.swf" />
 		<node nodename="MakeTemplate" showInList="true" module="module/system/vw/MakeTemplateModule.swf" />
+		
 		<node nodename="Maintenance">
-			<node nodename="ForwarderMainten" showInList="true" module="module/system/vw/RiskInfoModule.swf" />
-			<node nodename="KeywordMainten" showInList="true" module="module/system/vw/RiskInfoModule.swf" />
-			<node nodename="CityMainten" showInList="true" module="module/system/vw/RiskInfoModule.swf" />
+			<node nodename="ForwarderMainten" showInList="true" key="ForwarderMainten" module="module/system/common/CRUDModule.swf" />
+			<node nodename="KeywordMainten" showInList="true" key="KeywordMainten" module="module/system/common/CRUDModule.swf" />
+			<node nodename="CityMainten" showInList="true" key="CityMainten" module="module/system/common/CRUDModule.swf" />
 		</node>
 	</node>
 </node>

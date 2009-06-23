@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" horizontalAlign="left" verticalAlign="middle">
+	<mx:Array id="ds_cnd">
+		<mx:Object label="USD" value="USD"/>
+		<mx:Object label="EUR" value="EUR"/>
+		<mx:Object label="RMB" value="RMB"/>
+	</mx:Array>
+	<mx:Label text="Origin Address:"/>
+	<mx:TextArea width="200"/>
+	<mx:Label text="Delivery Address:"/>
+	<mx:TextArea width="200"/>
+	<mx:Form height="100%">
+		<mx:FormItem label="Exchange Rate">
+			<mx:VBox paddingBottom="0" paddingLeft="0" paddingRight="0" paddingTop="0" width="100%" height="100%">
+				<mx:HBox height="50%" horizontalGap="0">
+					<mx:Label text="1"/>
+					<mx:ComboBox width="80" dataProvider="{ds_cnd}">
+					</mx:ComboBox>
+					<mx:Label text="="/>
+					<mx:NumericStepper width="80" maximum="999999" minimum="0.00" stepSize="0.01"/>
+					<mx:ComboBox width="80" dataProvider="{ds_cnd}"/>
+				</mx:HBox>
+				<mx:HBox height="50%" horizontalGap="0">
+					<mx:Label text="1"/>
+					<mx:ComboBox width="80" dataProvider="{ds_cnd}">
+					</mx:ComboBox>
+					<mx:Label text="="/>
+					<mx:NumericStepper width="80" maximum="999999" minimum="0.00" stepSize="0.01"/>
+					<mx:ComboBox width="80" dataProvider="{ds_cnd}"/>
+				</mx:HBox>
+			</mx:VBox>
+		</mx:FormItem>
+	</mx:Form>
+</mx:HBox>

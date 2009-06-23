@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"  height="45" horizontalAlign="center"  horizontalGap="0" verticalAlign="middle" verticalGap="0" horizontalScrollPolicy="off" verticalScrollPolicy="off" >
+	<mx:Script>
+		<![CDATA[
+			
+		]]>
+	</mx:Script>
+	<mx:Array id="ds_unitType">
+		<mx:Object label="" value="" />
+		<mx:Object label="Container" value="Container" />
+		<mx:Object label="Bill" value="Bill" />
+		<mx:Object label="m3" value="m3" />
+		<mx:Object label="Kg" value="Kg" />
+		<mx:Object label="Part" value="Part" />
+		<mx:Object label="Car" value="Car" />
+	</mx:Array>
+	<mx:HBox width="100%" height="50%" horizontalAlign="center" verticalAlign="middle" horizontalGap="0">
+		<!--mx:Label text="Amount" width="50"/-->
+		<!--mx:TextInput height="100%" width="80"/-->
+		<mx:NumericStepper height="100%" width="80" maximum="999999" minimum="0.00" stepSize="0.01"/>
+	</mx:HBox>
+	<mx:HBox width="100%" height="50%" verticalAlign="middle" horizontalGap="0" horizontalAlign="center">
+		<!--mx:Label text="Unit" width="50"/-->
+		<mx:ComboBox id="unitType" dataProvider="{ds_unitType}" width="80" height="100%"></mx:ComboBox>
+	</mx:HBox>
+</mx:VBox>

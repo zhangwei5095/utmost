@@ -132,7 +132,6 @@
 			 private var vista:String="skins/vista/VistaTheme.swf";
 			 private var itunes7:String="skins/itunes7/ItunesTheme.swf";
 			 private var brownie:String="skins/brownie/style.swf";
-			 private var classic:String=" skins/classic/style.swf";
 			
 	    	 public function theme(name:String):void {
 	    	 	try {
@@ -152,10 +151,6 @@
 						clearTheme();
 						StyleManager.loadStyleDeclarations(itunes7,true);
 					}
-					if(name=="classic") {
-						clearTheme();
-						StyleManager.loadStyleDeclarations(classic,true);
-					}
 					if(name=="default") {
 						clearTheme();
 					}
@@ -172,8 +167,6 @@
 					StyleManager.clearStyleDeclaration(brownie,true);
 					StyleManager.unloadStyleDeclarations(itunes7,true);
 					StyleManager.clearStyleDeclaration(itunes7,true);
-					StyleManager.unloadStyleDeclarations(classic,true);
-					StyleManager.clearStyleDeclaration(classic,true);
 	    	 }
 		]]>
 	</mx:Script>

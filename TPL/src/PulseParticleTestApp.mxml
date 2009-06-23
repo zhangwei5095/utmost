@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application  xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" backgroundGradientAlphas="[1.0, 1.0]" backgroundGradientColors="[#000000, #464646]">
+	<mx:Script>
+		<![CDATA[
+			import com.roguedevelopment.pulse.emitter.*;
+			import com.roguedevelopment.pulse.PulseEngine;
+			import com.roguedevelopment.pulse.simple.SimpleParticles;
+			import mx.core.FlexSprite;
+			[Embed(source="img/pulse/star.png")] 
+			protected var star:Class;		
+			[Embed(source="img/pulse/spark.png")] 
+			protected var spark:Class;		
+			public function ShowIt(e:Event):void
+			{
+				var bg:FlexSprite=new FlexSprite();
+				canvas.rawChildren.addChild(bg);
+				//canvas.addChild(new Button());
+				PulseEngine.instance.root = bg;
+				/*
+				SimpleParticles.createEmitter( {pps:10,x:22, y:25, 
+											width:1, height:1,size:1, 
+											color:0xff0000, movement:true, 
+											speed:[100,300], 
+											angle:[0,360], 											
+											bound:[0,0,500,350], limit:100,
+											pointSwarm:[250,17]											
+											} );
+											*/
+			SimpleParticles.createEmitter( {pps:24,x:153, y:204, width:20, height:20,image:spark, movement:true, speed:[380.6,197.9] , angle:[360,0] , randomFrame:true, startScale:[0.8,0.4] , gravity:3.3, fade:4580, lifespan:7290} );
+			var emit:GenericEmitter =new GenericEmitter (19);
+			SimpleParticles.configureEmitter(emit, "{pps:24,x:153, y:204, width:20, height:20,image:spark, movement:true, speed:[380.6,197.9] , angle:[360,0] , randomFrame:true, startScale:[0.8,0.4] , gravity:3.3, fade:4580, lifespan:7290}");
+			emit.start();								
+				
+			}
+		]]>
+	</mx:Script>
+	<mx:Canvas x="35.5" y="20" width="377" height="289" id="canvas">	
+	<mx:Button x="10" y="20" label="Show!" id="btnShow" click="ShowIt(event)" width="65"/>
+	</mx:Canvas>
+</mx:Application>
