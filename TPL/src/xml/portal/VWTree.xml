@@ -1,0 +1,15 @@
+<node nodename="VWTree">
+	<node nodename="Volkswagen">
+		<node nodename="RoadFreightInput" showInList="true" module="module/system/vw/RoadFreightInputModule.swf" />
+		<node nodename="SeaFreightInput" showInList="true" module="module/system/vw/SeaFreightInputModule.swf" />
+		<node nodename="AirFreightInput" showInList="true" module="module/system/vw/AirFreightInputModule.swf" />
+		<node nodename="RailwayFreightInput" showInList="true" module="module/system/vw/RailwayFreightInputModule.swf" />
+		<node nodename="QCQuery" showInList="true" module="module/system/vw/QCQueryModule.swf" />
+		<node nodename="MakeTemplate" showInList="true" module="module/system/vw/MakeTemplateModule.swf" />
+		<node nodename="Maintenance">
+			<node nodename="ForwarderMainten" showInList="true" module="module/system/vw/RiskInfoModule.swf" />
+			<node nodename="KeywordMainten" showInList="true" module="module/system/vw/RiskInfoModule.swf" />
+			<node nodename="CityMainten" showInList="true" module="module/system/vw/RiskInfoModule.swf" />
+		</node>
+	</node>
+</node>

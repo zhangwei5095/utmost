@@ -1,6 +1,6 @@
 <node nodename="MainTree">
-		<node nodename="Volkswagen" mode="static" nodecode="Volkswagen" icon="img/system/tpl_v.jpg" module="module/SystemModule.swf" />
+		<node nodename="Volkswagen" mode="static" nodecode="VW" icon="img/system/tpl_v.jpg" module="module/SystemModule.swf" />
 		<node nodename="Monitor" mode="static" nodecode="SysMonitor" icon="img/system/ActivityMonitor.png" module="module/SystemModule.swf" />
 		<node nodename="PortalManager" mode="static"  nodecode="Portal" icon="img/system/tpl_portal.jpg" module="module/SystemModule.swf" />
-		<node nodename="TestAuth" mode="dynamic"  nodecode="Volkswagen" icon="img/system/tpl_portal.jpg" module="module/SystemModule.swf" />
+		<!--node nodename="TestAuth" mode="dynamic"  nodecode="Volkswagen" icon="img/system/tpl_portal.jpg" module="module/SystemModule.swf" /-->
 </node>

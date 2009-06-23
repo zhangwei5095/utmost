@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%" xmlns:upload="org.utmost.component.upload.*" verticalScrollPolicy="auto" verticalGap="3">
+	<mx:Script>
+		<![CDATA[
+			
+		]]>
+	</mx:Script>
+	<mx:Array id="ds_formtype">
+		<mx:Object label="报价"/>
+		<mx:Object label="合同" />
+	</mx:Array>
+	<mx:HBox width="100%" horizontalAlign="left" verticalAlign="middle">
+		<mx:Button label="ImportExcel"/>
+		<mx:Text text="Company Name 公司名称"/>
+		<mx:TextInput width="215"/>
+		<mx:Text text="表单类型"/>
+		<mx:ComboBox id="formtype" dataProvider="{ds_formtype}">
+		</mx:ComboBox>
+		<mx:Text text="Valid until from 有效期自"/>
+		<mx:DateField yearNavigationEnabled="true"/>
+		<mx:Label text="to 至"/>
+		<mx:DateField yearNavigationEnabled="true"/>
+		
+	</mx:HBox>
+	<mx:HBox width="100%" height="70%">
+		<mx:AdvancedDataGrid id="adg" designViewDataType="flat" width="100%" sortableColumns="true" sortExpertMode="false"  horizontalScrollPolicy="on"  height="100%">
+			<mx:groupedColumns>
+				<mx:AdvancedDataGridColumn dataField="no" headerText="No." headerWordWrap="true" width="60"/>
+				<mx:AdvancedDataGridColumnGroup headerText="Route Information    路径信息" headerWordWrap="true">
+					<mx:AdvancedDataGridColumn dataField="qyqc" headerText="OriginCity{'\n'}始发城市" width="100" headerWordWrap="true"/>
+					<mx:AdvancedDataGridColumn dataField="qybyzj" headerText="DestinationCity{'\n'}目的城市" width="120" />
+					<mx:AdvancedDataGridColumn dataField="qybyjs" headerText="Distance(Km){'\n'}距离(公里)" width="120" headerWordWrap="true"/>
+				</mx:AdvancedDataGridColumnGroup>
+				
+				<mx:AdvancedDataGridColumnGroup headerText="Container    集装箱运输" headerWordWrap="true">
+					<mx:AdvancedDataGridColumnGroup headerText="Charge 费用" headerWordWrap="true">
+						<mx:AdvancedDataGridColumn dataField="qzdx" headerText="20' GP" headerWordWrap="true"/>
+						<mx:AdvancedDataGridColumn dataField="qzds" headerText="40' GP" headerWordWrap="true"/>
+						<mx:AdvancedDataGridColumn dataField="qzds" headerText="40' HQ" headerWordWrap="true"/>
+					</mx:AdvancedDataGridColumnGroup>
+					<mx:AdvancedDataGridColumn dataField="gtqc" headerText="Time limit (hours)" headerWordWrap="true"/>
+				</mx:AdvancedDataGridColumnGroup>
+				
+				<mx:AdvancedDataGridColumnGroup headerText="FBU   Transport    成品车运输" headerWordWrap="true">
+					<mx:AdvancedDataGridColumnGroup headerText="6 Cars Truck" headerWordWrap="true">
+						<mx:AdvancedDataGridColumn dataField="qzdx" headerText="RMB/Truck" headerWordWrap="true"/>
+					</mx:AdvancedDataGridColumnGroup>
+					<mx:AdvancedDataGridColumnGroup headerText="8 Cars Truck" headerWordWrap="true">
+						<mx:AdvancedDataGridColumn dataField="qzdx" headerText="RMB/Truck" headerWordWrap="true"/>
+					</mx:AdvancedDataGridColumnGroup>
+					<mx:AdvancedDataGridColumnGroup headerText="10 Cars Truck" headerWordWrap="true">
+						<mx:AdvancedDataGridColumn dataField="qzdx" headerText="RMB/Truck" headerWordWrap="true"/>
+					</mx:AdvancedDataGridColumnGroup>
+					<mx:AdvancedDataGridColumnGroup headerText="12 Cars Truck" headerWordWrap="true">
+						<mx:AdvancedDataGridColumn dataField="qzdx" headerText="RMB/Truck" headerWordWrap="true"/>
+					</mx:AdvancedDataGridColumnGroup>
+					<mx:AdvancedDataGridColumnGroup headerText="LTL" headerWordWrap="true">
+						<mx:AdvancedDataGridColumn dataField="qzdx" headerText="RMB/Car" headerWordWrap="true"/>
+					</mx:AdvancedDataGridColumnGroup>
+					<mx:AdvancedDataGridColumn dataField="gtqc" headerText="Time limit (hours)" headerWordWrap="true"/>
+				</mx:AdvancedDataGridColumnGroup>
+				
+				<mx:AdvancedDataGridColumnGroup headerText="LTL    零担运输" headerWordWrap="true">
+					<mx:AdvancedDataGridColumnGroup headerText="Charge 费用" headerWordWrap="true">
+						<mx:AdvancedDataGridColumn dataField="qzdx" headerText="RMB/m3" headerWordWrap="true"/>
+						<mx:AdvancedDataGridColumn dataField="qzds" headerText="RMB/Kg" headerWordWrap="true"/>
+						<mx:AdvancedDataGridColumn dataField="qzds" headerText="RMB/Ton·Km" headerWordWrap="true"/>
+						<mx:AdvancedDataGridColumn dataField="qzds" headerText="RMB/m3·Km" headerWordWrap="true"/>
+					</mx:AdvancedDataGridColumnGroup>
+					<mx:AdvancedDataGridColumn dataField="gtqc" headerText="Min.Cost" headerWordWrap="true"/>
+					<mx:AdvancedDataGridColumn dataField="gtqc" headerText="Time limit (hours)" headerWordWrap="true"/>
+				</mx:AdvancedDataGridColumnGroup>
+				
+				<mx:AdvancedDataGridColumnGroup headerText="FTL    整车运输" headerWordWrap="true">
+					<mx:AdvancedDataGridColumnGroup headerText="Charge 费用" headerWordWrap="true">
+						<mx:AdvancedDataGridColumn dataField="qzdx" headerText="2 Ton" headerWordWrap="true" width="80"/>
+						<mx:AdvancedDataGridColumn dataField="qzds" headerText="5 Ton" headerWordWrap="true" width="80"/>
+						<mx:AdvancedDataGridColumn dataField="qzds" headerText="8 Ton" headerWordWrap="true" width="80"/>
+						<mx:AdvancedDataGridColumn dataField="qzds" headerText="10 Ton" headerWordWrap="true" width="80"/>
+						<mx:AdvancedDataGridColumn dataField="qzds" headerText="12 Ton" headerWordWrap="true" width="80"/>
+						<mx:AdvancedDataGridColumn dataField="qzds" headerText="15 Ton" headerWordWrap="true" width="80"/>
+						<mx:AdvancedDataGridColumn dataField="qzds" headerText="20 Ton" headerWordWrap="true" width="80"/>
+					</mx:AdvancedDataGridColumnGroup>
+					<mx:AdvancedDataGridColumn dataField="gtqc" headerText="Time limit{'\n'}(hours)" headerWordWrap="true" width="80"/>
+				</mx:AdvancedDataGridColumnGroup>
+				
+			</mx:groupedColumns>
+		</mx:AdvancedDataGrid>
+	</mx:HBox>
+	<mx:HBox width="100%" horizontalAlign="left" verticalAlign="middle" height="40">
+		<mx:Label text="Remark"/>
+		<mx:TextArea width="100%" height="100%"/>
+	</mx:HBox>
+	<mx:HBox width="100%">
+			<mx:Label text="Share     "/>
+			<mx:CheckBox id="VGC" label="VGC"/>
+			<mx:CheckBox id="VCIC" label="VCIC"/>
+			<mx:CheckBox id="VWTS" label="VWTS"/>
+			<mx:CheckBox id="VWPT" label="VWPT"/>
+			<mx:CheckBox id="VWED" label="VWED"/>
+			<mx:CheckBox id="VWPF" label="VWPF"/>
+			<mx:CheckBox id="VWATD" label="VWATD"/>
+			<mx:CheckBox id="SVW" label="SVW"/>
+			<mx:CheckBox id="FAWVW" label="FAW-VW"/>
+	</mx:HBox>
+	<mx:HBox width="100%" height="100">
+		<upload:FileUploadComponent width="100%" height="100%"/>
+	</mx:HBox>
+	<mx:HBox width="100%" verticalAlign="middle" horizontalAlign="center" horizontalGap="50">
+		<mx:Button label="Submit"/>
+		<mx:Button label="DownloadTemplate"/>
+	</mx:HBox>
+</mx:Module>
