@@ -318,6 +318,6 @@
 		<mx:ProgressBar id="progBar" mode="manual" label="" labelPlacement="center" width="100%"/>
 		<mx:Button id="btnCancel" toolTip="Cancel upload" icon="@Embed('assets/cancel2.png')" width="26" click="onUploadCanceled()"/>
 		<mx:Button label="上传" toolTip="Upload file(s)" id="btnUpload" click="startUpload()" icon="@Embed('assets/bullet_go.png')"/>
-		<mx:Button id="btnView" toolTip="Show/Hide file(s)" icon="@Embed('assets/application_get.png')" width="26" click="changeView()"/>
+		<mx:Button id="btnView" includeInLayout="false" visible="false" toolTip="Show/Hide file(s)" icon="@Embed('assets/application_get.png')" width="26" click="changeView()"/>
 	</mx:ControlBar>	
 </mx:TitleWindow>
