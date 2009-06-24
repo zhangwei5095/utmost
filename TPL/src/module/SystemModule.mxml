@@ -2,6 +2,8 @@
 <mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%" implements="module.ModuleInterface" creationComplete="init()" xmlns:component="component.*">
 	<mx:Script>
 		<![CDATA[
+			import org.utmost.tpl.ViewUtil;
+			import module.tpl.ViewComponent;
 			import mx.events.ModuleEvent;
 			import mx.controls.Tree;
 			import mx.events.MenuEvent;
@@ -61,6 +63,7 @@
 			//装载模板
 			public function loadModule(name:String):void
 			{
+				ComponentUtil.setVisible(pbar,true);
 				currentModule.url=null;
 				currentModule.url=name;
 			}
@@ -105,9 +108,9 @@
 			private function readyModule(e:ModuleEvent):void {
 	        	var mobj:ModuleLoader=e.target as ModuleLoader;
 	        	if(systree.getTree().selectedItem.@key!=undefined) {
-	        		//trace("---->>key:"+systree.getTree().selectedItem.@key.toString());
 	        		(mobj.child as Object).$key=systree.getTree().selectedItem.@key.toString();
 	        	}
+	       		ComponentUtil.setVisible(pbar,false);
 	        }
 		]]>
 	</mx:Script>
@@ -123,10 +126,10 @@
 			</mx:Panel-->
 			<component:PanelTree id="systree"  dataProvider="{$treeXML}" clickTree="treeItemClick"  width="220" height="100%"  resizeEffect="Resize"/>
 			<mx:Panel id="sysPanel" width="100%" height="100%" layout="vertical">
-				<!--mx:ProgressBar source="currentModule" visible="true" includeInLayout="false"/-->
 				<mx:ModuleLoader id="currentModule" width="100%" height="100%" paddingBottom="3" paddingLeft="3" paddingRight="3" paddingTop="3" resizeEffect="Resize" ready="readyModule(event)">
 				</mx:ModuleLoader>
 				<mx:ControlBar>
+				<mx:ProgressBar id="pbar" source="currentModule" width="100%"/>
 				</mx:ControlBar>
 			</mx:Panel>
 		</mx:HDividedBox>
