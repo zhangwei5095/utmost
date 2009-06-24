@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" verticalGap="0" layout="vertical" width="100%" height="100%" xmlns:vw="module.system.vw.*" xmlns:upload="org.utmost.component.upload.*">
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" verticalGap="0" layout="vertical" width="100%" height="100%" xmlns:vw="module.system.vw.*" xmlns:upload="org.utmost.component.upload.*" creationComplete="init()">
 	<mx:Script>
 		<![CDATA[
+			import mx.controls.Alert;
 			import mx.collections.ArrayCollection;
 			import mx.controls.advancedDataGridClasses.AdvancedDataGridColumn;
+
+			private function init():void {
+				//Alert.show("test");
+			}
 
 			private function addAdgFOBColumn():void
 			{
