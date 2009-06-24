@@ -69,12 +69,12 @@
 	<mx:Label text="Count:"/>
 	<mx:Label id="countPageSize" text="{countPage}"/>
 	<mx:Label text="Current:"/>
-	<mx:NumericStepper id="nowPage" value="{pageNo}" maximum="100000" minimum="1" stepSize="1"/>
-	<mx:Button label="Go" click="goto()"/>
-	<mx:Button label="First" click="first()"/>
-	<mx:Button label="Prev" click="prev()"/>
-	<mx:Button label="Next" click="next()"/>
-	<mx:Button label="Last" click="last()"/>
+	<mx:NumericStepper id="nowPage" value="{pageNo}" maximum="100000" minimum="1" stepSize="1" width="50"/>
+	<mx:Button label="Go" click="goto()" width="60"/>
+	<mx:Button label="First" click="first()" width="60"/>
+	<mx:Button label="Prev" click="prev()" width="60"/>
+	<mx:Button label="Next" click="next()" width="60"/>
+	<mx:Button label="Last" click="last()" width="60"/>
 	<mx:Label text="Page size:"/>
-	<mx:NumericStepper id="returnSize" maximum="100000" minimum="1"  value="{pageSize}" change="pageSize=returnSize.value;queryCount();"/>
+	<mx:NumericStepper id="returnSize" maximum="100000" minimum="1"  value="{pageSize}" change="pageSize=returnSize.value;queryCount();" width="50"/>
 </mx:HBox>

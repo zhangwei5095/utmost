@@ -1,4 +1,228 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%">
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%" xmlns:controls="com.adobe.flex.extras.controls.*" xmlns:component="component.*" xmlns:code="http://code.google.com/p/flexlib/">
+	<mx:Script>
+		<![CDATA[
+			import org.utmost.service.StaticChannelSet;
+			import org.utmost.service.UtmostService;
+			import mx.core.IFlexDisplayObject;
+			import mx.managers.PopUpManager;
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.rpc.events.ResultEvent;
+			import org.utmost.service.AutoService;
+			import org.utmost.component.macpopup.controls.CocoaAlert;
+			[Bindable]
+			public var myDP:Array=[{name:"beijing"},{name:"zhengzhou"},{name:"dalian"},
+				{name:"changchun"},{name:"dongjing"},{name:"Hamburg"},{name:"changchun"},
+				{name:"dongjing"},{name:"shanghai"},{name:"Tokyo"},{name:"New York"},
+				{name:"dongjing"},{name:"shanghai"},{name:"Tokyo"},{name:"New York"},
+				{name:"newyork"}];
+			
+			
+			
+			private function initData():void {
+//				trace("ddd");
+//				AutoService.getInstance().saveAll("QUOTATION",quotationSea,function(e:ResultEvent):void {
+//					Alert.show("OK");
+//				},null);
+			}  
+			public var hql:String="";
+			private function search(): void {
+				hql="from QUOTATION where 1=1 ";
+				if(fromAC.text!="") {
+					hql+=" and startside='"+fromAC.text+"' ";
+				}
+				if(toAC.text!="") {
+					hql+=" and endside='"+toAC.text+"' ";
+				}
+				if(forwarder.text!="") {
+					hql+=" and forwarder like '%"+forwarder.text+"%' ";
+				}
+				if(shiptype.selectedLabel!="All") {
+					hql+=" and shiptype='"+shiptype.selectedLabel+"' ";
+				}
+				
+				trace("hql:"+hql);
+				AutoService.getInstance().findByHql(hql,function(e:ResultEvent):void{
+					if(e.result!=null) {
+						var aac:ArrayCollection=e.result as ArrayCollection;
+						trace("aac:"+aac);
+						//adg.dataProvider=aac;
+						if(aac.length<=0) {
+							Alert.show("not found records!");
+						}
+						dpHierarchy=aac;
+						gc.refresh();
+					}
+				},null);
+				
+				//exportExcel();
+			}
+			[Bindable]
+			private var dpHierarchy:ArrayCollection;
+			
+			
+			
+			public function popupWin():void {
+//				var obj:Object=PopUpManager.createPopUp(this.parentApplication as DisplayObject, PopUpQCFreightIM, true);
+//				(obj as DisplayObject).width=this.parentApplication.width;
+//				(obj as DisplayObject).height=this.parentApplication.height;
+//				PopUpManager.centerPopUp(obj as IFlexDisplayObject);
+			}
+			
+			private var Download_URL:String=null;
+			public function exportExcel():void {
+				var ut:UtmostService=new UtmostService("ReportService",function(e:ResultEvent):void {
+					trace("e.result:"+e.result.toString());
+					var uri:String="http://"+StaticChannelSet.getAddress()+"/UtmostTPL/REPORT/"+e.result.toString();
+					trace("uri:"+uri);
+					Download_URL=uri;
+					//ExternalInterface.call("window.open ('"+Download_URL+"', '报表', ', , top=0,left=0, toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, status=no') ");
+					ExternalInterface.call("window.open ('"+Download_URL+"', '报表') ");
+				});
+				ut.ro.buildFileByHql("quotation",hql,"xls");
+			}
+			public function exportPDF():void {
+				var ut:UtmostService=new UtmostService("ReportService",function(e:ResultEvent):void {
+					trace("e.result:"+e.result.toString());
+					var uri:String="http://"+StaticChannelSet.getAddress()+"/UtmostTPL/REPORT/"+e.result.toString();
+					trace("uri:"+uri);
+					Download_URL=uri;
+					//ExternalInterface.call("window.open ('"+Download_URL+"', '报表', ', , top=0,left=0, toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, status=no') ");
+					ExternalInterface.call("window.open ('"+Download_URL+"', '报表') ");
+				});
+				ut.ro.buildFileByHql("quotation",hql,"pdf");
+			}
+			public function exportRTF():void {
+				var ut:UtmostService=new UtmostService("ReportService",function(e:ResultEvent):void {
+					trace("e.result:"+e.result.toString());
+					var uri:String="http://"+StaticChannelSet.getAddress()+"/UtmostTPL/REPORT/"+e.result.toString();
+					trace("uri:"+uri);
+					Download_URL=uri;
+					//ExternalInterface.call("window.open ('"+Download_URL+"', '报表', ', , top=0,left=0, toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, status=no') ");
+					ExternalInterface.call("window.open ('"+Download_URL+"', '报表') ");
+				});
+				ut.ro.buildFileByHql("quotation",hql,"rtf");
+			}
+			public function exportHTML():void {
+				var ut:UtmostService=new UtmostService("ReportService",function(e:ResultEvent):void {
+					trace("e.result:"+e.result.toString());
+					var uri:String="http://"+StaticChannelSet.getAddress()+"/UtmostTPL/REPORT/"+e.result.toString();
+					trace("uri:"+uri);
+					Download_URL=uri;
+					//ExternalInterface.call("window.open ('"+Download_URL+"', '报表', ', , top=0,left=0, toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, status=no') ");
+					ExternalInterface.call("window.open ('"+Download_URL+"', '报表') ");
+				});
+				ut.ro.buildFileByHql("quotation",hql,"html");
+			}
+			private var filer:FileReference;
+			public function startDownload():void
+			{
+				
+				filer=new FileReference();
+				var request:URLRequest = new URLRequest();
+				request.url = Download_URL;
+				filer.download(request);
+		
+			};
+		]]>
+	</mx:Script>
+	<mx:Array id="ds_shiptype">
+		<mx:Object label="All" value="All" />
+		<mx:Object label="Land" value="Land" />
+		<mx:Object label="Sea" value="Sea" />
+		<mx:Object label="Air" value="Air" />
+		<mx:Object label="Railway" value="Railway" />
+	</mx:Array>
+	<mx:Array id="ds_datatype">
+		<mx:Object label="All" value="All" />
+		<mx:Object label="quotation" value="quotation" />
+		<mx:Object label="contract" value="contract" />
+	</mx:Array>
+	<mx:Array id="ds_containertype">
+		<mx:Object label="All" value="All" />
+		<mx:Object label="20’ GP" value="20’ GP" />
+		<mx:Object label="40’ GP" value="40’ GP" />
+		<mx:Object label="40’ HQ" value="40’ HQ" />
+	</mx:Array>
+	<mx:Array id="ds_inputgroup">
+		<mx:Object label="All" value="All" />
+		<mx:Object label="VGC" value="VGC" />
+		<mx:Object label="SVW" value="SVW" />
+		<mx:Object label="FAW-VW" value="FAW-VW" />
+		<mx:Object label="VWPF" value="VWPF" />
+		<mx:Object label="VWED" value="VWED" />
+		<mx:Object label="VWATD" value="VWATD" />
+		<mx:Object label="VWTS" value="VWTS" />
+		<mx:Object label="VWPT" value="VWPT" />
+	</mx:Array>
+	<mx:TabNavigator width="100%" height="80">
+		<mx:VBox label="Route Search" width="100%" height="100%">
+			<mx:HBox width="100%" height="100%" horizontalAlign="left" verticalAlign="middle" horizontalGap="20" paddingLeft="20" paddingRight="20">
+				<mx:Label text="Transport"/>
+				<mx:ComboBox id="shiptype" dataProvider="{ds_shiptype}"></mx:ComboBox>
+				<mx:Label text="from"/>
+				<controls:AutoComplete id="fromAC" styleName="AutoComplete"  dataProvider="{myDP}" labelField="name"/>
+				<mx:Label text="to"/>
+				<controls:AutoComplete id="toAC" styleName="AutoComplete" dataProvider="{myDP}" labelField="name"/>
+				<mx:Spacer width="100%"/>
+				<mx:Button label="Search" click="search()"/>
+			</mx:HBox>
+		</mx:VBox>
+		<mx:VBox width="100%" height="100%" label="Forwarder Search">
+		</mx:VBox>
+		<mx:VBox width="100%" height="100%" label="Keyword Search">
+		</mx:VBox>
+	</mx:TabNavigator>
 	
+	
+	<mx:VBox width="100%" height="100%" verticalGap="0">
+		<mx:HBox width="100%" horizontalAlign="left" verticalAlign="middle" horizontalGap="20">
+			<mx:ComboBox id="datatype" prompt="Data type" dataProvider="{ds_datatype}"></mx:ComboBox>
+			<code:PromptingTextInput id="forwarder" prompt="please input forwarder name."/>
+			<mx:DateField id="time" yearNavigationEnabled="true"/>
+			<mx:ComboBox id="shiptype2" prompt="Ship type" dataProvider="{ds_shiptype}"></mx:ComboBox>
+			<mx:ComboBox id="containertype" prompt="Container type" dataProvider="{ds_containertype}"></mx:ComboBox>
+			<mx:ComboBox id="inputgroup" prompt="Input Group" dataProvider="{ds_inputgroup}"></mx:ComboBox>
+		</mx:HBox>
+		<mx:VBox width="100%" height="100%" verticalGap="6"  horizontalScrollPolicy="off">
+			<mx:AdvancedDataGrid id="adg"  horizontalScrollPolicy="on" width="100%" height="100%" displayItemsExpanded="true" doubleClickEnabled="true" itemDoubleClick="popupWin()">
+			<mx:dataProvider>
+		       <!--mx:HierarchicalData source="{dpHierarchy}"/-->
+		       <mx:GroupingCollection  id="gc" source="{dpHierarchy}">
+                        <mx:Grouping>
+                            <mx:GroupingField name="forwarder"/>
+                        </mx:Grouping>
+                </mx:GroupingCollection>
+		    </mx:dataProvider>
+				<mx:columns>
+					<mx:AdvancedDataGridColumn headerText="No" dataField="no"/>
+					<mx:AdvancedDataGridColumn headerText="Transport" dataField="transport"/>
+					<mx:AdvancedDataGridColumn headerText="Forwarder" dataField="forwarder"/>
+					<mx:AdvancedDataGridColumn headerText="DataType" dataField="datatype"/>
+					<mx:AdvancedDataGridColumn headerText="HarborCharges" dataField="harborcharges"/>
+					<mx:AdvancedDataGridColumn headerText="TransportCharges" dataField="transportcharges"/>
+					<mx:AdvancedDataGridColumn headerText="StartSide" dataField="startside"/>
+					<mx:AdvancedDataGridColumn headerText="EndSide" dataField="endside"/>
+					<mx:AdvancedDataGridColumn headerText="Distance" dataField="distance"/>
+					<mx:AdvancedDataGridColumn headerText="Group" dataField="vgroup"/>
+					<mx:AdvancedDataGridColumn headerText="QuotationTime" dataField="quotationtime"/>
+					<mx:AdvancedDataGridColumn headerText="PeriodOfValidation" dataField="periodofvalidation"/>
+					<mx:AdvancedDataGridColumn headerText="DeliverType" dataField="delivertype"/>
+					<mx:AdvancedDataGridColumn headerText="ShipType" dataField="shiptype"/>
+					<mx:AdvancedDataGridColumn headerText="DocId" dataField="docid"/>
+					<mx:AdvancedDataGridColumn headerText="BAF" dataField="baf"/>
+					<mx:AdvancedDataGridColumn headerText="CAF" dataField="caf"/>
+					<mx:AdvancedDataGridColumn headerText="Others" dataField="others"/>
+					<mx:AdvancedDataGridColumn headerText="ExchangeRate" dataField="exchangerate"/>
+					<mx:AdvancedDataGridColumn headerText="ExchangeRate" dataField="exchangerate"/>
+				</mx:columns>
+			</mx:AdvancedDataGrid>
+			<component:DGPagination verticalGap="0" id="dgp" horizontalGap="6" verticalAlign="top" pageSize="30"/>
+			<mx:HBox width="100%" horizontalAlign="center" verticalAlign="middle" horizontalGap="100">
+				<mx:Button label="ExportExcel" click="exportExcel()" />
+				<!--<mx:Button label="InitData"  click="initData()"/-->
+			</mx:HBox>
+		</mx:VBox>
+	</mx:VBox>
 </mx:Module>

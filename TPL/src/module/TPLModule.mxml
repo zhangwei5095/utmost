@@ -131,6 +131,7 @@
 			//装载模板
 	        public function loadModule(name:String):void {
 	        	removeModule();
+	        	ComponentUtil.setVisible(pbar,true);
 	            currentModule.url = name;
 	        }
 	        //取消模板
@@ -440,12 +441,11 @@
 		</mx:VBox-->
 		<mx:VBox width="70%" height="100%" id="rightVbox">
 			<mx:Panel title="{paneltitle}" width="100%" height="100%" layout="vertical">
-					<mx:ModuleLoader id="currentModule" width="100%" height="100%" ready="currentModuleReady()" progress="progressEventHandler(event)">
+					<mx:ModuleLoader id="currentModule" width="100%" height="100%" ready="currentModuleReady()">
 					</mx:ModuleLoader>
 					<mx:ControlBar>
 							<mx:HBox width="100%" horizontalAlign="right" verticalAlign="middle">
-									<mx:ProgressBar id="pbar" label="{pbarLabel}" minimum="0" maximum="100"
-										 source="currentModule" fontSize="10" indeterminate="true" enabled="true"/>
+									<mx:ProgressBar id="pbar" source="currentModule" width="100%"/>
 							</mx:HBox>
 					</mx:ControlBar>
 			</mx:Panel>
