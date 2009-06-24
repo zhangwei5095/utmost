@@ -6,7 +6,7 @@
 	</mx:Array>
 	<mx:Text text="Company Name 公司名称"/>
 	<mx:TextInput width="215"/>
-	<mx:Text text="表单类型"/>
+	<mx:Text text="Form Type 表单类型"/>
 	<mx:ComboBox id="formtype" dataProvider="{ds_formtype}">
 	</mx:ComboBox>
 	<mx:Text text="Valid until from 有效期自"/>
