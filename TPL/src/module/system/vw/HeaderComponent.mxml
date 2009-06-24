@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" horizontalAlign="left" verticalAlign="middle">
 	<mx:Array id="ds_formtype">
-		<mx:Object label="报价"/>
-		<mx:Object label="合同" />
+		<mx:Object label="Quotation" value="Quotation"/>
+		<mx:Object label="Contract" value="Contract" />
 	</mx:Array>
 	<mx:Text text="Company Name 公司名称"/>
 	<mx:TextInput width="215"/>
