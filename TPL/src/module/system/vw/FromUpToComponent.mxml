@@ -1,17 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%"  verticalAlign="middle">
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" verticalAlign="middle" verticalGap="0">
+	<mx:Script>
+		<![CDATA[
+			[Bindable]
+			private var title_:String;
+			public function set title(_title:String):void {
+				title_=_title;
+			}
+		]]>
+	</mx:Script>
 	<mx:Array id="ds_cnd">
 		<mx:Object label="USD" value="USD"/>
 		<mx:Object label="EUR" value="EUR"/>
-		<mx:Object label="RMB" value="RMB"/>	
+		<mx:Object label="RMB" value="RMB"/>
 	</mx:Array>
-	<mx:Label text="from"/>
-	<mx:TextInput width="100"/>
-	<mx:Label text="up to"/>
-	<mx:TextInput width="100"/>
-	<mx:Label text="Transit time(hours):"/>
-	<mx:TextInput width="60"/>
-	<mx:Label text="Currency in"/>
-	<mx:ComboBox width="98" dataProvider="{ds_cnd}">
-	</mx:ComboBox>
-</mx:HBox>
+	<mx:HBox width="100%" horizontalAlign="center" verticalAlign="top">
+		<mx:Label text="{title_}" fontWeight="bold" fontSize="16"/>
+	</mx:HBox>
+	<mx:HBox width="100%" verticalAlign="middle">
+		<mx:Label text="from"/>
+		<mx:TextInput width="100"/>
+		<mx:Label text="up to"/>
+		<mx:TextInput width="100"/>
+	</mx:HBox>
+	<mx:HBox width="100%" verticalAlign="middle">
+		<mx:Label text="Transit time(hours):"/>
+		<mx:NumericStepper width="60" maximum="9999"/>
+		<mx:ComboBox width="120" dataProvider="{ds_cnd}" prompt="Currency in...">
+		</mx:ComboBox>
+	</mx:HBox>
+</mx:VBox>

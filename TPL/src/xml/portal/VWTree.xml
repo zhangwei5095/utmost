@@ -1,13 +1,23 @@
 <node nodename="VWTree">
-	<node nodename="Volkswagen">
-		<node nodename="RoadFreightInput" showInList="true" module="module/system/vw/RoadFreightInputModule.swf" />
-		<node nodename="SeaFreightInput" showInList="true" module="module/system/vw/SeaFreightInputModule.swf" />
-		<node nodename="AirFreightInput" showInList="true" module="module/system/vw/AirFreightInputModule.swf" />
-		<node nodename="RailwayFreightInput" showInList="true" module="module/system/vw/RailwayFreightInputModule.swf" />
-		<node nodename="QCQuery" showInList="true" module="module/system/vw/QCQueryModule.swf" />
-		<node nodename="Alert" showInList="true" module="module/system/vw/AlertModule.swf" />
-		<node nodename="MakeTemplate" showInList="true" module="module/system/vw/MakeTemplateModule.swf" />
+	<node nodename="System">
 		
+		
+		
+		<node nodename="Query">
+			<node nodename="QCQuery" showInList="true" module="module/system/vw/QCQueryModule.swf" />
+		</node>
+		<node nodename="Input">
+			<node nodename="RoadFreightInput" showInList="true" module="module/system/vw/RoadFreightInputModule.swf" />
+			<node nodename="SeaFreightInput" showInList="true" module="module/system/vw/SeaFreightInputModule.swf" />
+			<node nodename="AirFreightInput" showInList="true" module="module/system/vw/AirFreightInputModule.swf" />
+			<node nodename="RailwayFreightInput" showInList="true" module="module/system/vw/RailwayFreightInputModule.swf" />
+		</node>
+		<node nodename="Alert">
+			<node nodename="Alert" showInList="true" module="module/system/vw/AlertModule.swf" />
+		</node>
+			<node nodename="Template">
+			<node nodename="MakeTemplate" showInList="true" module="module/system/vw/MakeTemplateModule.swf" />
+		</node>
 		<node nodename="Maintenance">
 			<node nodename="ForwarderMainten" showInList="true" key="ForwarderMainten" module="module/system/common/CRUDModule.swf" />
 			<node nodename="KeywordMainten" showInList="true" key="KeywordMainten" module="module/system/common/CRUDModule.swf" />

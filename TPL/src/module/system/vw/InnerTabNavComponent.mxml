@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" xmlns:vw="module.system.vw.*">
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			[Bindable]
+			private var ac:ArrayCollection=new ArrayCollection([{name:"name1", amount:"34", unit:"m3"}]);
+
+			private function add():void
+			{
+				var obj:Object=new Object();
+				obj.unit="please select...";
+				ac.addItem(obj);
+			}
+
+			public function del(e:Event):void
+			{
+				ac.removeItemAt(fob.selectedIndex);
+			}
+
+			[Bindable]
+			private var title_:String;
+
+			public function set title(_title:String):void
+			{
+				title_=_title;
+			}
+		]]>
+	</mx:Script>
+	<mx:Array id="ds_unitType">
+		<mx:Object label="Container" value="Container"/>
+		<mx:Object label="Bill" value="Bill"/>
+		<mx:Object label="m3" value="m3"/>
+		<mx:Object label="Kg" value="Kg"/>
+		<mx:Object label="Part" value="Part"/>
+		<mx:Object label="Car" value="Car"/>
+	</mx:Array>
+	<mx:Array id="ds_cnd">
+		<mx:Object label="USD" value="USD"/>
+		<mx:Object label="EUR" value="EUR"/>
+		<mx:Object label="RMB" value="RMB"/>
+	</mx:Array>
+	<mx:HBox width="100%" verticalAlign="bottom">
+		<mx:VBox>
+			<mx:HBox width="100%" horizontalAlign="center" verticalAlign="top">
+				<mx:Label text="{title_}" fontWeight="bold" fontSize="16"/>
+			</mx:HBox>
+			<mx:HBox width="100%" verticalAlign="middle">
+				<mx:Label text="from"/>
+				<mx:TextInput width="100"/>
+				<mx:Label text="up to"/>
+				<mx:TextInput width="100"/>
+			</mx:HBox>
+			<mx:HBox width="100%" verticalAlign="middle">
+				<mx:Label text="Transit time(hours):"/>
+				<mx:NumericStepper width="60" maximum="9999"/>
+				<mx:ComboBox width="120" dataProvider="{ds_cnd}" prompt="Currency in...">
+				</mx:ComboBox>
+			</mx:HBox>
+		</mx:VBox>
+		<mx:Button label="+" width="40" click="add()"/>
+	</mx:HBox>
+	<mx:DataGrid id="fob" width="100%" height="100%" dataProvider="{ac}" editable="true" sortableColumns="false">
+		<mx:columns>
+			<mx:DataGridColumn headerText="Name" dataField="name"/>
+			<mx:DataGridColumn headerText="Amount" dataField="amount" editorDataField="value">
+				<mx:itemEditor>
+					<mx:Component>
+						<mx:NumericStepper maximum="999999"/>
+					</mx:Component>
+				</mx:itemEditor>
+			</mx:DataGridColumn>
+			<mx:DataGridColumn headerText="Unit" dataField="unit" editable="true" editorDataField="text" editorUsesEnterKey="true">
+				<mx:itemEditor>
+					<mx:Component>
+						<mx:ComboBox dataProvider="{parentDocument.ds_unitType}">
+						</mx:ComboBox>
+					</mx:Component>
+				</mx:itemEditor>
+			</mx:DataGridColumn>
+			<mx:DataGridColumn headerText="" editable="false" width="60">
+				<mx:itemRenderer>
+					<mx:Component>
+						<mx:Button label="Del" height="26" click="parentDocument.del(event)"/>
+					</mx:Component>
+				</mx:itemRenderer>
+			</mx:DataGridColumn>
+		</mx:columns>
+	</mx:DataGrid>
+</mx:VBox>

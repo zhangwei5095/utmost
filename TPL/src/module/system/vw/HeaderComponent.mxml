@@ -1,16 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" horizontalAlign="left" verticalAlign="middle">
+	<mx:Script>
+		<![CDATA[
+			[Bindable]
+			public var RadioThree:Boolean=false;
+			public function radiogroupChange():void {
+				if(radiogroup.selectedValue=="three part") {
+					RadioThree=true;
+				}else {
+					RadioThree=false;
+				}
+			}
+			
+			[Bindable]
+			public var viewradiogroup:Boolean;
+		]]>
+	</mx:Script>
 	<mx:Array id="ds_formtype">
 		<mx:Object label="Quotation" value="Quotation"/>
 		<mx:Object label="Contract" value="Contract" />
 	</mx:Array>
-	<mx:Text text="Company Name 公司名称"/>
+	<mx:Text text="Company Name"/>
 	<mx:TextInput width="215"/>
-	<mx:Text text="Form Type 表单类型"/>
+	<mx:Text text="Form Type"/>
 	<mx:ComboBox id="formtype" dataProvider="{ds_formtype}">
 	</mx:ComboBox>
-	<mx:Text text="Valid until from 有效期自"/>
+	<mx:Text text="Valid until from"/>
 	<mx:DateField yearNavigationEnabled="true"/>
-	<mx:Label text="to 至"/>
+	<mx:Label text="to"/>
 	<mx:DateField yearNavigationEnabled="true"/>
+	<mx:Spacer width="100%"/>
+	<mx:RadioButtonGroup id="radiogroup"/>
+	<mx:RadioButton label="three part" groupName="radiogroup" selected="true" change="radiogroupChange()" visible="{viewradiogroup}" includeInLayout="{viewradiogroup}"/>
+	<mx:RadioButton label="four part" groupName="radiogroup" change="radiogroupChange()" visible="{viewradiogroup}" includeInLayout="{viewradiogroup}"/>
 </mx:HBox>

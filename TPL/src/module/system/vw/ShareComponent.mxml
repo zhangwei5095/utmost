@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%">
-	<mx:Label text="Share" width="92"/>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" verticalAlign="middle">
+	<mx:Label text="Read permission" width="110"/>
 	<mx:CheckBox id="VGC" label="VGC"/>
 	<mx:CheckBox id="VCIC" label="VCIC"/>
 	<mx:CheckBox id="VWTS" label="VWTS"/>

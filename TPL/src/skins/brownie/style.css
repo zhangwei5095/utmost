@@ -258,6 +258,7 @@ ComboBox, PopUpButton
 	color:#444444;
 	dropdownStyleName: dropdownStyleName;
 }
+
 .AutoComplete
 {
 	upSkin:Embed(source='skins/brownie/images/comboBox_up.png', scaleGridLeft=10, scaleGridRight=82, scaleGridTop=19, scaleGridBottom=20);
@@ -268,6 +269,7 @@ ComboBox, PopUpButton
 	color:#ffffff;
 	dropdownStyleName: dropdownStyleName;
 }
+
 PopUpButton{
 	padding-right: 10;
 	popUpDownSkin: Embed(source='skins/brownie/images/comboBox_up.png', scaleGridLeft=10, scaleGridRight=82, scaleGridTop=19,scaleGridBottom=20);
@@ -285,7 +287,7 @@ PopUpButton{
 	font-weight:normal;
 	dropShadowEnabled: true;
 }
-TextInput, TextArea
+TextInput, TextArea,AutoComplete
 {
 	border-skin: Embed(source='skins/brownie/images/input_bg.png', scaleGridLeft=8, scaleGridRight=20, scaleGridTop=8,scaleGridBottom=9);
 	padding-top:2;
