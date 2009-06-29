@@ -3,30 +3,31 @@
 	<mx:MenuBar labelField="@label" height="100%" itemClick="menuItemClick(event)" width="100%">
 	<mx:XMLList>
 		<menuitem label="File">
-			<menuitem label="Relogin" data="relogin"/>
-			<menuitem label="Exit"/>
+			<menuitem label="Exit" data="exit"/>
 		</menuitem>
 		<menuitem label="Theme">
 			<menuitem label="Default" data="default"/>
+			<!--menuitem type="separator"/--> 
 			<menuitem label="Vista" data="vista"/>
 			<menuitem label="Black" data="black"/>
-			<menuitem label="Itunes7" data="itunes7"/>
+			<menuitem label="Itunes7" data="itunes7" enabled="false"/>
 			<menuitem label="Brownie" data="brownie"/>
 		</menuitem>
 		<menuitem label="Language">
-			<menuitem label="English" data="en" type="radio" groupName="language"/>
-			<menuitem label="Chinese" data="zh" type="radio" groupName="language" toggle="true"/>
-			<menuitem label="German" type="radio" groupName="language"/>
+			<menuitem label="English" data="en" type="radio" groupName="language_radio" selected="false"/>
+			<menuitem label="Chinese" data="zh" type="radio" groupName="language_radio" selected="true"/>
 		</menuitem>
 		<menuitem label="Window">
-			<menuitem label="Portal" data="portal" type="radio" groupName="window"/>
-			<menuitem label="TPL" data="tpl" type="radio" groupName="window"/>
+			<menuitem label="Portal" data="portal" type="radio" groupName="window_radio"  toggle="true" />
+			<menuitem label="Development" data="tpl" type="radio" groupName="window_radio"/>
 		</menuitem>
 		<menuitem label="Help">
 		</menuitem>
 	</mx:XMLList>
 	<mx:Script>
 		<![CDATA[
+			import mx.controls.menuClasses.MenuBarItem;
+			import mx.controls.MenuBar;
 			import org.utmost.util.ComponentUtil;
 			import mx.core.Application;
 			import mx.events.MenuEvent;
@@ -53,8 +54,11 @@
 					Application.application.theme(data);
 				}
 				
-				if(data=="relogin") {
-					Application.application.showLogin();
+				//if(data=="relogin") {
+				//	Application.application.showLogin();
+				//}
+				if(data=="exit") {
+					Application.application.init();
 				}
 			}
 		]]>

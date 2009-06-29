@@ -1,4 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%">
-	
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%" xmlns:hc="com.hillelcoren.components.*" xmlns:classes="com.hillelcoren.components.autoComplete.classes.*">
+	<mx:Script>
+		<![CDATA[
+			import com.hillelcoren.components.AutoComplete;
+			import mx.collections.ArrayCollection;
+			[Bindable]
+			public var ac:ArrayCollection=new ArrayCollection();
+			private function add():void
+			{
+				var obj:Object=new Object();
+				obj.no=ac.length;
+				if(cbFrom.selectedItem!=null)
+				obj.from=cbFrom.selectedItem.value.toString();
+				if(cbTo.selectedItem!=null)
+				obj.to=cbTo.selectedItem.value.toString();
+				ac.addItem(obj);
+			}
+			[Bindable]
+			private var colors:ArrayCollection=new ArrayCollection([{"name":"Almond", "hex":"#EED9C4"}, {"name":"Antique Brass", "hex":"#C88A65"}, {"name":"Apricot", "hex":"#FDD5B1"}, {"name":"Aquamarine", "hex":"#71D9E2"}, {"name":"Asparagus", "hex":"#7BA05B"}, {"name":"Atomic Tangerine", "hex":"#FF9966"}, {"name":"Awesome", "hex":"#FF2052"}, {"name":"Banana Mania", "hex":"#FBE7B2"}, {"name":"Beaver", "hex":"#926F5B"}, {"name":"Bear Hug", "hex":"#6B655A"}, {"name":"Best Friends", "hex":"#D600FF"}, {"name":"Bittersweet", "hex":"#FE6F5E"}, {"name":"Black", "hex":"#000000"}, {"name":"Blizzard Blue", "hex":"#A3E3ED"}, {"name":"Blue", "hex":"#0066FF"}, {"name":"Blue Bell", "hex":"#9999CC"}, {"name":"Blue Gray", "hex":"#333366"}, {"name":"Blue Green", "hex":"#0095B6"}, {"name":"Blue Violet", "hex":"#6456B7"}, {"name":"Brick Red", "hex":"#C62D42"}, {"name":"Brink Pink", "hex":"#FB607F"}, {"name":"Brown", "hex":"#AF593E"}, {"name":"Burnt Orange", "hex":"#FF7034"}, {"name":"Burnt Sienna", "hex":"#E97451"}, {"name":"Cadet Blue", "hex":"#A9B2C3"}, {"name":"Canary", "hex":"#FFFF99"}, {"name":"Caribbean Green", "hex":"#00CC99"}, {"name":"Carnation Pink", "hex":"#FFA6C9"}, {"name":"Cerise", "hex":"#DA3287"}, {"name":"Cerulean", "hex":"#02A4D3"}, {"name":"Chartreuse", "hex":"#7FFF00"}, {"name":"Chestnut", "hex":"#B94E48"}, {"name":"Copper", "hex":"#DA8A67"}, {"name":"Cornflower", "hex":"#93CCEA"}, {"name":"Cotton Candy", "hex":"#FFB7D5"}, {"name":"Cranberry", "hex":"#DB5079"}, {"name":"Dandelion", "hex":"#FED85D"}, {"name":"Denim", "hex":"#1560BD"}, {"name":"Dark Gray", "hex":"#4A4340"}, {"name":"Desert Sand", "hex":"#EDC9AF"}, {"name":"Eggplant", "hex":"#614051"}, {"name":"Electric Lime", "hex":"#CCFF00"}, {"name":"Famous", "hex":"#E72094"}, {"name":"Fern", "hex":"#63B76C"}, {"name":"Flesh", "hex":"#FFCBA4"}, {"name":"Forest Green", "hex":"#5FA777"}, {"name":"Fuchsia", "hex":"#C154C1"}, {"name":"Fun in the Sun", "hex":"#FF5500"}, {"name":"Fuzzy Wuzzy Brown", "hex":"#C45655"}, {"name":"Giving Tree", "hex":"#21E339"}, {"name":"Gold", "hex":"#E6BE8A"}, {"name":"Goldenrod", "hex":"#FCD667"}, {"name":"Granny Smith Apple", "hex":"#9DE093"}, {"name":"Gray", "hex":"#8B8680"}, {"name":"Green", "hex":"#01A368"}, {"name":"Green Yellow", "hex":"#F1E788"}, {"name":"Happy Ever After", "hex":"#218EB5"}, {"name":"Hot Magenta", "hex":"#FF00CC"}, {"name":"Inch Worm", "hex":"#B0E313"}, {"name":"Indian Red", "hex":"#B94E48"}, {"name":"Indigo", "hex":"#4F69C6"}, {"name":"Jazzberry Jam", "hex":"#A50B5E"}, {"name":"Jungle Green", "hex":"#29AB87"}, {"name":"Laser Lemon", "hex":"#FFFF66"}, {"name":"Lavender", "hex":"#FBAED2"}, {"name":"Macaroni and Cheese", "hex":"#FFB97B"}, {"name":"Magenta", "hex":"#F653A6"}, {"name":"Magic Mint", "hex":"#AAF0D1"}, {"name":"Mahogany", "hex":"#CA3435"}, {"name":"Maize", "hex":"#FFCC00"}, {"name":"Manatee", "hex":"#8D90A1"}, {"name":"Mango Tango", "hex":"#E77200"}, {"name":"Maroon", "hex":"#C32148"}, {"name":"Mauvelous", "hex":"#F091A9"}, {"name":"Melon", "hex":"#FEBAAD"}, {"name":"Midnight Blue", "hex":"#003366"}, {"name":"Mountain Meadow", "hex":"#1AB385"}, {"name":"Mulberry", "hex":"#C54B8C"}, {"name":"Navy Blue", "hex":"#0066CC"}, {"name":"Neon Carrot", "hex":"#FF9933"}, {"name":"Olive Green", "hex":"#B5B35C"}, {"name":"Orange", "hex":"#FF681F"}, {"name":"Orchid", "hex":"#E29CD2"}, {"name":"Outer Space", "hex":"#2D383A"}, {"name":"Outrageous Orange", "hex":"#FF6037"}, {"name":"Pacific Blue", "hex":"#009DC4"}, {"name":"Peach", "hex":"#FFCBA4"}, {"name":"Periwinkle", "hex":"#C3CDE6"}, {"name":"Pig Pink", "hex":"#FDD7E4"}, {"name":"Pine Green", "hex":"#01796F"}, {"name":"Pink Flamingo", "hex":"#FF66FF"}, {"name":"Plum", "hex":"#843179"}, {"name":"Prussian Blue", "hex":"#003366"}, {"name":"Purple Heart", "hex":"#652DC1"}, {"name":"Purple Mountain's Majesty", "hex":"#9678B6"}, {"name":"Purple Pizzazz", "hex":"#FF00CC"}, {"name":"Radical Red", "hex":"#FF355E"}, {"name":"Raw Sienna", "hex":"#D27D46"}, {"name":"Raw Goggin", "hex":"#FF355F"}, {"name":"Razzle Dazzle Rose", "hex":"#FF33CC"}, {"name":"Razzmatazz", "hex":"#E30B5C"}, {"name":"Red", "hex":"#ED0A3F"}, {"name":"Red Orange", "hex":"#FF3F34"}, {"name":"Red Violet", "hex":"#BB3385"}, {"name":"Robin's Egg Blue", "hex":"#00CCCC"}, {"name":"Royal Purple", "hex":"#6B3FA0"}, {"name":"Salmon", "hex":"#FF91A4"}, {"name":"Scarlet", "hex":"#FD0E35"}, {"name":"Screamin' Green", "hex":"#66FF66"}, {"name":"Sea Green", "hex":"#93DFB8"}, {"name":"Sepia", "hex":"#9E5B40"}, {"name":"Shadow", "hex":"#837050"}, {"name":"Shamrock", "hex":"#33CC99"}, {"name":"Shocking Pink", "hex":"#FF6FFF"}, {"name":"Silver", "hex":"#C9C0BB"}, {"name":"Sky Blue", "hex":"#76D7EA"}, {"name":"Spring Green", "hex":"#ECEBBD"}, {"name":"Sunglow", "hex":"#FFCC33"}, {"name":"Sunset Orange", "hex":"#FE4C40"}, {"name":"Super Happy", "hex":"#FFFF21"}, {"name":"Tan", "hex":"#FA9D5A"}, {"name":"Tickle Me Pink", "hex":"#FC80A5"}, {"name":"Timberwolf", "hex":"#D9D6CF"}, {"name":"Torch Red", "hex":"#FD0E35"}, {"name":"Tropical Rain Forest", "hex":"#00755E"}, {"name":"Tumbleweed", "hex":"#DEA681"}, {"name":"Turquoise Blue", "hex":"#6CDAE7"}, {"name":"Ultra Green", "hex":"#66FF66"}, {"name":"Ultra Orange", "hex":"#FF6037"}, {"name":"Ultra Pink", "hex":"#FF6FFF"}, {"name":"Ultra Red", "hex":"#FD5B78"}, {"name":"Ultra Yellow", "hex":"#FFFF66"}, {"name":"Unmellow Yellow", "hex":"#FFFF66"}, {"name":"Violet (Purple)", "hex":"#8359A3"}, {"name":"Violet Red", "hex":"#F7468A"}, {"name":"Vivid Tangerine", "hex":"#FF9980"}, {"name":"Vivid Violet", "hex":"#803790"}, {"name":"White", "hex":"#FFFFFF"}, {"name":"Wild Blue Yonder", "hex":"#7A89B8"}, {"name":"Wild Strawberry", "hex":"#FF3399"}, {"name":"Wild Watermelon", "hex":"#FD5B78"}, {"name":"Wisteria", "hex":"#C9A0DC"}, {"name":"Yellow", "hex":"#FBE870"}, {"name":"Yellow Green", "hex":"#C5E17A"}, {"name":"Yellow Orange", "hex":"#FFAE42"}]);
+		]]>
+	</mx:Script>
+	<mx:Array id="ds_city">
+		<mx:Object label="beijin" value="beijin" />
+		<mx:Object label="shanghai" value="shanghai" />
+		<mx:Object label="changchun" value="changchun" />
+		<mx:Object label="dalian" value="dalian" />
+		<mx:Object label="qingdao" value="qingdao" />
+	</mx:Array>
+	<mx:VBox id="vbox" width="100%" height="100%" horizontalAlign="center" paddingTop="20">
+		<mx:HBox width="80%" verticalAlign="middle">
+			<mx:Spacer width="100%"/>
+			<!--hc:AutoComplete allowNewValues="true" allowEditingNewValues="true" text="123" backspaceAction="focus"  dataProvider="{colors}" labelField="name" styleName="{AutoComplete.STYLE_UNDERLINE}" barColor="#2400FF" backgroundColor="#2400FF" backgroundDisabledColor="#2400FF" borderColor="#2400FF" color="#2400FF" themeColor="#2400FF" opaqueBackground="#2400FF"/-->
+			<mx:Button label="Download RoadFreight Template"/>
+			<mx:Button label="Download SeaFreight Template"/>
+		</mx:HBox>
+		<mx:HBox width="80%">
+			<mx:ComboBox id="cbFrom" prompt="from" dataProvider="{ds_city}"></mx:ComboBox>
+			<mx:ComboBox id="cbTo" prompt="to" dataProvider="{ds_city}"></mx:ComboBox>
+			<mx:Spacer width="100%"/>
+			<mx:Button label="Add" click="add()"/>
+		</mx:HBox>
+		<mx:AdvancedDataGrid id="adg" dataProvider="{ac}" designViewDataType="flat" width="80%" editable="true">
+			<mx:columns>
+				<mx:AdvancedDataGridColumn headerText="No." dataField="no" editable="false"/>
+				<mx:AdvancedDataGridColumn headerText="From" dataField="from" editorDataField="text" editable="true">
+					<mx:itemEditor>
+						<mx:Component>
+							<mx:TextInput/>
+						</mx:Component>
+					</mx:itemEditor>
+				</mx:AdvancedDataGridColumn>
+				<mx:AdvancedDataGridColumn headerText="To" dataField="to" editorDataField="text" editable="true">
+					<mx:itemEditor>
+						<mx:Component>
+							<mx:TextInput/>
+						</mx:Component>
+					</mx:itemEditor>
+				</mx:AdvancedDataGridColumn>
+				<mx:AdvancedDataGridColumn headerText="Del" editable="false" width="120">
+					<mx:itemRenderer>
+						<mx:Component>
+							<mx:Button label="Delete" click="del()">
+								<mx:Script>
+									<![CDATA[
+										import mx.collections.ArrayCollection;
+										private function del():void
+										{
+											this.parentDocument.ac.removeItemAt(this.parentDocument.adg.selectedIndex);
+											var iac:ArrayCollection=this.parentDocument.ac;
+											for(var i:int=0;i<iac.length;i++) {
+												if(i>data.no) {
+													iac.getItemAt(i).no=iac.getItemAt(i).no-1;
+												}
+											}
+										}
+									]]>
+								</mx:Script>
+							</mx:Button>
+						</mx:Component>
+					</mx:itemRenderer>
+				</mx:AdvancedDataGridColumn>
+				<mx:AdvancedDataGridColumn headerText="" editable="false"/>
+			</mx:columns>
+		</mx:AdvancedDataGrid>
+	</mx:VBox>
 </mx:Module>

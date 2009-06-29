@@ -1,82 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%" xmlns:upload="org.utmost.component.upload.*" verticalScrollPolicy="auto" verticalGap="3" xmlns:vw="module.system.vw.*">
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%" xmlns:upload="org.utmost.component.upload.*" verticalScrollPolicy="auto" verticalGap="3" xmlns:vw="module.system.vw.*" xmlns:code="http://code.google.com/p/flexlib/">
 	<mx:Script>
 		<![CDATA[
 			
 		]]>
 	</mx:Script>
-
-	<!--mx:HBox width="100%" horizontalAlign="left" verticalAlign="middle">
-		<mx:Button label="ImportExcel"/>
-		<mx:Text text="Company Name 公司名称"/>
-		<mx:TextInput width="215"/>
-		<mx:Text text="表单类型"/>
-		<mx:ComboBox id="formtype" dataProvider="{ds_formtype}">
-		</mx:ComboBox>
-		<mx:Text text="Valid until from 有效期自"/>
-		<mx:DateField yearNavigationEnabled="true"/>
-		<mx:Label text="to 至"/>
-		<mx:DateField yearNavigationEnabled="true"/>
-	</mx:HBox-->
 	<vw:HeaderComponent width="100%"/>
-	<mx:HBox width="100%" height="70%">
-		<mx:AdvancedDataGrid id="adg" designViewDataType="flat" width="100%" sortableColumns="true" sortExpertMode="false"  horizontalScrollPolicy="on"  height="100%">
+	<mx:HBox width="100%">
+		<mx:CheckBox id="CB_LTA" label="Less than a wagon load" selected="true"/>
+		<mx:CheckBox id="CB_FWL" label="Full wagon load" selected="true"/>
+		<mx:CheckBox id="CB_FCL" label="Full Container Load" selected="true"/>
+	</mx:HBox>
+	<mx:HBox width="100%" height="100%">
+		<mx:AdvancedDataGrid id="adg" designViewDataType="flat" width="100%" sortableColumns="true" sortExpertMode="false" horizontalScrollPolicy="on" height="100%">
 			<mx:groupedColumns>
 				<mx:AdvancedDataGridColumn dataField="no" headerText="No." headerWordWrap="true" width="60"/>
-				<mx:AdvancedDataGridColumnGroup headerText="Route Information    路径信息" headerWordWrap="true">
-					<mx:AdvancedDataGridColumn dataField="qyqc" headerText="OriginCity{'\n'}始发城市" width="100" headerWordWrap="true"/>
-					<mx:AdvancedDataGridColumn dataField="qybyzj" headerText="DestinationCity{'\n'}目的城市" width="120" />
-					<mx:AdvancedDataGridColumn dataField="qybyjs" headerText="Distance(Km){'\n'}距离(公里)" width="120" headerWordWrap="true"/>
+				<mx:AdvancedDataGridColumnGroup headerText="Route Information" headerWordWrap="true">
+					<mx:AdvancedDataGridColumn dataField="qyqc" headerText="OriginCity" width="100" headerWordWrap="true"/>
+					<mx:AdvancedDataGridColumn dataField="qybyzj" headerText="DestinationCity" width="120"/>
+					<mx:AdvancedDataGridColumn dataField="qybyjs" headerText="Distance(Km)" width="120" headerWordWrap="true"/>
 				</mx:AdvancedDataGridColumnGroup>
-								
-				<mx:AdvancedDataGridColumnGroup headerText="Less than a wagon load    零担运输" headerWordWrap="true">
-					<mx:AdvancedDataGridColumnGroup headerText="Charge 费用" headerWordWrap="true">
-						<mx:AdvancedDataGridColumn dataField="qzdx" headerText="OC操作费{'\n'}RMB/10kg" headerWordWrap="true"/>
-						<mx:AdvancedDataGridColumn dataField="qzds" headerText="TC运费 {'\n'}RMB/Kg*Km" headerWordWrap="true"/>
+				<mx:AdvancedDataGridColumnGroup headerText="Less than a wagon load" headerWordWrap="true" visible="{CB_LTA.selected}">
+					<mx:AdvancedDataGridColumnGroup headerText="Charge" headerWordWrap="true">
+						<mx:AdvancedDataGridColumn dataField="qzdx" headerText="OC RMB/10kg" headerWordWrap="true"/>
+						<mx:AdvancedDataGridColumn dataField="qzds" headerText="TC RMB/Kg*Km" headerWordWrap="true"/>
 					</mx:AdvancedDataGridColumnGroup>
-					<mx:AdvancedDataGridColumn dataField="gtqc" headerText="Min.Cost{'\n'}最低价格" headerWordWrap="true"/>
-					<mx:AdvancedDataGridColumn dataField="gtqc" headerText="Time limit (hours){'\n'}    时限" headerWordWrap="true"/>
+					<mx:AdvancedDataGridColumn dataField="gtqc" headerText="Min.Cost" headerWordWrap="true"/>
+					<mx:AdvancedDataGridColumn dataField="gtqc" headerText="Time limit (hours)" headerWordWrap="true"/>
 				</mx:AdvancedDataGridColumnGroup>
-				
-				<mx:AdvancedDataGridColumnGroup headerText="Full wagon load    整车运输" headerWordWrap="true">
-					<mx:AdvancedDataGridColumn dataField="gtqc" headerText="Wagon Type{'\n'}整车规格" headerWordWrap="true"/>
-					<mx:AdvancedDataGridColumnGroup headerText="Charge 费用" headerWordWrap="true">
-						<mx:AdvancedDataGridColumn dataField="qzdx" headerText="OC操作费{'\n'}RMB/Ton" headerWordWrap="true"/>
-						<mx:AdvancedDataGridColumn dataField="qzds" headerText="TC运费 {'\n'}RMB/Tom*Km" headerWordWrap="true"/>
+				<mx:AdvancedDataGridColumnGroup headerText="Full wagon load" headerWordWrap="true" visible="{CB_FWL.selected}">
+					<mx:AdvancedDataGridColumn dataField="gtqc" headerText="Wagon Type" headerWordWrap="true"/>
+					<mx:AdvancedDataGridColumnGroup headerText="Charge" headerWordWrap="true">
+						<mx:AdvancedDataGridColumn dataField="qzdx" headerText="OC RMB/Ton" headerWordWrap="true"/>
+						<mx:AdvancedDataGridColumn dataField="qzds" headerText="TC RMB/Tom*Km" headerWordWrap="true"/>
 					</mx:AdvancedDataGridColumnGroup>
-					<mx:AdvancedDataGridColumn dataField="gtqc" headerText="Time limit (hours){'\n'}    时限" headerWordWrap="true"/>
+					<mx:AdvancedDataGridColumn dataField="gtqc" headerText="Time limit (hours)" headerWordWrap="true"/>
 				</mx:AdvancedDataGridColumnGroup>
-				
-				<mx:AdvancedDataGridColumnGroup headerText="Full Container Load    集装箱运输" headerWordWrap="true">
+				<mx:AdvancedDataGridColumnGroup headerText="Full Container Load" headerWordWrap="true" visible="{CB_FCL.selected}">
 					<mx:AdvancedDataGridColumnGroup headerText="1 Ton Box" headerWordWrap="true">
-						<mx:AdvancedDataGridColumn dataField="qzdx" headerText="OC操作费{'\n'}RMB/Box" headerWordWrap="true"/>
-						<mx:AdvancedDataGridColumn dataField="qzds" headerText="TC运费 {'\n'}RMB/Box*Km" headerWordWrap="true"/>
+						<mx:AdvancedDataGridColumn dataField="qzdx" headerText="OC RMB/Box" headerWordWrap="true"/>
+						<mx:AdvancedDataGridColumn dataField="qzds" headerText="TC RMB/Box*Km" headerWordWrap="true"/>
 					</mx:AdvancedDataGridColumnGroup>
 					<mx:AdvancedDataGridColumnGroup headerText="10 Ton Box" headerWordWrap="true">
-						<mx:AdvancedDataGridColumn dataField="qzdx" headerText="OC操作费{'\n'}RMB/Box" headerWordWrap="true"/>
-						<mx:AdvancedDataGridColumn dataField="qzds" headerText="TC运费 {'\n'}RMB/Box*Km" headerWordWrap="true"/>
+						<mx:AdvancedDataGridColumn dataField="qzdx" headerText="OC RMB/Box" headerWordWrap="true"/>
+						<mx:AdvancedDataGridColumn dataField="qzds" headerText="TC RMB/Box*Km" headerWordWrap="true"/>
 					</mx:AdvancedDataGridColumnGroup>
 					<mx:AdvancedDataGridColumnGroup headerText="20` GP" headerWordWrap="true">
-						<mx:AdvancedDataGridColumn dataField="qzdx" headerText="OC操作费{'\n'}RMB/Box" headerWordWrap="true"/>
-						<mx:AdvancedDataGridColumn dataField="qzds" headerText="TC运费 {'\n'}RMB/Box*Km" headerWordWrap="true"/>
+						<mx:AdvancedDataGridColumn dataField="qzdx" headerText="OC RMB/Box" headerWordWrap="true"/>
+						<mx:AdvancedDataGridColumn dataField="qzds" headerText="TC RMB/Box*Km" headerWordWrap="true"/>
 					</mx:AdvancedDataGridColumnGroup>
 					<mx:AdvancedDataGridColumnGroup headerText="40` GP" headerWordWrap="true">
-						<mx:AdvancedDataGridColumn dataField="qzdx" headerText="OC操作费{'\n'}RMB/Box" headerWordWrap="true"/>
-						<mx:AdvancedDataGridColumn dataField="qzds" headerText="TC运费 {'\n'}RMB/Box*Km" headerWordWrap="true"/>
+						<mx:AdvancedDataGridColumn dataField="qzdx" headerText="OC RMB/Box" headerWordWrap="true"/>
+						<mx:AdvancedDataGridColumn dataField="qzds" headerText="TC RMB/Box*Km" headerWordWrap="true"/>
 					</mx:AdvancedDataGridColumnGroup>
-					<mx:AdvancedDataGridColumn dataField="gtqc" headerText="Time limit (hours){'\n'}    时限" headerWordWrap="true"/>
+					<mx:AdvancedDataGridColumn dataField="gtqc" headerText="Time limit (hours)" headerWordWrap="true"/>
 				</mx:AdvancedDataGridColumnGroup>
 			</mx:groupedColumns>
 		</mx:AdvancedDataGrid>
 	</mx:HBox>
-	<mx:HBox width="100%" horizontalAlign="center" verticalAlign="middle" horizontalGap="0">
-		<mx:Text text="Remark{'\n'}   注释" width="100"/>
-		<mx:TextArea width="100%"/>
-	</mx:HBox>
-	<vw:ShareComponent width="100%" />
-	<mx:HBox width="100%" height="100">
-		<upload:FileUploadComponent width="100%" height="100%"/>
-	</mx:HBox>
+	<vw:ShareComponent width="100%"/>
+	<code:WindowShade label="Remark" opened="true" width="100%">
+		<mx:TextArea width="100%" height="100"/>
+	</code:WindowShade>
+	<code:WindowShade label="FileUpload" opened="false" width="100%">
+		<upload:FileUploadComponent width="100%" height="100"/>
+	</code:WindowShade>
 	<mx:HBox width="100%" verticalAlign="middle" horizontalAlign="center" horizontalGap="50">
 		<mx:Button label="Submit"/>
 		<mx:Button label="DownloadTemplate"/>

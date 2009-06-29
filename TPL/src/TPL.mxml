@@ -28,7 +28,7 @@
 			//public var DETECTPATH:String="http://localhost:8080/UtmostTPL/detect/"; 
 			Alert.yesLabel="确定";
 			Alert.noLabel="取消";
-			private function init():void {
+			public function init():void {
 				//this.loadModule("module/DefaultModule.swf");
 				//this.loadModule("module/PortalModule.swf");
 				theme("brownie");

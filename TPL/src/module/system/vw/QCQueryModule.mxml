@@ -156,7 +156,7 @@
 		<mx:Object label="VWTS" value="VWTS" />
 		<mx:Object label="VWPT" value="VWPT" />
 	</mx:Array>
-	<mx:TabNavigator width="100%" height="80">
+	<mx:TabNavigator width="100%" height="100">
 		<mx:VBox label="Route Search" width="100%" height="100%">
 			<mx:HBox width="100%" height="100%" horizontalAlign="left" verticalAlign="middle" horizontalGap="20" paddingLeft="20" paddingRight="20">
 				<mx:Label text="Transport"/>
@@ -168,16 +168,7 @@
 				<mx:Spacer width="100%"/>
 				<mx:Button label="Search" click="search()"/>
 			</mx:HBox>
-		</mx:VBox>
-		<mx:VBox width="100%" height="100%" label="Forwarder Search">
-		</mx:VBox>
-		<mx:VBox width="100%" height="100%" label="Keyword Search">
-		</mx:VBox>
-	</mx:TabNavigator>
-	
-	
-	<mx:VBox width="100%" height="100%" verticalGap="0">
-		<mx:HBox width="100%" horizontalAlign="left" verticalAlign="middle" horizontalGap="20">
+			<mx:HBox width="100%" horizontalAlign="left" verticalAlign="middle" horizontalGap="20">
 			<mx:ComboBox id="datatype" prompt="Data type" dataProvider="{ds_datatype}"></mx:ComboBox>
 			<code:PromptingTextInput id="forwarder" prompt="please input forwarder name."/>
 			<mx:DateField id="time" yearNavigationEnabled="true"/>
@@ -185,6 +176,28 @@
 			<mx:ComboBox id="containertype" prompt="Container type" dataProvider="{ds_containertype}"></mx:ComboBox>
 			<mx:ComboBox id="inputgroup" prompt="Input Group" dataProvider="{ds_inputgroup}"></mx:ComboBox>
 		</mx:HBox>
+		</mx:VBox>
+		<mx:VBox width="100%" height="100%" label="Forwarder Search" horizontalAlign="left" verticalAlign="middle">
+			<mx:HBox width="100%" horizontalGap="20" paddingLeft="20" horizontalAlign="left" verticalAlign="middle">
+				<mx:Label text="Forwarder Name"/>
+				<mx:TextInput/>
+				<mx:Spacer width="100%"/>
+				<mx:Button label="Search"/>
+			</mx:HBox>
+		</mx:VBox>
+		<mx:VBox width="100%" height="100%" label="Keyword Search" verticalAlign="middle">
+			<mx:HBox width="100%" horizontalGap="20" paddingLeft="20" horizontalAlign="left" verticalAlign="middle">
+				<mx:Label text="Keyword"/>
+				<mx:TextInput/>
+				<mx:Spacer width="100%"/>
+				<mx:Button label="Search"/>
+			</mx:HBox>
+		</mx:VBox>
+	</mx:TabNavigator>
+	
+	
+	<mx:VBox width="100%" height="100%" verticalGap="0">
+		
 		<mx:VBox width="100%" height="100%" verticalGap="6"  horizontalScrollPolicy="off">
 			<mx:AdvancedDataGrid id="adg"  horizontalScrollPolicy="on" width="100%" height="100%" displayItemsExpanded="true" doubleClickEnabled="true" itemDoubleClick="popupWin()">
 			<mx:dataProvider>
@@ -221,6 +234,7 @@
 			<component:DGPagination verticalGap="0" id="dgp" horizontalGap="6" verticalAlign="top" pageSize="30"/>
 			<mx:HBox width="100%" horizontalAlign="center" verticalAlign="middle" horizontalGap="100">
 				<mx:Button label="ExportExcel" click="exportExcel()" />
+				<mx:Button label="ExportPDF" click="exportExcel()" />
 				<!--<mx:Button label="InitData"  click="initData()"/-->
 			</mx:HBox>
 		</mx:VBox>
