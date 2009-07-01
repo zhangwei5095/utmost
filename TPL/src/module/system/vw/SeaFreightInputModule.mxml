@@ -4,14 +4,6 @@
 		<![CDATA[
 		]]>
 	</mx:Script>
-	<mx:Array id="ds_unitType">
-		<mx:Object label="Container" value="Container"/>
-		<mx:Object label="Bill" value="Bill"/>
-		<mx:Object label="m3" value="m3"/>
-		<mx:Object label="Kg" value="Kg"/>
-		<mx:Object label="Part" value="Part"/>
-		<mx:Object label="Car" value="Car"/>
-	</mx:Array>
 	<mx:VBox width="100%" height="100%" verticalGap="3">
 		<vw:HeaderComponent width="100%" id="headerCpt" viewradiogroup="true"/>
 		<vw:UnderHeaderComponent width="100%"/>

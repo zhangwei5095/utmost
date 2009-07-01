@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" horizontalAlign="right" verticalAlign="bottom">
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" horizontalAlign="right" verticalAlign="middle" horizontalGap="3">
 <mx:Script>
 	<![CDATA[
 		import mx.controls.Alert;
@@ -66,15 +66,15 @@
 		}
 	]]>
 </mx:Script>
-	<mx:Label text="Count:"/>
-	<mx:Label id="countPageSize" text="{countPage}"/>
-	<mx:Label text="Current:"/>
-	<mx:NumericStepper id="nowPage" value="{pageNo}" maximum="100000" minimum="1" stepSize="1" width="50"/>
-	<mx:Button label="Go" click="goto()" width="60"/>
-	<mx:Button label="First" click="first()" width="60"/>
-	<mx:Button label="Prev" click="prev()" width="60"/>
-	<mx:Button label="Next" click="next()" width="60"/>
-	<mx:Button label="Last" click="last()" width="60"/>
-	<mx:Label text="Page size:"/>
-	<mx:NumericStepper id="returnSize" maximum="100000" minimum="1"  value="{pageSize}" change="pageSize=returnSize.value;queryCount();" width="50"/>
+	<mx:Button label="Go" click="goto()" width="60" visible="false" includeInLayout="false"/>
+	<mx:Button label="|&lt;" click="first()" width="34" toolTip="First" fontWeight="bold" fontFamily="Verdana" fontSize="10" height="26" paddingLeft="0" paddingRight="0" paddingTop="0" paddingBottom="0"/>
+	<mx:Button label="&lt;" click="prev()" width="34" toolTip="Prev" fontWeight="bold" fontFamily="Verdana" fontSize="10" height="26" paddingLeft="0" paddingRight="0" paddingTop="0" paddingBottom="0"/>
+	<mx:Label text="Page" height="23" paddingTop="2"/>
+	<mx:NumericStepper id="nowPage" value="{pageNo}" maximum="100000" minimum="1" stepSize="1" width="40" height="23"/>
+	<mx:Label text="of" height="23" paddingTop="2"/>
+	<mx:Label id="countPageSize" text="{countPage}" height="23" paddingTop="2"/>
+	<mx:Button label="&gt;" click="next()" width="34" toolTip="Next" fontWeight="bold" fontFamily="Verdana" fontSize="10" height="26" paddingLeft="0" paddingRight="0" paddingTop="0" paddingBottom="0"/>
+	<mx:Button label="&gt;|" click="last()" width="34" toolTip="Last" fontWeight="bold" fontFamily="Verdana" fontSize="10" height="26" paddingLeft="0" paddingRight="0" paddingTop="0" paddingBottom="0"/>
+	<mx:Label text="Page size:" visible="false" includeInLayout="false"/>
+	<mx:NumericStepper id="returnSize" maximum="100000" minimum="1"  value="{pageSize}" change="pageSize=returnSize.value;queryCount();" width="50" visible="false" includeInLayout="false"/>
 </mx:HBox>

@@ -4,7 +4,7 @@
 		<![CDATA[
 			import mx.collections.ArrayCollection;
 			[Bindable]
-			private var ac:ArrayCollection=new ArrayCollection([{name:"name1", amount:"34", unit:"m3"}]);
+			private var ac:ArrayCollection=new ArrayCollection([{name:"Transport charge", amount:"34", unit:"m3"}]);
 
 			private function add():void
 			{
@@ -15,7 +15,7 @@
 
 			public function del(e:Event):void
 			{
-				ac.removeItemAt(fob.selectedIndex);
+				ac.removeItemAt(dg.selectedIndex);
 			}
 
 			[Bindable]
@@ -60,9 +60,31 @@
 		</mx:VBox>
 		<mx:Button label="+" width="40" click="add()"/>
 	</mx:HBox>
-	<mx:DataGrid id="fob" width="100%" height="100%" dataProvider="{ac}" editable="true" sortableColumns="false">
+	<mx:DataGrid id="dg" width="100%" height="100%" dataProvider="{ac}" editable="true" sortableColumns="false" rowHeight="25">
 		<mx:columns>
-			<mx:DataGridColumn headerText="Name" dataField="name"/>
+			<mx:DataGridColumn headerText="*/-" editable="false" width="25">
+				<mx:itemRenderer>
+					<mx:Component>
+						<mx:Label creationComplete="getXData()" dataChange="getXData()"  width="100%" fontWeight="bold" textAlign="center" fontFamily="Arial" fontSize="20">
+							<mx:Script>
+								<![CDATA[
+									import mx.core.UIComponent;
+									public function getXData():void {
+										if(data.name=="Transport charge") {
+											this.setStyle("color","#FF0000");
+											this.text= "*";
+										}else {
+											this.setStyle("color","#0F24E6");
+											this.text= "-";
+										}
+									}
+								]]>
+							</mx:Script>
+						</mx:Label>
+					</mx:Component>
+				</mx:itemRenderer>
+			</mx:DataGridColumn>
+			<mx:DataGridColumn headerText="Name" dataField="name" width="105" />
 			<mx:DataGridColumn headerText="Amount" dataField="amount" editorDataField="value">
 				<mx:itemEditor>
 					<mx:Component>

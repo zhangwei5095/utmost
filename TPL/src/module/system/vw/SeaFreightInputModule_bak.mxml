@@ -17,7 +17,7 @@
 				adgFOB.columns=adgFOB.columns.concat(col);
 			}
 			[Bindable]
-			private var acFOB:ArrayCollection=new ArrayCollection([{packingType:"packingType", transportChange:"transportChange", doc:"doc", thc:"thc", customs:"customs", customsInspection:"customsInspection", orc:"orc"}, {packingType:"packingType", transportChange:"transportChange", doc:"doc", thc:"thc", customs:"customs", customsInspection:"customsInspection", orc:"orc"}, {packingType:"packingType", transportChange:"transportChange", doc:"doc", thc:"thc", customs:"customs", customsInspection:"customsInspection", orc:"orc"}]);
+			private var acFOB:ArrayCollection=new ArrayCollection([{packingType:"packingType", transportChange:"Transport charge", doc:"doc", thc:"thc", customs:"customs", customsInspection:"customsInspection", orc:"orc"}, {packingType:"packingType", transportChange:"Transport charge", doc:"doc", thc:"thc", customs:"customs", customsInspection:"customsInspection", orc:"orc"}, {packingType:"packingType", transportChange:"Transport charge", doc:"doc", thc:"thc", customs:"customs", customsInspection:"customsInspection", orc:"orc"}]);
 		]]>
 	</mx:Script>
 	<vw:HeaderComponent width="100%" viewradiogroup="true" />
