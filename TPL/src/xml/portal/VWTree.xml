@@ -1,8 +1,5 @@
 <node nodename="VWTree">
 	<node nodename="System">
-		
-		
-		
 		<node nodename="Query">
 			<node nodename="QCQuery" showInList="true" module="module/system/vw/QCQueryModule.swf" />
 		</node>

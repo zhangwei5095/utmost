@@ -22,8 +22,7 @@
 	</mx:Array>
 	<mx:Text text="Company Name"/>
 	<mx:TextInput width="215"/>
-	<mx:Text text="Form Type"/>
-	<mx:ComboBox id="formtype" dataProvider="{ds_formtype}">
+	<mx:ComboBox id="formtype" dataProvider="{ds_formtype}" prompt="Please select form type...">
 	</mx:ComboBox>
 	<mx:Text text="Valid until from"/>
 	<mx:DateField yearNavigationEnabled="true"/>

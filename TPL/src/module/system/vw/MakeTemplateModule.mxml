@@ -9,7 +9,7 @@
 			private function add():void
 			{
 				var obj:Object=new Object();
-				obj.no=ac.length;
+				obj.no=ac.length+1;
 				if(cbFrom.selectedItem!=null)
 				obj.from=cbFrom.selectedItem.value.toString();
 				if(cbTo.selectedItem!=null)
@@ -21,6 +21,7 @@
 		]]>
 	</mx:Script>
 	<mx:Array id="ds_city">
+		<mx:Object label="" value="" />
 		<mx:Object label="beijin" value="beijin" />
 		<mx:Object label="shanghai" value="shanghai" />
 		<mx:Object label="changchun" value="changchun" />
@@ -40,7 +41,7 @@
 			<mx:Spacer width="100%"/>
 			<mx:Button label="Add" click="add()"/>
 		</mx:HBox>
-		<mx:AdvancedDataGrid id="adg" dataProvider="{ac}" designViewDataType="flat" width="80%" editable="true">
+		<mx:AdvancedDataGrid id="adg" dataProvider="{ac}" designViewDataType="flat" width="80%" editable="true" height="70%">
 			<mx:columns>
 				<mx:AdvancedDataGridColumn headerText="No." dataField="no" editable="false"/>
 				<mx:AdvancedDataGridColumn headerText="From" dataField="from" editorDataField="text" editable="true">
@@ -69,9 +70,9 @@
 											this.parentDocument.ac.removeItemAt(this.parentDocument.adg.selectedIndex);
 											var iac:ArrayCollection=this.parentDocument.ac;
 											for(var i:int=0;i<iac.length;i++) {
-												if(i>data.no) {
-													iac.getItemAt(i).no=iac.getItemAt(i).no-1;
-												}
+												//if(i>=data.no) {
+												iac.getItemAt(i).no=i+1;
+												//}
 											}
 										}
 									]]>

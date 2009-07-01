@@ -1,99 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" verticalGap="0" layout="vertical" width="100%" height="100%" xmlns:vw="module.system.vw.*" xmlns:upload="org.utmost.component.upload.*">
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%" xmlns:vw="module.system.vw.*" xmlns:upload="org.utmost.component.upload.*" xmlns:code="http://code.google.com/p/flexlib/">
 	<mx:Script>
 		<![CDATA[
-			import mx.collections.ArrayCollection;
-			import mx.controls.advancedDataGridClasses.AdvancedDataGridColumn;
-
-			private function addAdgFOBColumn():void
-			{
-				var col:AdvancedDataGridColumn=new AdvancedDataGridColumn();
-				col.headerText="test";
-				adgFOB.columns=adgFOB.columns.concat(col);
-			}
-			[Bindable]
-			private var acFOB:ArrayCollection=new ArrayCollection([{packingType:"packingType", transportChange:"transportChange", doc:"doc", thc:"thc", customs:"customs", customsInspection:"customsInspection", orc:"orc"}, {packingType:"packingType", transportChange:"transportChange", doc:"doc", thc:"thc", customs:"customs", customsInspection:"customsInspection", orc:"orc"}, {packingType:"packingType", transportChange:"transportChange", doc:"doc", thc:"thc", customs:"customs", customsInspection:"customsInspection", orc:"orc"}]);
 		]]>
 	</mx:Script>
-	<vw:HeaderComponent width="100%" />
-	<vw:UnderHeaderComponent width="100%" />
-	<mx:VBox width="100%" verticalAlign="middle" horizontalAlign="center" verticalGap="0">
-		<mx:HBox width="100%" verticalAlign="middle">
-			<mx:Text text="Door to Airport{'\n'}(Road Transport)" fontWeight="bold"/>
-			<vw:FromUpToComponent/>
-			<mx:Button label="addColumn" click="addAdgFOBColumn()"/>
+	<mx:VBox width="100%" height="100%" verticalGap="3">
+		<vw:HeaderComponent width="100%" id="headerCpt"/>
+		<vw:UnderHeaderComponent width="100%"/>
+		<mx:TabNavigator width="100%" height="100%">
+			<mx:VBox width="100%" height="100%" label="KG">
+				<mx:HBox width="100%" verticalAlign="middle">
+					<mx:Label text="Total freight:"/>
+					<mx:TextInput enabled="false"/>
+				</mx:HBox>
+				<mx:HBox width="100%" height="100%" horizontalScrollPolicy="auto">
+					<vw:InnerTabNavComponent width="360" height="100%" title="Door to Airport"/>
+					<vw:InnerTabNavComponent width="360" height="100%" title="Airport to Airport"/>
+					<vw:InnerTabNavComponent width="360" height="100%" title="Airport to Door"/>
+				</mx:HBox>
+			</mx:VBox>
+		</mx:TabNavigator>
+		<vw:ShareComponent width="100%"/>
+		<code:WindowShade label="Remark" opened="true" width="100%">
+			<mx:TextArea width="100%" height="100"/>
+		</code:WindowShade>
+		<code:WindowShade label="FileUpload" opened="false" width="100%">
+			<upload:FileUploadComponent width="100%" height="100"/>
+		</code:WindowShade>
+		<mx:HBox width="100%" verticalAlign="middle" horizontalAlign="center" horizontalGap="50">
+			<mx:Button label="Submit"/>
+			<mx:Button label="DownloadTemplate"/>
+			<mx:Button label="ImportExcel"/>
 		</mx:HBox>
-		<mx:AdvancedDataGrid id="adgFOB" dataProvider="{acFOB}" designViewDataType="flat" width="100%" sortExpertMode="true" height="175">
-			<mx:columns>
-				<mx:AdvancedDataGridColumn headerText="Transport charge" width="98">
-					<mx:itemRenderer>
-						<mx:Component>
-							<vw:TransportChargeComponent/>
-						</mx:Component>
-					</mx:itemRenderer>
-				</mx:AdvancedDataGridColumn>
-				<mx:AdvancedDataGridColumn headerText=""/>
-			</mx:columns>
-		</mx:AdvancedDataGrid>
 	</mx:VBox>
-	<mx:VBox width="100%" verticalAlign="middle" horizontalAlign="center" verticalGap="0">
-		<mx:HBox width="100%" verticalAlign="middle">
-			<mx:Text text="Airport to Airport{'\n'}(Air Transport)" fontWeight="bold"/>
-			<vw:FromUpToComponent/>
-		</mx:HBox>
-		<mx:AdvancedDataGrid id="adgHarbor" dataProvider="{acFOB}" designViewDataType="flat" width="100%" sortExpertMode="true" height="175">
-			<mx:columns>
-				<mx:AdvancedDataGridColumn headerText="Transport charge" width="98">
-					<mx:itemRenderer>
-						<mx:Component>
-							<vw:TransportChargeComponent/>
-						</mx:Component>
-					</mx:itemRenderer>
-				</mx:AdvancedDataGridColumn>
-				<mx:AdvancedDataGridColumn headerText="BAF" width="98">
-					<mx:itemRenderer>
-						<mx:Component>
-							<vw:TransportChargeComponent/>
-						</mx:Component>
-					</mx:itemRenderer>
-				</mx:AdvancedDataGridColumn>
-				<mx:AdvancedDataGridColumn headerText="CAF" width="98">
-					<mx:itemRenderer>
-						<mx:Component>
-							<vw:TransportChargeComponent/>
-						</mx:Component>
-					</mx:itemRenderer>
-				</mx:AdvancedDataGridColumn>
-				<mx:AdvancedDataGridColumn headerText=""/>
-			</mx:columns>
-		</mx:AdvancedDataGrid>
-	</mx:VBox>
-	<mx:VBox width="100%" verticalAlign="middle" horizontalAlign="center" verticalGap="0">
-		<mx:HBox width="100%" verticalAlign="middle">
-			<mx:Text text="Airport to Door{'\n'}(Road Transport)" fontWeight="bold"/>
-			<vw:FromUpToComponent/>
-		</mx:HBox>
-		<mx:AdvancedDataGrid id="adgDoor" dataProvider="{acFOB}" designViewDataType="flat" width="100%" sortExpertMode="true" height="190" horizontalScrollPolicy="auto" verticalScrollPolicy="off">
-			<mx:columns>
-				<mx:AdvancedDataGridColumn headerText="Transport charge" width="98">
-					<mx:itemRenderer>
-						<mx:Component>
-							<vw:TransportChargeComponent/>
-						</mx:Component>
-					</mx:itemRenderer>
-				</mx:AdvancedDataGridColumn>
-				<mx:AdvancedDataGridColumn headerText=""/>
-			</mx:columns>
-		</mx:AdvancedDataGrid>
-	</mx:VBox>
-	<mx:HBox width="100%" horizontalAlign="center" verticalAlign="middle" horizontalGap="0">
-		<mx:Text text="Remark{'\n'}   注释" width="100"/>
-		<mx:TextArea width="100%"/>
-	</mx:HBox>
-	<vw:ShareComponent width="100%" />
-	<upload:FileUploadComponent width="100%" height="100%"/>
-	<mx:HBox width="100%" verticalAlign="middle" horizontalAlign="center" horizontalGap="50">
-		<mx:Button label="Submit"/>
-		<mx:Button label="DownloadTemplate"/>
-	</mx:HBox>
 </mx:Module>
