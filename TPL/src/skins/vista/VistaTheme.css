@@ -981,5 +981,4 @@ TitleWindow
 	closeButtonDownSkin: Embed(source="wmp11.swf",symbol="Panel_closeButtonDownSkin");
 	closeButtonOverSkin: Embed(source="wmp11.swf",symbol="Panel_closeButtonOverSkin");
 	closeButtonUpSkin: Embed(source="wmp11.swf",symbol="Panel_closeButtonUpSkin");
-	
 }

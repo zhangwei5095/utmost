@@ -31,7 +31,7 @@
 			public function init():void {
 				//this.loadModule("module/DefaultModule.swf");
 				//this.loadModule("module/PortalModule.swf");
-				theme("brownie");
+				theme("vista");
 				ComponentUtil.setVisible(MACB,false);
 				showLogin();
 				memoryMonitor();
@@ -168,6 +168,9 @@
 					StyleManager.unloadStyleDeclarations(itunes7,true);
 					StyleManager.clearStyleDeclaration(itunes7,true);
 	    	 }
+	    	 
+	    	 
+	    	 
 		]]>
 	</mx:Script>
 	<mx:Blur id="ablur" blurXTo="50" blurYTo="50" duration="1000" />

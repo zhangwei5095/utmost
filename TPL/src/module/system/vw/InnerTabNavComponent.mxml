@@ -41,9 +41,13 @@
 		<mx:Object label="RMB" value="RMB"/>
 	</mx:Array>
 	<mx:HBox width="100%" verticalAlign="bottom">
-		<mx:VBox>
+		<mx:VBox verticalGap="3">
 			<mx:HBox width="100%" horizontalAlign="center" verticalAlign="top">
 				<mx:Label text="{title_}" fontWeight="bold" fontSize="16"/>
+			</mx:HBox>
+			<mx:HBox width="100%" verticalAlign="middle">
+				<mx:Label text="Total freight"/>
+				<mx:TextInput enabled="false"/>
 			</mx:HBox>
 			<mx:HBox width="100%" verticalAlign="middle">
 				<mx:Label text="from"/>

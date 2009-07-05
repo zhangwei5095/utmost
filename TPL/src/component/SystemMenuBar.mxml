@@ -10,7 +10,7 @@
 			<!--menuitem type="separator"/--> 
 			<menuitem label="Vista" data="vista"/>
 			<menuitem label="Black" data="black"/>
-			<menuitem label="Itunes7" data="itunes7" enabled="false"/>
+			<menuitem label="Itunes7" data="itunes7" enabled="true"/>
 			<menuitem label="Brownie" data="brownie"/>
 		</menuitem>
 		<menuitem label="Language">
@@ -20,12 +20,16 @@
 		<menuitem label="Window">
 			<menuitem label="Portal" data="portal" type="radio" groupName="window_radio"  toggle="true" />
 			<menuitem label="Development" data="tpl" type="radio" groupName="window_radio"/>
+			<menuitem label="Preferences" data="preferences"/>
 		</menuitem>
 		<menuitem label="Help">
 		</menuitem>
 	</mx:XMLList>
 	<mx:Script>
 		<![CDATA[
+			import module.portal.sys.PreferencesComponent;
+			import mx.managers.PopUpManager;
+			import mx.core.IFlexDisplayObject;
 			import mx.controls.menuClasses.MenuBarItem;
 			import mx.controls.MenuBar;
 			import org.utmost.util.ComponentUtil;
@@ -49,17 +53,23 @@
 				if(data=="tpl") {
 					programme();
 				}
+				if(data=="preferences") {
+					popupPreferences();
+				}
 				//主题
 				if(data=="vista"||data=="black"||data=="itunes7"||data=="brownie"||data=="classic"||data=="default") {
 					Application.application.theme(data);
 				}
-				
 				//if(data=="relogin") {
 				//	Application.application.showLogin();
 				//}
 				if(data=="exit") {
 					Application.application.init();
 				}
+			}
+			private function popupPreferences():void {
+				var obj:IFlexDisplayObject=PopUpManager.createPopUp(this.parentApplication as DisplayObject,PreferencesComponent,false);
+				PopUpManager.centerPopUp(obj);
 			}
 		]]>
 	</mx:Script>

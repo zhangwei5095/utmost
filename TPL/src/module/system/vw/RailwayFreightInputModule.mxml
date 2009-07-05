@@ -58,15 +58,16 @@
 			</mx:groupedColumns>
 		</mx:AdvancedDataGrid>
 	</mx:HBox>
-	<vw:ShareComponent width="100%"/>
-	<code:WindowShade label="Remark" opened="true" width="100%">
+	<code:WindowShade label="Remark" opened="true" width="100%" paddingTop="3" paddingBottom="0">
 		<mx:TextArea width="100%" height="100"/>
 	</code:WindowShade>
-	<code:WindowShade label="FileUpload" opened="false" width="100%">
+	<code:WindowShade label="FileUpload" opened="false" width="100%" paddingTop="3">
 		<upload:FileUploadComponent width="100%" height="100"/>
+	</code:WindowShade>
+	<code:WindowShade label="Read permission" opened="false" width="100%" paddingTop="3">
+		<vw:ShareComponent width="100%"/>
 	</code:WindowShade>
 	<mx:HBox width="100%" verticalAlign="middle" horizontalAlign="center" horizontalGap="50">
 		<mx:Button label="Submit"/>
-		<mx:Button label="DownloadTemplate"/>
 	</mx:HBox>
 </mx:Module>

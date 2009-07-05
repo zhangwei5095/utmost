@@ -19,6 +19,7 @@
 	<mx:Array id="ds_formtype">
 		<mx:Object label="Quotation" value="Quotation"/>
 		<mx:Object label="Contract" value="Contract" />
+		<mx:Object label="milkrun" value="milkrun" />
 	</mx:Array>
 	<mx:Text text="Company Name"/>
 	<mx:TextInput width="215"/>

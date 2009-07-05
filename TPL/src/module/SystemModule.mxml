@@ -118,19 +118,23 @@
 	        * 默认加载
 	        * */
 	        private function moduleCreationComplete():void {
-	        	forModuleCreationComplete($treeXML.children());
+	        	forModuleCreationComplete($treeXML.children(),0);
 	        }
-	        private function forModuleCreationComplete(_xmllist:XMLList):void {
+	        private function forModuleCreationComplete(_xmllist:XMLList,_count:int):void {
 	        	if(_xmllist==null)
 	        		return;
+	        	_count++;
 	        	var xl:XMLList=_xmllist;
 	        	for(var i:int=0;i<xl.length();i++) {
 	        		var ixml:XML=xl[i];
 	        		if(ixml.hasOwnProperty("@module")) {
 	        			this.loadModule(ixml.@module);
+	        			callLater(function():void{
+	        				systree.getTree().selectedIndex=_count;
+	        			});
 	        			return;
 	        		}
-	        		forModuleCreationComplete(xl.children());
+	        		forModuleCreationComplete(xl.children(),_count);
 	        	}
 	        }
 		]]>
