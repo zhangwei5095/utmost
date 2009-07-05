@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" xmlns:ns1="module.system.vw.*" showCloseButton="true" close="PopUpManager.removePopUp(this)">
+	<mx:Script>
+		<![CDATA[
+			import mx.managers.PopUpManager;
+		]]>
+	</mx:Script>
+	<ns1:RoadFreightInputModule width="100%" height="100%">
+	</ns1:RoadFreightInputModule>
+</mx:TitleWindow>

@@ -12,6 +12,8 @@
 				<mx:HBox width="100%" verticalAlign="middle">
 					<mx:Label text="Total freight:"/>
 					<mx:TextInput enabled="false"/>
+					<mx:Label text="Total time(hours):"/>
+					<mx:TextInput enabled="false"/>
 				</mx:HBox>
 				<mx:HBox width="100%" height="100%" horizontalScrollPolicy="auto">
 					<vw:InnerTabNavComponent width="360" height="100%" title="Door to Airport"/>
@@ -20,16 +22,18 @@
 				</mx:HBox>
 			</mx:VBox>
 		</mx:TabNavigator>
-		<vw:ShareComponent width="100%"/>
-		<code:WindowShade label="Remark" opened="true" width="100%">
+		<code:WindowShade label="Remark" opened="true" width="100%" paddingTop="3" paddingBottom="0">
 			<mx:TextArea width="100%" height="100"/>
 		</code:WindowShade>
-		<code:WindowShade label="FileUpload" opened="false" width="100%">
+		<code:WindowShade label="FileUpload" opened="false" width="100%" paddingTop="3">
 			<upload:FileUploadComponent width="100%" height="100"/>
+		</code:WindowShade>
+		
+		<code:WindowShade label="Read permission" opened="false" width="100%" paddingTop="3">
+			<vw:ShareComponent width="100%"/>
 		</code:WindowShade>
 		<mx:HBox width="100%" verticalAlign="middle" horizontalAlign="center" horizontalGap="50">
 			<mx:Button label="Submit"/>
-			<mx:Button label="DownloadTemplate"/>
 			<mx:Button label="ImportExcel"/>
 		</mx:HBox>
 	</mx:VBox>

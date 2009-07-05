@@ -28,41 +28,49 @@
 		<mx:Object label="dalian" value="dalian" />
 		<mx:Object label="qingdao" value="qingdao" />
 	</mx:Array>
-	<mx:VBox id="vbox" width="100%" height="100%" horizontalAlign="center" paddingTop="20">
+	<mx:Array id="ds_packingtype">
+		<mx:Object label="" value="" />
+		<mx:Object label="20’ GP" value="20’ GP" />
+		<mx:Object label="40’ GP" value="40’ GP" />
+		<mx:Object label="40’ HQ" value="40’ HQ" />
+		<mx:Object label="LCL" value="LCL" />
+		<mx:Object label="RoRo" value="RoRo" />
+	</mx:Array>
+	<mx:VBox id="vbox" width="100%" height="100%" horizontalAlign="center">
 		<mx:HBox width="80%" verticalAlign="middle">
 			<mx:Spacer width="100%"/>
 			<!--hc:AutoComplete allowNewValues="true" allowEditingNewValues="true" text="123" backspaceAction="focus"  dataProvider="{colors}" labelField="name" styleName="{AutoComplete.STYLE_UNDERLINE}" barColor="#2400FF" backgroundColor="#2400FF" backgroundDisabledColor="#2400FF" borderColor="#2400FF" color="#2400FF" themeColor="#2400FF" opaqueBackground="#2400FF"/-->
-			<mx:Button label="Download RoadFreight Template"/>
-			<mx:Button label="Download SeaFreight Template"/>
 		</mx:HBox>
-		<mx:HBox width="80%">
-			<mx:ComboBox id="cbFrom" prompt="from" dataProvider="{ds_city}"></mx:ComboBox>
-			<mx:ComboBox id="cbTo" prompt="to" dataProvider="{ds_city}"></mx:ComboBox>
-			<mx:Spacer width="100%"/>
-			<mx:Button label="Add" click="add()"/>
-		</mx:HBox>
-		<mx:AdvancedDataGrid id="adg" dataProvider="{ac}" designViewDataType="flat" width="80%" editable="true" height="70%">
-			<mx:columns>
-				<mx:AdvancedDataGridColumn headerText="No." dataField="no" editable="false"/>
-				<mx:AdvancedDataGridColumn headerText="From" dataField="from" editorDataField="text" editable="true">
-					<mx:itemEditor>
-						<mx:Component>
-							<mx:TextInput/>
-						</mx:Component>
-					</mx:itemEditor>
-				</mx:AdvancedDataGridColumn>
-				<mx:AdvancedDataGridColumn headerText="To" dataField="to" editorDataField="text" editable="true">
-					<mx:itemEditor>
-						<mx:Component>
-							<mx:TextInput/>
-						</mx:Component>
-					</mx:itemEditor>
-				</mx:AdvancedDataGridColumn>
-				<mx:AdvancedDataGridColumn headerText="Del" editable="false" width="120">
-					<mx:itemRenderer>
-						<mx:Component>
-							<mx:Button label="Delete" click="del()">
-								<mx:Script>
+		<mx:TabNavigator width="100%" height="100%">
+			<mx:VBox label="Road" width="100%" height="100%">
+				<mx:HBox width="100%">
+					<mx:ComboBox id="cbFrom" prompt="from" dataProvider="{ds_city}"></mx:ComboBox>
+					<mx:ComboBox id="cbTo" prompt="to" dataProvider="{ds_city}"></mx:ComboBox>
+					<mx:Spacer width="100%"/>
+					<mx:Button label="Add" click="add()"/>
+				</mx:HBox>
+				<mx:AdvancedDataGrid id="adg" dataProvider="{ac}" designViewDataType="flat" width="100%" editable="true" height="100%">
+					<mx:columns>
+						<mx:AdvancedDataGridColumn headerText="No." dataField="no" editable="false"/>
+						<mx:AdvancedDataGridColumn headerText="From" dataField="from" editorDataField="text" editable="true">
+							<mx:itemEditor>
+								<mx:Component>
+									<mx:TextInput/>
+								</mx:Component>
+							</mx:itemEditor>
+						</mx:AdvancedDataGridColumn>
+						<mx:AdvancedDataGridColumn headerText="To" dataField="to" editorDataField="text" editable="true">
+							<mx:itemEditor>
+								<mx:Component>
+									<mx:TextInput/>
+								</mx:Component>
+							</mx:itemEditor>
+						</mx:AdvancedDataGridColumn>
+						<mx:AdvancedDataGridColumn headerText="Del" editable="false" width="120">
+							<mx:itemRenderer>
+								<mx:Component>
+									<mx:Button label="Delete" click="del()">
+										<mx:Script>
 									<![CDATA[
 										import mx.collections.ArrayCollection;
 										private function del():void
@@ -77,12 +85,96 @@
 										}
 									]]>
 								</mx:Script>
-							</mx:Button>
-						</mx:Component>
-					</mx:itemRenderer>
-				</mx:AdvancedDataGridColumn>
-				<mx:AdvancedDataGridColumn headerText="" editable="false"/>
-			</mx:columns>
-		</mx:AdvancedDataGrid>
+									</mx:Button>
+								</mx:Component>
+							</mx:itemRenderer>
+						</mx:AdvancedDataGridColumn>
+						<mx:AdvancedDataGridColumn headerText="" editable="false"/>
+					</mx:columns>
+				</mx:AdvancedDataGrid>
+				<mx:HBox width="100%" verticalAlign="middle" horizontalAlign="center">
+					<mx:Button label="Download RoadFreight Template"/>
+				</mx:HBox>
+			</mx:VBox>
+
+			<mx:VBox label="Sea" width="100%" height="100%">
+				<mx:HBox width="100%">
+					<mx:ComboBox id="cbFrom_sea" prompt="from" dataProvider="{ds_city}"></mx:ComboBox>
+					<mx:ComboBox id="cbTo_sea" prompt="harbor" dataProvider="{ds_city}"></mx:ComboBox>
+					<mx:ComboBox id="cbFrom0" prompt="harbor" dataProvider="{ds_city}"></mx:ComboBox>
+					<mx:ComboBox id="cbTo0" prompt="to" dataProvider="{ds_city}"></mx:ComboBox>
+					<mx:ComboBox id="packingtype_" prompt="Packing Type" dataProvider="{ds_packingtype}"></mx:ComboBox>
+					<mx:Spacer width="100%"/>
+					<mx:Button label="Add" click="add()"/>
+				</mx:HBox>
+				<mx:AdvancedDataGrid id="adg_sea" dataProvider="{ac}" designViewDataType="flat" width="100%" editable="true" height="100%">
+					<mx:columns>
+						<mx:AdvancedDataGridColumn headerText="No." dataField="no" editable="false"/>
+						<mx:AdvancedDataGridColumn headerText="From" dataField="from" editorDataField="text" editable="true">
+							<mx:itemEditor>
+								<mx:Component>
+									<mx:TextInput/>
+								</mx:Component>
+							</mx:itemEditor>
+						</mx:AdvancedDataGridColumn>
+						<mx:AdvancedDataGridColumn headerText="Harbor" dataField="to" editorDataField="text" editable="true">
+							<mx:itemEditor>
+								<mx:Component>
+									<mx:TextInput/>
+								</mx:Component>
+							</mx:itemEditor>
+						</mx:AdvancedDataGridColumn>
+						<mx:AdvancedDataGridColumn headerText="Harbor" dataField="from" editorDataField="text" editable="true">
+							<mx:itemEditor>
+								<mx:Component>
+									<mx:TextInput/>
+								</mx:Component>
+							</mx:itemEditor>
+						</mx:AdvancedDataGridColumn>
+						<mx:AdvancedDataGridColumn headerText="To" dataField="to" editorDataField="text" editable="true">
+							<mx:itemEditor>
+								<mx:Component>
+									<mx:TextInput/>
+								</mx:Component>
+							</mx:itemEditor>
+						</mx:AdvancedDataGridColumn>
+						<mx:AdvancedDataGridColumn headerText="Packing Type" dataField="to" editorDataField="text" editable="true">
+							<mx:itemEditor>
+								<mx:Component>
+									<mx:TextInput/>
+								</mx:Component>
+							</mx:itemEditor>
+						</mx:AdvancedDataGridColumn>
+						<mx:AdvancedDataGridColumn headerText="Del" editable="false" width="120">
+							<mx:itemRenderer>
+								<mx:Component>
+									<mx:Button label="Delete" click="del()">
+										<mx:Script>
+									<![CDATA[
+										import mx.collections.ArrayCollection;
+										private function del():void
+										{
+											this.parentDocument.ac.removeItemAt(this.parentDocument.adg.selectedIndex);
+											var iac:ArrayCollection=this.parentDocument.ac;
+											for(var i:int=0;i<iac.length;i++) {
+												//if(i>=data.no) {
+												iac.getItemAt(i).no=i+1;
+												//}
+											}
+										}
+									]]>
+								</mx:Script>
+									</mx:Button>
+								</mx:Component>
+							</mx:itemRenderer>
+						</mx:AdvancedDataGridColumn>
+						<mx:AdvancedDataGridColumn headerText="" editable="false"/>
+					</mx:columns>
+				</mx:AdvancedDataGrid>
+				<mx:HBox width="100%" verticalAlign="middle" horizontalAlign="center">
+					<mx:Button label="Download SeaFreight Template"/>
+				</mx:HBox>
+			</mx:VBox>
+		</mx:TabNavigator>
 	</mx:VBox>
 </mx:Module>

@@ -1,52 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%" xmlns:code="http://code.google.com/p/flexlib/" xmlns:component="component.*" xmlns:controls="com.adobe.flex.extras.controls.*">
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%" xmlns:code="http://code.google.com/p/flexlib/" xmlns:component="component.*" xmlns:controls="com.adobe.flex.extras.controls.*" creationComplete="init()">
 	<mx:Script>
 		<![CDATA[
+			import mx.core.IFlexDisplayObject;
+			import mx.managers.PopUpManager;
+			import org.utmost.util.ComponentUtil;
 			import mx.collections.ArrayCollection;
 			[Bindable]
 			private var acList:ArrayCollection=new ArrayCollection([{label:"Alabama", data:"AL"}, {label:"Alaska", data:"AK"}]);
 			[Bindable]
 			private var forwarderDP:ArrayCollection=new ArrayCollection([{forwarderName:"Alabama", forwarderDesc:"AL"}, {forwarderName:"Alabama", forwarderDesc:"AK"}, {forwarderName:"Alabama2", forwarderDesc:"AL"}, {forwarderName:"Alabama3", forwarderDesc:"AL"}]);
+			
+			[Bindable]
+			private var demoAC:ArrayCollection=new ArrayCollection([
+				{no:"1",transport:"Land",forwarder:"XX",formtype:"contract",vgroup:"SVW"},
+				{no:"2",transport:"Land",forwarder:"XX",formtype:"quotation",vgroup:"VGC"},
+				{no:"3",transport:"Land",forwarder:"XX",formtype:"contract",vgroup:"VWED"},
+				{no:"4",transport:"Land",forwarder:"XX",formtype:"contract",vgroup:"VGC"},
+				{no:"5",transport:"Land",forwarder:"XX",formtype:"quotation",vgroup:"SVW"},
+				{no:"6",transport:"Land",forwarder:"XX",formtype:"contract",vgroup:"VGC"},
+				{no:"7",transport:"Land",forwarder:"XX",formtype:"quotation",vgroup:"VWED"},
+				{no:"8",transport:"Land",forwarder:"XX",formtype:"quotation",vgroup:"SVW"}
+			]);
+			
+			private function init():void {
+				clearTRSType();
+			}
+			private function transportChange():void {
+				clearTRSType();
+				var trslabel:String=transport.selectedLabel;
+				if(trslabel=="Land") {
+					ComponentUtil.setVisible(road,true);
+				}
+				if(trslabel=="Sea") {
+					ComponentUtil.setVisible(sea,true);
+				}
+				if(trslabel=="Railway") {
+					ComponentUtil.setVisible(railway,true);
+				}
+			}
+			private function clearTRSType():void {
+				ComponentUtil.setVisible(sea,false);
+				ComponentUtil.setVisible(railway,false);
+				ComponentUtil.setVisible(road,false);
+			}
+			
+			private function alertDG():void {
+				var obj:IFlexDisplayObject=PopUpManager.createPopUp(this.parentApplication as DisplayObject,ShowQueryComponent,false);
+				obj.width=this.parentApplication.width;
+				obj.height=this.parentApplication.height;
+				PopUpManager.centerPopUp(obj);
+			}
 		]]>
 	</mx:Script>
-	<mx:Array id="ds_shiptype">
+	<mx:Array id="ds_transport">
 		<mx:Object label="Land" value="Land"/>
 		<mx:Object label="Sea" value="Sea"/>
 		<mx:Object label="Air" value="Air"/>
 		<mx:Object label="Railway" value="Railway"/>
 	</mx:Array>
-	<mx:Array id="ds_datatype">
+	<mx:Array id="ds_formtype">
 		<mx:Object label="All" value="All" />
 		<mx:Object label="quotation" value="quotation" />
 		<mx:Object label="contract" value="contract" />
+		<mx:Object label="milkrun" value="milkrun" />
 	</mx:Array>
+	<mx:Array id="ds_inputgroup">
+		<mx:Object label="All" value="All" />
+		<mx:Object label="VGC" value="VGC" />
+		<mx:Object label="SVW" value="SVW" />
+		<mx:Object label="FAW-VW" value="FAW-VW" />
+		<mx:Object label="VWPF" value="VWPF" />
+		<mx:Object label="VWED" value="VWED" />
+		<mx:Object label="VWATD" value="VWATD" />
+		<mx:Object label="VWTS" value="VWTS" />
+		<mx:Object label="VWPT" value="VWPT" />
+	</mx:Array>
+	<mx:Array id="ds_roadtype">
+		<mx:Object label="All" value="All" />
+		<mx:Object label="LTL" value="LTL" />
+		<mx:Object label="FTL" value="FTL" />
+		<mx:Object label="FBU" value="FBU" />
+		<mx:Object label="Container" value="Container" />
+	</mx:Array>
+	<mx:Array id="ds_railwaytype">
+		<mx:Object label="All" value="All" />
+		<mx:Object label="Full container load" value="Full container load" />
+		<mx:Object label="FBU load" value="FBU load" />
+		<mx:Object label="Full wagon load" value="Full wagon load" />
+		<mx:Object label="Less than a wagon load" value="Less than a wagon load" />
+	</mx:Array>
+	<mx:Array id="ds_seatype">
+		<mx:Object label="All" value="All" />
+		<mx:Object label="20’ GP" value="20’ GP" />
+		<mx:Object label="40’ GP" value="40’ GP" />
+		<mx:Object label="40’ HQ" value="40’ HQ" />
+	</mx:Array>
+	
 	<mx:TabNavigator width="100%" height="100%">
 		<mx:VBox label="Route Search" width="100%" height="100%" horizontalAlign="center" verticalGap="3">
 			<mx:HBox width="100%" borderColor="#888888" borderStyle="solid" borderThickness="1" cornerRadius="10" paddingBottom="10" paddingLeft="20" paddingRight="20" paddingTop="10">
-				<mx:ComboBox id="shiptype" dataProvider="{ds_shiptype}" prompt="Transport...">
+				<mx:ComboBox id="transport" dataProvider="{ds_transport}" change="transportChange()">
 				</mx:ComboBox>
 				<mx:Label text="from"/>
 				<controls:AutoComplete id="fromAC" styleName="AutoComplete" labelField="name"/>
 				<mx:Label text="to"/>
 				<controls:AutoComplete id="toAC" styleName="AutoComplete" labelField="name"/>
+				<code:PromptingTextInput id="remark" prompt="please input remark" width="260"/>
 				<mx:Spacer width="100%"/>
 				<mx:Button label="Search"/>
 			</mx:HBox>
 			<code:WindowShade label="Filter" opened="true" width="100%" paddingTop="0">
 				<mx:VBox width="100%" height="100%" borderStyle="solid" cornerRadius="10" paddingBottom="10" paddingLeft="20" paddingRight="20" paddingTop="10">
 					<mx:HBox width="100%">
-						<mx:ComboBox id="datatype" prompt="Data type" dataProvider="{ds_datatype}"></mx:ComboBox>
-						<code:PromptingTextInput id="forwarder" prompt="please input forwarder name" width="260"/>
+						<mx:ComboBox id="formtype" prompt="Form type" dataProvider="{ds_formtype}"></mx:ComboBox>
+						<code:PromptingTextInput id="forwarder" prompt="please input forwarder name" width="260"/>						
+						<mx:ComboBox id="inputgroup" prompt="Input Group" dataProvider="{ds_inputgroup}"></mx:ComboBox>
+						<mx:ComboBox id="road" prompt="Road type" dataProvider="{ds_roadtype}"></mx:ComboBox>
+						<mx:ComboBox id="railway" prompt="Railway type" dataProvider="{ds_railwaytype}"></mx:ComboBox>
+						<!--mx:ComboBox id="air" prompt="Air type" dataProvider="{ds_airtype}"></mx:ComboBox-->
+						<mx:ComboBox id="sea" prompt="Sea type" dataProvider="{ds_seatype}"></mx:ComboBox>
 						<mx:DateField id="time" yearNavigationEnabled="true"/>
 					</mx:HBox>
 				</mx:VBox>
 			</code:WindowShade>
-			<mx:AdvancedDataGrid id="adg" designViewDataType="flat" width="100%" height="100%">
+			<mx:AdvancedDataGrid id="adg" dataProvider="{demoAC}" designViewDataType="flat" width="100%" height="100%" itemDoubleClick="alertDG()" doubleClickEnabled="true">
 				<mx:columns>
 					<mx:AdvancedDataGridColumn headerText="No" dataField="no"/>
 					<mx:AdvancedDataGridColumn headerText="Transport" dataField="transport"/>
 					<mx:AdvancedDataGridColumn headerText="Forwarder" dataField="forwarder"/>
-					<mx:AdvancedDataGridColumn headerText="DataType" dataField="datatype"/>
+					<mx:AdvancedDataGridColumn headerText="Form Type" dataField="formtype"/>
 					<mx:AdvancedDataGridColumn headerText="Group" dataField="vgroup"/>
 					<mx:AdvancedDataGridColumn headerText=""/>
 				</mx:columns>
