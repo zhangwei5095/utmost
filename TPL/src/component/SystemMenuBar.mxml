@@ -24,6 +24,9 @@
 		</menuitem>
 		<menuitem label="Help">
 		</menuitem>
+		<menuitem label="Logout">
+			<menuitem label="logout" data="exit"/>
+		</menuitem>
 	</mx:XMLList>
 	<mx:Script>
 		<![CDATA[

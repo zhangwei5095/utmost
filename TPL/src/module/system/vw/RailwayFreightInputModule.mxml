@@ -6,15 +6,17 @@
 		]]>
 	</mx:Script>
 	<vw:HeaderComponent width="100%"/>
+	
 	<mx:HBox width="100%">
 		<mx:CheckBox id="CB_LTA" label="Less than a wagon load" selected="true"/>
 		<mx:CheckBox id="CB_FWL" label="Full wagon load" selected="true"/>
-		<mx:CheckBox id="CB_FCL" label="Full Container Load" selected="true"/>
+		<mx:CheckBox id="CB_Container" label="Container load" selected="true"/>
+		<mx:CheckBox id="CB_FBU" label="FBU wagon load" selected="true"/>
 	</mx:HBox>
 	<mx:HBox width="100%" height="100%">
 		<mx:AdvancedDataGrid id="adg" designViewDataType="flat" width="100%" sortableColumns="true" sortExpertMode="false" horizontalScrollPolicy="on" height="100%">
 			<mx:groupedColumns>
-				<mx:AdvancedDataGridColumn dataField="no" headerText="No." headerWordWrap="true" width="60"/>
+				<mx:AdvancedDataGridColumn dataField="bid" headerText="BID" headerWordWrap="true" width="60"/>
 				<mx:AdvancedDataGridColumnGroup headerText="Route Information" headerWordWrap="true">
 					<mx:AdvancedDataGridColumn dataField="qyqc" headerText="OriginCity" width="100" headerWordWrap="true"/>
 					<mx:AdvancedDataGridColumn dataField="qybyzj" headerText="DestinationCity" width="120"/>
@@ -36,7 +38,7 @@
 					</mx:AdvancedDataGridColumnGroup>
 					<mx:AdvancedDataGridColumn dataField="gtqc" headerText="Time limit (hours)" headerWordWrap="true"/>
 				</mx:AdvancedDataGridColumnGroup>
-				<mx:AdvancedDataGridColumnGroup headerText="Full Container Load" headerWordWrap="true" visible="{CB_FCL.selected}">
+				<mx:AdvancedDataGridColumnGroup headerText="Container Load" headerWordWrap="true" visible="{CB_Container.selected}">
 					<mx:AdvancedDataGridColumnGroup headerText="1 Ton Box" headerWordWrap="true">
 						<mx:AdvancedDataGridColumn dataField="qzdx" headerText="OC RMB/Box" headerWordWrap="true"/>
 						<mx:AdvancedDataGridColumn dataField="qzds" headerText="TC RMB/Box*Km" headerWordWrap="true"/>
