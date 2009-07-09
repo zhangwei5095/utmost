@@ -14,17 +14,17 @@
 			]);
 		]]>
 	</mx:Script>
-	<vw:HeaderComponent width="100%"/>
+	<vw:HeaderComponent width="100%" _BusinessType="businesstype2"/>
 	<mx:HBox width="100%">
 			<mx:CheckBox id="CB_Container" label="Container" selected="true"/>
 			<mx:CheckBox id="CB_LTL" label="LTL" selected="true"/>
 			<mx:CheckBox id="CB_FTL" label="FTL" selected="true"/>
-			<mx:CheckBox id="CB_FBU" label="FBU" selected="true"/>
+			<mx:CheckBox id="CB_FBU" label="FBU truck" selected="true"/>
 	</mx:HBox>
 	<mx:HBox id="adgHbox" width="100%" height="100%">
 		<mx:AdvancedDataGrid id="adg" dataProvider="{demoAC}" designViewDataType="flat" width="100%" sortableColumns="true" sortExpertMode="false" horizontalScrollPolicy="on" height="100%">
 			<mx:groupedColumns>
-				<mx:AdvancedDataGridColumn dataField="no" headerText="No." headerWordWrap="true" width="60"/>
+				<mx:AdvancedDataGridColumn dataField="bid" headerText="BID" headerWordWrap="true" width="60"/>
 				<mx:AdvancedDataGridColumnGroup headerText="Route Information" headerWordWrap="true">
 					<mx:AdvancedDataGridColumn dataField="origincity" headerText="OriginCity" width="100" headerWordWrap="true"/>
 					<mx:AdvancedDataGridColumn dataField="destinationcity" headerText="DestinationCity" width="120"/>
@@ -60,7 +60,7 @@
 					</mx:AdvancedDataGridColumnGroup>
 					<mx:AdvancedDataGridColumn dataField="gtqc" headerText="Time limit{'\n'}(hours)" headerWordWrap="true" width="80"/>
 				</mx:AdvancedDataGridColumnGroup>
-				<mx:AdvancedDataGridColumnGroup headerText="FBU Transport" headerWordWrap="true" visible="{CB_FBU.selected}">
+				<mx:AdvancedDataGridColumnGroup headerText="FBU truck" headerWordWrap="true" visible="{CB_FBU.selected}">
 					<mx:AdvancedDataGridColumnGroup headerText="6 Cars Truck" headerWordWrap="true">
 						<mx:AdvancedDataGridColumn dataField="qzdx" headerText="RMB/Truck" headerWordWrap="true"/>
 					</mx:AdvancedDataGridColumnGroup>
@@ -93,7 +93,7 @@
 		<vw:ShareComponent width="100%"/>
 	</code:WindowShade>
 	<mx:HBox width="100%" verticalAlign="middle" horizontalAlign="center" horizontalGap="50">
-		<mx:Button label="Submit"/>
 		<mx:Button label="ImportExcel"/>
+		<mx:Button label="Submit"/>
 	</mx:HBox>
 </mx:Module>

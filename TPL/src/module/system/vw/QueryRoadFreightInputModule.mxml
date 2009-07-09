@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%" xmlns:upload="org.utmost.component.upload.*" verticalScrollPolicy="auto" verticalGap="3" xmlns:vw="module.system.vw.*" xmlns:code="http://code.google.com/p/flexlib/">
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			[Bindable]
+			private var demoAC:ArrayCollection=new ArrayCollection([
+				{no:"1",origincity:"Beijing",destinationcity:"Dalian",distance:"5433",container20gp:"6400",container40gp:"8000",container40hq:"",containertimelimit:"96"},
+				{no:"2",origincity:"Dalian",destinationcity:"Guangzhou",distance:"1344",container20gp:"6400",container40gp:"8000",container40hq:"",containertimelimit:"44"},
+				{no:"3",origincity:"Changchun",destinationcity:"Shanghai",distance:"1243",container20gp:"6400",container40gp:"8000",container40hq:"",containertimelimit:"96"},
+				{no:"4",origincity:"Changchun",destinationcity:"Shenyang",distance:"3452",container20gp:"6400",container40gp:"8000",container40hq:"10000",containertimelimit:"33"},
+				{no:"5",origincity:"Guangzhou",destinationcity:"Shanghai",distance:"1243",container20gp:"6400",container40gp:"8000",container40hq:"10000",containertimelimit:"90"},
+				{no:"6",origincity:"Shenyang",destinationcity:"Beijing",distance:"1243",container20gp:"6400",container40gp:"8000",container40hq:"",containertimelimit:"57"}
+			]);
+		]]>
+	</mx:Script>
+	<vw:HeaderComponent width="100%"/>
+	<mx:HBox width="100%">
+			<mx:CheckBox id="CB_Container" label="Container" selected="true"/>
+			<mx:CheckBox id="CB_LTL" label="LTL" selected="true"/>
+			<mx:CheckBox id="CB_FTL" label="FTL" selected="true"/>
+			<mx:CheckBox id="CB_FBU" label="FBU Truck" selected="true"/>
+	</mx:HBox>
+	<mx:HBox id="adgHbox" width="100%" height="100%">
+		<mx:AdvancedDataGrid id="adg" dataProvider="{demoAC}" designViewDataType="flat" width="100%" sortableColumns="true" sortExpertMode="false" horizontalScrollPolicy="on" height="100%">
+			<mx:groupedColumns>
+				<mx:AdvancedDataGridColumn dataField="bid" headerText="BID" headerWordWrap="true" width="60"/>
+				<mx:AdvancedDataGridColumnGroup headerText="Route Information" headerWordWrap="true">
+					<mx:AdvancedDataGridColumn dataField="origincity" headerText="OriginCity" width="100" headerWordWrap="true"/>
+					<mx:AdvancedDataGridColumn dataField="destinationcity" headerText="DestinationCity" width="120"/>
+					<mx:AdvancedDataGridColumn dataField="distance" headerText="Distance(Km)" width="120" headerWordWrap="true"/>
+				</mx:AdvancedDataGridColumnGroup>
+				<mx:AdvancedDataGridColumnGroup headerText="Container" headerWordWrap="true" visible="{CB_Container.selected}">
+					<mx:AdvancedDataGridColumnGroup headerText="Charge" headerWordWrap="true">
+						<mx:AdvancedDataGridColumn dataField="container20gp" headerText="20' GP" headerWordWrap="true"/>
+						<mx:AdvancedDataGridColumn dataField="container40gp" headerText="40' GP" headerWordWrap="true"/>
+						<mx:AdvancedDataGridColumn dataField="container40hq" headerText="40' HQ" headerWordWrap="true"/>
+					</mx:AdvancedDataGridColumnGroup>
+					<mx:AdvancedDataGridColumn dataField="containertimelimit" headerText="Time limit (hours)" headerWordWrap="true"/>
+				</mx:AdvancedDataGridColumnGroup>
+				<mx:AdvancedDataGridColumnGroup headerText="LTL" headerWordWrap="true" visible="{CB_LTL.selected}">
+					<mx:AdvancedDataGridColumnGroup headerText="Charge" headerWordWrap="true">
+						<mx:AdvancedDataGridColumn dataField="qzdx" headerText="RMB/m3" headerWordWrap="true"/>
+						<mx:AdvancedDataGridColumn dataField="qzds" headerText="RMB/Kg" headerWordWrap="true"/>
+						<mx:AdvancedDataGridColumn dataField="qzds" headerText="RMB/Ton·Km" headerWordWrap="true"/>
+						<mx:AdvancedDataGridColumn dataField="qzds" headerText="RMB/m3·Km" headerWordWrap="true"/>
+					</mx:AdvancedDataGridColumnGroup>
+					<mx:AdvancedDataGridColumn dataField="gtqc" headerText="Min.Cost" headerWordWrap="true"/>
+					<mx:AdvancedDataGridColumn dataField="gtqc" headerText="Time limit (hours)" headerWordWrap="true"/>
+				</mx:AdvancedDataGridColumnGroup>
+				<mx:AdvancedDataGridColumnGroup headerText="FTL" headerWordWrap="true" visible="{CB_FTL.selected}">
+					<mx:AdvancedDataGridColumnGroup headerText="Charge" headerWordWrap="true">
+						<mx:AdvancedDataGridColumn dataField="qzdx" headerText="2 Ton" headerWordWrap="true" width="80"/>
+						<mx:AdvancedDataGridColumn dataField="qzds" headerText="5 Ton" headerWordWrap="true" width="80"/>
+						<mx:AdvancedDataGridColumn dataField="qzds" headerText="8 Ton" headerWordWrap="true" width="80"/>
+						<mx:AdvancedDataGridColumn dataField="qzds" headerText="10 Ton" headerWordWrap="true" width="80"/>
+						<mx:AdvancedDataGridColumn dataField="qzds" headerText="12 Ton" headerWordWrap="true" width="80"/>
+						<mx:AdvancedDataGridColumn dataField="qzds" headerText="15 Ton" headerWordWrap="true" width="80"/>
+						<mx:AdvancedDataGridColumn dataField="qzds" headerText="20 Ton" headerWordWrap="true" width="80"/>
+					</mx:AdvancedDataGridColumnGroup>
+					<mx:AdvancedDataGridColumn dataField="gtqc" headerText="Time limit{'\n'}(hours)" headerWordWrap="true" width="80"/>
+				</mx:AdvancedDataGridColumnGroup>
+				<mx:AdvancedDataGridColumnGroup headerText="FBU Transport" headerWordWrap="true" visible="{CB_FBU.selected}">
+					<mx:AdvancedDataGridColumnGroup headerText="6 Cars Truck" headerWordWrap="true">
+						<mx:AdvancedDataGridColumn dataField="qzdx" headerText="RMB/Truck" headerWordWrap="true"/>
+					</mx:AdvancedDataGridColumnGroup>
+					<mx:AdvancedDataGridColumnGroup headerText="8 Cars Truck" headerWordWrap="true">
+						<mx:AdvancedDataGridColumn dataField="qzdx" headerText="RMB/Truck" headerWordWrap="true"/>
+					</mx:AdvancedDataGridColumnGroup>
+					<mx:AdvancedDataGridColumnGroup headerText="10 Cars Truck" headerWordWrap="true">
+						<mx:AdvancedDataGridColumn dataField="qzdx" headerText="RMB/Truck" headerWordWrap="true"/>
+					</mx:AdvancedDataGridColumnGroup>
+					<mx:AdvancedDataGridColumnGroup headerText="12 Cars Truck" headerWordWrap="true">
+						<mx:AdvancedDataGridColumn dataField="qzdx" headerText="RMB/Truck" headerWordWrap="true"/>
+					</mx:AdvancedDataGridColumnGroup>
+					<mx:AdvancedDataGridColumnGroup headerText="LTL" headerWordWrap="true">
+						<mx:AdvancedDataGridColumn dataField="qzdx" headerText="RMB/Car" headerWordWrap="true"/>
+					</mx:AdvancedDataGridColumnGroup>
+					<mx:AdvancedDataGridColumn dataField="gtqc" headerText="Time limit (hours)" headerWordWrap="true"/>
+				</mx:AdvancedDataGridColumnGroup>
+			</mx:groupedColumns>
+		</mx:AdvancedDataGrid>
+	</mx:HBox>
+	<code:WindowShade label="Remark" opened="true" width="100%" paddingTop="3" paddingBottom="0">
+		<mx:TextArea width="100%" height="100"/>
+	</code:WindowShade>
+	<code:WindowShade label="FileDownload" opened="true" width="100%" paddingTop="3">
+		<mx:Button label="road.xls"/>
+	</code:WindowShade>
+	<code:WindowShade label="Read permission" opened="true" width="100%" paddingTop="3">
+		<mx:HBox horizontalGap="10" width="100%" paddingLeft="28">
+			<mx:Label text="This item is published by Group:"/>
+			<mx:Text  text="VGC-EL"/>
+			<mx:Spacer width="30%"/>
+			<mx:Label text="Publish time:"/>
+			<mx:Text  text="03/04/2009"/>
+		</mx:HBox>
+		<vw:ShareComponent width="100%"/>
+	</code:WindowShade>
+	<mx:HBox width="100%" verticalAlign="middle" horizontalAlign="center" horizontalGap="50">
+		<mx:Button label="Submit"/>
+	</mx:HBox>
+</mx:Module>

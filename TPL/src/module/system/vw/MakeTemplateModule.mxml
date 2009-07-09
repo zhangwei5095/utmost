@@ -10,10 +10,10 @@
 			{
 				var obj:Object=new Object();
 				obj.no=ac.length+1;
-				if(cbFrom.selectedItem!=null)
-				obj.from=cbFrom.selectedItem.value.toString();
-				if(cbTo.selectedItem!=null)
-				obj.to=cbTo.selectedItem.value.toString();
+				if(road_cbFrom.selectedItem!=null)
+				obj.from=road_cbFrom.selectedItem.value.toString();
+				if(road_cbTo.selectedItem!=null)
+				obj.to=road_cbTo.selectedItem.value.toString();
 				ac.addItem(obj);
 			}
 			[Bindable]
@@ -28,7 +28,7 @@
 		<mx:Object label="dalian" value="dalian" />
 		<mx:Object label="qingdao" value="qingdao" />
 	</mx:Array>
-	<mx:Array id="ds_packingtype">
+	<mx:Array id="ds_shipmenttype">
 		<mx:Object label="" value="" />
 		<mx:Object label="20’ GP" value="20’ GP" />
 		<mx:Object label="40’ GP" value="40’ GP" />
@@ -44,12 +44,12 @@
 		<mx:TabNavigator width="100%" height="100%">
 			<mx:VBox label="Road" width="100%" height="100%">
 				<mx:HBox width="100%">
-					<mx:ComboBox id="cbFrom" prompt="from" dataProvider="{ds_city}"></mx:ComboBox>
-					<mx:ComboBox id="cbTo" prompt="to" dataProvider="{ds_city}"></mx:ComboBox>
+					<mx:ComboBox id="road_cbFrom" prompt="from" dataProvider="{ds_city}"></mx:ComboBox>
+					<mx:ComboBox id="road_cbTo" prompt="to" dataProvider="{ds_city}"></mx:ComboBox>
 					<mx:Spacer width="100%"/>
 					<mx:Button label="Add" click="add()"/>
 				</mx:HBox>
-				<mx:AdvancedDataGrid id="adg" dataProvider="{ac}" designViewDataType="flat" width="100%" editable="true" height="100%">
+				<mx:AdvancedDataGrid id="adg" dataProvider="{ac}" designViewDataType="flat" width="100%" editable="true" sortExpertMode="false" height="100%">
 					<mx:columns>
 						<mx:AdvancedDataGridColumn headerText="No." dataField="no" editable="false"/>
 						<mx:AdvancedDataGridColumn headerText="From" dataField="from" editorDataField="text" editable="true">
@@ -96,18 +96,17 @@
 					<mx:Button label="Download RoadFreight Template"/>
 				</mx:HBox>
 			</mx:VBox>
-
 			<mx:VBox label="Sea" width="100%" height="100%">
 				<mx:HBox width="100%">
 					<mx:ComboBox id="cbFrom_sea" prompt="from" dataProvider="{ds_city}"></mx:ComboBox>
 					<mx:ComboBox id="cbTo_sea" prompt="harbor" dataProvider="{ds_city}"></mx:ComboBox>
 					<mx:ComboBox id="cbFrom0" prompt="harbor" dataProvider="{ds_city}"></mx:ComboBox>
 					<mx:ComboBox id="cbTo0" prompt="to" dataProvider="{ds_city}"></mx:ComboBox>
-					<mx:ComboBox id="packingtype_" prompt="Packing Type" dataProvider="{ds_packingtype}"></mx:ComboBox>
+					<mx:ComboBox id="shipmenttype_" prompt="Shipment Type" dataProvider="{ds_shipmenttype}"></mx:ComboBox>
 					<mx:Spacer width="100%"/>
-					<mx:Button label="Add" click="add()"/>
+					<mx:Button label="Add"/>
 				</mx:HBox>
-				<mx:AdvancedDataGrid id="adg_sea" dataProvider="{ac}" designViewDataType="flat" width="100%" editable="true" height="100%">
+				<mx:AdvancedDataGrid id="adg_sea" designViewDataType="flat" width="100%" editable="true" height="100%">
 					<mx:columns>
 						<mx:AdvancedDataGridColumn headerText="No." dataField="no" editable="false"/>
 						<mx:AdvancedDataGridColumn headerText="From" dataField="from" editorDataField="text" editable="true">
@@ -138,7 +137,7 @@
 								</mx:Component>
 							</mx:itemEditor>
 						</mx:AdvancedDataGridColumn>
-						<mx:AdvancedDataGridColumn headerText="Packing Type" dataField="to" editorDataField="text" editable="true">
+						<mx:AdvancedDataGridColumn headerText="Shipment Type" dataField="to" width="200" editorDataField="text" editable="true">
 							<mx:itemEditor>
 								<mx:Component>
 									<mx:TextInput/>
@@ -174,6 +173,15 @@
 				<mx:HBox width="100%" verticalAlign="middle" horizontalAlign="center">
 					<mx:Button label="Download SeaFreight Template"/>
 				</mx:HBox>
+			</mx:VBox>
+			<mx:VBox label="Sea(one route)" width="100%" height="100%" horizontalAlign="center" verticalAlign="bottom">
+				<mx:Button label="Download SeaFreight(one route) Template"/>
+			</mx:VBox>
+			<mx:VBox label="Air" width="100%" height="100%" horizontalAlign="center" verticalAlign="bottom">
+				<mx:Button label="Download AirFreight Template"/>
+			</mx:VBox>
+			<mx:VBox label="Railway" width="100%" height="100%" horizontalAlign="center" verticalAlign="bottom">
+				<mx:Button label="Download RailwayFreight Template"/>
 			</mx:VBox>
 		</mx:TabNavigator>
 	</mx:VBox>

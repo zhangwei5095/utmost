@@ -10,15 +10,19 @@
 		<mx:TabNavigator width="100%" height="100%">
 			<mx:VBox width="100%" height="100%" label="KG">
 				<mx:HBox width="100%" verticalAlign="middle">
-					<mx:Label text="Total freight:"/>
+					<mx:Label text="Total freight(USD):"/>
+					<mx:TextInput enabled="false"/>
+					<mx:Label text="Total freight(EUR):"/>
+					<mx:TextInput enabled="false"/>
+					<mx:Label text="Total freight(RMB):"/>
 					<mx:TextInput enabled="false"/>
 					<mx:Label text="Total time(hours):"/>
 					<mx:TextInput enabled="false"/>
 				</mx:HBox>
 				<mx:HBox width="100%" height="100%" horizontalScrollPolicy="auto">
-					<vw:InnerTabNavComponent width="360" height="100%" title="Door to Airport"/>
-					<vw:InnerTabNavComponent width="360" height="100%" title="Airport to Airport"/>
-					<vw:InnerTabNavComponent width="360" height="100%" title="Airport to Door"/>
+					<vw:InnerTabNavComponent width="360" height="100%" title="Door to Airport" DATETYPE="hours"/>
+					<vw:InnerTabNavComponent width="360" height="100%" title="Airport to Airport" DATETYPE="hours"/>
+					<vw:InnerTabNavComponent width="360" height="100%" title="Airport to Door" DATETYPE="hours"/>
 				</mx:HBox>
 			</mx:VBox>
 		</mx:TabNavigator>
@@ -34,7 +38,6 @@
 		</code:WindowShade>
 		<mx:HBox width="100%" verticalAlign="middle" horizontalAlign="center" horizontalGap="50">
 			<mx:Button label="Submit"/>
-			<mx:Button label="ImportExcel"/>
 		</mx:HBox>
 	</mx:VBox>
 </mx:Module>

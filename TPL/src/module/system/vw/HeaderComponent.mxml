@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" horizontalAlign="left" verticalAlign="middle">
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" horizontalAlign="left" verticalAlign="middle" horizontalGap="3" creationComplete="init()">
 	<mx:Script>
 		<![CDATA[
 			[Bindable]
@@ -11,24 +11,48 @@
 					RadioThree=false;
 				}
 			}
-			
 			[Bindable]
 			public var viewradiogroup:Boolean;
+			
+			[Bindable]
+			public var _BusinessType:String="businesstype";
+			
+			private function init():void {
+				if(_BusinessType=="businesstype") {
+					businesstype.dataProvider=ds_businesstype;
+				}
+				if(_BusinessType=="businesstype2") {
+					businesstype.dataProvider=ds_businesstype2;
+				}
+			}
+			
 		]]>
 	</mx:Script>
-	<mx:Array id="ds_formtype">
-		<mx:Object label="Quotation" value="Quotation"/>
+	<mx:Array id="ds_businesstype">
 		<mx:Object label="Contract" value="Contract" />
-		<mx:Object label="milkrun" value="milkrun" />
+		<mx:Object label="Quotation" value="Quotation"/>
 	</mx:Array>
-	<mx:Text text="Company Name"/>
-	<mx:TextInput width="215"/>
-	<mx:ComboBox id="formtype" dataProvider="{ds_formtype}" prompt="Please select form type...">
+	<mx:Array id="ds_businesstype2">
+		<mx:Object label="Contract" value="Contract" />
+		<mx:Object label="Quotation" value="Quotation"/>
+		<mx:Object label="Quotation2" value="Quotation2"/>
+	</mx:Array>
+	<mx:Array id="ds_validdate">
+		<mx:Object label="3 months" value="3"/>
+		<mx:Object label="6 months" value="6" />
+		<mx:Object label="12 months" value="12" />
+		<mx:Object label="24 months" value="24" />
+	</mx:Array>
+	<mx:Text text="Provider Name"/>
+	<mx:TextInput width="160"/>
+	<mx:ComboBox id="businesstype" prompt="Please select business type...">
 	</mx:ComboBox>
-	<mx:Text text="Valid until from"/>
+	<mx:Text text="Valid from"/>
 	<mx:DateField yearNavigationEnabled="true"/>
-	<mx:Label text="to"/>
+	<mx:Label text="until"/>
 	<mx:DateField yearNavigationEnabled="true"/>
+	<mx:ComboBox id="mmtype" dataProvider="{ds_validdate}" selectedIndex="2">
+	</mx:ComboBox>
 	<mx:Spacer width="100%"/>
 	<mx:RadioButtonGroup id="radiogroup"/>
 	<mx:RadioButton label="three part" groupName="radiogroup" selected="true" change="radiogroupChange()" visible="{viewradiogroup}" includeInLayout="{viewradiogroup}"/>

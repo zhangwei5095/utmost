@@ -108,7 +108,7 @@
 			
 			private function readyModule(e:ModuleEvent):void {
 	        	var mobj:ModuleLoader=e.target as ModuleLoader;
-	        	if(systree.getTree().selectedItem.@key!=undefined) {
+	        	if(systree.getTree().selectedItem!=null&&systree.getTree().selectedItem.@key!=undefined) {
 	        		(mobj.child as Object).$key=systree.getTree().selectedItem.@key.toString();
 	        	}
 	       		ComponentUtil.setVisible(pbar,false);

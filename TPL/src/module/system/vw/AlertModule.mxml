@@ -8,27 +8,21 @@
 
 		]]>
 	</mx:Script>
+	<mx:HBox horizontalAlign="right" verticalAlign="middle" width="100%">
+		<mx:Button label="Delete" width="60" paddingTop="0" paddingLeft="0" paddingRight="0" paddingBottom="0"/>
+		
+	</mx:HBox>
 	<mx:AdvancedDataGrid id="adg" horizontalScrollPolicy="on" designViewDataType="flat" width="100%" height="100%">
 		<mx:columns>
-			<mx:AdvancedDataGridColumn headerText="No" dataField="no"/>
-			<mx:AdvancedDataGridColumn headerText="Transport" dataField="transport"/>
-			<mx:AdvancedDataGridColumn headerText="Forwarder" dataField="forwarder"/>
-			<mx:AdvancedDataGridColumn headerText="DataType" dataField="datatype"/>
-			<mx:AdvancedDataGridColumn headerText="QuotationTime" dataField="quotationtime"/>
-			<mx:AdvancedDataGridColumn headerText="PeriodOfValidation">
-				<mx:itemRenderer>
-					<mx:Component>
-						<mx:Label text="{data.periodofvalidation}" color="#FF0000" fontFamily="Arial" fontWeight="bold"/>
-					</mx:Component>
-				</mx:itemRenderer>
-			</mx:AdvancedDataGridColumn>
-			<mx:AdvancedDataGridColumn headerText="HarborCharges" dataField="harborcharges"/>
-			<mx:AdvancedDataGridColumn headerText="TransportCharges" dataField="transportcharges"/>
-			<mx:AdvancedDataGridColumn headerText="StartSide" dataField="startside"/>
-			<mx:AdvancedDataGridColumn headerText="EndSide" dataField="endside"/>
-			<mx:AdvancedDataGridColumn headerText="Distance" dataField="distance"/>
-			<mx:AdvancedDataGridColumn headerText="Group" dataField="vgroup"/>
-			<mx:AdvancedDataGridColumn headerText="DeliverType" dataField="delivertype"/>
+			<mx:AdvancedDataGridColumn headerText="BID" dataField="bid"/>
+			<mx:AdvancedDataGridColumn headerText="Provider" dataField="provider"/>
+			<mx:AdvancedDataGridColumn headerText="Last edit time" dataField="Last edit time"/>
+			<mx:AdvancedDataGridColumn headerText="Valid time" dataField="valid time"/>
+			<mx:AdvancedDataGridColumn headerText="Freight Type" dataField="freighttype"/>
+			<mx:AdvancedDataGridColumn headerText="Business Type" dataField="businesstype"/>
+			<mx:AdvancedDataGridColumn headerText="From" dataField="from"/>
+			<mx:AdvancedDataGridColumn headerText="To" dataField="to"/>
+			<!--允许删除多行数据  （批量导入引起）-->
 		</mx:columns>
 	</mx:AdvancedDataGrid>
 </mx:Module>

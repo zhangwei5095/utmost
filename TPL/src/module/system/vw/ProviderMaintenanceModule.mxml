@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="100%" height="100%">
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.core.IFlexDisplayObject;
+			import mx.core.Application;
+			import mx.managers.PopUpManager;
+			private function addPop():void {
+				var obj:IFlexDisplayObject=PopUpManager.createPopUp(Application.application as DisplayObject,ProviderMaintenanceComponent,false);
+				PopUpManager.centerPopUp(obj);
+			}
+			
+			[Bindable]
+			private var ac:ArrayCollection=new ArrayCollection([
+			{providername:"Schenker China Ltd",desciption:"Integrated Logistics Group",lasteditgroup:"VGC-PL"},
+			{providername:"COSCO Logistics Co., Ltd",desciption:"international, based in Beijing",lasteditgroup:"VGC-PL"},
+			{providername:"CN WorldWide Shanghai",desciption:"domestic",lasteditgroup:"VGC-PL"}
+			]);
+		]]>
+	</mx:Script>
+	<mx:VBox width="100%" height="100%">
+		<mx:HBox width="100%" verticalAlign="middle" horizontalAlign="right">
+			<mx:Button label="add" width="100" click="addPop()"/>
+			<mx:Button label="edit" width="100"/>
+			<mx:Button label="del" width="100"/>
+		</mx:HBox>
+		<mx:HBox width="100%" height="100%">
+			<mx:AdvancedDataGrid id="adg" dataProvider="{ac}" designViewDataType="flat" width="100%" height="100%">
+				<mx:columns>
+					<mx:AdvancedDataGridColumn headerText="Provider name" dataField="providername"/>
+					<mx:AdvancedDataGridColumn headerText="Description" dataField="desciption"/>
+					<mx:AdvancedDataGridColumn headerText="Last edit Group" dataField="lasteditgroup"/>
+				</mx:columns>
+			</mx:AdvancedDataGrid>
+		</mx:HBox>
+	</mx:VBox>
+</mx:Module>

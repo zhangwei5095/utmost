@@ -33,7 +33,7 @@
 		]]>
 	</mx:Script>
 	<mx:Canvas borderStyle="none" width="100%" height="100%">
-		<flexlib:ConvertibleTreeList id="ctree" width="100%" height="100%" showRoot="true" labelField="@nodename" borderStyle="none" listField="showInList" doubleClickEnabled="true" doubleClick="ComponentUtil.ocSelectTree(event)"/>
+		<flexlib:ConvertibleTreeList id="ctree" width="100%" height="100%" showRoot="true" labelField="@nodename" borderStyle="none" listField="showInList" doubleClickEnabled="true" doubleClick="ComponentUtil.ocSelectTree(event)" fontSize="14" fontFamily="Arial"/>
 	</mx:Canvas>
 	<mx:ControlBar>
 		<mx:ToggleButtonBar itemClick="ctree.mode = event.item.mode">
