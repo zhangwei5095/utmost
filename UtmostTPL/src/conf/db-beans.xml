@@ -45,6 +45,8 @@
 				no-rollback-for="Exception" read-only="false" />
 			<tx:method name="update*" propagation="REQUIRED"
 				no-rollback-for="Exception" read-only="false" />
+			<tx:method name="callfun*" propagation="REQUIRED"
+				rollback-for="Exception" read-only="false" />
 			<tx:method name="find*" propagation="REQUIRED"
 				rollback-for="Exception" read-only="true" />
 			<tx:method name="*" propagation="REQUIRED" read-only="true" />

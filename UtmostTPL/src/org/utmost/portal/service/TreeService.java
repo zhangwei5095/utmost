@@ -75,8 +75,9 @@ public class TreeService extends CommService {
 				for (int j = 0; j < tableList.size(); j++) {
 					HashMap childM = (HashMap) tableList.get(j);
 					String cPid = (String) childM.get(pidField);
-					// System.out.println(cPid + "--" + nodeid);
-					if (cPid.equalsIgnoreCase(nodeid)) {// 迭代打印子节点
+					System.out.println(cPid + "--" + pidField + "--" + nodeid
+							+ "--->" + childM);
+					if (cPid != null && cPid.equalsIgnoreCase(nodeid)) {// 迭代打印子节点
 						HashMap cMain = new HashMap(main);
 						cMain.put("rootValue", (String) childM.get(rootCode));
 						processXML(tableList, cMain, kv, sb);

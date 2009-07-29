@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class entity-name="U_EXCHANGERATE" table="U_EXCHANGERATE">
+		<id name="uuid" column="UUID" length="36" type="java.lang.String">
+			<generator class="uuid" />
+		</id>
+		<property name="mmyyyy" type="java.lang.String">
+			<column length="128" name="MMYYYY">
+			</column>
+		</property>
+		<property name="usd" type="java.lang.Double">
+			<column length="20" name="USD">
+			</column>
+		</property>
+		<property name="eur" type="java.lang.Double">
+			<column length="20" name="EUR">
+			</column>
+		</property>
+		<property name="rmb" type="java.lang.Double">
+			<column length="20" name="RMB">
+			</column>
+		</property>
+		<property name="jpy" type="java.lang.Double">
+			<column length="20" name="JPY">
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>

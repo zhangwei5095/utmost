@@ -9,6 +9,7 @@
 	<import resource="schedule-task.xml" />
 	<import resource="plugins-beans.xml" />
 	<import resource="aop-beans.xml" />
+	
 	<!--
 		<import resource="jbpm3-beans.xml" />
 		<import resource="jco-beans.xml" /> <import
