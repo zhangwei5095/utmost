@@ -172,7 +172,9 @@ public class AutoService extends CommService {
 	 */
 	@SuppressWarnings("unchecked")
 	public void deleteByUUID(String tableName, String uuid) {
-		getDb().delete(this.findByUUID(tableName, uuid));
+		String hql = "from " + tableName + " v where v.uuid='" + uuid + "'";
+		List list = this.findByHql(hql);
+		getDb().deleteAll(list);
 	}
 
 	/**

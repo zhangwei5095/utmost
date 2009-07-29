@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class entity-name="U_CITY" table="U_CITY">
+		<id name="uuid" column="UUID" length="36" type="java.lang.String">
+			<generator class="uuid" />
+		</id>
+		<property name="country" type="java.lang.String">
+			<column length="128" name="COUNTRY">
+			</column>
+		</property>
+		<property name="province" type="java.lang.String">
+			<column length="128" name="PROVINCE">
+			</column>
+		</property>
+		<property name="cityname" type="java.lang.String">
+			<column length="128" name="CITYNAME">
+			</column>
+		</property>
+		<property name="cityname_cn" type="java.lang.String">
+			<column length="128" name="CITYNAME_CN">
+			</column>
+		</property>
+		<property name="cityname_en" type="java.lang.String">
+			<column length="128" name="CITYNAME_EN">
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>

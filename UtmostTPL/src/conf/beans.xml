@@ -10,4 +10,12 @@
 	-->
 	<context:component-scan base-package="org.utmost"></context:component-scan>
 	
+	
+	
+	
+	<bean id="methodNameResolver"
+		class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
+		<property name="paramName" value="method">
+		</property>
+	</bean>
 </beans>
